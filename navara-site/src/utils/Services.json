@@ -1,0 +1,31 @@
+{
+  "services": [
+    {
+      "id": "diagnostics",
+      "photo": "/src/assets/NAVARA3.jpg",
+      "logo": "/src/assets/service-logos/diagnostics.png",
+      "title": "Diagnostics",
+      "p1": "At Navara Diagnostics, we specialize in high-quality psychological and developmental assessments tailored to your child's needs.",
+      "highlight": "Our streamlined, parent-focused approach eliminates long wait times and confusing reports",
+      "p2": "we are focused on delivering clear answers and practical next steps. From autism and ADHD evaluations to cognitive and emotional assessments, our licensed team works closely with families and professionals to ensure every evaluation leads to meaningful support."
+    },
+    {
+      "id": "pathways",
+      "photo": "/src/assets/NAVARA2.jpg",
+      "logo": "/src/assets/service-logos/pathways.png",
+      "title": "Navara Pathways",
+      "p1": "Navara Pathways is a guided career exploration program for young adults seeking clarity about their future.",
+      "highlight": "",
+      "p2": "Through expert-led assessments, one-on-one coaching, and short-term mentorships or shadowing experiences, we help individuals identify their strengths, interests, and best-fit career paths. Whether you're in college or just figuring things out, Pathways empowers you to move forward with confidence."
+    },
+    {
+      "id": "behavioral",
+      "photo": "/src/assets/NAVARA1.jpg",
+      "logo": "/src/assets/service-logos/behavioral.png",
+      "title": "The Navara Behavior Method",
+      "p1": "The Navara Behavior Mastery Method is a 12-week parent-focused program designed to help families manage behavioral challenges without relying on agencies or insurance delays.",
+      "highlight": "",
+      "p2": "We guide you through functional assessments, hands-on coaching, and real-life implementation so you can respond with confidence and create lasting change at home, in school, and in your child's everyday life."
+    }
+  ]
+}
