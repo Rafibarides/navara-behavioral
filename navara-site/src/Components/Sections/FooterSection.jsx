@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
 const FooterSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -19,39 +22,58 @@ const FooterSection = ({ isDarkMode = false }) => {
 
   const footerLinks = {
     company: [
-      { name: 'About Us', href: '#about-section', type: 'scroll' },
-      { name: 'Our Team', href: '#team-section', type: 'scroll' },
-      { name: 'Careers', href: '/careers', type: 'navigate' },
-      { name: 'Contact', href: '#contact-section', type: 'scroll' }
+      { name: 'About Us', href: 'about-section', type: 'scroll' },
+      { name: 'Our Team', href: 'team-section', type: 'scroll' },
+      { name: 'Careers', href: '/careers', type: 'route' },
+      { name: 'Contact', href: 'contact-section', type: 'scroll' }
     ],
     services: [
-      { name: 'Diagnostics', href: '#diagnostics-section', type: 'scroll' },
-      { name: 'Pathways', href: '#pathways-section', type: 'scroll' },
-      { name: 'Behavioral Method', href: '#behavioral-section', type: 'scroll' },
-      { name: 'Consultations', href: '#contact-section', type: 'scroll' }
+      { name: 'Diagnostics', href: 'diagnostics-section', type: 'scroll' },
+      { name: 'Pathways', href: 'pathways-section', type: 'scroll' },
+      { name: 'Behavioral Method', href: 'behavioral-section', type: 'scroll' },
+      { name: 'Consultations', href: 'contact-section', type: 'scroll' }
     ],
     resources: [
-      { name: 'Client Portal', href: '#portal', type: 'scroll' },
-      { name: 'Privacy Policy', href: '#privacy', type: 'scroll' },
-      { name: 'Terms of Service', href: '#terms', type: 'scroll' },
-      { name: 'Sitemap', href: '#sitemap', type: 'scroll' }
+      { name: 'Client Portal', href: 'portal', type: 'scroll' },
+      { name: 'Privacy Policy', href: 'privacy', type: 'scroll' },
+      { name: 'Terms of Service', href: 'terms', type: 'scroll' },
+      { name: 'Sitemap', href: 'sitemap', type: 'scroll' }
     ]
   };
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navHeight = 80;
+      const elementPosition = element.offsetTop - navHeight;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const navigateToSection = (sectionId) => {
+    if (location.pathname === '/') {
+      // We're on the main page, just scroll
+      scrollToSection(sectionId);
+    } else {
+      // We're on a different page, navigate to main page then scroll
+      navigate('/');
+      // Use setTimeout to ensure the page has loaded before scrolling
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+    }
+  };
+
   const handleLinkClick = (href, type) => {
-    if (type === 'navigate') {
-      window.location.href = href;
-    } else if (href.startsWith('#')) {
-      const elementId = href.substring(1);
-      const element = document.getElementById(elementId);
-      if (element) {
-        const navHeight = 80;
-        const elementPosition = element.offsetTop - navHeight;
-        window.scrollTo({
-          top: elementPosition,
-          behavior: 'smooth'
-        });
-      }
+    if (type === 'route') {
+      // Direct route navigation
+      navigate(href);
+    } else if (type === 'scroll') {
+      // Section scrolling
+      navigateToSection(href);
     }
   };
 

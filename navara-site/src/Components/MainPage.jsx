@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WelcomeSection from './Sections/WelcomeSection';
 import WhoWeAreSection from './Sections/WhoWeAreSection';
 import ServiceCardSection from './Sections/ServiceCardSection';
@@ -13,6 +13,11 @@ import NavBarMenu from './NavBarMenu';
 
 const MainPage = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Scroll to top on component mount (for direct access)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   console.log(setIsDarkMode);
   return (

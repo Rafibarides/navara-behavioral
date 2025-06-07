@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 
 const NavBarMenu = ({ isDarkMode = false }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isNearTopOfPage, setIsNearTopOfPage] = useState(true);
   const servicesTimeoutRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
@@ -21,22 +26,78 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Track active section based on scroll position
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      setIsNearTopOfPage(false);
+      return;
+    }
+
+    const handleScroll = () => {
+      const sections = [
+        { id: 'welcome-section', name: 'home' },
+        { id: 'diagnostics-section', name: 'diagnostics' },
+        { id: 'pathways-section', name: 'pathways' },
+        { id: 'behavioral-section', name: 'behavioral' },
+        { id: 'about-section', name: 'about' },
+        { id: 'contact-section', name: 'contact' }
+      ];
+
+      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+
+      // Check if we're near the top for navbar styling
+      const welcomeSection = document.getElementById('welcome-section');
+      if (welcomeSection) {
+        const welcomeHeight = welcomeSection.offsetHeight;
+        // Transition starts when we've scrolled 25% of the welcome section
+        const transitionPoint = welcomeHeight * 0.25;
+        setIsNearTopOfPage(window.scrollY < transitionPoint);
+      }
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i].id);
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i].name);
+          break;
+        }
+      }
+    };
+
+    // Set initial active section
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
+
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Diagnostics', id: 'diagnostics-section' },
-    { name: 'Pathways', id: 'pathways-section' },
-    { name: 'Navara Method', id: 'behavioral-section' }
+    { name: 'Diagnostics', id: 'diagnostics-section', key: 'diagnostics' },
+    { name: 'Pathways', id: 'pathways-section', key: 'pathways' },
+    { name: 'Navara Method', id: 'behavioral-section', key: 'behavioral' }
   ];
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const navHeight = 80; // Account for fixed navbar
+      const navHeight = 80;
       const elementPosition = element.offsetTop - navHeight;
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
       });
+    }
+  };
+
+  const navigateToSection = (sectionId) => {
+    if (location.pathname === '/') {
+      scrollToSection(sectionId);
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
     }
   };
 
@@ -47,7 +108,22 @@ const NavBarMenu = ({ isDarkMode = false }) => {
       let sectionId = '';
       switch(item) {
         case 'home':
-          sectionId = 'welcome-section';
+          if (location.pathname === '/') {
+            // We're already on the main page, just scroll to top
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          } else {
+            // Navigate to main page, then scroll to top
+            navigate('/');
+            setTimeout(() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            }, 100);
+          }
           break;
         case 'about':
           sectionId = 'about-section';
@@ -59,20 +135,21 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           break;
       }
       if (sectionId) {
-        scrollToSection(sectionId);
+        navigateToSection(sectionId);
       }
       setIsMobileMenuOpen(false);
+      setIsServicesOpen(false);
     }
   };
 
-  const handleServiceClick = (serviceId) => {
-    scrollToSection(serviceId);
+  const handleServiceClick = (serviceId, serviceKey) => {
+    navigateToSection(serviceId);
+    setActiveSection(serviceKey);
     setIsServicesOpen(false);
     setIsMobileMenuOpen(false);
   };
 
   const handleServicesMouseEnter = () => {
-    // Clear any existing timeout
     if (servicesTimeoutRef.current) {
       clearTimeout(servicesTimeoutRef.current);
       servicesTimeoutRef.current = null;
@@ -81,13 +158,22 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   };
 
   const handleServicesMouseLeave = () => {
-    // Add a delay before closing the dropdown
     servicesTimeoutRef.current = setTimeout(() => {
       setIsServicesOpen(false);
-    }, 150); // 150ms delay
+    }, 150);
   };
 
-  // Clean up timeout on unmount
+  const isItemActive = (item) => {
+    if (item === 'services') {
+      return ['diagnostics', 'pathways', 'behavioral'].includes(activeSection);
+    }
+    return activeSection === item;
+  };
+
+  const isServiceActive = (serviceKey) => {
+    return activeSection === serviceKey;
+  };
+
   useEffect(() => {
     return () => {
       if (servicesTimeoutRef.current) {
@@ -95,6 +181,9 @@ const NavBarMenu = ({ isDarkMode = false }) => {
       }
     };
   }, []);
+
+  // Check if we're on the welcome section
+  const isOnWelcomeSection = activeSection === 'home';
 
   // Mobile Hamburger Menu
   if (isMobile) {
@@ -105,19 +194,35 @@ const NavBarMenu = ({ isDarkMode = false }) => {
         right: '20px',
         zIndex: 1000,
       }}>
-        {/* Hamburger Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           style={{
-            background: colors.surface,
-            border: `1px solid ${colors.border}`,
+            background: isNearTopOfPage
+              ? 'rgba(255, 255, 255, 0.95)'
+              : `linear-gradient(135deg, 
+                  rgba(255, 255, 255, 0.3), 
+                  rgba(255, 255, 255, 0.18)
+                )`,
+            backdropFilter: isNearTopOfPage 
+              ? 'blur(10px)' 
+              : 'blur(20px) brightness(1.1)',
+            WebkitBackdropFilter: isNearTopOfPage 
+              ? 'blur(10px)' 
+              : 'blur(20px) brightness(1.1)',
+            border: isNearTopOfPage
+              ? `1px solid rgba(255, 255, 255, 0.8)`
+              : `1px solid rgba(255, 255, 255, 0.35)`,
             borderRadius: '12px',
             padding: '12px',
             cursor: 'pointer',
             display: 'flex',
             flexDirection: 'column',
             gap: '4px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+            boxShadow: isNearTopOfPage
+              ? `0 4px 20px rgba(0, 0, 0, 0.1)`
+              : `0 4px 20px rgba(0, 0, 0, 0.1), 
+                 inset 0 1px 0 rgba(255, 255, 255, 0.4)`,
+            transition: 'all 0.3s ease',
           }}
         >
           {[1,2,3].map(i => (
@@ -126,7 +231,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               style={{
                 width: '20px',
                 height: '2px',
-                backgroundColor: colors.text,
+                backgroundColor: isNearTopOfPage ? colors.text : '#2D2D2D',
                 borderRadius: '1px',
                 transition: 'all 0.3s ease',
               }}
@@ -134,18 +239,25 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           ))}
         </button>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div style={{
             position: 'absolute',
             top: '60px',
             right: '0',
-            background: colors.surface,
-            border: `1px solid ${colors.border}`,
+            background: `linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.95), 
+              rgba(255, 255, 255, 0.9)
+            )`,
+            backdropFilter: 'blur(20px) brightness(1.05)',
+            WebkitBackdropFilter: 'blur(20px) brightness(1.05)',
+            border: `1px solid rgba(255, 255, 255, 0.8)`,
             borderRadius: '16px',
             padding: '16px',
             minWidth: '200px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+            boxShadow: `
+              0 8px 32px rgba(0, 0, 0, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.9)
+            `,
           }}>
             {navItems.map(item => (
               <div key={item}>
@@ -153,44 +265,61 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   onClick={() => handleNavClick(item)}
                   style={{
                     width: '100%',
-                    background: 'none',
+                    background: isItemActive(item) ? colors.accent + '30' : 'none',
                     border: 'none',
                     padding: '12px 16px',
                     fontSize: textSizes.base,
-                    color: colors.text,
+                    color: isItemActive(item) ? colors.primary : colors.text,
                     cursor: 'pointer',
                     borderRadius: '8px',
                     textAlign: 'left',
                     textTransform: 'capitalize',
-                    transition: 'background-color 0.2s ease',
+                    transition: 'all 0.3s ease',
+                    fontWeight: isItemActive(item) ? '500' : '400',
                   }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = colors.accent + '20'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => {
+                    if (!isItemActive(item)) {
+                      e.target.style.backgroundColor = colors.accent + '20';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isItemActive(item)) {
+                      e.target.style.backgroundColor = 'transparent';
+                    }
+                  }}
                 >
                   {item}
                 </button>
                 
-                {/* Services Dropdown in Mobile */}
                 {item === 'services' && isServicesOpen && (
                   <div style={{ marginLeft: '16px', marginTop: '8px' }}>
                     {serviceItems.map(service => (
                       <button
                         key={service.id}
-                        onClick={() => handleServiceClick(service.id)}
+                        onClick={() => handleServiceClick(service.id, service.key)}
                         style={{
                           width: '100%',
-                          background: 'none',
+                          background: isServiceActive(service.key) ? colors.accent + '20' : 'none',
                           border: 'none',
                           padding: '8px 12px',
                           fontSize: textSizes.sm,
-                          color: colors.textSecondary,
+                          color: isServiceActive(service.key) ? colors.primary : colors.textSecondary,
                           cursor: 'pointer',
                           borderRadius: '6px',
                           textAlign: 'left',
-                          transition: 'background-color 0.2s ease',
+                          transition: 'all 0.3s ease',
+                          fontWeight: isServiceActive(service.key) ? '500' : '400',
                         }}
-                        onMouseEnter={(e) => e.target.style.backgroundColor = colors.accent + '15'}
-                        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                        onMouseEnter={(e) => {
+                          if (!isServiceActive(service.key)) {
+                            e.target.style.backgroundColor = colors.accent + '15';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isServiceActive(service.key)) {
+                            e.target.style.backgroundColor = 'transparent';
+                          }
+                        }}
                       >
                         {service.name}
                       </button>
@@ -215,15 +344,32 @@ const NavBarMenu = ({ isDarkMode = false }) => {
       zIndex: 1000,
     }}>
       <nav style={{
-        background: colors.surface,
-        border: `1px solid ${colors.border}`,
+        background: isNearTopOfPage 
+          ? 'rgba(255, 255, 255, 0.95)' // Solid white when near top
+          : `linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.25), 
+              rgba(255, 255, 255, 0.15)
+            )`, // Glassmorphism when scrolled
+        backdropFilter: isNearTopOfPage 
+          ? 'blur(10px)' // Less blur for white background
+          : 'blur(20px) brightness(1.1)', // Full glassmorphism effect
+        WebkitBackdropFilter: isNearTopOfPage 
+          ? 'blur(10px)' 
+          : 'blur(20px) brightness(1.1)',
+        border: isNearTopOfPage
+          ? `1px solid rgba(255, 255, 255, 0.8)` // Stronger border for white background
+          : `1px solid rgba(255, 255, 255, 0.3)`, // Subtle border for glassmorphism
         borderRadius: '50px',
         padding: '8px 16px',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-        backdropFilter: 'blur(10px)',
+        boxShadow: isNearTopOfPage
+          ? `0 4px 20px rgba(0, 0, 0, 0.1)` // Subtle shadow for white background
+          : `0 8px 32px rgba(0, 0, 0, 0.12), 
+             inset 0 1px 0 rgba(255, 255, 255, 0.4),
+             0 0 0 1px rgba(255, 255, 255, 0.1)`, // Full glassmorphism shadows
+        transition: 'all 0.3s ease', // Smooth transition between states
       }}>
         {navItems.map(item => (
           <div 
@@ -235,33 +381,56 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             <button
               onClick={() => handleNavClick(item)}
               style={{
-                background: 'none',
-                border: 'none',
+                background: isItemActive(item) 
+                  ? `linear-gradient(135deg, 
+                      rgba(203, 217, 197, 0.4), 
+                      rgba(203, 217, 197, 0.25)
+                    )`
+                  : 'transparent',
+                border: isItemActive(item) 
+                  ? `1px solid rgba(203, 217, 197, 0.4)` 
+                  : 'none',
                 padding: '12px 20px',
                 fontSize: textSizes.base,
-                color: colors.text,
+                color: isItemActive(item) 
+                  ? colors.primary 
+                  : (isNearTopOfPage ? colors.text : '#2D2D2D'), // Adjust text color based on background
                 cursor: 'pointer',
                 borderRadius: '25px',
                 textTransform: 'capitalize',
-                transition: 'all 0.2s ease',
-                fontWeight: '500',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                fontWeight: isItemActive(item) ? '500' : '400',
+                transform: isItemActive(item) ? 'scale(1.05)' : 'scale(1)',
+                backdropFilter: isItemActive(item) ? 'blur(10px) brightness(1.2)' : 'none',
+                boxShadow: isItemActive(item) 
+                  ? `inset 0 1px 0 rgba(255, 255, 255, 0.2)` 
+                  : 'none',
               }}
               onMouseEnter={(e) => {
-                e.target.style.backgroundColor = colors.accent + '30';
-                e.target.style.color = colors.primary;
+                if (!isItemActive(item)) {
+                  e.target.style.background = `linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.3), 
+                    rgba(203, 217, 197, 0.2)
+                  )`;
+                  e.target.style.color = colors.primary;
+                  e.target.style.transform = 'scale(1.02)';
+                  e.target.style.backdropFilter = 'blur(8px) brightness(1.15)';
+                  e.target.style.border = `1px solid rgba(255, 255, 255, 0.3)`;
+                }
               }}
               onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = colors.text;
+                if (!isItemActive(item)) {
+                  e.target.style.background = 'transparent';
+                  e.target.style.color = isNearTopOfPage ? colors.text : '#2D2D2D';
+                  e.target.style.transform = 'scale(1)';
+                  e.target.style.backdropFilter = 'none';
+                  e.target.style.border = 'none';
+                }
               }}
             >
               {item}
-              {item === 'services' && (
-                <span style={{ marginLeft: '6px', fontSize: '10px' }}>▼</span>
-              )}
             </button>
 
-            {/* Services Dropdown */}
             {item === 'services' && isServicesOpen && (
               <div
                 style={{
@@ -269,33 +438,81 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   top: '100%',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  marginTop: '4px', // Reduced gap to prevent mouse leaving area
-                  background: colors.surface,
-                  border: `1px solid ${colors.border}`,
+                  marginTop: '4px',
+                  background: `linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.95), 
+                    rgba(255, 255, 255, 0.9)
+                  )`,
+                  backdropFilter: 'blur(20px) brightness(1.05)',
+                  WebkitBackdropFilter: 'blur(20px) brightness(1.05)',
+                  border: `1px solid rgba(255, 255, 255, 0.8)`,
                   borderRadius: '16px',
                   padding: '12px',
                   minWidth: '180px',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+                  boxShadow: `
+                    0 8px 32px rgba(0, 0, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                    0 0 0 1px rgba(255, 255, 255, 0.3)
+                  `,
+                  animation: 'dropdownSlide 0.2s ease-out',
                 }}
               >
+                <style>
+                  {`
+                    @keyframes dropdownSlide {
+                      from {
+                        opacity: 0;
+                        transform: translateX(-50%) translateY(-10px);
+                      }
+                      to {
+                        opacity: 1;
+                        transform: translateX(-50%) translateY(0);
+                      }
+                    }
+                  `}
+                </style>
                 {serviceItems.map(service => (
                   <button
                     key={service.id}
-                    onClick={() => handleServiceClick(service.id)}
+                    onClick={() => handleServiceClick(service.id, service.key)}
                     style={{
                       width: '100%',
-                      background: 'none',
-                      border: 'none',
+                      background: isServiceActive(service.key) 
+                        ? `linear-gradient(135deg, 
+                            rgba(203, 217, 197, 0.4), 
+                            rgba(203, 217, 197, 0.25)
+                          )`
+                        : 'transparent',
+                      border: isServiceActive(service.key) 
+                        ? `1px solid rgba(203, 217, 197, 0.4)` 
+                        : 'none',
                       padding: '10px 16px',
                       fontSize: textSizes.sm,
-                      color: colors.text,
+                      color: isServiceActive(service.key) ? colors.primary : colors.text,
                       cursor: 'pointer',
                       borderRadius: '8px',
                       textAlign: 'left',
-                      transition: 'background-color 0.2s ease',
+                      transition: 'all 0.3s ease',
+                      fontWeight: isServiceActive(service.key) ? '500' : '400',
+                      backdropFilter: isServiceActive(service.key) ? 'blur(5px)' : 'none',
                     }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = colors.accent + '20'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                    onMouseEnter={(e) => {
+                      if (!isServiceActive(service.key)) {
+                        e.target.style.background = `linear-gradient(135deg, 
+                          rgba(203, 217, 197, 0.2), 
+                          rgba(203, 217, 197, 0.1)
+                        )`;
+                        e.target.style.backdropFilter = 'blur(5px)';
+                        e.target.style.border = `1px solid rgba(203, 217, 197, 0.2)`;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isServiceActive(service.key)) {
+                        e.target.style.background = 'transparent';
+                        e.target.style.backdropFilter = 'none';
+                        e.target.style.border = 'none';
+                      }
+                    }}
                   >
                     {service.name}
                   </button>

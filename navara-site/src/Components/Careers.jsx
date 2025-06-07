@@ -10,6 +10,11 @@ const Careers = ({ isDarkMode = false }) => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {

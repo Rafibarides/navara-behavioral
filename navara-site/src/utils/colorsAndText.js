@@ -13,34 +13,49 @@ export const getColors = (isDarkMode = false) => {
     };
   } else {
     return {
-      primary: '#1B3B62',        // Original dark blue
-      secondary: '#1A2A40',      // Original darker blue
-      accent: '#CBD9C5',         // Original light green/sage
-      background: '#F2F2F2',     // Original light gray
-      surface: '#FFFFFF',        // Pure white for surfaces
-      text: '#1A2A40',           // Dark text
-      textSecondary: '#595959',  // Original medium gray
+      primary: '#1B3B62',        // Deep blue
+      secondary: '#1A2A40',      // Darker blue
+      accent: '#CBD9C5',         // Light green
+      background: '#F2F2F2',     // Light gray background
+      surface: '#FFFFFF',        // White surface
+      text: '#595959',           // Dark gray text
+      textSecondary: '#808080',  // Medium gray
       border: '#E0E0E0',         // Light border
     };
   }
 };
 
-// Text size system with responsive variants
+// Text size system with consistent font family
 export const getTextSizes = (isDarkMode = false) => {
-  const baseSize = isDarkMode ? 1.02 : 1; // Slightly larger text in dark mode for readability
+  const baseFont = "'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
   
-  return {
-    xs: `${0.75 * baseSize}rem`,      // 12px
-    sm: `${0.875 * baseSize}rem`,     // 14px
-    base: `${1 * baseSize}rem`,       // 16px
-    lg: `${1.125 * baseSize}rem`,     // 18px
-    xl: `${1.25 * baseSize}rem`,      // 20px
-    '2xl': `${1.5 * baseSize}rem`,    // 24px
-    '3xl': `${1.875 * baseSize}rem`,  // 30px
-    '4xl': `${2.25 * baseSize}rem`,   // 36px
-    '5xl': `${3 * baseSize}rem`,      // 48px
-    '6xl': `${3.75 * baseSize}rem`,   // 60px
-  };
+  if (isDarkMode) {
+    return {
+      xs: { fontSize: '12px', fontFamily: baseFont },
+      sm: { fontSize: '14px', fontFamily: baseFont },
+      base: { fontSize: '16px', fontFamily: baseFont },
+      lg: { fontSize: '18px', fontFamily: baseFont },
+      xl: { fontSize: '20px', fontFamily: baseFont },
+      '2xl': { fontSize: '24px', fontFamily: baseFont },
+      '3xl': { fontSize: '30px', fontFamily: baseFont },
+      '4xl': { fontSize: '36px', fontFamily: baseFont },
+      '5xl': { fontSize: '48px', fontFamily: baseFont },
+      '6xl': { fontSize: '60px', fontFamily: baseFont }
+    };
+  } else {
+    return {
+      xs: { fontSize: '12px', fontFamily: baseFont },
+      sm: { fontSize: '14px', fontFamily: baseFont },
+      base: { fontSize: '16px', fontFamily: baseFont },
+      lg: { fontSize: '18px', fontFamily: baseFont },
+      xl: { fontSize: '20px', fontFamily: baseFont },
+      '2xl': { fontSize: '24px', fontFamily: baseFont },
+      '3xl': { fontSize: '30px', fontFamily: baseFont },
+      '4xl': { fontSize: '36px', fontFamily: baseFont },
+      '5xl': { fontSize: '48px', fontFamily: baseFont },
+      '6xl': { fontSize: '60px', fontFamily: baseFont }
+    };
+  }
 };
 
 // Convenience function to get complete theme
