@@ -107,6 +107,7 @@ const AboutSection = ({ isDarkMode = false }) => {
 
   return (
     <section 
+      id="about"
       ref={sectionRef}
       style={{
         backgroundColor: colors.surface,

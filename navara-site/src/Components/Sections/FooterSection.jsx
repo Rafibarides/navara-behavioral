@@ -22,22 +22,22 @@ const FooterSection = ({ isDarkMode = false }) => {
 
   const footerLinks = {
     company: [
-      { name: 'About Us', href: 'about-section', type: 'scroll' },
-      { name: 'Our Team', href: 'team-section', type: 'scroll' },
+      { name: 'About Us', href: 'about', type: 'scroll' },
+      { name: 'Our Team', href: 'team', type: 'scroll' },
       { name: 'Careers', href: '/careers', type: 'route' },
-      { name: 'Contact', href: 'contact-section', type: 'scroll' }
+      { name: 'Contact', href: 'contact', type: 'scroll' }
     ],
     services: [
-      { name: 'Diagnostics', href: 'diagnostics-section', type: 'scroll' },
-      { name: 'Pathways', href: 'pathways-section', type: 'scroll' },
-      { name: 'Behavioral Method', href: 'behavioral-section', type: 'scroll' },
-      { name: 'Consultations', href: 'contact-section', type: 'scroll' }
+      { name: 'Diagnostics', href: 'diagnostics', type: 'scroll' },
+      { name: 'Pathways', href: 'pathways', type: 'scroll' },
+      { name: 'Behavioral Method', href: 'behavioral', type: 'scroll' },
+      { name: 'Consultations', href: 'contact', type: 'scroll' }
     ],
     resources: [
       { name: 'Client Portal', href: '/client-portal', type: 'route' },
-      { name: 'Privacy Policy', href: 'privacy', type: 'scroll' },
-      { name: 'Terms of Service', href: 'terms', type: 'scroll' },
-      { name: 'Sitemap', href: 'sitemap', type: 'scroll' }
+      { name: 'Privacy Policy', href: '/privacy', type: 'route' },
+      { name: 'Terms of Service', href: '/terms', type: 'route' },
+      { name: 'Sitemap', href: '/sitemap', type: 'route' }
     ]
   };
 
@@ -128,27 +128,30 @@ const FooterSection = ({ isDarkMode = false }) => {
               </div>
               <div>
                 <h3 style={{
-                  fontSize: textSizes['2xl'],
+                  fontSize: textSizes['2xl'].fontSize,
+                  fontFamily: textSizes['2xl'].fontFamily,
                   fontWeight: '700',
                   margin: 0,
                   marginBottom: '4px',
-                  color: colors.surface,
+                  color: 'white',
                 }}>
                   Navara
                 </h3>
                 <p style={{
-                  fontSize: textSizes.base,
+                  fontSize: textSizes.base.fontSize,
+                  fontFamily: textSizes.base.fontFamily,
                   margin: 0,
-                  color: colors.surface + 'CC',
+                  color: 'rgba(255, 255, 255, 0.8)',
                 }}>
                   Behavioral Group
                 </p>
               </div>
             </div>
             <p style={{
-              fontSize: textSizes.lg,
+              fontSize: textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
               lineHeight: '1.7',
-              color: colors.surface + 'E6',
+              color: 'rgba(255, 255, 255, 0.9)',
               margin: 0,
               marginBottom: '24px',
               maxWidth: '400px',
@@ -166,8 +169,9 @@ const FooterSection = ({ isDarkMode = false }) => {
                 color: colors.accent,
               }} />
               <span style={{
-                fontSize: textSizes.base,
-                color: colors.surface + 'CC',
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: 'rgba(255, 255, 255, 0.8)',
                 fontWeight: '500',
               }}>
                 Secured Website
@@ -178,10 +182,11 @@ const FooterSection = ({ isDarkMode = false }) => {
           {/* Company Links */}
           <div>
             <h4 style={{
-              fontSize: textSizes.xl,
+              fontSize: textSizes.xl.fontSize,
+              fontFamily: textSizes.xl.fontFamily,
               fontWeight: '600',
               marginBottom: '24px',
-              color: colors.surface,
+              color: 'white',
             }}>
               Company
             </h4>
@@ -197,15 +202,16 @@ const FooterSection = ({ isDarkMode = false }) => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: colors.surface + 'CC',
-                    fontSize: textSizes.base,
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
                     cursor: 'pointer',
                     padding: 0,
                     textAlign: 'left',
                     transition: 'color 0.2s ease',
                   }}
-                  onMouseEnter={(e) => e.target.style.color = colors.surface}
-                  onMouseLeave={(e) => e.target.style.color = colors.surface + 'CC'}
+                  onMouseEnter={(e) => e.target.style.color = 'white'}
+                  onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.8)'}
                 >
                   {link.name}
                 </button>
@@ -216,10 +222,11 @@ const FooterSection = ({ isDarkMode = false }) => {
           {/* Services Links */}
           <div>
             <h4 style={{
-              fontSize: textSizes.xl,
+              fontSize: textSizes.xl.fontSize,
+              fontFamily: textSizes.xl.fontFamily,
               fontWeight: '600',
               marginBottom: '24px',
-              color: colors.surface,
+              color: 'white',
             }}>
               Services
             </h4>
@@ -235,15 +242,16 @@ const FooterSection = ({ isDarkMode = false }) => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: colors.surface + 'CC',
-                    fontSize: textSizes.base,
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
                     cursor: 'pointer',
                     padding: 0,
                     textAlign: 'left',
                     transition: 'color 0.2s ease',
                   }}
-                  onMouseEnter={(e) => e.target.style.color = colors.surface}
-                  onMouseLeave={(e) => e.target.style.color = colors.surface + 'CC'}
+                  onMouseEnter={(e) => e.target.style.color = 'white'}
+                  onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.8)'}
                 >
                   {link.name}
                 </button>
@@ -254,10 +262,11 @@ const FooterSection = ({ isDarkMode = false }) => {
           {/* Resources Links */}
           <div>
             <h4 style={{
-              fontSize: textSizes.xl,
+              fontSize: textSizes.xl.fontSize,
+              fontFamily: textSizes.xl.fontFamily,
               fontWeight: '600',
               marginBottom: '24px',
-              color: colors.surface,
+              color: 'white',
             }}>
               Resources
             </h4>
@@ -273,15 +282,16 @@ const FooterSection = ({ isDarkMode = false }) => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: colors.surface + 'CC',
-                    fontSize: textSizes.base,
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
                     cursor: 'pointer',
                     padding: 0,
                     textAlign: 'left',
                     transition: 'color 0.2s ease',
                   }}
-                  onMouseEnter={(e) => e.target.style.color = colors.surface}
-                  onMouseLeave={(e) => e.target.style.color = colors.surface + 'CC'}
+                  onMouseEnter={(e) => e.target.style.color = 'white'}
+                  onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.8)'}
                 >
                   {link.name}
                 </button>
@@ -308,20 +318,23 @@ const FooterSection = ({ isDarkMode = false }) => {
             flexWrap: 'wrap',
           }}>
             <span style={{
-              fontSize: textSizes.base,
-              color: colors.surface + 'B3',
+              fontSize: textSizes.xs.fontSize,
+              fontFamily: textSizes.xs.fontFamily,
+              color: 'rgba(255, 255, 255, 0.7)',
             }}>
               © 2025 Navara Behavioral Group
             </span>
             <span style={{
-              fontSize: textSizes.base,
-              color: colors.surface + 'B3',
+              fontSize: textSizes.xs.fontSize,
+              fontFamily: textSizes.xs.fontFamily,
+              color: 'rgba(255, 255, 255, 0.7)',
             }}>
               •
             </span>
             <span style={{
-              fontSize: textSizes.base,
-              color: colors.surface + 'B3',
+              fontSize: textSizes.xs.fontSize,
+              fontFamily: textSizes.xs.fontFamily,
+              color: 'rgba(255, 255, 255, 0.7)',
             }}>
               Developed by RBM
             </span>

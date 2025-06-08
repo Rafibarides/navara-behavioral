@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
+import SignInPage from './SignInPage';
 
 const ClientPortal = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState('records');
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  // Check if user is already signed in
+  useEffect(() => {
+    const signedIn = sessionStorage.getItem('navaraSignedIn');
+    setIsSignedIn(signedIn === 'true');
+  }, []);
 
   // Mock client data - in the future this will come from backend
   const client = {
@@ -167,6 +175,20 @@ const ClientPortal = ({ isDarkMode = false }) => {
   const handleGoBack = () => {
     window.history.back();
   };
+
+  const handleSignOut = () => {
+    sessionStorage.removeItem('navaraSignedIn');
+    setIsSignedIn(false);
+  };
+
+  const handleSignIn = (signedIn) => {
+    setIsSignedIn(signedIn);
+  };
+
+  // Show sign-in page if not authenticated
+  if (!isSignedIn) {
+    return <SignInPage isDarkMode={isDarkMode} onSignIn={handleSignIn} />;
+  }
 
   const renderTabContent = () => {
     switch(activeTab) {
@@ -631,6 +653,45 @@ const ClientPortal = ({ isDarkMode = false }) => {
             marginTop: 'auto',
             paddingTop: '20px',
           }}>
+            <button
+              onClick={handleSignOut}
+              style={{
+                width: '100%',
+                background: colors.surface,
+                border: `1px solid ${colors.border}`,
+                borderRadius: '12px',
+                padding: '12px 16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                marginBottom: '8px',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#fee2e2';
+                e.target.style.borderColor = '#fecaca';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = colors.surface;
+                e.target.style.borderColor = colors.border;
+              }}
+            >
+              <i className="fas fa-sign-out-alt" style={{
+                fontSize: '14px',
+                color: '#dc2626',
+              }} />
+              <span style={{
+                fontSize: textSizes.sm.fontSize,
+                fontFamily: textSizes.sm.fontFamily,
+                color: '#dc2626',
+                fontWeight: '500'
+              }}>
+                Sign Out
+              </span>
+            </button>
+            
             <button
               onClick={handleGoBack}
               style={{

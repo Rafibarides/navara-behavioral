@@ -37,11 +37,11 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     const handleScroll = () => {
       const sections = [
         { id: 'welcome-section', name: 'home' },
-        { id: 'diagnostics-section', name: 'diagnostics' },
-        { id: 'pathways-section', name: 'pathways' },
-        { id: 'behavioral-section', name: 'behavioral' },
-        { id: 'about-section', name: 'about' },
-        { id: 'contact-section', name: 'contact' }
+        { id: 'diagnostics', name: 'diagnostics' },
+        { id: 'pathways', name: 'pathways' },
+        { id: 'behavioral', name: 'behavioral' },
+        { id: 'about', name: 'about' },
+        { id: 'contact', name: 'contact' }
       ];
 
       const scrollPosition = window.scrollY + 100; // Offset for navbar height
@@ -73,9 +73,9 @@ const NavBarMenu = ({ isDarkMode = false }) => {
 
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Diagnostics', id: 'diagnostics-section', key: 'diagnostics' },
-    { name: 'Pathways', id: 'pathways-section', key: 'pathways' },
-    { name: 'Navara Method', id: 'behavioral-section', key: 'behavioral' }
+    { name: 'Diagnostics', id: 'diagnostics', key: 'diagnostics' },
+    { name: 'Pathways', id: 'pathways', key: 'pathways' },
+    { name: 'Navara Method', id: 'behavioral', key: 'behavioral' }
   ];
 
   const scrollToSection = (sectionId) => {
@@ -126,10 +126,10 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           }
           break;
         case 'about':
-          sectionId = 'about-section';
+          sectionId = 'about';
           break;
         case 'contact':
-          sectionId = 'contact-section';
+          sectionId = 'contact';
           break;
         default:
           break;
@@ -182,8 +182,75 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     };
   }, []);
 
-  // Check if we're on the welcome section
-  const isOnWelcomeSection = activeSection === 'home';
+  // Get appropriate text color based on dark mode and position
+  const getNavTextColor = (isActive = false) => {
+    if (isActive) {
+      return colors.primary;
+    }
+    
+    if (isDarkMode) {
+      return 'white'; // Always white text in dark mode
+    }
+    
+    // Light mode: adjust based on position
+    return isNearTopOfPage ? colors.text : '#2D2D2D';
+  };
+
+  // Get appropriate navbar background based on dark mode
+  const getNavBackground = () => {
+    if (isDarkMode) {
+      return isNearTopOfPage 
+        ? `rgba(45, 45, 45, 0.95)` // Dark surface when near top
+        : `linear-gradient(135deg, 
+            rgba(45, 45, 45, 0.25), 
+            rgba(45, 45, 45, 0.15)
+          )`; // Dark glassmorphism when scrolled
+    } else {
+      return isNearTopOfPage 
+        ? 'rgba(255, 255, 255, 0.95)' // Light surface when near top
+        : `linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.25), 
+            rgba(255, 255, 255, 0.15)
+          )`; // Light glassmorphism when scrolled
+    }
+  };
+
+  // Get appropriate border color based on dark mode
+  const getNavBorder = () => {
+    if (isDarkMode) {
+      return isNearTopOfPage
+        ? `1px solid rgba(64, 64, 64, 0.8)`
+        : `1px solid rgba(64, 64, 64, 0.3)`;
+    } else {
+      return isNearTopOfPage
+        ? `1px solid rgba(255, 255, 255, 0.8)`
+        : `1px solid rgba(255, 255, 255, 0.3)`;
+    }
+  };
+
+  // Get dropdown background based on dark mode
+  const getDropdownBackground = () => {
+    if (isDarkMode) {
+      return `linear-gradient(135deg, 
+        rgba(45, 45, 45, 0.95), 
+        rgba(45, 45, 45, 0.9)
+      )`;
+    } else {
+      return `linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95), 
+        rgba(255, 255, 255, 0.9)
+      )`;
+    }
+  };
+
+  // Get dropdown border based on dark mode
+  const getDropdownBorder = () => {
+    if (isDarkMode) {
+      return `1px solid rgba(64, 64, 64, 0.8)`;
+    } else {
+      return `1px solid rgba(255, 255, 255, 0.8)`;
+    }
+  };
 
   // Mobile Hamburger Menu
   if (isMobile) {
@@ -197,21 +264,14 @@ const NavBarMenu = ({ isDarkMode = false }) => {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           style={{
-            background: isNearTopOfPage
-              ? 'rgba(255, 255, 255, 0.95)'
-              : `linear-gradient(135deg, 
-                  rgba(255, 255, 255, 0.3), 
-                  rgba(255, 255, 255, 0.18)
-                )`,
+            background: getNavBackground(),
             backdropFilter: isNearTopOfPage 
               ? 'blur(10px)' 
               : 'blur(20px) brightness(1.1)',
             WebkitBackdropFilter: isNearTopOfPage 
               ? 'blur(10px)' 
               : 'blur(20px) brightness(1.1)',
-            border: isNearTopOfPage
-              ? `1px solid rgba(255, 255, 255, 0.8)`
-              : `1px solid rgba(255, 255, 255, 0.35)`,
+            border: getNavBorder(),
             borderRadius: '12px',
             padding: '12px',
             cursor: 'pointer',
@@ -231,7 +291,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               style={{
                 width: '20px',
                 height: '2px',
-                backgroundColor: isNearTopOfPage ? colors.text : '#2D2D2D',
+                backgroundColor: getNavTextColor(),
                 borderRadius: '1px',
                 transition: 'all 0.3s ease',
               }}
@@ -244,13 +304,10 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             position: 'absolute',
             top: '60px',
             right: '0',
-            background: `linear-gradient(135deg, 
-              rgba(255, 255, 255, 0.95), 
-              rgba(255, 255, 255, 0.9)
-            )`,
+            background: getDropdownBackground(),
             backdropFilter: 'blur(20px) brightness(1.05)',
             WebkitBackdropFilter: 'blur(20px) brightness(1.05)',
-            border: `1px solid rgba(255, 255, 255, 0.8)`,
+            border: getDropdownBorder(),
             borderRadius: '16px',
             padding: '16px',
             minWidth: '200px',
@@ -265,10 +322,11 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   onClick={() => handleNavClick(item)}
                   style={{
                     width: '100%',
-                    background: isItemActive(item) ? colors.accent + '30' : 'none',
+                    background: isItemActive(item) ? colors.accent + '4D' : 'none',
                     border: 'none',
                     padding: '12px 16px',
-                    fontSize: textSizes.base,
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
                     color: isItemActive(item) ? colors.primary : colors.text,
                     cursor: 'pointer',
                     borderRadius: '8px',
@@ -279,7 +337,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   }}
                   onMouseEnter={(e) => {
                     if (!isItemActive(item)) {
-                      e.target.style.backgroundColor = colors.accent + '20';
+                      e.target.style.backgroundColor = colors.accent + '33';
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -299,10 +357,11 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                         onClick={() => handleServiceClick(service.id, service.key)}
                         style={{
                           width: '100%',
-                          background: isServiceActive(service.key) ? colors.accent + '20' : 'none',
+                          background: isServiceActive(service.key) ? colors.accent + '33' : 'none',
                           border: 'none',
                           padding: '8px 12px',
-                          fontSize: textSizes.sm,
+                          fontSize: textSizes.sm.fontSize,
+                          fontFamily: textSizes.sm.fontFamily,
                           color: isServiceActive(service.key) ? colors.primary : colors.textSecondary,
                           cursor: 'pointer',
                           borderRadius: '6px',
@@ -312,7 +371,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                         }}
                         onMouseEnter={(e) => {
                           if (!isServiceActive(service.key)) {
-                            e.target.style.backgroundColor = colors.accent + '15';
+                            e.target.style.backgroundColor = colors.accent + '26';
                           }
                         }}
                         onMouseLeave={(e) => {
@@ -344,32 +403,25 @@ const NavBarMenu = ({ isDarkMode = false }) => {
       zIndex: 1000,
     }}>
       <nav style={{
-        background: isNearTopOfPage 
-          ? 'rgba(255, 255, 255, 0.95)' // Solid white when near top
-          : `linear-gradient(135deg, 
-              rgba(255, 255, 255, 0.25), 
-              rgba(255, 255, 255, 0.15)
-            )`, // Glassmorphism when scrolled
+        background: getNavBackground(),
         backdropFilter: isNearTopOfPage 
-          ? 'blur(10px)' // Less blur for white background
-          : 'blur(20px) brightness(1.1)', // Full glassmorphism effect
+          ? 'blur(10px)' 
+          : 'blur(20px) brightness(1.1)',
         WebkitBackdropFilter: isNearTopOfPage 
           ? 'blur(10px)' 
           : 'blur(20px) brightness(1.1)',
-        border: isNearTopOfPage
-          ? `1px solid rgba(255, 255, 255, 0.8)` // Stronger border for white background
-          : `1px solid rgba(255, 255, 255, 0.3)`, // Subtle border for glassmorphism
+        border: getNavBorder(),
         borderRadius: '50px',
         padding: '8px 16px',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
         boxShadow: isNearTopOfPage
-          ? `0 4px 20px rgba(0, 0, 0, 0.1)` // Subtle shadow for white background
+          ? `0 4px 20px rgba(0, 0, 0, 0.1)`
           : `0 8px 32px rgba(0, 0, 0, 0.12), 
              inset 0 1px 0 rgba(255, 255, 255, 0.4),
-             0 0 0 1px rgba(255, 255, 255, 0.1)`, // Full glassmorphism shadows
-        transition: 'all 0.3s ease', // Smooth transition between states
+             0 0 0 1px rgba(255, 255, 255, 0.1)`,
+        transition: 'all 0.3s ease',
       }}>
         {navItems.map(item => (
           <div 
@@ -383,18 +435,17 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               style={{
                 background: isItemActive(item) 
                   ? `linear-gradient(135deg, 
-                      rgba(203, 217, 197, 0.4), 
-                      rgba(203, 217, 197, 0.25)
+                      ${colors.accent}66, 
+                      ${colors.accent}40
                     )`
                   : 'transparent',
                 border: isItemActive(item) 
-                  ? `1px solid rgba(203, 217, 197, 0.4)` 
+                  ? `1px solid ${colors.accent}66` 
                   : 'none',
                 padding: '12px 20px',
-                fontSize: textSizes.base,
-                color: isItemActive(item) 
-                  ? colors.primary 
-                  : (isNearTopOfPage ? colors.text : '#2D2D2D'), // Adjust text color based on background
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: getNavTextColor(isItemActive(item)),
                 cursor: 'pointer',
                 borderRadius: '25px',
                 textTransform: 'capitalize',
@@ -410,7 +461,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                 if (!isItemActive(item)) {
                   e.target.style.background = `linear-gradient(135deg, 
                     rgba(255, 255, 255, 0.3), 
-                    rgba(203, 217, 197, 0.2)
+                    ${colors.accent}33
                   )`;
                   e.target.style.color = colors.primary;
                   e.target.style.transform = 'scale(1.02)';
@@ -421,7 +472,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               onMouseLeave={(e) => {
                 if (!isItemActive(item)) {
                   e.target.style.background = 'transparent';
-                  e.target.style.color = isNearTopOfPage ? colors.text : '#2D2D2D';
+                  e.target.style.color = getNavTextColor();
                   e.target.style.transform = 'scale(1)';
                   e.target.style.backdropFilter = 'none';
                   e.target.style.border = 'none';
@@ -439,13 +490,10 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   left: '50%',
                   transform: 'translateX(-50%)',
                   marginTop: '4px',
-                  background: `linear-gradient(135deg, 
-                    rgba(255, 255, 255, 0.95), 
-                    rgba(255, 255, 255, 0.9)
-                  )`,
+                  background: getDropdownBackground(),
                   backdropFilter: 'blur(20px) brightness(1.05)',
                   WebkitBackdropFilter: 'blur(20px) brightness(1.05)',
-                  border: `1px solid rgba(255, 255, 255, 0.8)`,
+                  border: getDropdownBorder(),
                   borderRadius: '16px',
                   padding: '12px',
                   minWidth: '180px',
@@ -479,15 +527,16 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                       width: '100%',
                       background: isServiceActive(service.key) 
                         ? `linear-gradient(135deg, 
-                            rgba(203, 217, 197, 0.4), 
-                            rgba(203, 217, 197, 0.25)
+                            ${colors.accent}66, 
+                            ${colors.accent}40
                           )`
                         : 'transparent',
                       border: isServiceActive(service.key) 
-                        ? `1px solid rgba(203, 217, 197, 0.4)` 
+                        ? `1px solid ${colors.accent}66` 
                         : 'none',
                       padding: '10px 16px',
-                      fontSize: textSizes.sm,
+                      fontSize: textSizes.sm.fontSize,
+                      fontFamily: textSizes.sm.fontFamily,
                       color: isServiceActive(service.key) ? colors.primary : colors.text,
                       cursor: 'pointer',
                       borderRadius: '8px',
@@ -499,11 +548,11 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     onMouseEnter={(e) => {
                       if (!isServiceActive(service.key)) {
                         e.target.style.background = `linear-gradient(135deg, 
-                          rgba(203, 217, 197, 0.2), 
-                          rgba(203, 217, 197, 0.1)
+                          ${colors.accent}33, 
+                          ${colors.accent}1A
                         )`;
                         e.target.style.backdropFilter = 'blur(5px)';
-                        e.target.style.border = `1px solid rgba(203, 217, 197, 0.2)`;
+                        e.target.style.border = `1px solid ${colors.accent}33`;
                       }
                     }}
                     onMouseLeave={(e) => {

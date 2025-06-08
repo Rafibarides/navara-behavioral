@@ -38,6 +38,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
 
   return (
     <section 
+      id="welcome-section"
       style={{
         position: 'relative',
         height: '50vh',

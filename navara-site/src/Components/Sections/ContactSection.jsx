@@ -95,6 +95,7 @@ const ContactSection = ({ isDarkMode = false }) => {
 
   return (
     <section 
+      id="contact"
       ref={sectionRef}
       style={{
         backgroundColor: colors.surface,

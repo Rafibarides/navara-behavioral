@@ -114,9 +114,6 @@ const BehavioralSection = ({ isDarkMode = false }) => {
           padding: '80px 20px',
           margin: 0,
           boxSizing: 'border-box',
-          position: 'sticky',
-          top: 0,
-          zIndex: 20,
           willChange: 'transform, opacity',
         }}
       >
@@ -247,10 +244,6 @@ const BehavioralSection = ({ isDarkMode = false }) => {
         padding: '100px 40px',
         margin: 0,
         boxSizing: 'border-box',
-        position: 'sticky',
-        top: 0,
-        zIndex: 20,
-        minHeight: '100vh',
         willChange: 'transform, opacity',
       }}
     >
@@ -260,7 +253,6 @@ const BehavioralSection = ({ isDarkMode = false }) => {
         maxWidth: '1200px',
         margin: '0 auto',
         gap: '80px',
-        minHeight: '80vh',
       }}>
         {/* Photo Section - Left Side */}
         <motion.div 

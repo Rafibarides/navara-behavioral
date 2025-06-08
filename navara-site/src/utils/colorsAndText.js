@@ -2,9 +2,9 @@
 export const getColors = (isDarkMode = false) => {
   if (isDarkMode) {
     return {
-      primary: '#4A6FA5',        // Lighter version of #1B3B62
+      primary: '#b1ceef',        // Lighter version of #1B3B62
       secondary: '#3D4F73',      // Lighter version of #1A2A40
-      accent: '#A8C4A0',         // Slightly darker version of #CBD9C5
+      accent: '#E5E5E5',         // Light grey for dark mode nav selection
       background: '#1A1A1A',     // Dark background
       surface: '#2D2D2D',        // Dark surface
       text: '#F2F2F2',           // Light text

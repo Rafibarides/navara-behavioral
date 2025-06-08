@@ -118,6 +118,7 @@ const OurTeamSection = ({ isDarkMode = false }) => {
   return (
     <>
       <section 
+        id="team"
         ref={sectionRef}
         style={{
           backgroundColor: colors.background,
