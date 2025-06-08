@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './Components/MainPage';
 import Careers from './Components/Careers';
+import ClientPortal from './Components/ClientPortal';
 import ScrollToTop from './Components/ScrollToTop';
 import './App.css'
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/client-portal" element={<ClientPortal />} />
         </Routes>
       </div>
     </Router>

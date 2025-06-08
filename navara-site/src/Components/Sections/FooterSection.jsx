@@ -34,7 +34,7 @@ const FooterSection = ({ isDarkMode = false }) => {
       { name: 'Consultations', href: 'contact-section', type: 'scroll' }
     ],
     resources: [
-      { name: 'Client Portal', href: 'portal', type: 'scroll' },
+      { name: 'Client Portal', href: '/client-portal', type: 'route' },
       { name: 'Privacy Policy', href: 'privacy', type: 'scroll' },
       { name: 'Terms of Service', href: 'terms', type: 'scroll' },
       { name: 'Sitemap', href: 'sitemap', type: 'scroll' }
@@ -79,7 +79,7 @@ const FooterSection = ({ isDarkMode = false }) => {
 
   return (
     <footer style={{
-      backgroundColor: colors.primary,
+      backgroundColor: colors.secondary,
       width: '100vw',
       margin: 0,
       boxSizing: 'border-box',

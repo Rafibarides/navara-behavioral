@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 
 const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
+  const [isBlinking, setIsBlinking] = useState(false);
+
+  // Setup blinking animation if staff has eyesClosed image
+  useEffect(() => {
+    if (staff.eyesClosed) {
+      const interval = setInterval(() => {
+        // Show eyes closed for a quick flash
+        setIsBlinking(true);
+        
+        setTimeout(() => {
+          setIsBlinking(false);
+        }, 200); // Eyes closed for 200ms (quick flash)
+        
+      }, 4000); // Every 4 seconds
+
+      // Cleanup interval on unmount
+      return () => clearInterval(interval);
+    }
+  }, [staff.eyesClosed]);
 
   // Close modal when clicking outside
   const handleBackdropClick = (e) => {
@@ -75,7 +94,7 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
           {/* Profile Photo */}
           <div style={{ marginBottom: '24px' }}>
             <img
-              src={staff.photo}
+              src={staff.eyesClosed && isBlinking ? staff.eyesClosed : staff.photo}
               alt={staff.name}
               style={{
                 width: '150px',
@@ -84,13 +103,15 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
                 objectFit: 'cover',
                 border: `4px solid ${colors.primary + '20'}`,
                 boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+                transition: 'opacity 0.1s ease-in-out',
               }}
             />
           </div>
 
           {/* Name */}
           <h2 style={{
-            fontSize: textSizes['2xl'],
+            fontSize: textSizes['2xl'].fontSize,
+            fontFamily: textSizes['2xl'].fontFamily,
             color: colors.text,
             fontWeight: '700',
             marginBottom: '8px',
@@ -100,7 +121,8 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
 
           {/* Position */}
           <p style={{
-            fontSize: textSizes.lg,
+            fontSize: textSizes.lg.fontSize,
+            fontFamily: textSizes.lg.fontFamily,
             color: colors.primary,
             fontWeight: '500',
             marginBottom: '32px',
@@ -112,7 +134,8 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
           {/* Full Text */}
           <div style={{ textAlign: 'left' }}>
             <p style={{
-              fontSize: textSizes.base,
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
               color: colors.text,
               lineHeight: '1.7',
               margin: 0,

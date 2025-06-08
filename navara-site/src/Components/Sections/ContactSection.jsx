@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
 const ContactSection = ({ isDarkMode = false }) => {
@@ -10,6 +10,13 @@ const ContactSection = ({ isDarkMode = false }) => {
     email: '',
     message: ''
   });
+  const [isContentVisible, setIsContentVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Array of words to cycle through
+  const helpWords = ["HELP", "SUPPORT", "EMBRACE", "GUIDE", "PROVIDE", "SERVE", "CARE", "EMPOWER"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isWordVisible, setIsWordVisible] = useState(true);
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -20,6 +27,55 @@ const ContactSection = ({ isDarkMode = false }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Cycle through words
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Start fade out
+      setIsWordVisible(false);
+      
+      // After fade out completes, change word and fade in
+      setTimeout(() => {
+        setCurrentWordIndex((prevIndex) => 
+          (prevIndex + 1) % helpWords.length
+        );
+        setIsWordVisible(true);
+      }, 300); // Fade out duration
+      
+    }, 3000); // Change word every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [helpWords.length]);
+
+  // Intersection Observer for content animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsContentVisible(true);
+          } else {
+            // Reset when section leaves view
+            setIsContentVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
   const handleInputChange = (e) => {
@@ -38,13 +94,16 @@ const ContactSection = ({ isDarkMode = false }) => {
   };
 
   return (
-    <section style={{
-      backgroundColor: colors.surface,
-      width: '100vw',
-      padding: isMobile ? '80px 20px' : '120px 40px',
-      margin: 0,
-      boxSizing: 'border-box',
-    }}>
+    <section 
+      ref={sectionRef}
+      style={{
+        backgroundColor: colors.surface,
+        width: '100vw',
+        padding: isMobile ? '80px 20px' : '120px 40px',
+        margin: 0,
+        boxSizing: 'border-box',
+      }}
+    >
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -61,17 +120,32 @@ const ContactSection = ({ isDarkMode = false }) => {
             marginBottom: '40px',
           }}>
             <h3 style={{
-              fontSize: isMobile ? textSizes.lg : textSizes.xl,
+              fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+              fontFamily: isMobile ? textSizes.lg.fontFamily : textSizes.xl.fontFamily,
               fontWeight: '600',
               marginBottom: '8px',
               color: colors.textSecondary,
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              minHeight: '1.5em', // Prevent layout shift
             }}>
-              WE'RE HERE TO HELP YOU
+              <span>WE'RE HERE TO</span>
+              <span style={{
+                opacity: isWordVisible ? 1 : 0,
+                transform: isWordVisible ? 'translateY(0)' : 'translateY(-10px)',
+                transition: 'all 0.3s ease-in-out',
+                color: colors.primary,
+                fontWeight: '700',
+              }}>
+                {helpWords[currentWordIndex]}
+              </span>
             </h3>
             <h2 style={{
-              fontSize: isMobile ? textSizes['2xl'] : textSizes['3xl'],
+              fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
+              fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['3xl'].fontFamily,
               fontWeight: '700',
               lineHeight: '1.2',
               marginBottom: '24px',
@@ -80,7 +154,8 @@ const ContactSection = ({ isDarkMode = false }) => {
               Get the Support Your Family Needs
             </h2>
             <p style={{
-              fontSize: textSizes.lg,
+              fontSize: textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
               lineHeight: '1.6',
               color: colors.text,
               marginBottom: '40px',
@@ -89,7 +164,7 @@ const ContactSection = ({ isDarkMode = false }) => {
             </p>
           </div>
 
-          {/* Contact Details */}
+          {/* Contact Details with Staggered Animation */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -100,6 +175,9 @@ const ContactSection = ({ isDarkMode = false }) => {
               display: 'flex',
               alignItems: 'center',
               gap: '16px',
+              opacity: isContentVisible ? 1 : 0,
+              transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'all 0.8s ease-out 0.2s', // 0.2s delay
             }}>
               <div style={{
                 backgroundColor: colors.primary + '15',
@@ -116,7 +194,8 @@ const ContactSection = ({ isDarkMode = false }) => {
               </div>
               <div>
                 <p style={{
-                  fontSize: textSizes.sm,
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
                   color: colors.textSecondary,
                   margin: 0,
                   marginBottom: '4px',
@@ -125,7 +204,8 @@ const ContactSection = ({ isDarkMode = false }) => {
                   E-mail
                 </p>
                 <p style={{
-                  fontSize: textSizes.base,
+                  fontSize: textSizes.base.fontSize,
+                  fontFamily: textSizes.base.fontFamily,
                   color: colors.text,
                   margin: 0,
                   fontWeight: '500',
@@ -140,6 +220,9 @@ const ContactSection = ({ isDarkMode = false }) => {
               display: 'flex',
               alignItems: 'center',
               gap: '16px',
+              opacity: isContentVisible ? 1 : 0,
+              transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'all 0.8s ease-out 0.4s', // 0.4s delay for stagger
             }}>
               <div style={{
                 backgroundColor: colors.primary + '15',
@@ -156,7 +239,8 @@ const ContactSection = ({ isDarkMode = false }) => {
               </div>
               <div>
                 <p style={{
-                  fontSize: textSizes.sm,
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
                   color: colors.textSecondary,
                   margin: 0,
                   marginBottom: '4px',
@@ -165,7 +249,8 @@ const ContactSection = ({ isDarkMode = false }) => {
                   Phone
                 </p>
                 <p style={{
-                  fontSize: textSizes.base,
+                  fontSize: textSizes.base.fontSize,
+                  fontFamily: textSizes.base.fontFamily,
                   color: colors.text,
                   margin: 0,
                   fontWeight: '500',
@@ -177,10 +262,13 @@ const ContactSection = ({ isDarkMode = false }) => {
           </div>
         </div>
 
-        {/* Right Side - Contact Form Card */}
+        {/* Right Side - Contact Form Card with Animation */}
         <div style={{
           flex: isMobile ? 'none' : '0 0 400px',
           maxWidth: isMobile ? '100%' : '400px',
+          opacity: isContentVisible ? 1 : 0,
+          transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'all 0.8s ease-out 0.6s', // 0.6s delay for last in sequence
         }}>
           <div style={{
             backgroundColor: colors.background,
@@ -198,7 +286,8 @@ const ContactSection = ({ isDarkMode = false }) => {
               <div>
                 <label style={{
                   display: 'block',
-                  fontSize: textSizes.sm,
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
                   color: colors.text,
                   marginBottom: '6px',
                   fontWeight: '500',
@@ -216,7 +305,8 @@ const ContactSection = ({ isDarkMode = false }) => {
                     padding: '12px 14px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm,
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
                     boxSizing: 'border-box',
@@ -231,7 +321,8 @@ const ContactSection = ({ isDarkMode = false }) => {
               <div>
                 <label style={{
                   display: 'block',
-                  fontSize: textSizes.sm,
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
                   color: colors.text,
                   marginBottom: '6px',
                   fontWeight: '500',
@@ -249,7 +340,8 @@ const ContactSection = ({ isDarkMode = false }) => {
                     padding: '12px 14px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm,
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
                     boxSizing: 'border-box',
@@ -264,7 +356,8 @@ const ContactSection = ({ isDarkMode = false }) => {
               <div>
                 <label style={{
                   display: 'block',
-                  fontSize: textSizes.sm,
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
                   color: colors.text,
                   marginBottom: '6px',
                   fontWeight: '500',
@@ -282,7 +375,8 @@ const ContactSection = ({ isDarkMode = false }) => {
                     padding: '12px 14px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm,
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
                     boxSizing: 'border-box',
@@ -303,7 +397,8 @@ const ContactSection = ({ isDarkMode = false }) => {
                   border: 'none',
                   borderRadius: '25px',
                   padding: '12px 24px',
-                  fontSize: textSizes.sm,
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',

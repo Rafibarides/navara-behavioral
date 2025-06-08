@@ -79,7 +79,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: `${colors.primary}B3`, // Dark blue with 70% opacity
+        backgroundColor: `${colors.secondary}D9`, // Dark blue with 70% opacity
         zIndex: 1,
       }} />
 
