@@ -101,7 +101,7 @@ const PathwaysPage = ({ isDarkMode = false }) => {
             }}
           >
             <img
-              src="/assets/service-logos/pathways.png"
+              src="assets/service-logos/pathways.png"
               alt="Pathways Logo"
               style={{
                 width: isMobile ? '60px' : '80px',
@@ -167,7 +167,7 @@ const PathwaysPage = ({ isDarkMode = false }) => {
           }}>
             <motion.div variants={itemVariants}>
               <img
-                src="/assets/NAVARA6.jpg"
+                src="assets/NAVARA6.jpg"
                 alt="Career exploration and mentorship"
                 style={{
                   width: '100%',
@@ -180,7 +180,7 @@ const PathwaysPage = ({ isDarkMode = false }) => {
             </motion.div>
             <motion.div variants={itemVariants}>
               <img
-                src="/assets/NAVARA5.jpg"
+                src="assets/NAVARA5.jpg"
                 alt="Young adults in career planning session"
                 style={{
                   width: '100%',

@@ -29,15 +29,15 @@ const OurTeamSection = ({ isDarkMode = false }) => {
   // Dynamic team array
   const teamMembers = [
     {
-      photo: '/assets/nisanFetman.png',
-      eyesClosed: '/assets/nisanFetmanEyesClosed.png',
+      photo: 'assets/nisanFetman.png',
+      eyesClosed: 'assets/nisanFetmanEyesClosed.png',
       name: 'David Nisan Fetman, BCBA',
       position: 'Founder',
       introSentence: 'David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee',
       fullText: 'Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress.'
     },
     {
-        photo: '/assets/lady1.png',
+        photo: 'assets/lady1.png',
         name: 'Sarah Levine, M.Ed, BCBA',
         position: 'Senior Behavior Analyst',
         introSentence: 'Sarah Levine is a Senior Board Certified Behavior Analyst (BCBA) with expertise in early intervention and educational programming.',

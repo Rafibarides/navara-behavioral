@@ -248,7 +248,7 @@ const Careers = ({ isDarkMode = false }) => {
             transition: 'all 0.8s ease-out 0.4s',
           }}>
             <img
-              src="/assets/office.png"
+              src="assets/office.png"
               alt="Navara Office Environment"
               style={{
                 width: '100%',

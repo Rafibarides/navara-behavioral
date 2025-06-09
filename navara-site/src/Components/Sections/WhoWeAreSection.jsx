@@ -38,12 +38,12 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
   // Dynamic array for strips - easily expandable
   const strips = [
     {
-      photo: '/assets/NAVARA7.jpg',
+      photo: 'assets/NAVARA7.jpg',
       title: 'Who We Are',
       text: 'Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration, all under one streamlined, client-focused model.'
     },
     {
-      photo: '/assets/NAVARA8.jpg',
+      photo: 'assets/NAVARA8.jpg',
       title: 'We exist to simplify the process',
       text: 'Whether it\'s understanding a child\'s development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward.'
     }
