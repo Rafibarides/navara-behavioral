@@ -36,7 +36,7 @@ function App() {
   };
 
   return (
-    <Router basename="/navara-behavioral">
+    <Router basename="/navara-behavioral/">
       <ScrollToTop />
       <div style={{ width: '100%', minHeight: '100vh' }}>
         {/* Global Dark Mode Toggle - shown on all pages */}
