@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import servicesData from '../../utils/Services.json';
 
@@ -219,11 +220,49 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                 fontFamily: textSizes.base.fontFamily,
                 color: colors.text,
                 lineHeight: '1.8',
-                margin: 0,
+                marginBottom: '32px',
               }}
             >
               {pathwaysService.p2}
             </motion.p>
+
+            <motion.div 
+              variants={textVariants}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Link 
+                to="/pathways"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  fontSize: textSizes.base.fontSize,
+                  fontFamily: textSizes.base.fontFamily,
+                  fontWeight: '600',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                }}
+              >
+                Learn More
+                <i className="fas fa-arrow-right" style={{ fontSize: '14px' }} />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -357,11 +396,49 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                 fontFamily: textSizes.lg.fontFamily,
                 color: colors.text,
                 lineHeight: '1.8',
-                margin: 0,
+                marginBottom: '32px',
               }}
             >
               {pathwaysService.p2}
             </motion.p>
+
+            <motion.div 
+              variants={textVariants}
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+              }}
+            >
+              <Link 
+                to="/pathways"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                  color: 'white',
+                  padding: '14px 28px',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  fontSize: textSizes.lg.fontSize,
+                  fontFamily: textSizes.lg.fontFamily,
+                  fontWeight: '600',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                }}
+              >
+                Learn More
+                <i className="fas fa-arrow-right" style={{ fontSize: '16px' }} />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </div>

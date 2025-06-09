@@ -35,7 +35,15 @@ const OurTeamSection = ({ isDarkMode = false }) => {
       position: 'Founder',
       introSentence: 'David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee',
       fullText: 'Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress.'
-    }
+    },
+    {
+        photo: '/src/assets/lady1.png',
+        name: 'Sarah Levine, M.Ed, BCBA',
+        position: 'Senior Behavior Analyst',
+        introSentence: 'Sarah Levine is a Senior Board Certified Behavior Analyst (BCBA) with expertise in early intervention and educational programming.',
+        fullText: 'Levine has over a decade of experience designing and implementing individualized behavior intervention plans in school and home settings. She earned her Master of Education in Special Education and has trained numerous parents and professionals in positive behavior support techniques. Sarah is passionate about empowering families and educators through data-driven strategies and compassionate guidance.'
+      }
+      
   ];
 
   // Setup blinking animation for team members with eyesClosed images
