@@ -117,7 +117,7 @@ const FooterSection = ({ isDarkMode = false }) => {
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
               }}>
                 <img
-                  src="/src/assets/service-logos/behavioral.png"
+                  src="/assets/service-logos/behavioral.png"
                   alt="Navara Behavioral Group"
                   style={{
                     width: '50px',

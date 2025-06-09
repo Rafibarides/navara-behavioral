@@ -2,8 +2,8 @@
   "services": [
     {
       "id": "diagnostics",
-      "photo": "/src/assets/NAVARA3.jpg",
-      "logo": "/src/assets/service-logos/diagnostics.png",
+      "photo": "/assets/NAVARA3.jpg",
+      "logo": "/assets/service-logos/diagnostics.png",
       "title": "Diagnostics",
       "p1": "At Navara Diagnostics, we specialize in high-quality psychological and developmental assessments tailored to your child's needs.",
       "highlight": "Our streamlined, parent-focused approach eliminates long wait times and confusing reports",
@@ -11,8 +11,8 @@
     },
     {
       "id": "pathways",
-      "photo": "/src/assets/NAVARA2.jpg",
-      "logo": "/src/assets/service-logos/pathways.png",
+      "photo": "/assets/NAVARA2.jpg",
+      "logo": "/assets/service-logos/pathways.png",
       "title": "Navara Pathways",
       "p1": "Navara Pathways is a guided career exploration program for young adults seeking clarity about their future.",
       "highlight": "",
@@ -20,8 +20,8 @@
     },
     {
       "id": "behavioral",
-      "photo": "/src/assets/NAVARA1.jpg",
-      "logo": "/src/assets/service-logos/behavioral.png",
+      "photo": "/assets/NAVARA1.jpg",
+      "logo": "/assets/service-logos/behavioral.png",
       "title": "The Navara Behavior Method",
       "p1": "The Navara Behavior Mastery Method is a 12-week parent-focused program designed to help families manage behavioral challenges without relying on agencies or insurance delays.",
       "highlight": "",

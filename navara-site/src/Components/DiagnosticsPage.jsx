@@ -172,7 +172,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             }}
           >
             <img
-              src="/src/assets/service-logos/diagnostics.png"
+              src="/assets/service-logos/diagnostics.png"
               alt="Diagnostics Logo"
               style={{
                 width: isMobile ? '60px' : '80px',
