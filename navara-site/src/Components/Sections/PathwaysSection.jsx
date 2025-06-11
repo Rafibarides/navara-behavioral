@@ -127,17 +127,18 @@ const PathwaysSection = ({ isDarkMode = false }) => {
             variants={textVariants}
             style={{
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: '40px',
             }}
           >
-            <img
+            <motion.img
+              variants={imageVariants}
               src={pathwaysService.logo}
               alt={`${pathwaysService.title} Logo`}
               style={{
-                width: '80px',
-                height: '80px',
+                width: '140px',
+                height: '140px',
                 objectFit: 'contain',
-                marginBottom: '24px',
+                marginBottom: '16px',
               }}
             />
             <h2 style={{
@@ -187,7 +188,7 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                 fontFamily: textSizes.base.fontFamily,
                 color: colors.text,
                 lineHeight: '1.8',
-                marginBottom: '40px',
+                marginBottom: '24px',
               }}
             >
               {pathwaysService.p1}
@@ -202,7 +203,7 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                   color: colors.primary,
                   fontWeight: '600',
                   lineHeight: '1.6',
-                  marginBottom: '40px',
+                  marginBottom: '24px',
                   fontStyle: 'italic',
                   padding: '24px',
                   backgroundColor: colors.accent + '15',
@@ -220,7 +221,7 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                 fontFamily: textSizes.base.fontFamily,
                 color: colors.text,
                 lineHeight: '1.8',
-                marginBottom: '32px',
+                marginBottom: '24px',
               }}
             >
               {pathwaysService.p2}
@@ -320,26 +321,25 @@ const PathwaysSection = ({ isDarkMode = false }) => {
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '40px 0',
+          justifyContent: 'flex-start',
         }}>
           {/* Service Logo & Title */}
           <motion.div 
             variants={textVariants}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '48px',
+              marginBottom: '32px',
             }}
           >
-            <img
+            <motion.img
+              variants={imageVariants}
               src={pathwaysService.logo}
               alt={`${pathwaysService.title} Logo`}
               style={{
-                width: '60px',
-                height: '60px',
+                width: '160px',
+                height: '160px',
                 objectFit: 'contain',
-                marginRight: '20px',
+                marginBottom: '16px',
+                display: 'block',
               }}
             />
             <h2 style={{
@@ -362,7 +362,7 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                 fontFamily: textSizes.lg.fontFamily,
                 color: colors.text,
                 lineHeight: '1.8',
-                marginBottom: '40px',
+                marginBottom: '24px',
               }}
             >
               {pathwaysService.p1}
@@ -377,7 +377,7 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                   color: colors.primary,
                   fontWeight: '700',
                   lineHeight: '1.5',
-                  marginBottom: '40px',
+                  marginBottom: '24px',
                   fontStyle: 'italic',
                   padding: '32px',
                   backgroundColor: colors.accent + '20',
@@ -396,7 +396,7 @@ const PathwaysSection = ({ isDarkMode = false }) => {
                 fontFamily: textSizes.lg.fontFamily,
                 color: colors.text,
                 lineHeight: '1.8',
-                marginBottom: '32px',
+                marginBottom: '24px',
               }}
             >
               {pathwaysService.p2}

@@ -109,12 +109,25 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
   };
 
   const cardStyle = {
-    background: colors.surface,
-    borderRadius: '16px',
+    background: `rgba(255, 255, 255, ${isDarkMode ? '0.1' : '0.9'})`,
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    borderRadius: '20px',
     padding: isMobile ? '24px' : '32px',
     marginBottom: '32px',
-    border: `1px solid ${colors.border}`,
-    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+    border: `1px solid rgba(255, 255, 255, ${isDarkMode ? '0.2' : '0.3'})`,
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+  };
+
+  const glassMorphCardStyle = {
+    background: `rgba(255, 255, 255, 0.15)`,
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    borderRadius: '20px',
+    padding: isMobile ? '24px' : '32px',
+    marginBottom: '32px',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
   };
 
   const contactButtonStyle = {
@@ -136,6 +149,39 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
     marginBottom: '16px',
   };
 
+  // Simplified typing animation
+  const TypingText = ({ text, delay = 0 }) => {
+    const words = text.split(' ');
+    
+    return (
+      <motion.span
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{
+          staggerChildren: 0.08,
+          delayChildren: delay,
+        }}
+      >
+        {words.map((word, index) => (
+          <motion.span
+            key={index}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 0.3,
+              delay: index * 0.08 + delay,
+              ease: "easeOut"
+            }}
+            style={{ display: 'inline-block', marginRight: '0.3em' }}
+          >
+            {word}
+          </motion.span>
+        ))}
+      </motion.span>
+    );
+  };
+
   return (
     <div style={{
       width: '100vw',
@@ -145,69 +191,110 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
       background: colors.background,
       boxSizing: 'border-box',
     }}>
+      {/* White Top Bar with Logo */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          backgroundColor: 'white',
+          width: '100vw',
+          padding: '20px 0',
+          paddingTop: '100px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+          position: 'relative',
+          zIndex: 20,
+        }}
+      >
+        <img
+          src="assets/service-logos/diagnostics.png"
+          alt="Diagnostics Logo"
+          style={{
+            width: isMobile ? '80px' : '120px',
+            height: isMobile ? '80px' : '120px',
+            objectFit: 'contain',
+          }}
+        />
+      </motion.div>
+
       {/* Navigation */}
       <NavBarMenu isDarkMode={isDarkMode} />
 
-      {/* Hero Section */}
+      {/* Hero Section with Dark Blue Background */}
       <motion.section 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         style={{
-          ...sectionStyle,
-          background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}10)`,
-          paddingTop: '120px',
+          backgroundColor: '#1B3B62',
+          backgroundImage: `linear-gradient(135deg, #1B3B62 0%, #1A2A40 100%), url('NAVARA1.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay',
+          width: '100vw',
+          margin: 0,
+          boxSizing: 'border-box',
+          paddingTop: '80px',
+          paddingBottom: '80px',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div style={containerStyle}>
-          {/* Logo positioned in top left */}
-          <motion.div 
-            variants={itemVariants}
-            style={{
-              position: 'absolute',
-              top: isMobile ? '80px' : '90px',
-              left: isMobile ? '20px' : '40px',
-              zIndex: 10,
-            }}
-          >
-            <img
-              src="assets/service-logos/diagnostics.png"
-              alt="Diagnostics Logo"
-              style={{
-                width: isMobile ? '60px' : '80px',
-                height: isMobile ? '60px' : '80px',
-                objectFit: 'contain',
-                filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))',
-              }}
-            />
-          </motion.div>
-
-          <motion.h1 variants={itemVariants} style={headingStyle}>
+        {/* Glass morphism overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(27, 59, 98, 0.8)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+        }} />
+        
+        <div style={{
+          ...containerStyle,
+          position: 'relative',
+          zIndex: 10,
+        }}>
+          <motion.h1 variants={itemVariants} style={{
+            ...headingStyle,
+            color: 'white',
+            textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
+          }}>
             DIAGNOSTICS
           </motion.h1>
-          <motion.h2 variants={itemVariants} style={subheadingStyle}>
+          <motion.h2 variants={itemVariants} style={{
+            ...subheadingStyle,
+            color: 'rgba(255, 255, 255, 0.9)',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+          }}>
             Comprehensive Psychological & Developmental Diagnostics
           </motion.h2>
           <motion.p variants={itemVariants} style={{
             fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
             fontFamily: textSizes.xl.fontFamily,
-            color: colors.primary,
+            color: 'white',
             fontWeight: '600',
             textAlign: 'center',
             fontStyle: 'italic',
             marginBottom: '40px',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           }}>
             Clarity. Direction. Action.
           </motion.p>
           <motion.p variants={itemVariants} style={{
             fontSize: textSizes.lg.fontSize,
             fontFamily: textSizes.lg.fontFamily,
-            color: colors.text,
+            color: 'rgba(255, 255, 255, 0.85)',
             lineHeight: '1.8',
             textAlign: 'center',
             maxWidth: '800px',
             margin: '0 auto',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           }}>
             At Navara Behavioral Group, we specialize in high-quality psychological and developmental assessments that empower families, schools, and treatment providers to move forward with confidence.
           </motion.p>
@@ -220,7 +307,10 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        style={sectionStyle}
+        style={{
+          ...sectionStyle,
+          background: `linear-gradient(135deg, ${colors.background} 0%, ${colors.surface} 100%)`,
+        }}
       >
         <div style={containerStyle}>
           <motion.div variants={itemVariants} style={cardStyle}>
@@ -261,58 +351,81 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        style={sectionStyle}
+        style={{
+          ...sectionStyle,
+          backgroundImage: `url('NAVARA1.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          position: 'relative',
+        }}
       >
-        <div style={containerStyle}>
+        {/* Glass morphism overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `rgba(${isDarkMode ? '26, 26, 26' : '242, 242, 242'}, 0.85)`,
+          backdropFilter: 'blur(15px)',
+          WebkitBackdropFilter: 'blur(15px)',
+        }} />
+        
+        <div style={{
+          ...containerStyle,
+          position: 'relative',
+          zIndex: 10,
+        }}>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '32px' }}>
-            <motion.div variants={itemVariants} style={cardStyle}>
-              <h2 style={sectionHeadingStyle}>What We Test For</h2>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+            <motion.div variants={itemVariants} style={glassMorphCardStyle}>
+              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>What We Test For</h2>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Autism Spectrum Disorder (ASD)
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 ADHD & Executive Functioning
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Learning Disabilities (Dyslexia, Dyscalculia, etc.)
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Anxiety, OCD, Mood Disorders
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Behavior & Emotional Regulation
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Intellectual & Cognitive Functioning (IQ Testing)
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 School Readiness & Giftedness
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} style={cardStyle}>
-              <h2 style={sectionHeadingStyle}>Who We Serve</h2>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+            <motion.div variants={itemVariants} style={glassMorphCardStyle}>
+              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>Who We Serve</h2>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Children, Adolescents and Adults (ages 2 and up)
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Parents seeking answers
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Schools and ABA agencies in need of diagnostic clarity
               </div>
-              <div style={listItemStyle}>
-                <span style={bulletStyle}>•</span>
+              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
                 Pediatricians and therapists looking for formal evaluation support
               </div>
             </motion.div>
@@ -320,7 +433,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         </div>
       </motion.section>
 
-      {/* What to Expect */}
+      {/* What to Expect - Vertical Timeline */}
       <motion.section 
         variants={containerVariants}
         initial="hidden"
@@ -328,37 +441,196 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.3 }}
         style={{
           ...sectionStyle,
-          background: `linear-gradient(135deg, ${colors.accent}10, ${colors.primary}05)`,
+          background: `linear-gradient(135deg, ${colors.accent}20, ${colors.primary}10)`,
         }}
       >
         <div style={containerStyle}>
           <motion.div variants={itemVariants} style={cardStyle}>
-            <h2 style={sectionHeadingStyle}>What to Expect</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
-              <div>
-                <div style={{...listItemStyle, marginBottom: '20px'}}>
-                  <span style={{...bulletStyle, color: colors.accent}}>1.</span>
-                  <strong style={{ color: colors.primary }}>Free 15-minute phone consult</strong> – We determine the right assessment package for your needs.
-                </div>
-                <div style={{...listItemStyle, marginBottom: '20px'}}>
-                  <span style={{...bulletStyle, color: colors.accent}}>2.</span>
-                  <strong style={{ color: colors.primary }}>Initial intake session</strong> – We gather history, concerns, and goals.
-                </div>
-                <div style={{...listItemStyle, marginBottom: '20px'}}>
-                  <span style={{...bulletStyle, color: colors.accent}}>3.</span>
-                  <strong style={{ color: colors.primary }}>Testing day(s)</strong> – Comprehensive, focused, and child-friendly.
-                </div>
-              </div>
-              <div>
-                <div style={{...listItemStyle, marginBottom: '20px'}}>
-                  <span style={{...bulletStyle, color: colors.accent}}>4.</span>
-                  <strong style={{ color: colors.primary }}>Results meeting</strong> – We walk you through everything in plain English.
-                </div>
-                <div style={{...listItemStyle, marginBottom: '20px'}}>
-                  <span style={{...bulletStyle, color: colors.accent}}>5.</span>
-                  <strong style={{ color: colors.primary }}>Support for next steps</strong> – We help you share the results with schools or providers and assist with service referrals if needed.
-                </div>
-              </div>
+            <h2 style={{
+              ...sectionHeadingStyle,
+              textAlign: 'center',
+              marginBottom: '48px',
+            }}>
+              <TypingText text="What to Expect" delay={0.2} />
+            </h2>
+            
+            {/* Timeline Container */}
+            <div style={{
+              position: 'relative',
+              maxWidth: '800px',
+              margin: '0 auto',
+              padding: '0 20px',
+            }}>
+              {/* Timeline Steps */}
+              {[
+                {
+                  icon: 'fas fa-phone',
+                  title: 'Free 15-minute phone consult',
+                  description: 'We determine the right assessment package for your needs.',
+                  color: colors.primary,
+                },
+                {
+                  icon: 'fas fa-clipboard-list',
+                  title: 'Initial intake session',
+                  description: 'We gather history, concerns, and goals.',
+                  color: colors.secondary,
+                },
+                {
+                  icon: 'fas fa-brain',
+                  title: 'Testing day(s)',
+                  description: 'Comprehensive, focused, and child-friendly.',
+                  color: colors.accent,
+                },
+                {
+                  icon: 'fas fa-chart-line',
+                  title: 'Results meeting',
+                  description: 'We walk you through everything in plain English.',
+                  color: colors.primary,
+                },
+                {
+                  icon: 'fas fa-hands-helping',
+                  title: 'Support for next steps',
+                  description: 'We help you share the results with schools or providers and assist with service referrals if needed.',
+                  color: colors.secondary,
+                },
+              ].map((step, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, x: -50 },
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      transition: {
+                        duration: 0.6,
+                        delay: index * 0.2,
+                        ease: "easeOut"
+                      }
+                    }
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    marginBottom: index === 4 ? '0' : '48px',
+                    position: 'relative',
+                    zIndex: 2,
+                  }}
+                >
+                  {/* Timeline Icon */}
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.2 + 0.3,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                    viewport={{ once: true }}
+                    style={{
+                      width: isMobile ? '60px' : '80px',
+                      height: isMobile ? '60px' : '80px',
+                      borderRadius: '50%',
+                      background: `linear-gradient(135deg, ${step.color}, ${step.color}dd)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginRight: '24px',
+                      flexShrink: 0,
+                      boxShadow: `0 4px 20px ${step.color}40`,
+                      border: '3px solid white',
+                      position: 'relative',
+                    }}
+                  >
+                    <i 
+                      className={step.icon}
+                      style={{
+                        fontSize: isMobile ? '20px' : '24px',
+                        color: 'white',
+                      }}
+                    />
+                    
+                    {/* Step Number */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: index * 0.2 + 0.6,
+                        type: "spring"
+                      }}
+                      viewport={{ once: true }}
+                      style={{
+                        position: 'absolute',
+                        top: '-8px',
+                        right: '-8px',
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        background: colors.accent,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        color: colors.primary,
+                        border: '2px solid white',
+                      }}
+                    >
+                      {index + 1}
+                    </motion.div>
+                  </motion.div>
+                  
+                  {/* Content */}
+                  <div style={{ flex: 1, paddingTop: '8px' }}>
+                    <motion.h3
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          transition: {
+                            duration: 0.4,
+                            delay: index * 0.2 + 0.4
+                          }
+                        }
+                      }}
+                      style={{
+                        fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+                        fontFamily: textSizes.xl.fontFamily,
+                        color: step.color,
+                        fontWeight: '700',
+                        marginBottom: '8px',
+                        margin: 0,
+                      }}
+                    >
+                      {step.title}
+                    </motion.h3>
+                    <motion.p
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          transition: {
+                            duration: 0.4,
+                            delay: index * 0.2 + 0.5
+                          }
+                        }
+                      }}
+                      style={{
+                        fontSize: textSizes.base.fontSize,
+                        fontFamily: textSizes.base.fontFamily,
+                        color: colors.text,
+                        lineHeight: '1.6',
+                        margin: 0,
+                      }}
+                    >
+                      {step.description}
+                    </motion.p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -387,10 +659,13 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               <div style={{
-                background: colors.primary + '10',
-                borderRadius: '12px',
+                background: `rgba(27, 59, 98, 0.1)`,
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                borderRadius: '16px',
                 padding: '20px',
                 textAlign: 'center',
+                border: '1px solid rgba(27, 59, 98, 0.2)',
               }}>
                 <h3 style={{
                   fontSize: textSizes.lg.fontSize,
@@ -413,10 +688,13 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               </div>
               
               <div style={{
-                background: colors.secondary + '10',
-                borderRadius: '12px',
+                background: `rgba(26, 42, 64, 0.1)`,
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                borderRadius: '16px',
                 padding: '20px',
                 textAlign: 'center',
+                border: '1px solid rgba(26, 42, 64, 0.2)',
               }}>
                 <h3 style={{
                   fontSize: textSizes.lg.fontSize,
@@ -425,7 +703,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                   fontWeight: '700',
                   marginBottom: '8px',
                 }}>
-                  Autism Diagnostic Package
+                  Autism ADHD Diagnostic
                 </h3>
                 <p style={{
                   fontSize: textSizes.xl.fontSize,
@@ -434,15 +712,18 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                   fontWeight: '600',
                   margin: 0,
                 }}>
-                  ~$2,000–$2,500
+                  $1,100
                 </p>
               </div>
               
               <div style={{
-                background: colors.accent + '10',
-                borderRadius: '12px',
+                background: `rgba(203, 217, 197, 0.2)`,
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                borderRadius: '16px',
                 padding: '20px',
                 textAlign: 'center',
+                border: '1px solid rgba(203, 217, 197, 0.3)',
               }}>
                 <h3 style={{
                   fontSize: textSizes.lg.fontSize,
@@ -460,7 +741,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                   fontWeight: '600',
                   margin: 0,
                 }}>
-                  ~$2,500–$3,200
+                  $2,200
                 </p>
               </div>
             </div>
@@ -486,32 +767,47 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         style={{
-          ...sectionStyle,
-          background: `linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}15)`,
+          backgroundColor: '#1B3B62',
+          backgroundImage: `linear-gradient(135deg, #1B3B62 0%, #1A2A40 100%)`,
+          width: '100vw',
+          margin: 0,
+          boxSizing: 'border-box',
         }}
       >
         <div style={containerStyle}>
           <motion.div variants={itemVariants} style={{
-            ...cardStyle,
+            ...glassMorphCardStyle,
             textAlign: 'center',
-            background: colors.surface,
+            background: 'rgba(255, 255, 255, 0.15)',
           }}>
             <h2 style={{
               ...sectionHeadingStyle,
               fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
               textAlign: 'center',
               marginBottom: '16px',
+              color: 'white',
             }}>
               Get Answers. Take Action.
             </h2>
             <p style={{
               fontSize: textSizes.lg.fontSize,
               fontFamily: textSizes.lg.fontFamily,
-              color: colors.text,
+              color: 'rgba(255, 255, 255, 0.9)',
               lineHeight: '1.8',
-              marginBottom: '32px',
+              marginBottom: '16px',
             }}>
               Early diagnosis changes outcomes. Let's get started today.
+            </p>
+            <p style={{
+              fontSize: textSizes.xl.fontSize,
+              fontFamily: textSizes.xl.fontFamily,
+              color: 'white',
+              fontWeight: '600',
+              textAlign: 'center',
+              marginBottom: '32px',
+              fontStyle: 'italic',
+            }}>
+              Book your free consult
             </p>
             
             <div style={{
@@ -520,18 +816,36 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               flexWrap: 'wrap',
               gap: '16px',
             }}>
-              <a href="tel:+1234567890" style={contactButtonStyle}>
+              <a href="tel:+1234567890" style={{
+                ...contactButtonStyle,
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                color: 'white',
+              }}>
                 <i className="fas fa-phone" />
-                Book your free consult
+                Call Us: (123) 456-7890
               </a>
               <a href="mailto:diagnostics@navarabehavioralgroup.com" style={{
                 ...contactButtonStyle,
-                background: colors.surface,
-                color: colors.primary,
-                border: `2px solid ${colors.primary}`,
+                background: 'rgba(255, 255, 255, 0.9)',
+                color: '#1B3B62',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
               }}>
                 <i className="fas fa-envelope" />
                 diagnostics@navarabehavioralgroup.com
+              </a>
+              <a href="#" style={{
+                ...contactButtonStyle,
+                background: 'rgba(203, 217, 197, 0.3)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(203, 217, 197, 0.4)',
+                color: 'white',
+              }}>
+                <i className="fas fa-calendar" />
+                Schedule Online
               </a>
             </div>
           </motion.div>

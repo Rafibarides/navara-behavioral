@@ -94,10 +94,10 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     if (location.pathname === '/') {
       scrollToSection(sectionId);
     } else {
-      navigate('/');
+      navigate('/', { replace: false });
       setTimeout(() => {
         scrollToSection(sectionId);
-      }, 100);
+      }, 150);
     }
   };
 
@@ -116,13 +116,13 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             });
           } else {
             // Navigate to main page, then scroll to top
-            navigate('/');
+            navigate('/', { replace: false });
             setTimeout(() => {
               window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
               });
-            }, 100);
+            }, 150);
           }
           break;
         case 'about':
