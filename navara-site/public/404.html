@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navara Behavioral Group</title>
+    <script>
+      // GitHub Pages SPA redirect
+      // This script takes the current pathname and redirects to index.html
+      // with the pathname as a query parameter that React Router can handle
+      
+      var pathSegments = window.location.pathname.split('/').filter(function(segment) {
+        return segment.length > 0;
+      });
+      
+      var redirect = '/' + (pathSegments.length > 0 ? '?/' + pathSegments.join('/') : '');
+      
+      window.location.replace(redirect);
+    </script>
+  </head>
+  <body>
+    <div>Redirecting...</div>
+  </body>
+</html> 

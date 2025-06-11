@@ -35,11 +35,8 @@ function App() {
     setIsDarkMode(prev => !prev);
   };
 
-  // Get the base path from environment or use root
-  const basename = import.meta.env.BASE_URL || '/';
-
   return (
-    <Router basename={basename === '/' ? '' : basename}>
+    <Router>
       <ScrollToTop />
       <div style={{ width: '100%', minHeight: '100vh' }}>
         {/* Global Dark Mode Toggle - shown on all pages */}
@@ -54,6 +51,8 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy isDarkMode={isDarkMode} />} />
           <Route path="/terms" element={<TermsOfService isDarkMode={isDarkMode} />} />
           <Route path="/sitemap" element={<Sitemap isDarkMode={isDarkMode} />} />
+          {/* Fallback route for unmatched paths */}
+          <Route path="*" element={<MainPage isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
         </Routes>
       </div>
     </Router>
