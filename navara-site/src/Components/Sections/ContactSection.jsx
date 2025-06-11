@@ -211,7 +211,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   margin: 0,
                   fontWeight: '500',
                 }}>
-                  admin@navarabehavioralgroup.com
+                  Info@navarabehavioralgroup.com
                 </p>
               </div>
             </div>
@@ -256,7 +256,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   margin: 0,
                   fontWeight: '500',
                 }}>
-                  (8)-666-NAVARA
+                  (1) 866-6NAVARA (866-662-8272)
                 </p>
               </div>
             </div>

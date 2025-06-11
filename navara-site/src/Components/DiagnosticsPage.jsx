@@ -816,7 +816,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               flexWrap: 'wrap',
               gap: '16px',
             }}>
-              <a href="tel:+1234567890" style={{
+              <a href="tel:+18666628272" style={{
                 ...contactButtonStyle,
                 background: 'rgba(255, 255, 255, 0.2)',
                 backdropFilter: 'blur(10px)',
@@ -825,16 +825,16 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 color: 'white',
               }}>
                 <i className="fas fa-phone" />
-                Call Us: (123) 456-7890
+                Call Us: (1) 866-6NAVARA (866-662-8272)
               </a>
-              <a href="mailto:diagnostics@navarabehavioralgroup.com" style={{
+              <a href="mailto:Info@navarabehavioralgroup.com" style={{
                 ...contactButtonStyle,
                 background: 'rgba(255, 255, 255, 0.9)',
                 color: '#1B3B62',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
               }}>
                 <i className="fas fa-envelope" />
-                diagnostics@navarabehavioralgroup.com
+                Info@navarabehavioralgroup.com
               </a>
               <a href="#" style={{
                 ...contactButtonStyle,

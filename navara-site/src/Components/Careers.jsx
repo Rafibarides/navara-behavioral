@@ -197,7 +197,7 @@ const Careers = ({ isDarkMode = false }) => {
               transition: 'all 0.6s ease-out 0.3s',
             }}>
               <a
-                href="mailto:admin@navarabehavioralgroup.com?subject=Resume Submission"
+                href="mailto:Info@navarabehavioralgroup.com?subject=Resume Submission"
                 style={{
                   backgroundColor: colors.primary,
                   color: colors.surface,
@@ -234,7 +234,7 @@ const Careers = ({ isDarkMode = false }) => {
                 margin: 0,
                 textAlign: isMobile ? 'center' : 'left',
               }}>
-                Email: admin@navarabehavioralgroup.com
+                Email: Info@navarabehavioralgroup.com
               </p>
             </div>
           </div>

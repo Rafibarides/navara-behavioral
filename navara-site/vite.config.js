@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  // Use /navara-behavioral/ for GitHub Pages production, / for local development
-  const base = mode === 'production' ? '/navara-behavioral/' : '/';
+export default defineConfig(() => {
+  // Use / for custom domain (navarabg.com) in both production and development
+  const base = '/';
   
   return {
     plugins: [react()],
