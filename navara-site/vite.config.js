@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-  // Use / for custom domain (navarabg.com) in both production and development
+  // Use / for custom domain (navarabehavioralgroup.com) in both production and development
   const base = '/';
   
   return {
