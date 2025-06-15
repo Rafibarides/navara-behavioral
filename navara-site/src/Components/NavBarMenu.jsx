@@ -143,8 +143,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   };
 
   const handleServiceClick = (serviceId, serviceKey) => {
-    navigateToSection(serviceId);
-    setActiveSection(serviceKey);
+    // Navigate directly to the service page
+    navigate(`/${serviceKey}`);
     setIsServicesOpen(false);
     setIsMobileMenuOpen(false);
   };
