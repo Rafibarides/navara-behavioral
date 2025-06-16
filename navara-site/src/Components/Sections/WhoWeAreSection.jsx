@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
+import siteData from '../../../SiteData.json';
 
 const WhoWeAreSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -10,6 +11,9 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
   const textRefs = useRef([]);
   const sectionRef = useRef(null);
   const lastUpdateTime = useRef(0);
+
+  // Get strips from siteData
+  const strips = siteData.sections.whoWeAre.strips;
 
   // Smooth scroll tracking for the entire section
   const { scrollYProgress } = useScroll({
@@ -34,20 +38,6 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Dynamic array for strips - easily expandable
-  const strips = [
-    {
-      photo: 'assets/NAVARA7.jpg',
-      title: 'Who We Are',
-      text: 'Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration, all under one streamlined, client-focused model.'
-    },
-    {
-      photo: 'assets/NAVARA8.jpg',
-      title: 'We exist to simplify the process',
-      text: 'Whether it\'s understanding a child\'s development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward.'
-    }
-  ];
 
   // Throttle function for better performance
   const throttle = useCallback((func, limit) => {

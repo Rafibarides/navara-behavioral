@@ -3,11 +3,23 @@ import { motion } from 'framer-motion';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
 import FooterSection from './Sections/FooterSection';
+import siteData from '../../SiteData.json';
 
 const DiagnosticsPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Get data from siteData
+  const {
+    hero,
+    whyChoose,
+    whatWeTest,
+    whoWeServe,
+    timeline,
+    pricing,
+    cta
+  } = siteData.sections.diagnosticsPage;
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -265,14 +277,14 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             color: 'white',
             textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
           }}>
-            DIAGNOSTICS
+            {hero.title}
           </motion.h1>
           <motion.h2 variants={itemVariants} style={{
             ...subheadingStyle,
             color: 'rgba(255, 255, 255, 0.9)',
             textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           }}>
-            Comprehensive Psychological & Developmental Diagnostics
+            {hero.subtitle}
           </motion.h2>
           <motion.p variants={itemVariants} style={{
             fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
@@ -284,7 +296,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             marginBottom: '40px',
             textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           }}>
-            Clarity. Direction. Action.
+            {hero.tagline}
           </motion.p>
           <motion.p variants={itemVariants} style={{
             fontSize: textSizes.lg.fontSize,
@@ -296,7 +308,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             margin: '0 auto',
             textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           }}>
-            At Navara Behavioral Group, we specialize in high-quality psychological and developmental assessments that empower families, schools, and treatment providers to move forward with confidence.
+            {hero.description}
           </motion.p>
         </div>
       </motion.section>
@@ -314,31 +326,23 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
       >
         <div style={containerStyle}>
           <motion.div variants={itemVariants} style={cardStyle}>
-            <h2 style={sectionHeadingStyle}>Why Choose Navara Diagnostics?</h2>
+            <h2 style={sectionHeadingStyle}>{whyChoose.title}</h2>
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
               <div>
-                <div style={listItemStyle}>
-                  <span style={bulletStyle}>✓</span>
-                  <strong style={{ color: colors.primary }}>Fast Turnaround</strong> – Get results in days, not months.
-                </div>
-                <div style={listItemStyle}>
-                  <span style={bulletStyle}>✓</span>
-                  <strong style={{ color: colors.primary }}>Clear, Actionable Reports</strong> – No fluff. Every report includes detailed findings and specific recommendations.
-                </div>
-                <div style={listItemStyle}>
-                  <span style={bulletStyle}>✓</span>
-                  <strong style={{ color: colors.primary }}>Multidisciplinary Expertise</strong> – Licensed psychologists, BCBAs, and medical collaboration where needed.
-                </div>
+                {whyChoose.benefits.slice(0, 3).map((benefit, index) => (
+                  <div key={index} style={listItemStyle}>
+                    <span style={bulletStyle}>✓</span>
+                    <strong style={{ color: colors.primary }}>{benefit.title}</strong> – {benefit.description}
+                  </div>
+                ))}
               </div>
               <div>
-                <div style={listItemStyle}>
-                  <span style={bulletStyle}>✓</span>
-                  <strong style={{ color: colors.primary }}>Parent-Friendly Process</strong> – We guide you step-by-step, from intake to feedback.
-                </div>
-                <div style={listItemStyle}>
-                  <span style={bulletStyle}>✓</span>
-                  <strong style={{ color: colors.primary }}>School & Treatment Collaboration</strong> – We liaise directly with providers (when authorized) to support services like IEPs, ABA, or therapy.
-                </div>
+                {whyChoose.benefits.slice(3).map((benefit, index) => (
+                  <div key={index} style={listItemStyle}>
+                    <span style={bulletStyle}>✓</span>
+                    <strong style={{ color: colors.primary }}>{benefit.title}</strong> – {benefit.description}
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -379,55 +383,23 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         }}>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '32px' }}>
             <motion.div variants={itemVariants} style={glassMorphCardStyle}>
-              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>What We Test For</h2>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Autism Spectrum Disorder (ASD)
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                ADHD & Executive Functioning
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Learning Disabilities (Dyslexia, Dyscalculia, etc.)
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Anxiety, OCD, Mood Disorders
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Behavior & Emotional Regulation
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Intellectual & Cognitive Functioning (IQ Testing)
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                School Readiness & Giftedness
-              </div>
+              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>{whatWeTest.title}</h2>
+              {whatWeTest.conditions.map((condition, index) => (
+                <div key={index} style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                  <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
+                  {condition}
+                </div>
+              ))}
             </motion.div>
 
             <motion.div variants={itemVariants} style={glassMorphCardStyle}>
-              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>Who We Serve</h2>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Children, Adolescents and Adults (ages 2 and up)
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Parents seeking answers
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Schools and ABA agencies in need of diagnostic clarity
-              </div>
-              <div style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
-                Pediatricians and therapists looking for formal evaluation support
-              </div>
+              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>{whoWeServe.title}</h2>
+              {whoWeServe.audiences.map((audience, index) => (
+                <div key={index} style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
+                  <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
+                  {audience}
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
@@ -451,7 +423,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               textAlign: 'center',
               marginBottom: '48px',
             }}>
-              <TypingText text="What to Expect" delay={0.2} />
+              <TypingText text={timeline.title} delay={0.2} />
             </h2>
             
             {/* Timeline Container */}
@@ -462,38 +434,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               padding: '0 20px',
             }}>
               {/* Timeline Steps */}
-              {[
-                {
-                  icon: 'fas fa-phone',
-                  title: 'Free 15-minute phone consult',
-                  description: 'We determine the right assessment package for your needs.',
-                  color: colors.primary,
-                },
-                {
-                  icon: 'fas fa-clipboard-list',
-                  title: 'Initial intake session',
-                  description: 'We gather history, concerns, and goals.',
-                  color: colors.secondary,
-                },
-                {
-                  icon: 'fas fa-brain',
-                  title: 'Testing day(s)',
-                  description: 'Comprehensive, focused, and child-friendly.',
-                  color: colors.accent,
-                },
-                {
-                  icon: 'fas fa-chart-line',
-                  title: 'Results meeting',
-                  description: 'We walk you through everything in plain English.',
-                  color: colors.primary,
-                },
-                {
-                  icon: 'fas fa-hands-helping',
-                  title: 'Support for next steps',
-                  description: 'We help you share the results with schools or providers and assist with service referrals if needed.',
-                  color: colors.secondary,
-                },
-              ].map((step, index) => (
+              {timeline.steps.map((step, index) => (
                 <motion.div
                   key={index}
                   variants={{
@@ -511,7 +452,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                   style={{
                     display: 'flex',
                     alignItems: 'flex-start',
-                    marginBottom: index === 4 ? '0' : '48px',
+                    marginBottom: index === timeline.steps.length - 1 ? '0' : '48px',
                     position: 'relative',
                     zIndex: 2,
                   }}
@@ -531,13 +472,13 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                       width: isMobile ? '60px' : '80px',
                       height: isMobile ? '60px' : '80px',
                       borderRadius: '50%',
-                      background: `linear-gradient(135deg, ${step.color}, ${step.color}dd)`,
+                      background: `linear-gradient(135deg, ${colors.primary}, ${colors.primary}dd)`,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       marginRight: '24px',
                       flexShrink: 0,
-                      boxShadow: `0 4px 20px ${step.color}40`,
+                      boxShadow: `0 4px 20px ${colors.primary}40`,
                       border: '3px solid white',
                       position: 'relative',
                     }}
@@ -598,7 +539,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                       style={{
                         fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
                         fontFamily: textSizes.xl.fontFamily,
-                        color: step.color,
+                        color: colors.primary,
                         fontWeight: '700',
                         marginBottom: '8px',
                         margin: 0,
@@ -646,7 +587,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
       >
         <div style={containerStyle}>
           <motion.div variants={itemVariants} style={cardStyle}>
-            <h2 style={sectionHeadingStyle}>Packages & Pricing</h2>
+            <h2 style={sectionHeadingStyle}>{pricing.title}</h2>
             <p style={{
               fontSize: textSizes.lg.fontSize,
               fontFamily: textSizes.lg.fontFamily,
@@ -654,96 +595,40 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               lineHeight: '1.8',
               marginBottom: '24px',
             }}>
-              We offer direct-pay diagnostic packages. No waiting lists. No insurance roadblocks.
+              {pricing.description}
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '24px', marginBottom: '24px' }}>
-              <div style={{
-                background: `rgba(27, 59, 98, 0.1)`,
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                borderRadius: '16px',
-                padding: '20px',
-                textAlign: 'center',
-                border: '1px solid rgba(27, 59, 98, 0.2)',
-              }}>
-                <h3 style={{
-                  fontSize: textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.primary,
-                  fontWeight: '700',
-                  marginBottom: '8px',
+              {pricing.packages.map((pkg, index) => (
+                <div key={index} style={{
+                  background: `rgba(27, 59, 98, 0.1)`,
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  padding: '20px',
+                  textAlign: 'center',
+                  border: '1px solid rgba(27, 59, 98, 0.2)',
                 }}>
-                  Standard Evaluation
-                </h3>
-                <p style={{
-                  fontSize: textSizes.xl.fontSize,
-                  fontFamily: textSizes.xl.fontFamily,
-                  color: colors.text,
-                  fontWeight: '600',
-                  margin: 0,
-                }}>
-                  ~$1,500–$2,200
-                </p>
-              </div>
-              
-              <div style={{
-                background: `rgba(26, 42, 64, 0.1)`,
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                borderRadius: '16px',
-                padding: '20px',
-                textAlign: 'center',
-                border: '1px solid rgba(26, 42, 64, 0.2)',
-              }}>
-                <h3 style={{
-                  fontSize: textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.secondary,
-                  fontWeight: '700',
-                  marginBottom: '8px',
-                }}>
-                  Autism ADHD Diagnostic
-                </h3>
-                <p style={{
-                  fontSize: textSizes.xl.fontSize,
-                  fontFamily: textSizes.xl.fontFamily,
-                  color: colors.text,
-                  fontWeight: '600',
-                  margin: 0,
-                }}>
-                  $1,100
-                </p>
-              </div>
-              
-              <div style={{
-                background: `rgba(203, 217, 197, 0.2)`,
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                borderRadius: '16px',
-                padding: '20px',
-                textAlign: 'center',
-                border: '1px solid rgba(203, 217, 197, 0.3)',
-              }}>
-                <h3 style={{
-                  fontSize: textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.accent,
-                  fontWeight: '700',
-                  marginBottom: '8px',
-                }}>
-                  Full Psychoeducational Battery
-                </h3>
-                <p style={{
-                  fontSize: textSizes.xl.fontSize,
-                  fontFamily: textSizes.xl.fontFamily,
-                  color: colors.text,
-                  fontWeight: '600',
-                  margin: 0,
-                }}>
-                  $2,200
-                </p>
-              </div>
+                  <h3 style={{
+                    fontSize: textSizes.lg.fontSize,
+                    fontFamily: textSizes.lg.fontFamily,
+                    color: colors.primary,
+                    fontWeight: '700',
+                    marginBottom: '8px',
+                  }}>
+                    {pkg.title}
+                  </h3>
+                  <p style={{
+                    fontSize: textSizes.xl.fontSize,
+                    fontFamily: textSizes.xl.fontFamily,
+                    color: colors.text,
+                    fontWeight: '600',
+                    margin: 0,
+                  }}>
+                    {pkg.price}
+                  </p>
+                </div>
+              ))}
             </div>
             
             <p style={{
@@ -754,7 +639,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               textAlign: 'center',
               fontStyle: 'italic',
             }}>
-              Payment plans available. HSA/FSA eligible.
+              {pricing.note}
             </p>
           </motion.div>
         </div>
@@ -787,7 +672,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               marginBottom: '16px',
               color: 'white',
             }}>
-              Get Answers. Take Action.
+              {cta.title}
             </h2>
             <p style={{
               fontSize: textSizes.lg.fontSize,
@@ -796,7 +681,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               lineHeight: '1.8',
               marginBottom: '16px',
             }}>
-              Early diagnosis changes outcomes. Let's get started today.
+              {cta.description}
             </p>
             <p style={{
               fontSize: textSizes.xl.fontSize,
@@ -807,7 +692,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               marginBottom: '32px',
               fontStyle: 'italic',
             }}>
-              Book your free consult
+              {cta.subtitle}
             </p>
             
             <div style={{
@@ -816,7 +701,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               flexWrap: 'wrap',
               gap: '16px',
             }}>
-              <a href="tel:+18666628272" style={{
+              <a href={`tel:${cta.contact.phone}`} style={{
                 ...contactButtonStyle,
                 background: 'rgba(255, 255, 255, 0.2)',
                 backdropFilter: 'blur(10px)',
@@ -825,16 +710,16 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 color: 'white',
               }}>
                 <i className="fas fa-phone" />
-                Call Us: (1) 866-6NAVARA (866-662-8272)
+                Call Us: {cta.contact.phone}
               </a>
-              <a href="mailto:Info@navarabehavioralgroup.com" style={{
+              <a href={`mailto:${cta.contact.email}`} style={{
                 ...contactButtonStyle,
                 background: 'rgba(255, 255, 255, 0.9)',
                 color: '#1B3B62',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
               }}>
                 <i className="fas fa-envelope" />
-                Info@navarabehavioralgroup.com
+                {cta.contact.email}
               </a>
               <a href="#" style={{
                 ...contactButtonStyle,
@@ -845,7 +730,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 color: 'white',
               }}>
                 <i className="fas fa-calendar" />
-                Schedule Online
+                {cta.contact.schedule}
               </a>
             </div>
           </motion.div>

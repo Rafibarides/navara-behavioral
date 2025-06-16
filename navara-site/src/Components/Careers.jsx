@@ -90,15 +90,34 @@ const Careers = ({ isDarkMode = false }) => {
     };
   }, []);
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
-    // Handle email submission logic here
-    console.log('Email submitted:', email);
+    
+    // Check if email is filled
+    if (!email) {
+      return;
+    }
+
+    // Show success state immediately
     setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setEmail('');
-    }, 3000);
+    
+    // Create FormData and add the hidden message
+    const formData = new FormData(e.target);
+    formData.append('message', 'Please consider me during your outreach for jobs and open positions. I am interested in joining the Navara Behavioral Group team.');
+    
+    // Submit in the background
+    try {
+      await fetch("https://formspree.io/f/mblyywzv", {
+        method: "POST",
+        body: formData
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+
+    // Clear form and reset after 3 seconds
+    setEmail('');
+    setTimeout(() => setIsSubmitted(false), 3000);
   };
 
   return (
@@ -302,16 +321,20 @@ const Careers = ({ isDarkMode = false }) => {
             </p>
 
             {/* Email Signup Form */}
-            <form onSubmit={handleEmailSubmit} style={{
-              display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: '16px',
-              maxWidth: '500px',
-              margin: '0 auto',
-              marginBottom: '32px',
-            }}>
+            <form 
+              onSubmit={handleEmailSubmit}
+              style={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: '16px',
+                maxWidth: '500px',
+                margin: '0 auto',
+                marginBottom: '32px',
+              }}
+            >
               <input
                 type="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
@@ -361,13 +384,25 @@ const Careers = ({ isDarkMode = false }) => {
                 {isSubmitted ? (
                   <>
                     <i className="fas fa-check" style={{ marginRight: '8px', fontSize: '12px' }} />
-                    Subscribed!
+                    Excited to Consider You!
                   </>
                 ) : (
                   'Get Updates'
                 )}
               </button>
             </form>
+
+            {isSubmitted && (
+              <p style={{
+                fontSize: textSizes.sm.fontSize,
+                fontFamily: textSizes.sm.fontFamily,
+                color: colors.textSecondary,
+                textAlign: 'center',
+                marginTop: '8px',
+              }}>
+                We'll be in touch when opportunities arise
+              </p>
+            )}
 
             <div style={{
               display: 'flex',

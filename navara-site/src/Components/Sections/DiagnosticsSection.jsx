@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
-import servicesData from '../../utils/Services.json';
+import siteData from '../../../SiteData.json';
 
 const DiagnosticsSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -20,8 +20,8 @@ const DiagnosticsSection = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Get the diagnostics service from JSON
-  const diagnosticsService = servicesData.services.find(service => service.id === 'diagnostics');
+  // Get the diagnostics service from siteData
+  const diagnosticsService = siteData.sections.services.diagnostics;
 
   if (!diagnosticsService) return null;
 

@@ -4,6 +4,18 @@ import { getColors, getTextSizes } from '../../utils/colorsAndText';
 const WelcomeSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Array of welcome phrases
   const welcomePhrases = [
@@ -41,8 +53,8 @@ const WelcomeSection = ({ isDarkMode = false }) => {
       id="welcome-section"
       style={{
         position: 'relative',
-        height: '50vh',
-        minHeight: '400px',
+        height: isMobile ? '25vh' : '50vh',
+        minHeight: isMobile ? '200px' : '400px',
         width: '100vw',
         display: 'flex',
         alignItems: 'center',
@@ -107,11 +119,12 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        transform: isMobile ? 'translateY(10px)' : 'none',
       }}>
         {/* Animated Welcome Text */}
         <h1 style={{ 
-          fontSize: textSizes['4xl'].fontSize,
-          fontFamily: textSizes['4xl'].fontFamily,
+          fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
+          fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
           margin: 0,
           textAlign: 'center',
           color: 'white',
@@ -120,7 +133,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
           transition: 'all 0.5s ease-in-out',
-          minHeight: '1.2em', // Prevent layout shift during transitions
+          minHeight: isMobile ? '1em' : '1.2em', // Smaller height on mobile
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

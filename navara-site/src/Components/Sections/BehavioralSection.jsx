@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
-import servicesData from '../../utils/Services.json';
+import siteData from '../../../SiteData.json';
 
 const BehavioralSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -19,8 +19,8 @@ const BehavioralSection = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Get the behavioral service from JSON
-  const behavioralService = servicesData.services.find(service => service.id === 'behavioral');
+  // Get the behavioral service from siteData
+  const behavioralService = siteData.sections.services.behavioral;
 
   if (!behavioralService) return null;
 

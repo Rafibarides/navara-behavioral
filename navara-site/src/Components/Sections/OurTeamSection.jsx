@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import StaffModal from '../StaffModal';
+import siteData from '../../../SiteData.json';
 
 const OurTeamSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -12,8 +13,11 @@ const OurTeamSection = ({ isDarkMode = false }) => {
   const [typedSubtext, setTypedSubtext] = useState('');
   const sectionRef = useRef(null);
 
+  // Get data from siteData
+  const { title, subtext, members: teamMembers } = siteData.sections.team;
+
   // Text to type out
-  const fullSubtext = "Meet the dedicated professionals committed to providing exceptional care and support";
+  const fullSubtext = subtext;
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -25,26 +29,6 @@ const OurTeamSection = ({ isDarkMode = false }) => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Dynamic team array
-  const teamMembers = [
-    {
-      photo: 'assets/nisanFetman.png',
-      eyesClosed: 'assets/nisanFetmanEyesClosed.png',
-      name: 'David Nisan Fetman, BCBA',
-      position: 'Founder',
-      introSentence: 'David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee',
-      fullText: 'Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress.'
-    },
-    {
-        photo: 'assets/lady1.png',
-        name: 'Sarah Levine, M.Ed, BCBA',
-        position: 'Senior Behavior Analyst',
-        introSentence: 'Sarah Levine is a Senior Board Certified Behavior Analyst (BCBA) with expertise in early intervention and educational programming.',
-        fullText: 'Levine has over a decade of experience designing and implementing individualized behavior intervention plans in school and home settings. She earned her Master of Education in Special Education and has trained numerous parents and professionals in positive behavior support techniques. Sarah is passionate about empowering families and educators through data-driven strategies and compassionate guidance.'
-      }
-      
-  ];
 
   // Setup blinking animation for team members with eyesClosed images
   useEffect(() => {
@@ -156,7 +140,7 @@ const OurTeamSection = ({ isDarkMode = false }) => {
               transform: isTitleVisible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s ease-out',
             }}>
-              OUR TEAM
+              {title}
             </h2>
             
             {/* Fixed height container to prevent layout shift */}
@@ -193,12 +177,12 @@ const OurTeamSection = ({ isDarkMode = false }) => {
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '40px',
+            gap: '30px',
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: isTitleVisible ? 1 : 0, // Changed to fade in with title
-            transform: isTitleVisible ? 'translateY(0)' : 'translateY(30px)', // Changed to fade in with title
-            transition: 'all 0.8s ease-out 0.4s', // Added small delay after title
+            opacity: isTitleVisible ? 1 : 0,
+            transform: isTitleVisible ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'all 0.8s ease-out 0.4s',
           }}>
             {teamMembers.map((member, index) => (
               <div
@@ -207,15 +191,18 @@ const OurTeamSection = ({ isDarkMode = false }) => {
                 style={{
                   backgroundColor: colors.surface,
                   borderRadius: '24px',
-                  padding: '40px 30px',
+                  padding: isMobile ? '40px 30px' : '35px 25px',
                   textAlign: 'center',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   position: 'relative',
-                  maxWidth: '320px',
-                  width: isMobile ? '100%' : '320px',
+                  maxWidth: isMobile ? '100%' : '280px',
+                  width: isMobile ? '100%' : '280px',
+                  height: isMobile ? 'auto' : '380px',
                   overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px) scale(1)';
@@ -244,14 +231,14 @@ const OurTeamSection = ({ isDarkMode = false }) => {
                 <div style={{
                   position: 'relative',
                   zIndex: 2,
-                  marginBottom: '24px',
+                  marginBottom: isMobile ? '24px' : '20px',
                 }}>
                   <img
                     src={member.eyesClosed && blinkingStates[index] ? member.eyesClosed : member.photo}
                     alt={member.name}
                     style={{
-                      width: '120px',
-                      height: '120px',
+                      width: isMobile ? '120px' : '100px',
+                      height: isMobile ? '120px' : '100px',
                       borderRadius: '50%',
                       objectFit: 'cover',
                       border: `4px solid ${colors.surface}`,
@@ -263,8 +250,8 @@ const OurTeamSection = ({ isDarkMode = false }) => {
 
                 {/* Name */}
                 <h3 style={{
-                  fontSize: textSizes.xl.fontSize,
-                  fontFamily: textSizes.xl.fontFamily,
+                  fontSize: isMobile ? textSizes.xl.fontSize : textSizes.lg.fontSize,
+                  fontFamily: isMobile ? textSizes.xl.fontFamily : textSizes.lg.fontFamily,
                   color: colors.text,
                   fontWeight: '600',
                   marginBottom: '8px',
@@ -276,8 +263,8 @@ const OurTeamSection = ({ isDarkMode = false }) => {
 
                 {/* Position */}
                 <p style={{
-                  fontSize: textSizes.base.fontSize,
-                  fontFamily: textSizes.base.fontFamily,
+                  fontSize: isMobile ? textSizes.base.fontSize : textSizes.sm.fontSize,
+                  fontFamily: isMobile ? textSizes.base.fontFamily : textSizes.sm.fontFamily,
                   color: colors.primary,
                   fontWeight: '500',
                   marginBottom: '16px',
@@ -290,13 +277,19 @@ const OurTeamSection = ({ isDarkMode = false }) => {
 
                 {/* Intro Sentence */}
                 <p style={{
-                  fontSize: textSizes.sm.fontSize,
-                  fontFamily: textSizes.sm.fontFamily,
+                  fontSize: isMobile ? textSizes.sm.fontSize : textSizes.xs.fontSize,
+                  fontFamily: isMobile ? textSizes.sm.fontFamily : textSizes.xs.fontFamily,
                   color: colors.textSecondary,
                   lineHeight: '1.5',
                   margin: 0,
                   position: 'relative',
                   zIndex: 2,
+                  flex: 1,
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}>
                   {member.introSentence}
                 </p>

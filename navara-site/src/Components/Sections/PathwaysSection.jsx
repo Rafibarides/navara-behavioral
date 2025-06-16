@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
-import servicesData from '../../utils/Services.json';
+import siteData from '../../../SiteData.json';
 
 const PathwaysSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -20,8 +20,8 @@ const PathwaysSection = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Get the pathways service from JSON
-  const pathwaysService = servicesData.services.find(service => service.id === 'pathways');
+  // Get the pathways service from siteData
+  const pathwaysService = siteData.sections.services.pathways;
 
   if (!pathwaysService) return null;
 

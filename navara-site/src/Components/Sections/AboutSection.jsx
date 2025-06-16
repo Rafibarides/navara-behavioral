@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
+import siteData from '../../../SiteData.json';
 
 const AboutSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -12,13 +13,13 @@ const AboutSection = ({ isDarkMode = false }) => {
   const [typedText, setTypedText] = useState('');
   const sectionRef = useRef(null);
 
-  // Array of words to cycle through
-  const heroWords = ["Clarity.", "Direction.", "Change."];
+  // Get data from siteData
+  const { heroWords, mainContent, differentSection } = siteData.sections.about;
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
   // Text to type out
-  const fullText = "What Makes Us Different?";
+  const fullText = differentSection.title;
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -161,7 +162,7 @@ const AboutSection = ({ isDarkMode = false }) => {
             transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.8s ease-out 0.2s', // 0.2s delay
           }}>
-            Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration—all under one streamlined, client-focused model.
+            {mainContent.p1}
           </p>
 
           <p style={{
@@ -174,7 +175,7 @@ const AboutSection = ({ isDarkMode = false }) => {
             transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.8s ease-out 0.4s', // 0.4s delay for stagger effect
           }}>
-            We exist to simplify the process of getting help. Whether it's understanding a child's development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward.
+            {mainContent.p2}
           </p>
         </div>
 
@@ -231,7 +232,7 @@ const AboutSection = ({ isDarkMode = false }) => {
               transform: shouldShowContent ? 'translateY(0)' : 'translateY(20px)',
               transition: 'transform 0.4s ease-out 0.2s',
             }}>
-              We don't believe in long waitlists, cookie-cutter solutions, or overly complicated systems. At Navara, you get direct access to licensed professionals, concise communication, and actionable plans that actually work—because we know your time and trust matter.
+              {differentSection.content}
             </p>
           </div>
         </div>

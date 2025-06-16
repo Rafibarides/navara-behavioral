@@ -11,6 +11,7 @@ const ContactSection = ({ isDarkMode = false }) => {
     message: ''
   });
   const [isContentVisible, setIsContentVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const sectionRef = useRef(null);
 
   // Array of words to cycle through
@@ -86,11 +87,33 @@ const ContactSection = ({ isDarkMode = false }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // Add your form submission logic here
+    
+    // Check if all required fields are filled
+    if (!formData.name || !formData.email || !formData.message) {
+      return;
+    }
+
+    // Show success state immediately
+    setIsSubmitted(true);
+    
+    // Submit to Formspree in the background
+    const formDataToSend = new FormData(e.target);
+    try {
+      await fetch("https://formspree.io/f/mblyywzv", {
+        method: "POST",
+        body: formDataToSend
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+
+    // Clear form and reset after 3 seconds
+    setFormData({ name: '', email: '', message: '' });
+    setTimeout(() => {
+      setIsSubmitted(false);
+    }, 3000);
   };
 
   return (
@@ -278,11 +301,14 @@ const ContactSection = ({ isDarkMode = false }) => {
             boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
             border: `1px solid ${colors.border}`,
           }}>
-            <form onSubmit={handleSubmit} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
-            }}>
+            <form 
+              onSubmit={handleSubmit}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
+              }}
+            >
               {/* Name Field */}
               <div>
                 <label style={{
@@ -301,6 +327,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Your name"
+                  required
                   style={{
                     width: '100%',
                     padding: '12px 14px',
@@ -336,6 +363,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="your.email@example.com"
+                  required
                   style={{
                     width: '100%',
                     padding: '12px 14px',
@@ -371,6 +399,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   onChange={handleInputChange}
                   placeholder="Tell us about your needs..."
                   rows="3"
+                  required
                   style={{
                     width: '100%',
                     padding: '12px 14px',
@@ -392,8 +421,9 @@ const ContactSection = ({ isDarkMode = false }) => {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={isSubmitted}
                 style={{
-                  backgroundColor: colors.primary,
+                  backgroundColor: isSubmitted ? colors.accent : colors.primary,
                   color: colors.surface,
                   border: 'none',
                   borderRadius: '25px',
@@ -401,7 +431,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
                   fontWeight: '600',
-                  cursor: 'pointer',
+                  cursor: isSubmitted ? 'default' : 'pointer',
                   transition: 'all 0.3s ease',
                   display: 'flex',
                   alignItems: 'center',
@@ -410,17 +440,41 @@ const ContactSection = ({ isDarkMode = false }) => {
                   marginTop: '4px',
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = colors.secondary;
-                  e.target.style.transform = 'translateY(-2px)';
+                  if (!isSubmitted) {
+                    e.target.style.backgroundColor = colors.secondary;
+                    e.target.style.transform = 'translateY(-2px)';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = colors.primary;
-                  e.target.style.transform = 'translateY(0)';
+                  if (!isSubmitted) {
+                    e.target.style.backgroundColor = colors.primary;
+                    e.target.style.transform = 'translateY(0)';
+                  }
                 }}
               >
-                <i className="fas fa-calendar-alt" style={{ fontSize: '14px' }} />
-                Book your free consultation
+                {isSubmitted ? (
+                  <>
+                    <i className="fas fa-check" style={{ fontSize: '14px' }} />
+                    Successfully Sent!
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-calendar-alt" style={{ fontSize: '14px' }} />
+                    Book your free consultation
+                  </>
+                )}
               </button>
+              {isSubmitted && (
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.textSecondary,
+                  textAlign: 'center',
+                  marginTop: '8px',
+                }}>
+                  A team member will be in touch shortly
+                </p>
+              )}
             </form>
           </div>
         </div>

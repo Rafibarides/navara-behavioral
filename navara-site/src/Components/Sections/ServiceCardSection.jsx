@@ -229,39 +229,39 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
 
             {/* Learn More Button with Arrow - Only show on desktop */}
             {!isMobile && (
-              <motion.button
-                onClick={() => handleLearnMore(service.section)}
-                style={{
-                  backgroundColor: colors.primary,
-                  color: colors.surface,
-                  border: 'none',
-                  borderRadius: '25px',
-                  padding: '10px 20px', // Reduced from 12px 24px
-                  fontSize: textSizes.sm.fontSize, // Reduced from base
-                  fontFamily: textSizes.sm.fontFamily,
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  marginTop: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}
-                whileHover={{
-                  backgroundColor: colors.secondary,
-                  scale: 1.03,
-                  transition: {
-                    duration: 0.2,
-                    ease: [0.4, 0, 0.2, 1]
-                  }
-                }}
-                whileTap={{ 
-                  scale: 0.97,
-                  transition: { duration: 0.1 }
-                }}
-              >
-                Learn More
-                <i className="fas fa-arrow-right" style={{ fontSize: '12px' }} />
-              </motion.button>
+            <motion.button
+              onClick={() => handleLearnMore(service.section)}
+              style={{
+                backgroundColor: colors.primary,
+                color: colors.surface,
+                border: 'none',
+                borderRadius: '25px',
+                padding: '10px 20px', // Reduced from 12px 24px
+                fontSize: textSizes.sm.fontSize, // Reduced from base
+                fontFamily: textSizes.sm.fontFamily,
+                fontWeight: '500',
+                cursor: 'pointer',
+                marginTop: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+              whileHover={{
+                backgroundColor: colors.secondary,
+                scale: 1.03,
+                transition: {
+                  duration: 0.2,
+                  ease: [0.4, 0, 0.2, 1]
+                }
+              }}
+              whileTap={{ 
+                scale: 0.97,
+                transition: { duration: 0.1 }
+              }}
+            >
+              Learn More
+              <i className="fas fa-arrow-right" style={{ fontSize: '12px' }} />
+            </motion.button>
             )}
           </motion.div>
         ))}
