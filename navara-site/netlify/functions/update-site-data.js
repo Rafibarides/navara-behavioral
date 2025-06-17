@@ -92,6 +92,16 @@ exports.handler = async (event, context) => {
 
     const result = await updateResponse.json();
     
+    // Try to trigger a new deployment by calling a build hook
+    const BUILD_HOOK_URL = process.env.BUILD_HOOK_URL;
+    if (BUILD_HOOK_URL) {
+      try {
+        await fetch(BUILD_HOOK_URL, { method: 'POST' });
+      } catch (error) {
+        console.log('Build hook trigger failed:', error.message);
+      }
+    }
+    
     return {
       statusCode: 200,
       headers,
