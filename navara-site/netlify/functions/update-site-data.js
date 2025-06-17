@@ -50,67 +50,88 @@ exports.handler = async (event, context) => {
     const content = JSON.stringify(siteData, null, 2);
     const encodedContent = Buffer.from(content).toString('base64');
 
-    // Update both files (root and public folder)
+    // Update both files in parallel
     const filesToUpdate = [
       'navara-site/SiteData.json',
       'navara-site/public/SiteData.json'
     ];
 
-    const results = [];
+    // Function to update a single file
+    const updateFile = async (filePath) => {
+      try {
+        // Get current file to get SHA
+        const getCurrentFileResponse = await fetch(
+          `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+          {
+            headers: {
+              'Authorization': `token ${GITHUB_TOKEN}`,
+              'Accept': 'application/vnd.github.v3+json',
+            },
+          }
+        );
+
+        if (!getCurrentFileResponse.ok) {
+          throw new Error(`Failed to get current file ${filePath}: ${getCurrentFileResponse.statusText}`);
+        }
+
+        const currentFile = await getCurrentFileResponse.json();
+
+        // Update the file
+        const updateResponse = await fetch(
+          `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Authorization': `token ${GITHUB_TOKEN}`,
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `Update site data via CMS - ${new Date().toISOString()}`,
+              content: encodedContent,
+              sha: currentFile.sha,
+            }),
+          }
+        );
+        
+        if (!updateResponse.ok) {
+          const errorText = await updateResponse.text();
+          throw new Error(`Failed to update file ${filePath}: ${updateResponse.statusText} - ${errorText}`);
+        }
+
+        return await updateResponse.json();
+      } catch (error) {
+        console.error(`Error updating ${filePath}:`, error);
+        // Return a partial success if one file fails
+        return { error: error.message, filePath };
+      }
+    };
+
+    // Update both files in parallel
+    const results = await Promise.all(filesToUpdate.map(updateFile));
     
-    for (const filePath of filesToUpdate) {
-      // Get current file to get SHA
-      const getCurrentFileResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
-        {
-          headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json',
-          },
-        }
-      );
-
-      if (!getCurrentFileResponse.ok) {
-        throw new Error(`Failed to get current file ${filePath}: ${getCurrentFileResponse.statusText}`);
-      }
-
-      const currentFile = await getCurrentFileResponse.json();
-
-      // Update the file
-      const updateResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            message: `Update site data via CMS - ${new Date().toISOString()}`,
-            content: encodedContent,
-            sha: currentFile.sha,
-          }),
-        }
-      );
-      
-      if (!updateResponse.ok) {
-        const errorText = await updateResponse.text();
-        throw new Error(`Failed to update file ${filePath}: ${updateResponse.statusText} - ${errorText}`);
-      }
-
-      results.push(await updateResponse.json());
+    // Check if any updates succeeded
+    const successfulUpdates = results.filter(result => !result.error);
+    const failedUpdates = results.filter(result => result.error);
+    
+    if (successfulUpdates.length === 0) {
+      throw new Error('All file updates failed');
     }
 
-    const result = results[0]; // Use the first result for the response
+    const result = successfulUpdates[0]; // Use the first successful result
     
     // Try to trigger a new deployment by calling a build hook
     const BUILD_HOOK_URL = process.env.BUILD_HOOK_URL;
     if (BUILD_HOOK_URL) {
       try {
-        await fetch(BUILD_HOOK_URL, { method: 'POST' });
+        const buildHookResponse = await fetch(BUILD_HOOK_URL, { 
+          method: 'POST',
+          timeout: 5000 // 5 second timeout for build hook
+        });
+        console.log('Build hook triggered:', buildHookResponse.ok);
       } catch (error) {
         console.log('Build hook trigger failed:', error.message);
+        // Don't fail the whole operation if build hook fails
       }
     }
     
@@ -120,7 +141,10 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ 
         success: true, 
         message: 'Site data updated successfully',
-        commit: result.commit.sha
+        commit: result.commit ? result.commit.sha : 'partial-success',
+        filesUpdated: successfulUpdates.length,
+        filesFailed: failedUpdates.length,
+        errors: failedUpdates.length > 0 ? failedUpdates.map(f => f.error) : undefined
       }),
     };
 
