@@ -29,8 +29,8 @@ const Administrator = ({ isDarkMode = false }) => {
     setMessage('');
     
     try {
-      // Use Vercel API function
-      const response = await fetch('/api/update-site-data', {
+      // Use Netlify function deployed on the same domain
+      const response = await fetch('/.netlify/functions/update-site-data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

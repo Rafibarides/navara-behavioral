@@ -1,16 +1,26 @@
-module.exports = async function handler(req, res) {
+exports.handler = async (event, context) => {
   // Add CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
   
   // Handle OPTIONS request (CORS preflight)
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: '',
+    };
   }
   
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: 'Method not allowed' }),
+    };
   }
 
   try {
@@ -18,14 +28,22 @@ module.exports = async function handler(req, res) {
     const GITHUB_REPO = process.env.GITHUB_REPO || 'Rafibarides/navara-behavioral';
     
     if (!GITHUB_TOKEN) {
-      return res.status(500).json({ error: 'GitHub token not configured' });
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: 'GitHub token not configured' }),
+      };
     }
 
-    const siteData = req.body;
+    const siteData = JSON.parse(event.body);
     
     // Validate that we have data
     if (!siteData || typeof siteData !== 'object') {
-      return res.status(400).json({ error: 'Invalid site data provided' });
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Invalid site data provided' }),
+      };
     }
 
     // Get current file to get SHA
@@ -74,17 +92,25 @@ module.exports = async function handler(req, res) {
 
     const result = await updateResponse.json();
     
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Site data updated successfully',
-      commit: result.commit.sha
-    });
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ 
+        success: true, 
+        message: 'Site data updated successfully',
+        commit: result.commit.sha
+      }),
+    };
 
   } catch (error) {
     console.error('Error updating site data:', error);
-    return res.status(500).json({ 
-      error: 'Failed to update site data', 
-      details: error.message 
-    });
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ 
+        error: 'Failed to update site data', 
+        details: error.message 
+      }),
+    };
   }
 }; 
