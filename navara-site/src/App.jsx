@@ -8,6 +8,7 @@ import PathwaysPage from './Components/PathwaysPage';
 import PrivacyPolicy from './Components/PrivacyPolicy';
 import TermsOfService from './Components/TermsOfService';
 import Sitemap from './Components/Sitemap';
+import Administrator from './Components/Administrator';
 import DarkModeToggle from './Components/DarkModeToggle';
 import ScrollToTop from './Components/ScrollToTop';
 import './App.css'
@@ -51,6 +52,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy isDarkMode={isDarkMode} />} />
           <Route path="/terms" element={<TermsOfService isDarkMode={isDarkMode} />} />
           <Route path="/sitemap" element={<Sitemap isDarkMode={isDarkMode} />} />
+          <Route path="/administrator" element={<Administrator isDarkMode={isDarkMode} />} />
           {/* Fallback route for unmatched paths */}
           <Route path="*" element={<MainPage isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
         </Routes>
