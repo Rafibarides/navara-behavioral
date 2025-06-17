@@ -46,51 +46,63 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Get current file to get SHA
-    const getCurrentFileResponse = await fetch(
-      `https://api.github.com/repos/${GITHUB_REPO}/contents/navara-site/SiteData.json`,
-      {
-        headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json',
-        },
-      }
-    );
-
-    if (!getCurrentFileResponse.ok) {
-      throw new Error(`Failed to get current file: ${getCurrentFileResponse.statusText}`);
-    }
-
-    const currentFile = await getCurrentFileResponse.json();
-    
     // Prepare the new content
     const content = JSON.stringify(siteData, null, 2);
     const encodedContent = Buffer.from(content).toString('base64');
 
-    // Update the file
-    const updateResponse = await fetch(
-      `https://api.github.com/repos/${GITHUB_REPO}/contents/navara-site/SiteData.json`,
-      {
-        method: 'PUT',
-        headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: `Update site data via CMS - ${new Date().toISOString()}`,
-          content: encodedContent,
-          sha: currentFile.sha,
-        }),
-      }
-    );
+    // Update both files (root and public folder)
+    const filesToUpdate = [
+      'navara-site/SiteData.json',
+      'navara-site/public/SiteData.json'
+    ];
 
-    if (!updateResponse.ok) {
-      const errorText = await updateResponse.text();
-      throw new Error(`Failed to update file: ${updateResponse.statusText} - ${errorText}`);
+    const results = [];
+    
+    for (const filePath of filesToUpdate) {
+      // Get current file to get SHA
+      const getCurrentFileResponse = await fetch(
+        `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+        {
+          headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json',
+          },
+        }
+      );
+
+      if (!getCurrentFileResponse.ok) {
+        throw new Error(`Failed to get current file ${filePath}: ${getCurrentFileResponse.statusText}`);
+      }
+
+      const currentFile = await getCurrentFileResponse.json();
+
+      // Update the file
+      const updateResponse = await fetch(
+        `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: `Update site data via CMS - ${new Date().toISOString()}`,
+            content: encodedContent,
+            sha: currentFile.sha,
+          }),
+        }
+      );
+      
+      if (!updateResponse.ok) {
+        const errorText = await updateResponse.text();
+        throw new Error(`Failed to update file ${filePath}: ${updateResponse.statusText} - ${errorText}`);
+      }
+
+      results.push(await updateResponse.json());
     }
 
-    const result = await updateResponse.json();
+    const result = results[0]; // Use the first result for the response
     
     // Try to trigger a new deployment by calling a build hook
     const BUILD_HOOK_URL = process.env.BUILD_HOOK_URL;
