@@ -29,36 +29,24 @@ const Administrator = ({ isDarkMode = false }) => {
     setMessage('');
     
     try {
-      // Try Netlify Functions first, then Vercel as fallback
-      let response;
-      
-      try {
-        response = await fetch('/.netlify/functions/update-site-data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-      } catch {
-        // Fallback to Vercel if Netlify fails
-        response = await fetch('/api/update-site-data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-      }
+      // Use Vercel API function
+      const response = await fetch('/api/update-site-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
       
       if (response.ok) {
+        await response.json(); // Parse response but don't store unused result
         setMessage('Site data published successfully! Changes will be live in 1-2 minutes.');
       } else {
         const error = await response.text();
         setMessage(`Error publishing: ${error}`);
       }
-    } catch {
-      setMessage('Error: Unable to connect to publishing service. Please ensure the serverless function is deployed and configured.');
+    } catch (error) {
+      setMessage(`Error: Unable to connect to publishing service. ${error.message}`);
     }
     
     setIsLoading(false);
