@@ -1,0 +1,203 @@
+{
+  "sections": {
+    "whoWeAre": {
+      "strips": [
+        {
+          "photo": "assets/NAVARA7.jpg",
+          "title": "Who We Are!",
+          "text": "Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration, all under one streamlined, client focused model."
+        },
+        {
+          "photo": "assets/NAVARA8.jpg",
+          "title": "We exist to simplify the process",
+          "text": "Whether it's understanding a child's development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward."
+        }
+      ]
+    },
+    "services": {
+      "diagnostics": {
+        "id": "diagnostics",
+        "title": "Diagnostic Evaluations",
+        "logo": "assets/service-logos/diagnostics.png",
+        "photo": "assets/NAVARA1.jpg",
+        "p1": "Our comprehensive diagnostic evaluations provide clarity and understanding for families navigating developmental concerns. We combine evidence-based assessment tools with clinical expertise to deliver detailed, actionable insights.",
+        "highlight": "Understanding is the first step toward meaningful progress.",
+        "p2": "Our evaluations are thorough, compassionate, and focused on providing families with the information they need to make informed decisions about their child's development and care."
+      },
+      "behavioral": {
+        "id": "behavioral",
+        "title": "Behavior Support",
+        "logo": "assets/service-logos/behavioral.png",
+        "photo": "assets/NAVARA2.jpg",
+        "p1": "We provide personalized behavior support services that address the unique needs of each child and family. Our approach combines proven behavioral strategies with practical, family-centered solutions.",
+        "highlight": "Every behavior tells a story. We help you understand and respond effectively.",
+        "p2": "Our behavior support services are designed to help families develop effective strategies for managing challenging behaviors while promoting positive development and family harmony."
+      },
+      "pathways": {
+        "id": "pathways",
+        "title": "Career Pathways",
+        "logo": "assets/service-logos/pathways.png",
+        "photo": "assets/NAVARA3.jpg",
+        "p1": "Our career exploration program helps young adults discover and pursue meaningful career paths. We combine assessment, guidance, and practical experience to support informed career decisions.",
+        "highlight": "Your career journey should reflect your unique strengths and aspirations.",
+        "p2": "Through personalized guidance and hands-on experience, we help young adults identify career paths that align with their interests, strengths, and long-term goals."
+      }
+    },
+    "about": {
+      "heroWords": [
+        "Clarity.",
+        "Direction.",
+        "Change."
+      ],
+      "mainContent": {
+        "p1": "Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration—all under one streamlined, client-focused model.",
+        "p2": "We exist to simplify the process of getting help. Whether it's understanding a child's development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward."
+      },
+      "differentSection": {
+        "title": "What Makes Us Different?",
+        "content": "We don't believe in long waitlists, cookie-cutter solutions, or overly complicated systems. At Navara, you get direct access to licensed professionals, concise communication, and actionable plans that actually work—because we know your time and trust matter."
+      }
+    },
+    "team": {
+      "title": "OUR TEAM",
+      "subtext": "Meet the dedicated professionals committed to providing exceptional care and support",
+      "members": [
+        {
+          "photo": "assets/nisanFetman.png",
+          "eyesClosed": "assets/nisanFetmanEyesClosed.png",
+          "name": "David Nisan Fetman, BCBA",
+          "position": "Founder",
+          "introSentence": "David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee",
+          "fullText": "Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress."
+        },
+        {
+          "photo": "assets/lady1.png",
+          "name": "Sarah Levine, M.Ed, BCBA",
+          "position": "Senior Behavior Analyst",
+          "introSentence": "Sarah Levine is a Senior Board Certified Behavior Analyst (BCBA) with expertise in early intervention and educational programming.",
+          "fullText": "Levine has over a decade of experience designing and implementing individualized behavior intervention plans in school and home settings. She earned her Master of Education in Special Education and has trained numerous parents and professionals in positive behavior support techniques. Sarah is passionate about empowering families and educators through data-driven strategies and compassionate guidance."
+        },
+        {
+          "photo": "assets/gwen.jpg",
+          "name": "Gwen Margaux A. Velarde, CHRA",
+          "position": "Executive Assistant",
+          "introSentence": "Gwen Margaux A. Velarde is a Certified Human Resource Associate (CHRA) with a background in psychology and multidisciplinary support roles.",
+          "fullText": "Gwen holds a Bachelor of Science in Psychology and brings experience across clinical, research, and administrative settings. Since joining Navara Behavioral Group in 2025, she has combined her mental health knowledge with operational expertise to streamline internal systems and enhance team efficiency. Her proactive approach and attention to detail help ensure that every aspect of Navara's day-to-day operations runs smoothly, ultimately supporting the team in delivering consistent, client-centered care."
+        }
+      ]
+    },
+    "diagnosticsPage": {
+      "hero": {
+        "title": "DIAGNOSTICS",
+        "subtitle": "Comprehensive Psychological & Developmental Diagnostics",
+        "tagline": "Clarity. Direction. Action.",
+        "description": "At Navara Behavioral Group, we specialize in high-quality psychological and developmental assessments that empower families, schools, and treatment providers to move forward with confidence."
+      },
+      "whyChoose": {
+        "title": "Why Choose Navara Diagnostics?",
+        "benefits": [
+          {
+            "title": "Fast Turnaround",
+            "description": "Get results in days, not months."
+          },
+          {
+            "title": "Clear, Actionable Reports",
+            "description": "No fluff. Every report includes detailed findings and specific recommendations."
+          },
+          {
+            "title": "Multidisciplinary Expertise",
+            "description": "Licensed psychologists, BCBAs, and medical collaboration where needed."
+          },
+          {
+            "title": "Parent-Friendly Process",
+            "description": "We guide you step-by-step, from intake to feedback."
+          },
+          {
+            "title": "School & Treatment Collaboration",
+            "description": "We liaise directly with providers (when authorized) to support services like IEPs, ABA, or therapy."
+          }
+        ]
+      },
+      "whatWeTest": {
+        "title": "What We Test For",
+        "conditions": [
+          "Autism Spectrum Disorder (ASD)",
+          "ADHD & Executive Functioning",
+          "Learning Disabilities (Dyslexia, Dyscalculia, etc.)",
+          "Anxiety, OCD, Mood Disorders",
+          "Behavior & Emotional Regulation",
+          "Intellectual & Cognitive Functioning (IQ Testing)",
+          "School Readiness & Giftedness"
+        ]
+      },
+      "whoWeServe": {
+        "title": "Who We Serve",
+        "audiences": [
+          "Children, Adolescents and Adults (ages 2 and up)",
+          "Parents seeking answers",
+          "Schools and ABA agencies in need of diagnostic clarity",
+          "Pediatricians and therapists looking for formal evaluation support"
+        ]
+      },
+      "timeline": {
+        "title": "What to Expect",
+        "steps": [
+          {
+            "icon": "fas fa-phone",
+            "title": "Free 15-minute phone consult",
+            "description": "We determine the right assessment package for your needs."
+          },
+          {
+            "icon": "fas fa-clipboard-list",
+            "title": "Initial intake session",
+            "description": "We gather history, concerns, and goals."
+          },
+          {
+            "icon": "fas fa-brain",
+            "title": "Testing day(s)",
+            "description": "Comprehensive, focused, and child-friendly."
+          },
+          {
+            "icon": "fas fa-chart-line",
+            "title": "Results meeting",
+            "description": "We walk you through everything in plain English."
+          },
+          {
+            "icon": "fas fa-hands-helping",
+            "title": "Support for next steps",
+            "description": "We help you share the results with schools or providers and assist with service referrals if needed."
+          }
+        ]
+      },
+      "pricing": {
+        "title": "Packages & Pricing",
+        "description": "We offer direct-pay diagnostic packages. No waiting lists. No insurance roadblocks.",
+        "packages": [
+          {
+            "title": "Standard Evaluation",
+            "price": "~$1,500–$2,200"
+          },
+          {
+            "title": "Autism ADHD Diagnostic",
+            "price": "$1,100"
+          },
+          {
+            "title": "Full Psychoeducational Battery",
+            "price": "$2,200"
+          }
+        ],
+        "note": "Payment plans available. HSA/FSA eligible."
+      },
+      "cta": {
+        "title": "Get Answers. Take Action.",
+        "description": "Early diagnosis changes outcomes. Let's get started today.",
+        "subtitle": "Book your free consult",
+        "contact": {
+          "phone": "(1) 866-6NAVARA (866-662-8272)",
+          "email": "Info@navarabehavioralgroup.com",
+          "schedule": "Schedule Online"
+        }
+      }
+    }
+  }
+}
