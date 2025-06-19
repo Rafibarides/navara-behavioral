@@ -209,7 +209,90 @@ const PrivacyPolicy = ({ isDarkMode = false }) => {
               <li>Communicate with you about your treatment</li>
               <li>Process payments and insurance claims</li>
               <li>Comply with legal and regulatory requirements</li>
+              <li>Send appointment reminders and care notifications via SMS (with your consent)</li>
             </ul>
+          </section>
+
+          <section style={{ marginBottom: '32px' }}>
+            <h2 style={{
+              fontSize: textSizes['2xl'].fontSize,
+              fontFamily: textSizes['2xl'].fontFamily,
+              color: colors.primary,
+              marginBottom: '16px',
+              fontWeight: '600'
+            }}>
+              Information Sharing
+            </h2>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              marginBottom: '16px'
+            }}>
+              We may share your personal information with:
+            </p>
+            <ul style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              marginBottom: '16px',
+              paddingLeft: '20px'
+            }}>
+              <li>Healthcare providers involved in your care</li>
+              <li>Insurance companies for billing and coverage verification</li>
+              <li>Legal authorities when required by law</li>
+              <li>Service providers who assist with our operations (under strict confidentiality agreements)</li>
+            </ul>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              marginBottom: '16px',
+              fontWeight: '600'
+            }}>
+              <strong>SMS Consent is not shared with third parties or affiliates.</strong> Your consent to receive SMS messages from us is kept confidential and is not sold, shared, or disclosed to any third parties for marketing or other purposes.
+            </p>
+          </section>
+
+          <section style={{ marginBottom: '32px' }}>
+            <h2 style={{
+              fontSize: textSizes['2xl'].fontSize,
+              fontFamily: textSizes['2xl'].fontFamily,
+              color: colors.primary,
+              marginBottom: '16px',
+              fontWeight: '600'
+            }}>
+              SMS Terms of Service
+            </h2>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              marginBottom: '16px'
+            }}>
+              By opting into SMS from a web form or other medium, you are agreeing to receive SMS messages from Navara Behavioral Group. This includes SMS messages for customer care and appointment reminders.
+            </p>
+            <ul style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              marginBottom: '16px',
+              paddingLeft: '20px'
+            }}>
+              <li>Message frequency varies based on your care needs and preferences</li>
+              <li>Message and data rates may apply depending on your mobile carrier plan</li>
+              <li>To opt out at any time, text <strong>STOP</strong> to any message</li>
+              <li>For assistance, text <strong>HELP</strong> or visit our website at <a href="https://navarabehavioralgroup.com" style={{ color: colors.primary, textDecoration: 'none' }}>https://navarabehavioralgroup.com</a></li>
+              <li>Carriers are not liable for delayed or undelivered messages</li>
+            </ul>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              marginBottom: '16px'
+            }}>
+              For privacy policy information, visit <a href="https://navarabehavioralgroup.com/privacy" style={{ color: colors.primary, textDecoration: 'none' }}>https://navarabehavioralgroup.com/privacy</a>. For Terms of Service, visit <a href="https://navarabehavioralgroup.com/terms" style={{ color: colors.primary, textDecoration: 'none' }}>https://navarabehavioralgroup.com/terms</a>.
+            </p>
           </section>
 
           <section style={{ marginBottom: '32px' }}>

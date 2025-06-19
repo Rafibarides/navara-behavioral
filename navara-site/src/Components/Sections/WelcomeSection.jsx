@@ -78,6 +78,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
+          objectPosition: isMobile ? 'right center' : 'center',
           zIndex: 1,
         }}
       >

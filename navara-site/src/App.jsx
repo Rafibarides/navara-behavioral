@@ -5,6 +5,7 @@ import Careers from './Components/Careers';
 import ClientPortal from './Components/ClientPortal';
 import DiagnosticsPage from './Components/DiagnosticsPage';
 import PathwaysPage from './Components/PathwaysPage';
+import BehavioralPage from './Components/BehavioralPage';
 import PrivacyPolicy from './Components/PrivacyPolicy';
 import TermsOfService from './Components/TermsOfService';
 import Sitemap from './Components/Sitemap';
@@ -49,6 +50,7 @@ function App() {
           <Route path="/client-portal" element={<ClientPortal isDarkMode={isDarkMode} />} />
           <Route path="/diagnostics" element={<DiagnosticsPage isDarkMode={isDarkMode} />} />
           <Route path="/pathways" element={<PathwaysPage isDarkMode={isDarkMode} />} />
+          <Route path="/behavioral" element={<BehavioralPage isDarkMode={isDarkMode} />} />
           <Route path="/privacy" element={<PrivacyPolicy isDarkMode={isDarkMode} />} />
           <Route path="/terms" element={<TermsOfService isDarkMode={isDarkMode} />} />
           <Route path="/sitemap" element={<Sitemap isDarkMode={isDarkMode} />} />
