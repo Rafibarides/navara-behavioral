@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
+import CalendlyModal from '../CalendlyModal';
 
 const ContactSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -12,6 +13,7 @@ const ContactSection = ({ isDarkMode = false }) => {
   });
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const sectionRef = useRef(null);
 
   // Array of words to cycle through
@@ -420,12 +422,46 @@ const ContactSection = ({ isDarkMode = false }) => {
 
               {/* Submit Button */}
               <button
+                type="button"
+                onClick={() => setIsCalendlyModalOpen(true)}
+                style={{
+                  backgroundColor: colors.primary,
+                  color: colors.surface,
+                  border: 'none',
+                  borderRadius: '25px',
+                  padding: '12px 24px',
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  marginTop: '4px',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = colors.secondary;
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = colors.primary;
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <i className="fas fa-calendar-alt" style={{ fontSize: '14px' }} />
+                Book your free consultation
+              </button>
+
+              {/* Alternative: Send Message Button */}
+              <button
                 type="submit"
                 disabled={isSubmitted}
                 style={{
-                  backgroundColor: isSubmitted ? colors.accent : colors.primary,
-                  color: colors.surface,
-                  border: 'none',
+                  backgroundColor: isSubmitted ? colors.accent : 'transparent',
+                  color: isSubmitted ? colors.surface : colors.primary,
+                  border: `2px solid ${colors.primary}`,
                   borderRadius: '25px',
                   padding: '12px 24px',
                   fontSize: textSizes.sm.fontSize,
@@ -437,17 +473,19 @@ const ContactSection = ({ isDarkMode = false }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  marginTop: '4px',
+                  marginTop: '8px',
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitted) {
-                    e.target.style.backgroundColor = colors.secondary;
+                    e.target.style.backgroundColor = colors.primary;
+                    e.target.style.color = 'white';
                     e.target.style.transform = 'translateY(-2px)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isSubmitted) {
-                    e.target.style.backgroundColor = colors.primary;
+                    e.target.style.backgroundColor = 'transparent';
+                    e.target.style.color = colors.primary;
                     e.target.style.transform = 'translateY(0)';
                   }
                 }}
@@ -455,12 +493,12 @@ const ContactSection = ({ isDarkMode = false }) => {
                 {isSubmitted ? (
                   <>
                     <i className="fas fa-check" style={{ fontSize: '14px' }} />
-                    Successfully Sent!
+                    Message Sent!
                   </>
                 ) : (
                   <>
-                    <i className="fas fa-calendar-alt" style={{ fontSize: '14px' }} />
-                    Book your free consultation
+                    <i className="fas fa-paper-plane" style={{ fontSize: '14px' }} />
+                    Send Message
                   </>
                 )}
               </button>
@@ -479,6 +517,13 @@ const ContactSection = ({ isDarkMode = false }) => {
           </div>
         </div>
       </div>
+
+      {/* Calendly Modal */}
+      <CalendlyModal 
+        isOpen={isCalendlyModalOpen}
+        onClose={() => setIsCalendlyModalOpen(false)}
+        isDarkMode={isDarkMode}
+      />
     </section>
   );
 };

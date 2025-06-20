@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
 import FooterSection from './Sections/FooterSection';
+import CalendlyModal from './CalendlyModal';
 import siteData from '../../SiteData.json';
 
 const DiagnosticsPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
   // Get data from siteData
   const {
@@ -721,17 +723,20 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 <i className="fas fa-envelope" />
                 {cta.contact.email}
               </a>
-              <a href="#" style={{
-                ...contactButtonStyle,
-                background: 'rgba(203, 217, 197, 0.3)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid rgba(203, 217, 197, 0.4)',
-                color: 'white',
-              }}>
+              <button 
+                onClick={() => setIsCalendlyModalOpen(true)}
+                style={{
+                  ...contactButtonStyle,
+                  background: 'rgba(203, 217, 197, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(203, 217, 197, 0.4)',
+                  color: 'white',
+                }}
+              >
                 <i className="fas fa-calendar" />
                 {cta.contact.schedule}
-              </a>
+              </button>
             </div>
           </motion.div>
         </div>
@@ -739,6 +744,13 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
+
+      {/* Calendly Modal */}
+      <CalendlyModal 
+        isOpen={isCalendlyModalOpen}
+        onClose={() => setIsCalendlyModalOpen(false)}
+        isDarkMode={isDarkMode}
+      />
     </div>
   );
 };

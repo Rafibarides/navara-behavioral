@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
 import FooterSection from './Sections/FooterSection';
+import CalendlyModal from './CalendlyModal';
 import siteData from '../../SiteData.json';
 
 const BehavioralPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
   // Get the behavioral service from siteData
   const behavioralService = siteData.sections.services.behavioral;
@@ -378,8 +380,8 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             gap: '20px',
             flexWrap: 'wrap',
           }}>
-            <a
-              href="tel:+1234567890"
+            <button
+              onClick={() => setIsCalendlyModalOpen(true)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -388,10 +390,11 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 color: 'white',
                 padding: '14px 28px',
                 borderRadius: '12px',
-                textDecoration: 'none',
+                border: 'none',
                 fontSize: textSizes.base.fontSize,
                 fontFamily: textSizes.base.fontFamily,
                 fontWeight: '600',
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
               }}
@@ -402,6 +405,38 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               onMouseLeave={(e) => {
                 e.target.style.transform = 'translateY(0)';
                 e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+              }}
+            >
+              <i className="fas fa-calendar" />
+              Schedule Consultation
+            </button>
+
+            <a
+              href="tel:+1234567890"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'transparent',
+                color: colors.primary,
+                padding: '14px 28px',
+                borderRadius: '12px',
+                textDecoration: 'none',
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                fontWeight: '600',
+                border: `2px solid ${colors.primary}`,
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = colors.primary;
+                e.target.style.color = 'white';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent';
+                e.target.style.color = colors.primary;
+                e.target.style.transform = 'translateY(0)';
               }}
             >
               <i className="fas fa-phone" />
@@ -445,6 +480,13 @@ const BehavioralPage = ({ isDarkMode = false }) => {
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
+
+      {/* Calendly Modal */}
+      <CalendlyModal 
+        isOpen={isCalendlyModalOpen}
+        onClose={() => setIsCalendlyModalOpen(false)}
+        isDarkMode={isDarkMode}
+      />
     </div>
   );
 };
