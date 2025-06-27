@@ -281,7 +281,7 @@ const ContactSection = ({ isDarkMode = false }) => {
                   margin: 0,
                   fontWeight: '500',
                 }}>
-                  (1) 866-6NAVARA (866-662-8272)
+                  (1) 877-7NAVARA (877-762-8272)
                 </p>
               </div>
             </div>
