@@ -420,48 +420,14 @@ const ContactSection = ({ isDarkMode = false }) => {
                 />
               </div>
 
-              {/* Submit Button */}
-              <button
-                type="button"
-                onClick={() => setIsCalendlyModalOpen(true)}
-                style={{
-                  backgroundColor: colors.primary,
-                  color: colors.surface,
-                  border: 'none',
-                  borderRadius: '25px',
-                  padding: '12px 24px',
-                  fontSize: textSizes.sm.fontSize,
-                  fontFamily: textSizes.sm.fontFamily,
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  marginTop: '4px',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = colors.secondary;
-                  e.target.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = colors.primary;
-                  e.target.style.transform = 'translateY(0)';
-                }}
-              >
-                <i className="fas fa-calendar-alt" style={{ fontSize: '14px' }} />
-                Book your free consultation
-              </button>
-
-              {/* Alternative: Send Message Button */}
+              {/* Submit Button - Send Message */}
               <button
                 type="submit"
                 disabled={isSubmitted}
                 style={{
-                  backgroundColor: isSubmitted ? colors.accent : 'transparent',
-                  color: isSubmitted ? colors.surface : colors.primary,
-                  border: `2px solid ${colors.primary}`,
+                  backgroundColor: isSubmitted ? colors.accent : colors.primary,
+                  color: isSubmitted ? colors.surface : colors.surface,
+                  border: 'none',
                   borderRadius: '25px',
                   padding: '12px 24px',
                   fontSize: textSizes.sm.fontSize,
@@ -473,19 +439,17 @@ const ContactSection = ({ isDarkMode = false }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  marginTop: '8px',
+                  marginTop: '4px',
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitted) {
-                    e.target.style.backgroundColor = colors.primary;
-                    e.target.style.color = 'white';
+                    e.target.style.backgroundColor = colors.secondary;
                     e.target.style.transform = 'translateY(-2px)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isSubmitted) {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = colors.primary;
+                    e.target.style.backgroundColor = colors.primary;
                     e.target.style.transform = 'translateY(0)';
                   }
                 }}
@@ -514,6 +478,58 @@ const ContactSection = ({ isDarkMode = false }) => {
                 </p>
               )}
             </form>
+
+            {/* Separate consultation booking option */}
+            <div style={{
+              marginTop: '20px',
+              paddingTop: '20px',
+              borderTop: `1px solid ${colors.border}`,
+              textAlign: 'center',
+            }}>
+              <p style={{
+                fontSize: textSizes.xs.fontSize,
+                fontFamily: textSizes.xs.fontFamily,
+                color: colors.textSecondary,
+                margin: '0 0 12px 0',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Or skip the form →
+              </p>
+              <button
+                type="button"
+                onClick={() => setIsCalendlyModalOpen(true)}
+                style={{
+                  backgroundColor: 'transparent',
+                  color: colors.primary,
+                  border: `1px solid ${colors.primary}`,
+                  borderRadius: '20px',
+                  padding: '8px 16px',
+                  fontSize: textSizes.xs.fontSize,
+                  fontFamily: textSizes.xs.fontFamily,
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  margin: '0 auto',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = colors.primary + '10';
+                  e.target.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <i className="fas fa-calendar-alt" style={{ fontSize: '12px' }} />
+                Book your free consultation
+                <i className="fas fa-external-link-alt" style={{ fontSize: '10px', opacity: 0.7 }} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
