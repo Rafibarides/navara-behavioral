@@ -174,16 +174,16 @@
         "description": "We offer direct-pay diagnostic packages. No waiting lists. No insurance roadblocks.",
         "packages": [
           {
-            "title": "Standard Evaluation",
-            "price": "~$1,500–$2,200"
+            "title": "Comprehensive ASD Evaluation",
+            "price": "$1,650"
           },
           {
-            "title": "Autism ADHD Diagnostic",
-            "price": "$1,100"
-          },
-          {
-            "title": "Full Psychoeducational Battery",
+            "title": "ASD/ADHD Battery",
             "price": "$2,200"
+          },
+          {
+            "title": "Full Neuropsychological Evaluation",
+            "price": "$3,500"
           }
         ],
         "note": "Payment plans available. HSA/FSA eligible."
