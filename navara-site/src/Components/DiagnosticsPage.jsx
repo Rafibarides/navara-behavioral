@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
 import FooterSection from './Sections/FooterSection';
 import CalendlyModal from './CalendlyModal';
 import siteData from '../../SiteData.json';
+import { motion } from 'framer-motion';
 
 const DiagnosticsPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
@@ -703,7 +703,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               flexWrap: 'wrap',
               gap: '16px',
             }}>
-              <a href={`tel:${cta.contact.phone}`} style={{
+              <a href="tel:+18777628272" style={{
                 ...contactButtonStyle,
                 background: 'rgba(255, 255, 255, 0.2)',
                 backdropFilter: 'blur(10px)',
@@ -719,9 +719,17 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 background: 'rgba(255, 255, 255, 0.9)',
                 color: '#1B3B62',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
+                fontSize: isMobile ? textSizes.sm.fontSize : textSizes.base.fontSize,
+                padding: isMobile ? '10px 16px' : '12px 24px',
+                maxWidth: isMobile ? 'calc(100vw - 80px)' : 'none',
+                minWidth: 'auto',
+                wordBreak: 'break-all',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: isMobile ? 'nowrap' : 'normal',
               }}>
                 <i className="fas fa-envelope" />
-                {cta.contact.email}
+                {isMobile ? 'Email Us' : cta.contact.email}
               </a>
               <button 
                 onClick={() => setIsCalendlyModalOpen(true)}

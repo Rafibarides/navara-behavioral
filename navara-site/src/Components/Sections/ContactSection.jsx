@@ -274,15 +274,23 @@ const ContactSection = ({ isDarkMode = false }) => {
                 }}>
                   Phone
                 </p>
-                <p style={{
-                  fontSize: textSizes.base.fontSize,
-                  fontFamily: textSizes.base.fontFamily,
-                  color: colors.text,
-                  margin: 0,
-                  fontWeight: '500',
-                }}>
+                <a 
+                  href="tel:+18777628272"
+                  style={{
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.text,
+                    margin: 0,
+                    fontWeight: '500',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = colors.primary}
+                  onMouseLeave={(e) => e.target.style.color = colors.text}
+                >
                   (1) 877-7NAVARA (877-762-8272)
-                </p>
+                </a>
               </div>
             </div>
           </div>

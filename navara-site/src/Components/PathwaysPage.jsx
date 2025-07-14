@@ -503,7 +503,7 @@ const PathwaysPage = ({ isDarkMode = false }) => {
               flexWrap: 'wrap',
               gap: '16px',
             }}>
-              <a href="tel:+1234567890" style={{
+              <a href="tel:+18777628272" style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
