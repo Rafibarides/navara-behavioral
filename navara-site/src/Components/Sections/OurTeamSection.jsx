@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import StaffModal from '../StaffModal';
 import siteData from '../../../SiteData.json';
@@ -8,16 +8,9 @@ const OurTeamSection = ({ isDarkMode = false }) => {
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const [blinkingStates, setBlinkingStates] = useState({});
-  const [isTitleVisible, setIsTitleVisible] = useState(false);
-  const [typedSubtext, setTypedSubtext] = useState('');
-  const sectionRef = useRef(null);
 
   // Get data from siteData
   const { title, subtext, members: teamMembers } = siteData.sections.team;
-
-  // Text to type out
-  const fullSubtext = subtext;
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -28,75 +21,6 @@ const OurTeamSection = ({ isDarkMode = false }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Setup blinking animation for team members with eyesClosed images
-  useEffect(() => {
-    const intervals = {};
-
-    teamMembers.forEach((member, index) => {
-      if (member.eyesClosed) {
-        intervals[index] = setInterval(() => {
-          // Show eyes closed for a quick flash
-          setBlinkingStates(prev => ({ ...prev, [index]: true }));
-          
-          setTimeout(() => {
-            setBlinkingStates(prev => ({ ...prev, [index]: false }));
-          }, 200); // Eyes closed for 200ms (quick flash)
-          
-        }, 4000); // Every 4 seconds
-      }
-    });
-
-    // Cleanup intervals on unmount
-    return () => {
-      Object.values(intervals).forEach(interval => clearInterval(interval));
-    };
-  }, [teamMembers]);
-
-  // Typing animation for subtext
-  useEffect(() => {
-    if (isTitleVisible && typedSubtext.length < fullSubtext.length) {
-      const timeout = setTimeout(() => {
-        setTypedSubtext(fullSubtext.slice(0, typedSubtext.length + 1));
-      }, 50); // Typing speed
-      
-      return () => clearTimeout(timeout);
-    }
-  }, [isTitleVisible, typedSubtext, fullSubtext]);
-
-  // Intersection Observer for title animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Start title fade in immediately
-            setIsTitleVisible(true);
-            // Reset typing animation only once when coming into view
-            setTypedSubtext('');
-          } else {
-            // Reset animations when section leaves view
-            setIsTitleVisible(false);
-            setTypedSubtext('');
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '0px 0px -100px 0px'
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
   }, []);
 
   const handleStaffClick = (staff) => {
@@ -111,7 +35,6 @@ const OurTeamSection = ({ isDarkMode = false }) => {
     <>
       <section 
         id="team"
-        ref={sectionRef}
         style={{
           backgroundColor: colors.background,
           width: '100vw',
@@ -124,7 +47,7 @@ const OurTeamSection = ({ isDarkMode = false }) => {
           maxWidth: '1200px',
           margin: '0 auto',
         }}>
-          {/* Section Title with Animations */}
+          {/* Section Title */}
           <div style={{
             textAlign: 'center',
             marginBottom: isMobile ? '60px' : '80px',
@@ -136,14 +59,10 @@ const OurTeamSection = ({ isDarkMode = false }) => {
               fontWeight: '700',
               marginBottom: '16px',
               letterSpacing: '0.05em',
-              opacity: isTitleVisible ? 1 : 0,
-              transform: isTitleVisible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'all 0.8s ease-out',
             }}>
               {title}
             </h2>
             
-            {/* Fixed height container to prevent layout shift */}
             <div style={{
               fontSize: textSizes.lg.fontSize,
               fontFamily: textSizes.lg.fontFamily,
@@ -151,38 +70,19 @@ const OurTeamSection = ({ isDarkMode = false }) => {
               lineHeight: '1.6',
               maxWidth: '600px',
               margin: '0 auto',
-              height: isMobile ? '4em' : '3.2em', // Fixed height for 2-3 lines
-              display: 'flex',
-              alignItems: 'flex-start', // Align to top instead of center
-              justifyContent: 'center',
-              paddingTop: '0.2em', // Small padding to center text visually
+              textAlign: 'center',
             }}>
-              <span style={{
-                textAlign: 'center',
-                width: '100%',
-              }}>
-                {typedSubtext}
-                {typedSubtext.length < fullSubtext.length && isTitleVisible && (
-                  <span style={{
-                    opacity: Math.sin(Date.now() / 500) > 0 ? 1 : 0,
-                    transition: 'opacity 0.1s',
-                    color: colors.textSecondary,
-                  }}>|</span>
-                )}
-              </span>
+              {subtext}
             </div>
           </div>
 
-          {/* Team Cards Grid - Fade in immediately with title */}
+          {/* Team Cards Grid */}
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
             gap: '30px',
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: isTitleVisible ? 1 : 0,
-            transform: isTitleVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease-out 0.4s',
           }}>
             {teamMembers.map((member, index) => (
               <div
@@ -195,7 +95,6 @@ const OurTeamSection = ({ isDarkMode = false }) => {
                   textAlign: 'center',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
                   position: 'relative',
                   maxWidth: isMobile ? '100%' : '280px',
                   width: isMobile ? '100%' : '280px',
@@ -203,14 +102,6 @@ const OurTeamSection = ({ isDarkMode = false }) => {
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.15)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.08)';
                 }}
               >
                 {/* Decorative Background Element */}
@@ -234,7 +125,7 @@ const OurTeamSection = ({ isDarkMode = false }) => {
                   marginBottom: isMobile ? '24px' : '20px',
                 }}>
                   <img
-                    src={member.eyesClosed && blinkingStates[index] ? member.eyesClosed : member.photo}
+                    src={member.photo}
                     alt={member.name}
                     style={{
                       width: isMobile ? '120px' : '100px',
@@ -243,7 +134,6 @@ const OurTeamSection = ({ isDarkMode = false }) => {
                       objectFit: 'cover',
                       border: `4px solid ${colors.surface}`,
                       boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-                      transition: 'opacity 0.1s ease-in-out',
                     }}
                   />
                 </div>
