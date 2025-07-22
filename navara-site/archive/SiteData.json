@@ -26,7 +26,7 @@
       },
       "behavioral": {
         "id": "behavioral",
-        "title": "The Navara Behavior Method",
+        "title": "Behavior Support",
         "logo": "assets/service-logos/behavioral.png",
         "photo": "assets/NAVARA2.jpg",
         "p1": "We provide personalized behavior support services that address the unique needs of each child and family. Our approach combines proven behavioral strategies with practical, family-centered solutions.",
@@ -65,8 +65,8 @@
         {
           "photo": "assets/nisanFetman.png",
           "eyesClosed": "assets/nisanFetmanEyesClosed.png",
-          "name": "David Nisan Fetman, MA. BCBA, Psychology Doctoral Student",
-          "position": "Founder & Clinical Director",
+          "name": "David Nisan Fetman, BCBA",
+          "position": "Founder",
           "introSentence": "David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee",
           "fullText": "Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress."
         },

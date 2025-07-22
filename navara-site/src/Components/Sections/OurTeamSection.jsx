@@ -199,6 +199,31 @@ const OurTeamSection = ({ isDarkMode = false }) => {
               </div>
             ))}
           </div>
+
+          {/* Clinical Supervision Notice */}
+          <div style={{
+            textAlign: 'center',
+            marginTop: isMobile ? '60px' : '80px',
+            paddingTop: isMobile ? '40px' : '60px',
+            borderTop: `1px solid ${colors.textSecondary}20`,
+          }}>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: isMobile ? textSizes.base.fontFamily : textSizes.lg.fontFamily,
+              color: colors.textSecondary,
+              fontWeight: '500',
+              margin: 0,
+              lineHeight: '1.6',
+            }}>
+              Clinical Supervision provided by:<br />
+              <span style={{
+                color: colors.primary,
+                fontWeight: '600',
+              }}>
+                Marc Steinmetz, PhD
+              </span>
+            </p>
+          </div>
         </div>
       </section>
 
