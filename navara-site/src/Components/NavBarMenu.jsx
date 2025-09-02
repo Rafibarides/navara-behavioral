@@ -28,7 +28,10 @@ const NavBarMenu = ({ isDarkMode = false }) => {
 
   // Track active section based on scroll position
   useEffect(() => {
-    if (location.pathname !== '/') {
+    // Pages that should have transparent nav when at top (with welcome-section)
+    const pagesWithWelcomeSection = ['/', '/diagnostics', '/pathways', '/behavioral'];
+    
+    if (!pagesWithWelcomeSection.includes(location.pathname)) {
       setActiveSection('');
       setIsNearTopOfPage(false);
       return;
@@ -55,12 +58,17 @@ const NavBarMenu = ({ isDarkMode = false }) => {
         setIsNearTopOfPage(window.scrollY < transitionPoint);
       }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(sections[i].id);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i].name);
-          break;
+      // Only track sections on main page
+      if (location.pathname === '/') {
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const element = document.getElementById(sections[i].id);
+          if (element && element.offsetTop <= scrollPosition) {
+            setActiveSection(sections[i].name);
+            break;
+          }
         }
+      } else {
+        setActiveSection('');
       }
     };
 

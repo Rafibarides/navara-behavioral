@@ -12,6 +12,14 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
+  // Function to scroll to contact section
+  const scrollToContact = () => {
+    const contactSection = document.querySelector('#contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Get data from siteData
   const {
     hero,
@@ -205,115 +213,102 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
       background: colors.background,
       boxSizing: 'border-box',
     }}>
-      {/* White Top Bar with Logo */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+      {/* Welcome Section Style Hero */}
+      <section 
+        id="welcome-section"
         style={{
-          backgroundColor: 'white',
-          width: '100vw',
-          padding: '20px 0',
-          paddingTop: '100px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           position: 'relative',
-          zIndex: 20,
-        }}
-      >
-        <img
-          src="assets/service-logos/diagnostics.png"
-          alt="Diagnostics Logo"
-          style={{
-            width: isMobile ? '80px' : '120px',
-            height: isMobile ? '80px' : '120px',
-            objectFit: 'contain',
-          }}
-        />
-      </motion.div>
-
-      {/* Navigation */}
-      <NavBarMenu isDarkMode={isDarkMode} />
-
-      {/* Hero Section with Dark Blue Background */}
-      <motion.section 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{
-          backgroundColor: '#1B3B62',
-          backgroundImage: `linear-gradient(135deg, #1B3B62 0%, #1A2A40 100%), url('NAVARA1.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundBlendMode: 'overlay',
+          height: isMobile ? '25vh' : '50vh',
+          minHeight: isMobile ? '200px' : '400px',
           width: '100vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '2rem',
           margin: 0,
           boxSizing: 'border-box',
-          paddingTop: '80px',
-          paddingBottom: '80px',
-          position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* Glass morphism overlay */}
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: isMobile ? 'right center' : 'center',
+            zIndex: 1,
+          }}
+        >
+          <source src="assets/background-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Dark blue overlay */}
         <div style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(27, 59, 98, 0.8)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
+          width: '100%',
+          height: '100%',
+          backgroundColor: `${colors.secondary}D9`, // Dark blue with 70% opacity
+          zIndex: 1,
         }} />
-        
+
+        {/* Diagnostics Logo in top left corner */}
+        <img 
+          src="assets/service-logos/diagnostics.png" 
+          alt="Diagnostics Logo"
+          style={{
+            position: 'absolute',
+            top: '20px',
+            left: '2rem',
+            height: '50px',
+            width: 'auto',
+            zIndex: 3,
+            filter: 'brightness(0) invert(1)', // Makes the logo completely white
+          }}
+        />
+
+        {/* Content Overlay */}
         <div style={{
-          ...containerStyle,
           position: 'relative',
-          zIndex: 10,
+          zIndex: 3,
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: isMobile ? 'translateY(10px)' : 'none',
         }}>
-          <motion.h1 variants={itemVariants} style={{
-            ...headingStyle,
-            color: 'white',
-            textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-          }}>
-            {hero.title}
-          </motion.h1>
-          <motion.h2 variants={itemVariants} style={{
-            ...subheadingStyle,
-            color: 'rgba(255, 255, 255, 0.9)',
-            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-          }}>
-            {hero.subtitle}
-          </motion.h2>
-          <motion.p variants={itemVariants} style={{
-            fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
-            fontFamily: textSizes.xl.fontFamily,
-            color: 'white',
-            fontWeight: '600',
+          {/* Diagnostics Text */}
+          <h1 style={{ 
+            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
+            fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
+            margin: 0,
             textAlign: 'center',
-            fontStyle: 'italic',
-            marginBottom: '40px',
-            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            color: 'white',
+            fontWeight: '700',
+            letterSpacing: '0.02em',
+            minHeight: isMobile ? '1em' : '1.2em',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-            {hero.tagline}
-          </motion.p>
-          <motion.p variants={itemVariants} style={{
-            fontSize: textSizes.lg.fontSize,
-            fontFamily: textSizes.lg.fontFamily,
-            color: 'rgba(255, 255, 255, 0.85)',
-            lineHeight: '1.8',
-            textAlign: 'center',
-            maxWidth: '800px',
-            margin: '0 auto',
-            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-          }}>
-            {hero.description}
-          </motion.p>
+            Diagnostics
+          </h1>
         </div>
-      </motion.section>
+      </section>
+
+      {/* Navigation */}
+      <NavBarMenu isDarkMode={isDarkMode} />
 
       {/* Why Choose Navara Diagnostics */}
       <motion.section 
@@ -347,6 +342,110 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 ))}
               </div>
             </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Smaller Blue Hero Section */}
+      <motion.section 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        style={{
+          backgroundColor: '#1B3B62',
+          backgroundImage: `linear-gradient(135deg, #1B3B62 0%, #1A2A40 100%), url('NAVARA1.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay',
+          width: '100vw',
+          margin: 0,
+          boxSizing: 'border-box',
+          paddingTop: isMobile ? '40px' : '60px',
+          paddingBottom: isMobile ? '40px' : '60px',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Glass morphism overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(27, 59, 98, 0.8)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+        }} />
+        
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: isMobile ? '20px 20px' : '40px 40px',
+          position: 'relative',
+          zIndex: 10,
+        }}>
+          <motion.h2 variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes.xl.fontSize : textSizes['2xl'].fontSize,
+            fontFamily: textSizes['2xl'].fontFamily,
+            color: 'rgba(255, 255, 255, 0.9)',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            fontWeight: '600',
+            marginBottom: '24px',
+            textAlign: 'center',
+          }}>
+            {hero.subtitle}
+          </motion.h2>
+          <motion.p variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+            fontFamily: textSizes.lg.fontFamily,
+            color: 'rgba(255, 255, 255, 0.85)',
+            lineHeight: '1.6',
+            textAlign: 'center',
+            maxWidth: '700px',
+            margin: '0 auto 32px auto',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+          }}>
+            {hero.description}
+          </motion.p>
+          
+          {/* Get in Touch CTA Button */}
+          <motion.div 
+            variants={itemVariants}
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <button
+              onClick={scrollToContact}
+              style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '2px solid rgba(255, 255, 255, 0.4)',
+                color: 'white',
+                padding: isMobile ? '12px 24px' : '16px 32px',
+                borderRadius: '12px',
+                fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+                fontFamily: textSizes.lg.fontFamily,
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              Get in Touch
+            </button>
           </motion.div>
         </div>
       </motion.section>
@@ -649,6 +748,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
 
       {/* Call to Action */}
       <motion.section 
+        id="contact-section"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -749,6 +849,47 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Floating Contact Button */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        onClick={scrollToContact}
+        style={{
+          position: 'fixed',
+          bottom: isMobile ? '20px' : '30px',
+          right: isMobile ? '20px' : '30px',
+          width: isMobile ? '50px' : '60px',
+          height: isMobile ? '50px' : '60px',
+          borderRadius: '50%',
+          background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+          border: 'none',
+          boxShadow: '0 4px 20px rgba(27, 59, 98, 0.4)',
+          cursor: 'pointer',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.3s ease',
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        onMouseEnter={(e) => {
+          e.target.style.boxShadow = '0 6px 30px rgba(27, 59, 98, 0.6)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.boxShadow = '0 4px 20px rgba(27, 59, 98, 0.4)';
+        }}
+      >
+        <i 
+          className="fas fa-comments" 
+          style={{
+            color: 'white',
+            fontSize: isMobile ? '20px' : '24px',
+          }}
+        />
+      </motion.button>
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
