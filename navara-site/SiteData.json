@@ -41,6 +41,15 @@
         "p1": "Our career exploration program helps young adults discover and pursue meaningful career paths. We combine assessment, guidance, and practical experience to support informed career decisions.",
         "highlight": "Your career journey should reflect your unique strengths and aspirations.",
         "p2": "Through personalized guidance and hands-on experience, we help young adults identify career paths that align with their interests, strengths, and long-term goals."
+      },
+      "wellness": {
+        "id": "wellness",
+        "title": "Navara Wellness",
+        "logo": "assets/service-logos/wellness.png",
+        "photo": "assets/NAVARA4.jpg",
+        "p1": "Private, personalized therapy support from licensed therapists — no insurance hassle, no waiting lists, no judgment. We provide whole-person approach therapy that meets you where you are.",
+        "highlight": "Where therapy meets clarity, care, and change.",
+        "p2": "Whether you're overwhelmed, stuck, healing, or growing, our licensed therapists provide compassionate, goal-aligned support with transparent pricing and flexible scheduling."
       }
     },
     "about": {

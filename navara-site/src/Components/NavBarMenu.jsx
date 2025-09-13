@@ -29,7 +29,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   // Track active section based on scroll position
   useEffect(() => {
     // Pages that should have transparent nav when at top (with welcome-section)
-    const pagesWithWelcomeSection = ['/', '/diagnostics', '/pathways', '/behavioral'];
+    const pagesWithWelcomeSection = ['/', '/diagnostics', '/pathways', '/behavioral', '/wellness'];
     
     if (!pagesWithWelcomeSection.includes(location.pathname)) {
       setActiveSection('');
@@ -43,6 +43,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
         { id: 'diagnostics', name: 'diagnostics' },
         { id: 'pathways', name: 'pathways' },
         { id: 'behavioral', name: 'behavioral' },
+        { id: 'wellness', name: 'wellness' },
         { id: 'about', name: 'about' },
         { id: 'contact', name: 'contact' }
       ];
@@ -68,7 +69,14 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           }
         }
       } else {
-        setActiveSection('');
+        // Set active section based on current route for service pages
+        const routeToSection = {
+          '/diagnostics': 'diagnostics',
+          '/pathways': 'pathways',
+          '/behavioral': 'behavioral',
+          '/wellness': 'wellness'
+        };
+        setActiveSection(routeToSection[location.pathname] || '');
       }
     };
 
@@ -82,8 +90,9 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
     { name: 'Diagnostics', id: 'diagnostics', key: 'diagnostics' },
-    { name: 'Pathways', id: 'pathways', key: 'pathways' },
-    { name: 'Navara Method', id: 'behavioral', key: 'behavioral' }
+    // { name: 'Pathways', id: 'pathways', key: 'pathways' }, // Temporarily disabled
+    { name: 'Behavior Support', id: 'behavioral', key: 'behavioral' },
+    { name: 'Wellness', id: 'wellness', key: 'wellness' }
   ];
 
   const scrollToSection = (sectionId) => {
@@ -173,7 +182,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
 
   const isItemActive = (item) => {
     if (item === 'services') {
-      return ['diagnostics', 'pathways', 'behavioral'].includes(activeSection);
+      return ['diagnostics', 'pathways', 'behavioral', 'wellness'].includes(activeSection);
     }
     return activeSection === item;
   };

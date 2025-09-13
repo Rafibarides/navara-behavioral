@@ -179,7 +179,7 @@ const AboutSection = ({ isDarkMode = false }) => {
           </p>
         </div>
 
-        {/* Interactive What Makes Us Different Section */}
+        {/* Static What Makes Us Different Section */}
         <div style={{
           backgroundColor: colors.accent + '15',
           borderRadius: '20px',
@@ -188,8 +188,6 @@ const AboutSection = ({ isDarkMode = false }) => {
           opacity: isDifferentSectionVisible ? 1 : 0,
           transform: isDifferentSectionVisible ? 'translateY(0)' : 'translateY(30px)',
           transition: 'all 0.8s ease-out 0.6s', // 0.6s delay
-          cursor: isPermanentlyExpanded ? 'default' : 'pointer',
-          overflow: 'hidden',
         }}>
           <h2 
             style={{
@@ -197,44 +195,23 @@ const AboutSection = ({ isDarkMode = false }) => {
               fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['3xl'].fontFamily,
               color: colors.primary,
               fontWeight: '700',
-              marginBottom: shouldShowContent ? '24px' : '0',
+              marginBottom: '24px',
               textAlign: 'center',
-              transition: 'all 0.4s ease-out',
-              position: 'relative',
             }}
-            onMouseEnter={() => !isPermanentlyExpanded && setIsHovered(true)}
-            onMouseLeave={() => !isPermanentlyExpanded && setIsHovered(false)}
-            onClick={handleClick}
           >
-            {typedText}
-            {typedText.length < fullText.length && (
-              <span style={{
-                opacity: Math.sin(Date.now() / 500) > 0 ? 1 : 0,
-                transition: 'opacity 0.1s',
-                color: colors.primary,
-              }}>|</span>
-            )}
+            {differentSection.title}
           </h2>
 
-          <div style={{
-            maxHeight: shouldShowContent ? '200px' : '0',
-            opacity: shouldShowContent ? 1 : 0,
-            transition: 'all 0.6s ease-out',
-            overflow: 'hidden',
+          <p style={{
+            fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+            fontFamily: isMobile ? textSizes.base.fontFamily : textSizes.lg.fontFamily,
+            color: colors.text,
+            lineHeight: '1.7',
+            margin: 0,
+            textAlign: 'left',
           }}>
-            <p style={{
-              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
-              fontFamily: isMobile ? textSizes.base.fontFamily : textSizes.lg.fontFamily,
-              color: colors.text,
-              lineHeight: '1.7',
-              margin: 0,
-              textAlign: 'left',
-              transform: shouldShowContent ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'transform 0.4s ease-out 0.2s',
-            }}>
-              {differentSection.content}
-            </p>
-          </div>
+            {differentSection.content}
+          </p>
         </div>
       </div>
     </section>

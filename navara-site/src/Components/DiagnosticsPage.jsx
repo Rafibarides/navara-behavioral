@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
 import FooterSection from './Sections/FooterSection';
+import ContactSection from './Sections/ContactSection';
 import CalendlyModal from './CalendlyModal';
 import siteData from '../../SiteData.json';
 import { motion } from 'framer-motion';
@@ -10,6 +11,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
   // Function to scroll to contact section
@@ -31,15 +33,16 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
     cta
   } = siteData.sections.diagnosticsPage;
 
-  // Check if mobile on mount and resize
+  // Check screen sizes on mount and resize
   useEffect(() => {
-    const checkMobile = () => {
+    const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
     };
     
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   // Scroll to top on component mount
@@ -62,14 +65,44 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
   const itemVariants = {
     hidden: { 
       opacity: 0, 
-      y: 30 
+      y: 50,
+      scale: 0.9
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.6,
+        duration: 0.8,
         ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      rotate: -5
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: {
+        duration: 1,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
+  const floatingVariants = {
+    animate: {
+      y: [-10, 10, -10],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
       }
     }
   };
@@ -169,6 +202,36 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
     transition: 'all 0.3s ease',
     marginRight: '16px',
     marginBottom: '16px',
+  };
+
+  const pillStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '8px 16px',
+    borderRadius: '20px',
+    background: `rgba(255, 255, 255, ${isDarkMode ? '0.1' : '0.8'})`,
+    border: `1px solid ${colors.primary}30`,
+    fontSize: textSizes.sm.fontSize,
+    fontFamily: textSizes.sm.fontFamily,
+    color: colors.text,
+    marginBottom: '8px',
+    marginRight: '8px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    transform: 'scale(1)',
+  };
+
+  // Function to get benefit icons
+  const getBenefitIcon = (index) => {
+    const icons = [
+      'fas fa-clock',           // Fast Turnaround
+      'fas fa-file-alt',        // Clear, Actionable Reports  
+      'fas fa-users',           // Multidisciplinary Expertise
+      'fas fa-heart',           // Parent-Friendly Process
+      'fas fa-handshake'        // School & Treatment Collaboration
+    ];
+    return icons[index] || 'fas fa-check';
   };
 
   // Simplified typing animation
@@ -318,35 +381,167 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.3 }}
         style={{
           ...sectionStyle,
-          background: `linear-gradient(135deg, ${colors.background} 0%, ${colors.surface} 100%)`,
+          backgroundColor: colors.surface,
+          position: 'relative',
         }}
       >
         <div style={containerStyle}>
-          <motion.div variants={itemVariants} style={cardStyle}>
-            <h2 style={sectionHeadingStyle}>{whyChoose.title}</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
-              <div>
-                {whyChoose.benefits.slice(0, 3).map((benefit, index) => (
-                  <div key={index} style={listItemStyle}>
-                    <span style={bulletStyle}>✓</span>
-                    <strong style={{ color: colors.primary }}>{benefit.title}</strong> – {benefit.description}
-                  </div>
+          <motion.h2 variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
+            fontFamily: textSizes['3xl'].fontFamily,
+            color: colors.primary,
+            fontWeight: '700',
+            marginBottom: '24px',
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+          }}>
+            <i className="fas fa-award" style={{ color: colors.accent }} />
+            {whyChoose.title}
+          </motion.h2>
+
+          <motion.div variants={itemVariants} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: isMobile ? '20px' : '40px',
+            flexDirection: isMobile ? 'column' : 'row',
+            margin: '0 auto 48px auto',
+            maxWidth: '1000px',
+          }}>
+            <motion.img 
+              variants={imageVariants}
+              src="/assets/NAVARA1.jpg"
+              alt="Professional diagnostic assessment"
+              style={{
+                width: isMobile ? '220px' : '280px',
+                height: isMobile ? '180px' : '220px',
+                borderRadius: '20px',
+                objectFit: 'cover',
+                border: `4px solid ${colors.primary}30`,
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                transform: 'rotate(-2deg)',
+              }}
+            />
+            <motion.div style={{ textAlign: isMobile ? 'center' : 'left', maxWidth: '500px' }}>
+              <motion.p variants={itemVariants} style={{
+                fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+                fontFamily: textSizes.lg.fontFamily,
+                color: colors.text,
+                lineHeight: '1.8',
+                marginBottom: '24px',
+              }}>
+                Fast, clear, actionable diagnostic evaluations that empower families with the insights they need to move forward with confidence.
+              </motion.p>
+              
+              <motion.div variants={itemVariants} style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px',
+              }}>
+                {['No Waitlists', 'Clear Reports', 'Expert Team', 'Parent-Friendly'].map((tag, index) => (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    style={pillStyle}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'scale(1.05) translateY(-2px)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'scale(1) translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    <i className="fas fa-check-circle" style={{ color: colors.primary }} />
+                    {tag}
+                  </motion.div>
                 ))}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div variants={itemVariants} style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr 1fr',
+            gap: '24px',
+            marginBottom: '40px',
+          }}>
+            {whyChoose.benefits.map((benefit, index) => (
+              <motion.div 
+                key={index} 
+                variants={itemVariants} 
+                whileHover={{ scale: 1.03, y: -5 }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  ...cardStyle,
+                  marginBottom: 0,
+                  position: 'relative',
+                  overflow: 'hidden',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.03) translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
+                }}
+              >
+                <motion.div
+                  variants={floatingVariants}
+                  animate="animate"
+                  style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    fontSize: '40px',
+                    color: `${colors.primary}10`,
+                    zIndex: 0,
+                  }}
+                >
+                  <i className={getBenefitIcon(index)} />
+                </motion.div>
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <i className={getBenefitIcon(index)} style={{
+                    fontSize: '48px',
+                    color: colors.primary,
+                    marginBottom: '16px',
+                    display: 'block',
+                  }} />
+                  <h3 style={{
+                    fontSize: textSizes.lg.fontSize,
+                    fontFamily: textSizes.lg.fontFamily,
+                    color: colors.primary,
+                    fontWeight: '600',
+                    marginBottom: '12px',
+                  }}>
+                    {benefit.title}
+                  </h3>
+                  <p style={{
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.text,
+                    lineHeight: '1.6',
+                    margin: 0,
+                  }}>
+                    {benefit.description}
+                  </p>
               </div>
-              <div>
-                {whyChoose.benefits.slice(3).map((benefit, index) => (
-                  <div key={index} style={listItemStyle}>
-                    <span style={bulletStyle}>✓</span>
-                    <strong style={{ color: colors.primary }}>{benefit.title}</strong> – {benefit.description}
-                  </div>
-                ))}
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </motion.section>
 
-      {/* Smaller Blue Hero Section */}
+      {/* Enhanced Blue Hero Section with Parallax */}
       <motion.section 
         variants={containerVariants}
         initial="hidden"
@@ -354,30 +549,39 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.3 }}
         style={{
           backgroundColor: '#1B3B62',
-          backgroundImage: `linear-gradient(135deg, #1B3B62 0%, #1A2A40 100%), url('NAVARA1.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundBlendMode: 'overlay',
+          backgroundImage: `linear-gradient(135deg, #1B3B62 0%, #1A2A40 100%)`,
+          backgroundAttachment: 'fixed',
           width: '100vw',
           margin: 0,
           boxSizing: 'border-box',
-          paddingTop: isMobile ? '40px' : '60px',
-          paddingBottom: isMobile ? '40px' : '60px',
+          paddingTop: isMobile ? '60px' : '80px',
+          paddingBottom: isMobile ? '60px' : '80px',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* Glass morphism overlay */}
-        <div style={{
+        {/* Animated Background Elements */}
+        <motion.div
+          animate={{ 
+            rotate: 360,
+            scale: [1, 1.1, 1]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(27, 59, 98, 0.8)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-        }} />
+            top: '10%',
+            right: '10%',
+            width: '200px',
+            height: '200px',
+            borderRadius: '50%',
+            background: `linear-gradient(45deg, ${colors.primary}20, ${colors.accent}10)`,
+            zIndex: 1,
+          }}
+        />
         
         <div style={{
           maxWidth: '1200px',
@@ -386,6 +590,28 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
           position: 'relative',
           zIndex: 10,
         }}>
+          <motion.div variants={itemVariants} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: isMobile ? '30px' : '50px',
+            flexDirection: isMobile ? 'column' : 'row-reverse',
+            marginBottom: '40px',
+          }}>
+            <motion.img 
+              variants={imageVariants}
+              src="/assets/NAVARA4.jpg"
+              alt="Expert diagnostic consultation"
+              style={{
+                width: isMobile ? '200px' : '250px',
+                height: isMobile ? '200px' : '250px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '4px solid rgba(255, 255, 255, 0.3)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              }}
+            />
+            <motion.div style={{ textAlign: isMobile ? 'center' : 'left', maxWidth: '600px' }}>
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes.xl.fontSize : textSizes['2xl'].fontSize,
             fontFamily: textSizes['2xl'].fontFamily,
@@ -393,7 +619,6 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
             fontWeight: '600',
             marginBottom: '24px',
-            textAlign: 'center',
           }}>
             {hero.subtitle}
           </motion.h2>
@@ -402,21 +627,14 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             fontFamily: textSizes.lg.fontFamily,
             color: 'rgba(255, 255, 255, 0.85)',
             lineHeight: '1.6',
-            textAlign: 'center',
-            maxWidth: '700px',
-            margin: '0 auto 32px auto',
+                marginBottom: '32px',
             textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           }}>
             {hero.description}
           </motion.p>
           
           {/* Get in Touch CTA Button */}
-          <motion.div 
-            variants={itemVariants}
-            style={{
-              textAlign: 'center',
-            }}
-          >
+              <motion.div variants={itemVariants}>
             <button
               onClick={scrollToContact}
               style={{
@@ -432,8 +650,9 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 fontWeight: '700',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
               }}
               onMouseEnter={(e) => {
                 e.target.style.background = 'rgba(255, 255, 255, 0.3)';
@@ -444,8 +663,11 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
                 e.target.style.transform = 'translateY(0)';
               }}
             >
-              Get in Touch
+                  <i className="fas fa-calendar-check" />
+                  Get Started Today
             </button>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </motion.section>
@@ -458,7 +680,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.3 }}
         style={{
           ...sectionStyle,
-          backgroundImage: `url('NAVARA1.jpg')`,
+          backgroundImage: `url('/assets/NAVARA1.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
@@ -472,7 +694,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: `rgba(${isDarkMode ? '26, 26, 26' : '242, 242, 242'}, 0.85)`,
+          background: `rgba(${isDarkMode ? '26, 26, 26' : '242, 242, 242'}, 0.9)`,
           backdropFilter: 'blur(15px)',
           WebkitBackdropFilter: 'blur(15px)',
         }} />
@@ -483,24 +705,134 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
           zIndex: 10,
         }}>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '32px' }}>
-            <motion.div variants={itemVariants} style={glassMorphCardStyle}>
-              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>{whatWeTest.title}</h2>
+            <motion.div variants={itemVariants} style={{
+              ...glassMorphCardStyle,
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <motion.div
+                variants={floatingVariants}
+                animate="animate"
+                style={{
+                  position: 'absolute',
+                  top: '15px',
+                  right: '15px',
+                  fontSize: '50px',
+                  color: `${colors.primary}15`,
+                  zIndex: 0,
+                }}
+              >
+                <i className="fas fa-brain" />
+              </motion.div>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h2 style={{
+                  ...sectionHeadingStyle, 
+                  color: isDarkMode ? 'white' : colors.primary,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: '24px',
+                }}>
+                  <i className="fas fa-brain" style={{ color: colors.primary }} />
+                  {whatWeTest.title}
+                </h2>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '8px',
+                  marginBottom: '16px',
+                }}>
               {whatWeTest.conditions.map((condition, index) => (
-                <div key={index} style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                  <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        ...pillStyle,
+                        background: `rgba(${isDarkMode ? '255, 255, 255' : '27, 59, 98'}, 0.1)`,
+                        border: `1px solid ${colors.primary}40`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'scale(1.05) translateY(-2px)';
+                        e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'scale(1) translateY(0)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    >
+                      <i className="fas fa-check" style={{ color: colors.primary, fontSize: '12px' }} />
                   {condition}
-                </div>
+                    </motion.div>
               ))}
+                </div>
+              </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} style={glassMorphCardStyle}>
-              <h2 style={{...sectionHeadingStyle, color: isDarkMode ? 'white' : colors.primary}}>{whoWeServe.title}</h2>
+            <motion.div variants={itemVariants} style={{
+              ...glassMorphCardStyle,
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <motion.div
+                variants={floatingVariants}
+                animate="animate"
+                style={{
+                  position: 'absolute',
+                  top: '15px',
+                  right: '15px',
+                  fontSize: '50px',
+                  color: `${colors.secondary}15`,
+                  zIndex: 0,
+                }}
+              >
+                <i className="fas fa-users" />
+              </motion.div>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h2 style={{
+                  ...sectionHeadingStyle, 
+                  color: isDarkMode ? 'white' : colors.primary,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: '24px',
+                }}>
+                  <i className="fas fa-users" style={{ color: colors.secondary }} />
+                  {whoWeServe.title}
+                </h2>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '8px',
+                  marginBottom: '16px',
+                }}>
               {whoWeServe.audiences.map((audience, index) => (
-                <div key={index} style={{...listItemStyle, color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : colors.text}}>
-                  <span style={{...bulletStyle, color: isDarkMode ? '#CBD9C5' : colors.primary}}>•</span>
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        ...pillStyle,
+                        background: `rgba(${isDarkMode ? '255, 255, 255' : '26, 42, 64'}, 0.1)`,
+                        border: `1px solid ${colors.secondary}40`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'scale(1.05) translateY(-2px)';
+                        e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'scale(1) translateY(0)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    >
+                      <i className="fas fa-user" style={{ color: colors.secondary, fontSize: '12px' }} />
                   {audience}
-                </div>
+                    </motion.div>
               ))}
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -859,7 +1191,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         style={{
           position: 'fixed',
           bottom: isMobile ? '20px' : '30px',
-          right: isMobile ? '20px' : '30px',
+          left: isMobile ? '20px' : '30px',
           width: isMobile ? '50px' : '60px',
           height: isMobile ? '50px' : '60px',
           borderRadius: '50%',
@@ -883,13 +1215,16 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         }}
       >
         <i 
-          className="fas fa-comments" 
+          className="fas fa-calendar" 
           style={{
             color: 'white',
             fontSize: isMobile ? '20px' : '24px',
           }}
         />
       </motion.button>
+
+      {/* Contact Section */}
+      <ContactSection isDarkMode={isDarkMode} />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
