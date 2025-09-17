@@ -21,9 +21,9 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
   // Dynamic array for service cards
   const serviceCards = [
     {
-      icon: 'fas fa-route',
-      title: 'Navara Pathways',
-      section: 'pathways'
+      icon: 'fas fa-heart',
+      title: 'Navara Wellness',
+      section: 'wellness'
     },
     {
       icon: 'fas fa-stethoscope',

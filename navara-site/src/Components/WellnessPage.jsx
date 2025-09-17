@@ -317,7 +317,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 lineHeight: '1.8',
                 marginBottom: '32px',
               }}>
-                Private, personalized support from licensed therapists — no insurance hassle, no waiting lists, no judgment.
+                Private, personalized support from licensed therapists - no insurance hassle, no waiting lists, no judgment.
               </motion.p>
 
               <motion.div variants={itemVariants} style={{
@@ -590,7 +590,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                   lineHeight: '1.6',
                   margin: 0,
                 }}>
-                  Therapy that meets you where you are — whether you're overwhelmed, stuck, healing, or growing.
+                  Therapy that meets you where you are - whether you're overwhelmed, stuck, healing, or growing.
                 </p>
               </div>
             </motion.div>
@@ -809,8 +809,8 @@ const WellnessPage = ({ isDarkMode = false }) => {
             }}>
               <motion.img 
                 variants={imageVariants}
-                src="/assets/nisanFetman.png"
-                alt="David Nisan Fetman"
+                src="https://images.squarespace-cdn.com/content/v1/651998e05a97287d391f2a87/1697150819979-Z3WGUUI1CNLX738QSMA5/LosAngeles-Headshots-for-Women-KarenVaisman-photography-headshots-LA-female-professional-headshots-near-me-9-tny.jpg"
+                alt="Sharon Choudhury"
                 style={{
                   width: '150px',
                   height: '150px',
@@ -828,7 +828,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 fontWeight: '600',
                 marginBottom: '8px',
               }}>
-                David Nisan Fetman, M.A., BCBA
+                Sharon Choudhury, LMSW
               </h3>
               <div style={{
                 fontSize: textSizes.sm.fontSize,
@@ -837,7 +837,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 fontWeight: '500',
                 marginBottom: '16px',
               }}>
-                Founder & Clinical Director
+                Licensed Master Social Worker
               </div>
               <p style={{
                 fontSize: textSizes.base.fontSize,
@@ -846,7 +846,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 lineHeight: '1.6',
                 marginBottom: '20px',
               }}>
-                Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. Known for clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress.
+                Sharon Choudhury, LMSW is a therapist with a Master's in Social Work from Columbia University. She specializes in trauma-informed care, anxiety, depression, and cultural identity issues, using a person-centered, evidence-based approach.
               </p>
               <button
                 onClick={() => setIsCalendlyModalOpen(true)}
@@ -867,7 +867,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 }}
               >
                 <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-                Book a Session with David
+                Book a Session with Sharon
               </button>
             </motion.div>
           </motion.div>
@@ -923,7 +923,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
             gap: '12px',
           }}>
             <i className="fas fa-dollar-sign" style={{ color: colors.accent }} />
-            Simple, transparent pricing — no insurance games.
+            Simple, transparent pricing - no insurance games.
           </motion.h2>
 
           <motion.div variants={itemVariants} style={{
@@ -1295,7 +1295,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
               fontWeight: '700',
               marginBottom: '24px',
             }}>
-              Start feeling better — on your terms.
+              Start feeling better - on your terms.
             </motion.h2>
 
             <motion.p variants={itemVariants} style={{
@@ -1335,28 +1335,6 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 Book a Free Consult
               </button>
 
-              <button
-                onClick={() => scrollToSection('therapists')}
-                style={{
-                  ...buttonStyle,
-                  background: 'transparent',
-                  color: colors.primary,
-                  border: `2px solid ${colors.primary}`,
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = colors.primary;
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'transparent';
-                  e.target.style.color = colors.primary;
-                  e.target.style.transform = 'translateY(0)';
-                }}
-              >
-                <i className="fas fa-user-md" style={{ marginRight: '8px' }} />
-                Meet David
-              </button>
 
               <button
                 onClick={() => setIsCalendlyModalOpen(true)}

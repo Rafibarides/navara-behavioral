@@ -183,6 +183,100 @@ const BehavioralPage = ({ isDarkMode = false }) => {
       background: colors.background,
       boxSizing: 'border-box',
     }}>
+      {/* Welcome Section Style Hero */}
+      <section 
+        id="welcome-section"
+        style={{
+          position: 'relative',
+          height: isMobile ? '25vh' : '50vh',
+          minHeight: isMobile ? '200px' : '400px',
+          width: '100vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '2rem',
+          margin: 0,
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: isMobile ? 'right center' : 'center',
+            zIndex: 1,
+          }}
+        >
+          <source src="assets/background-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Dark blue overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: `${colors.secondary}D9`, // Dark blue with 70% opacity
+          zIndex: 1,
+        }} />
+
+        {/* Behavioral Logo in top left corner */}
+        <img 
+          src="assets/service-logos/behavioral.png" 
+          alt="Behavioral Logo"
+          style={{
+            position: 'absolute',
+            top: '20px',
+            left: '2rem',
+            height: '50px',
+            width: 'auto',
+            zIndex: 3,
+            filter: 'brightness(0) invert(1)', // Makes the logo completely white
+          }}
+        />
+
+        {/* Content Overlay */}
+        <div style={{
+          position: 'relative',
+          zIndex: 3,
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: isMobile ? 'translateY(10px)' : 'none',
+        }}>
+          {/* Behavioral Text */}
+          <h1 style={{ 
+            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
+            fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
+            margin: 0,
+            textAlign: 'center',
+            color: 'white',
+            fontWeight: '700',
+            letterSpacing: '0.02em',
+            minHeight: isMobile ? '1em' : '1.2em',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            Behavioral Support
+          </h1>
+        </div>
+      </section>
+
       {/* Navigation */}
       <NavBarMenu isDarkMode={isDarkMode} />
 

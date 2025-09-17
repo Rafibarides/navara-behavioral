@@ -4,7 +4,7 @@ import WhoWeAreSection from './Sections/WhoWeAreSection';
 import AboutSection from './Sections/AboutSection';
 import ServiceCardSection from './Sections/ServiceCardSection';
 import DiagnosticsSection from './Sections/DiagnosticsSection';
-import PathwaysSection from './Sections/PathwaysSection';
+import WellnessSection from './Sections/WellnessSection';
 import BehavioralSection from './Sections/BehavioralSection';
 import OurTeamSection from './Sections/OurTeamSection';
 import ContactSection from './Sections/ContactSection';
@@ -40,7 +40,7 @@ const MainPage = ({ isDarkMode, toggleDarkMode }) => {
       <WhoWeAreSection isDarkMode={isDarkMode} />
       {!isMobile && <ServiceCardSection isDarkMode={isDarkMode} />}
       <DiagnosticsSection isDarkMode={isDarkMode} />
-      <PathwaysSection isDarkMode={isDarkMode} />
+      <WellnessSection isDarkMode={isDarkMode} />
       <BehavioralSection isDarkMode={isDarkMode} />
       <AboutSection isDarkMode={isDarkMode} />
       <OurTeamSection isDarkMode={isDarkMode} />

@@ -1182,46 +1182,6 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
         </div>
       </motion.section>
 
-      {/* Floating Contact Button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        onClick={scrollToContact}
-        style={{
-          position: 'fixed',
-          bottom: isMobile ? '20px' : '30px',
-          left: isMobile ? '20px' : '30px',
-          width: isMobile ? '50px' : '60px',
-          height: isMobile ? '50px' : '60px',
-          borderRadius: '50%',
-          background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-          border: 'none',
-          boxShadow: '0 4px 20px rgba(27, 59, 98, 0.4)',
-          cursor: 'pointer',
-          zIndex: 1000,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'all 0.3s ease',
-        }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        onMouseEnter={(e) => {
-          e.target.style.boxShadow = '0 6px 30px rgba(27, 59, 98, 0.6)';
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.boxShadow = '0 4px 20px rgba(27, 59, 98, 0.4)';
-        }}
-      >
-        <i 
-          className="fas fa-calendar" 
-          style={{
-            color: 'white',
-            fontSize: isMobile ? '20px' : '24px',
-          }}
-        />
-      </motion.button>
 
       {/* Contact Section */}
       <ContactSection isDarkMode={isDarkMode} />

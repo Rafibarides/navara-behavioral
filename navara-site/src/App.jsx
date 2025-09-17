@@ -13,6 +13,7 @@ import Sitemap from './Components/Sitemap';
 import Administrator from './Components/Administrator';
 import DarkModeToggle from './Components/DarkModeToggle';
 import ScrollToTop from './Components/ScrollToTop';
+import StickyConsultButton from './Components/StickyConsultButton';
 import './App.css'
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
       <div style={{ width: '100%', minHeight: '100vh' }}>
         {/* Global Dark Mode Toggle - shown on all pages */}
         <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        
+        {/* Global Sticky Consult Button - shown on all pages */}
+        <StickyConsultButton isDarkMode={isDarkMode} />
         
         <Routes>
           <Route path="/" element={<MainPage isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
