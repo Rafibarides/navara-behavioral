@@ -5,6 +5,7 @@ import NavBarMenu from './NavBarMenu';
 import FooterSection from './Sections/FooterSection';
 import ContactSection from './Sections/ContactSection';
 import CalendlyModal from './CalendlyModal';
+import StaffModal from './StaffModal';
 import siteData from '../../SiteData.json';
 
 const BehavioralPage = ({ isDarkMode = false }) => {
@@ -14,6 +15,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
   const [isTablet, setIsTablet] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [openFAQ, setOpenFAQ] = useState(null);
+  const [selectedStaff, setSelectedStaff] = useState(null);
 
   // Get the behavioral service from siteData
   const behavioralService = siteData.sections.services.behavioral;
@@ -232,20 +234,35 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           zIndex: 1,
         }} />
 
-        {/* Behavioral Logo in top left corner */}
-        <img 
-          src="assets/service-logos/behavioral.png" 
-          alt="Behavioral Logo"
-          style={{
-            position: 'absolute',
-            top: '20px',
-            left: '2rem',
-            height: '50px',
-            width: 'auto',
-            zIndex: 3,
-            filter: 'brightness(0) invert(1)', // Makes the logo completely white
-          }}
-        />
+        {/* Service Logos in top left corner */}
+        <div style={{
+          position: 'absolute',
+          top: '20px',
+          left: '2rem',
+          display: 'flex',
+          gap: '16px',
+          alignItems: 'center',
+          zIndex: 3,
+        }}>
+          <img 
+            src="assets/service-logos/behavioral.png" 
+            alt="Behavioral Logo"
+            style={{
+              height: '50px',
+              width: 'auto',
+              filter: 'brightness(0) invert(1)', // Makes the logo completely white
+            }}
+          />
+          <img 
+            src="assets/service-logos/wellness.png" 
+            alt="Wellness Logo"
+            style={{
+              height: '50px',
+              width: 'auto',
+              filter: 'brightness(0) invert(1)', // Makes the logo completely white
+            }}
+          />
+        </div>
 
         {/* Content Overlay */}
         <div style={{
@@ -280,15 +297,86 @@ const BehavioralPage = ({ isDarkMode = false }) => {
       {/* Navigation */}
       <NavBarMenu isDarkMode={isDarkMode} />
 
-      {/* Hero Section */}
+      {/* Introductory Video Section */}
       <motion.section 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         style={{
           ...sectionStyle,
+          paddingTop: '40px',
+          paddingBottom: '40px',
+        }}
+      >
+        <div style={containerStyle}>
+          <motion.div variants={itemVariants} style={{
+            maxWidth: '900px',
+            margin: '0 auto',
+            textAlign: 'center',
+            marginBottom: '32px',
+          }}>
+            <motion.h2 variants={itemVariants} style={{
+              fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
+              fontFamily: textSizes['3xl'].fontFamily,
+              color: colors.primary,
+              fontWeight: '700',
+              marginBottom: '16px',
+            }}>
+              Meet the Navara Method™
+            </motion.h2>
+            
+            <motion.p variants={itemVariants} style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.6',
+              marginBottom: '32px',
+            }}>
+              Watch this introduction to understand how we're revolutionizing behavior support
+            </motion.p>
+
+            <motion.div variants={itemVariants} style={{
+              position: 'relative',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              background: '#000',
+              aspectRatio: '16/9',
+              maxWidth: '100%',
+              margin: '0 auto',
+              boxShadow: 'none',
+              border: 'none',
+            }}>
+              <video
+                controls
+                preload="metadata"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  boxShadow: 'none',
+                  border: 'none',
+                }}
+                poster="" // No thumbnail - will show first frame
+              >
+                <source src="https://pub-6b585af950464b7ca12da1ee87798b6d.r2.dev/navaravideo.m4v" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Hero Section */}
+      <motion.section 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        style={{
+          ...sectionStyle,
           background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}10)`,
-          paddingTop: '120px',
+          paddingTop: '60px',
           position: 'relative',
         }}
       >
@@ -522,7 +610,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               </li>
               <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>4Cs Framework Curriculum</strong> Full access to the structured Clarity, Connection, Control, and Carryover model ($600 Value)</span>
+                <span><strong>4Cs Framework Curriculum</strong> Full access to the structured Clarity, Connection, Control, and Carryover model<br />→ $600 Value</span>
               </li>
               <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
@@ -1378,6 +1466,182 @@ const BehavioralPage = ({ isDarkMode = false }) => {
         </div>
       </motion.section>
 
+      {/* Behavioral Support Team Section */}
+      <motion.section 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        style={{
+          ...sectionStyle,
+          backgroundColor: colors.surface,
+        }}
+      >
+        <div style={containerStyle}>
+          <motion.h2 variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
+            fontFamily: textSizes['3xl'].fontFamily,
+            color: colors.primary,
+            fontWeight: '700',
+            marginBottom: '24px',
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+          }}>
+            <i className="fas fa-users" style={{ color: colors.accent }} />
+            Meet Our Behavioral Support Team
+          </motion.h2>
+          
+          <motion.p variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+            fontFamily: textSizes.lg.fontFamily,
+            color: colors.textSecondary,
+            lineHeight: '1.6',
+            maxWidth: '600px',
+            margin: '0 auto 48px auto',
+            textAlign: 'center',
+          }}>
+            Expert professionals trained in the Navara Behavior Method™
+          </motion.p>
+
+          {/* Team Cards Grid */}
+          <motion.div variants={itemVariants} style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '30px',
+            justifyContent: 'center',
+            alignItems: 'stretch',
+          }}>
+            {siteData.sections.team.divisions
+              .find(division => division.title === "Behavior Support")
+              ?.members.map((member, memberIndex) => (
+              <motion.div
+                key={memberIndex}
+                variants={itemVariants}
+                onClick={() => setSelectedStaff(member)}
+                style={{
+                  backgroundColor: colors.surface,
+                  borderRadius: '24px',
+                  padding: isMobile ? '40px 30px' : '35px 25px',
+                  textAlign: 'center',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  maxWidth: isMobile ? '100%' : '280px',
+                  width: isMobile ? '100%' : '280px',
+                  height: isMobile ? 'auto' : '380px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+                whileHover={{
+                  y: -8,
+                  boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
+                  transition: { duration: 0.3 }
+                }}
+              >
+                {/* Decorative Background Element */}
+                <motion.div
+                  variants={floatingVariants}
+                  animate="animate"
+                  style={{
+                    position: 'absolute',
+                    top: '-50px',
+                    right: '-50px',
+                    width: '120px',
+                    height: '120px',
+                    backgroundColor: memberIndex % 2 === 0 ? colors.primary + '15' : colors.secondary + '15',
+                    borderRadius: '50%',
+                    zIndex: 1,
+                  }}
+                />
+
+                {/* Profile Photo */}
+                <div style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  marginBottom: isMobile ? '24px' : '20px',
+                }}>
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    style={{
+                      width: isMobile ? '120px' : '100px',
+                      height: isMobile ? '120px' : '100px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: `4px solid ${colors.surface}`,
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                    }}
+                  />
+                </div>
+
+                {/* Name */}
+                <h4 style={{
+                  fontSize: isMobile ? textSizes.xl.fontSize : textSizes.lg.fontSize,
+                  fontFamily: isMobile ? textSizes.xl.fontFamily : textSizes.lg.fontFamily,
+                  color: colors.text,
+                  fontWeight: '600',
+                  marginBottom: '8px',
+                  position: 'relative',
+                  zIndex: 2,
+                }}>
+                  {member.name}
+                </h4>
+
+                {/* Position */}
+                <p style={{
+                  fontSize: isMobile ? textSizes.base.fontSize : textSizes.sm.fontSize,
+                  fontFamily: isMobile ? textSizes.base.fontFamily : textSizes.sm.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '500',
+                  marginBottom: '16px',
+                  fontStyle: 'italic',
+                  position: 'relative',
+                  zIndex: 2,
+                }}>
+                  {member.position}
+                </p>
+
+                {/* Intro Sentence */}
+                <p style={{
+                  fontSize: isMobile ? textSizes.sm.fontSize : textSizes.xs.fontSize,
+                  fontFamily: isMobile ? textSizes.sm.fontFamily : textSizes.xs.fontFamily,
+                  color: colors.textSecondary,
+                  lineHeight: '1.5',
+                  margin: 0,
+                  position: 'relative',
+                  zIndex: 2,
+                  flex: 1,
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}>
+                  {member.introSentence}
+                </p>
+
+                {/* Click indicator */}
+                <div style={{
+                  marginTop: '20px',
+                  fontSize: textSizes.xs.fontSize,
+                  fontFamily: textSizes.xs.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '500',
+                  position: 'relative',
+                  zIndex: 2,
+                }}>
+                  Click to learn more →
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* Contact Section */}
       <ContactSection isDarkMode={isDarkMode} />
 
@@ -1390,6 +1654,15 @@ const BehavioralPage = ({ isDarkMode = false }) => {
         onClose={() => setIsCalendlyModalOpen(false)}
         isDarkMode={isDarkMode}
       />
+
+      {/* Staff Modal */}
+      {selectedStaff && (
+        <StaffModal
+          staff={selectedStaff}
+          isDarkMode={isDarkMode}
+          onClose={() => setSelectedStaff(null)}
+        />
+      )}
     </div>
   );
 };

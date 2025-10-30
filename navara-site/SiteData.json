@@ -70,35 +70,76 @@
     "team": {
       "title": "OUR TEAM",
       "subtext": "Meet the dedicated professionals committed to providing exceptional care and support",
-      "members": [
+      "founder": {
+        "photo": "assets/nisanFetman.png",
+        "eyesClosed": "assets/nisanFetmanEyesClosed.png",
+        "name": "David Nisan Fetman, MA. BCBA, Psychology Doctoral Student",
+        "position": "Founder & Clinical Director",
+        "introSentence": "David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee",
+        "fullText": "Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress."
+      },
+      "divisions": [
         {
-          "photo": "assets/nisanFetman.png",
-          "eyesClosed": "assets/nisanFetmanEyesClosed.png",
-          "name": "David Nisan Fetman, MA. BCBA, Psychology Doctoral Student",
-          "position": "Founder & Clinical Director",
-          "introSentence": "David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee",
-          "fullText": "Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress."
+          "title": "Behavior Support",
+          "members": [
+            {
+              "photo": "layamilstein.png",
+              "name": "Laya Milstein, MPS",
+              "position": "Behavior Specialist",
+              "introSentence": "Laya is known for her creative, compassionate, and deeply relational approach to supporting children and families.",
+              "fullText": "Laya is known for her creative, compassionate, and deeply relational approach to supporting children and families in both school and home-based settings. She builds lasting connections that foster trust, growth, and collaboration beyond the therapy room. A mother of five with over three decades of parenting experience, Laya brings empathy, insight, and real-world understanding to every interaction. She approaches each case with curiosity and courage—thinking outside the box to find what truly works. Laya holds a Master's in Professional Studies and is dedicated to helping every child grow, succeed, and shine."
+            },
+            {
+              "photo": "tammyfetman.jpg",
+              "name": "Tammy Fetman, M.S.Ed.",
+              "position": "Behavioral Support Clinician",
+              "introSentence": "Tammy brings over 27 years of experience as the owner and director of a licensed New York daycare.",
+              "fullText": "Tammy Fetman brings over 27 years of experience as the owner and director of a licensed New York daycare, along with dual master's degrees in early childhood education and special education. She has taught early childhood courses as an adjunct professor at Touro College and has provided extensive parenting guidance to families, supporting children's academic, emotional, and developmental growth. Currently pursuing her LMHC degree, Tammy integrates her expertise in education and counseling to empower parents to become confident advocates for their children's well-being and long-term success."
+            }
+          ]
         },
         {
-          "photo": "assets/lady1.png",
-          "name": "Sarah Levine, M.Ed, BCBA",
-          "position": "Senior Behavior Analyst",
-          "introSentence": "Sarah Levine is a Senior Board Certified Behavior Analyst (BCBA) with expertise in early intervention and educational programming.",
-          "fullText": "Levine has over a decade of experience designing and implementing individualized behavior intervention plans in school and home settings. She earned her Master of Education in Special Education and has trained numerous parents and professionals in positive behavior support techniques. Sarah is passionate about empowering families and educators through data-driven strategies and compassionate guidance."
+          "title": "Diagnostics",
+          "members": [
+            {
+              "photo": "assets/sarala.jpg",
+              "name": "Sarah Manela, OTR/L",
+              "position": "Pediatric Occupational Therapist",
+              "introSentence": "Sarah Manela is a pediatric occupational therapist with over a decade of experience helping children build motor, sensory, and daily living skills.",
+              "fullText": "With over a decade of experience in pediatric occupational therapy, Sarah brings deep expertise, warmth, and creativity to her work with children and families. She specializes in helping kids build the motor, sensory, and daily living skills they need to thrive at home, in school, and in the community. As a mom of four herself, Sarah deeply understands the concerns parents face and brings a strong sense of empathy and partnership to her work. Sarah is passionate about creating playful, personalized interventions that empower children and support caregivers every step of the way."
+            }
+          ]
         },
         {
-          "photo": "assets/gwen.jpg",
-          "name": "Gwen Margaux A. Velarde, CHRA",
-          "position": "Executive Assistant",
-          "introSentence": "Gwen Margaux A. Velarde is a Certified Human Resource Associate (CHRA) with a background in psychology and multidisciplinary support roles.",
-          "fullText": "Gwen holds a Bachelor of Science in Psychology and brings experience across clinical, research, and administrative settings. Since joining Navara Behavioral Group in 2025, she has combined her mental health knowledge with operational expertise to streamline internal systems and enhance team efficiency. Her proactive approach and attention to detail help ensure that every aspect of Navara's day-to-day operations runs smoothly, ultimately supporting the team in delivering consistent, client-centered care."
+          "title": "Nutrition",
+          "members": [
+            {
+              "photo": "crystaljordan.jpg",
+              "name": "Crystal Jordan, B.S.",
+              "position": "Nutritionist",
+              "introSentence": "Crystal Jordan brings expertise in nutrition and wellness to support comprehensive health goals.",
+              "fullText": "Crystal Jordan, B.S. is a dedicated nutritionist who specializes in providing comprehensive nutritional support and guidance. She works with individuals and families to develop personalized nutrition plans that support overall health and wellness goals. Crystal's approach combines evidence-based nutritional science with practical, sustainable lifestyle changes to help clients achieve optimal health outcomes."
+            }
+          ]
         },
         {
-          "photo": "assets/sarala.jpg",
-          "name": "Sarah Manela, OTR/L",
-          "position": "Pediatric Occupational Therapist",
-          "introSentence": "Sarah Manela is a pediatric occupational therapist with over a decade of experience helping children build motor, sensory, and daily living skills.",
-          "fullText": "With over a decade of experience in pediatric occupational therapy, Sarah brings deep expertise, warmth, and creativity to her work with children and families. She specializes in helping kids build the motor, sensory, and daily living skills they need to thrive at home, in school, and in the community. As a mom of four herself, Sarah deeply understands the concerns parents face and brings a strong sense of empathy and partnership to her work. Sarah is passionate about creating playful, personalized interventions that empower children and support caregivers every step of the way."
+          "title": "Operations & Support",
+          "members": [
+            {
+              "photo": "assets/gwen.jpg",
+              "name": "Gwen Margaux A. Velarde, CHRA",
+              "position": "Executive Assistant",
+              "introSentence": "Gwen Margaux A. Velarde is a Certified Human Resource Associate (CHRA) with a background in psychology and multidisciplinary support roles.",
+              "fullText": "Gwen holds a Bachelor of Science in Psychology and brings experience across clinical, research, and administrative settings. Since joining Navara Behavioral Group in 2025, she has combined her mental health knowledge with operational expertise to streamline internal systems and enhance team efficiency. Her proactive approach and attention to detail help ensure that every aspect of Navara's day-to-day operations runs smoothly, ultimately supporting the team in delivering consistent, client-centered care."
+            },
+            {
+              "photo": "alanalewish.jpg",
+              "name": "Alana Lewis",
+              "position": "Intake Coordinator",
+              "introSentence": "Alana is the Intake Coordinator at Navara, bringing a creative and collaborative approach to welcoming clients.",
+              "fullText": "Alana is the Intake Coordinator at Navara, bringing a creative and collaborative approach to welcoming clients and connecting them with the services that best meet their needs. She earned her bachelor's degree in Psychology from Touro College and is completing her Master of Social Work at Wurzweiler. With experience in case management, supporting children and individuals with developmental disabilities, and directing a youth group, Alana is passionate about helping clients feel understood, supported, and empowered from their very first contact."
+            }
+          ]
         }
       ]
     },
