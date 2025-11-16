@@ -16,6 +16,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [openFAQ, setOpenFAQ] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState(null);
+  const [selectedCoach, setSelectedCoach] = useState('bcba');
 
   // Get the behavioral service from siteData
   const behavioralService = siteData.sections.services.behavioral;
@@ -234,7 +235,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           zIndex: 1,
         }} />
 
-        {/* Service Logos in top left corner */}
+        {/* Service Logo in top left corner */}
         <div style={{
           position: 'absolute',
           top: '20px',
@@ -247,15 +248,6 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           <img 
             src="assets/service-logos/behavioral.png" 
             alt="Behavioral Logo"
-            style={{
-              height: '50px',
-              width: 'auto',
-              filter: 'brightness(0) invert(1)', // Makes the logo completely white
-            }}
-          />
-          <img 
-            src="assets/service-logos/wellness.png" 
-            alt="Wellness Logo"
             style={{
               height: '50px',
               width: 'auto',
@@ -297,96 +289,27 @@ const BehavioralPage = ({ isDarkMode = false }) => {
       {/* Navigation */}
       <NavBarMenu isDarkMode={isDarkMode} />
 
-      {/* Introductory Video Section */}
+      {/* Combined Hero & Video Section */}
       <motion.section 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         style={{
           ...sectionStyle,
-          paddingTop: '40px',
-          paddingBottom: '40px',
-        }}
-      >
-        <div style={containerStyle}>
-          <motion.div variants={itemVariants} style={{
-            maxWidth: '900px',
-            margin: '0 auto',
-            textAlign: 'center',
-            marginBottom: '32px',
-          }}>
-            <motion.h2 variants={itemVariants} style={{
-              fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
-              fontFamily: textSizes['3xl'].fontFamily,
-              color: colors.primary,
-              fontWeight: '700',
-              marginBottom: '16px',
-            }}>
-              Meet the Navara Method™
-            </motion.h2>
-            
-            <motion.p variants={itemVariants} style={{
-              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
-              fontFamily: textSizes.lg.fontFamily,
-              color: colors.text,
-              lineHeight: '1.6',
-              marginBottom: '32px',
-            }}>
-              Watch this introduction to understand how we're revolutionizing behavior support
-            </motion.p>
-
-            <motion.div variants={itemVariants} style={{
-              position: 'relative',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              background: '#000',
-              aspectRatio: '16/9',
-              maxWidth: '100%',
-              margin: '0 auto',
-              boxShadow: 'none',
-              border: 'none',
-            }}>
-              <video
-                controls
-                preload="metadata"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                  boxShadow: 'none',
-                  border: 'none',
-                }}
-                poster="" // No thumbnail - will show first frame
-              >
-                <source src="https://pub-6b585af950464b7ca12da1ee87798b6d.r2.dev/navaravideo.m4v" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Hero Section */}
-      <motion.section 
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        style={{
-          ...sectionStyle,
           background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}10)`,
-          paddingTop: '60px',
+          paddingTop: '40px',
+          paddingBottom: '60px',
           position: 'relative',
         }}
       >
         <div style={containerStyle}>
+          {/* Main Title */}
           <motion.h1 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['4xl'].fontSize,
             fontFamily: textSizes['4xl'].fontFamily,
             color: colors.primary,
             fontWeight: '700',
-            marginBottom: '24px',
+            marginBottom: '16px',
             textAlign: 'center',
             lineHeight: '1.2',
           }}>
@@ -405,11 +328,56 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             A 12-Week Parent-Led Behavior Program that Disrupts the ABA Industry
           </motion.h2>
 
+          {/* Video Section */}
+          <motion.div variants={itemVariants} style={{
+            maxWidth: '900px',
+            margin: '0 auto 48px auto',
+            textAlign: 'center',
+          }}>
+            <motion.p variants={itemVariants} style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.6',
+              marginBottom: '32px',
+            }}>
+              Watch this introduction to understand how we're revolutionizing behavior support
+            </motion.p>
+
+            <motion.div variants={itemVariants} style={{
+              position: 'relative',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              background: '#000',
+              aspectRatio: '16/9',
+              maxWidth: '100%',
+              margin: '0 auto 32px auto',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+              border: `4px solid ${colors.primary}20`,
+            }}>
+              <video
+                controls
+                preload="metadata"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+                poster=""
+              >
+                <source src="https://pub-6b585af950464b7ca12da1ee87798b6d.r2.dev/navaravideo.m4v" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          </motion.div>
+
+          {/* Content with Image */}
           <motion.div variants={itemVariants} style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: isMobile ? '20px' : '40px',
+            gap: isMobile ? '32px' : '48px',
             flexDirection: isMobile ? 'column' : 'row',
             margin: '0 auto 48px auto',
             maxWidth: '1000px',
@@ -429,35 +397,33 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               }}
             />
             <motion.div style={{ textAlign: isMobile ? 'center' : 'left', maxWidth: '500px' }}>
-              <motion.div style={{ textAlign: isMobile ? 'center' : 'left' }}>
-                <motion.h3 variants={itemVariants} style={{
-                  fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
-                  fontFamily: textSizes.xl.fontFamily,
-                  color: colors.primary,
-                  fontWeight: '700',
-                  marginBottom: '16px',
-                }}>
-                  We don't babysit.
-                </motion.h3>
-                <motion.p variants={itemVariants} style={{
-                  fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.text,
-                  lineHeight: '1.8',
-                  margin: 0,
-                }}>
-                  The Navara Behavior Method™ flips the script on traditional ABA. While many agencies have become glorified babysitting services, incentivized by insurance to keep your child enrolled as long as possible, we do the opposite.
-                </motion.p>
-              </motion.div>
+              <motion.h3 variants={itemVariants} style={{
+                fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+                fontFamily: textSizes.xl.fontFamily,
+                color: colors.primary,
+                fontWeight: '700',
+                marginBottom: '16px',
+              }}>
+                We don't babysit.
+              </motion.h3>
+              <motion.p variants={itemVariants} style={{
+                fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+                fontFamily: textSizes.lg.fontFamily,
+                color: colors.text,
+                lineHeight: '1.8',
+                margin: 0,
+              }}>
+                The Navara Behavior Method™ flips the script on traditional ABA. While many agencies have become glorified babysitting services, incentivized by insurance to keep your child enrolled as long as possible, we do the opposite.
+              </motion.p>
             </motion.div>
           </motion.div>
 
+          {/* Action Buttons */}
           <motion.div variants={itemVariants} style={{
             display: 'flex',
             justifyContent: 'center',
             gap: isMobile ? '16px' : '24px',
             flexWrap: 'wrap',
-            marginBottom: '40px',
           }}>
             <button
               onClick={() => scrollToSection('navara-method')}
@@ -591,40 +557,85 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               What You Get
             </motion.h3>
 
-            <motion.ul variants={itemVariants} style={{
+            <motion.div variants={itemVariants} style={{
               fontSize: textSizes.base.fontSize,
               fontFamily: textSizes.base.fontFamily,
               color: colors.text,
               lineHeight: '1.8',
               marginBottom: '32px',
-              paddingLeft: '0',
-              listStyle: 'none',
             }}>
-              <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>Weekly 1:1 sessions with a Navara BCBA</strong> ($1,800 value)</span>
-              </li>
-              <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
+                    Weekly 1:1 Sessions With Your Navara BCBA
+                  </div>
+                  <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
+                    Consistent, personalized guidance each week to help you understand your child's behavior, strengthen your parenting confidence, and build momentum toward real change.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>Personalized behavior roadmap and collaborative FBA</strong> ($500 value)</span>
-              </li>
-              <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
+                    A Fully Customized Behavior Roadmap + Collaborative FBA
+                  </div>
+                  <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
+                    A clear, step-by-step plan created with you, identifying the "why" behind your child's behavior and outlining exactly how to respond, prevent, and support.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>4Cs Framework Curriculum</strong> Full access to the structured Clarity, Connection, Control, and Carryover model<br />→ $600 Value</span>
-              </li>
-              <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
+                    Full Access to the 4Cs Framework Curriculum
+                  </div>
+                  <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
+                    Learn and master Navara's signature Clarity, Connection, Control, and Carryover model — a blueprint for understanding behavior, strengthening the parent-child relationship, and creating long-term stability at home.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>Unlimited Access to an expert</strong> for email & check-in support between sessions (~$300 value)</span>
-              </li>
-              <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
+                    Unlimited Email & Check-In Support Between Sessions
+                  </div>
+                  <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
+                    You are never alone. Ask questions, get feedback, and stay supported as real-life situations come up throughout your week.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>Discounted behavior coaching rate</strong> Post-Program</span>
-              </li>
-              <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
+                    Continued Coaching at a Reduced Rate Post-Program
+                  </div>
+                  <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
+                    For families who want ongoing support, you maintain priority access at a preferred rate.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '0', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                <span><strong>Tools to apply behavior principles forever</strong> (priceless)</span>
-              </li>
-            </motion.ul>
+                <div>
+                  <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
+                    Tools & Strategies You Will Use for Life
+                  </div>
+                  <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
+                    You leave with skills that last forever — the ability to read behavior clearly, prevent escalation, respond effectively, and create a calmer, more connected home environment.
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
             <motion.div variants={itemVariants} style={{
               display: 'flex',
@@ -917,285 +928,179 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             </motion.div>
           </motion.div>
 
-          {/* Coaching Options Container */}
+          {/* Combined Coaching Options */}
           <motion.div variants={itemVariants} style={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? '20px' : '24px',
+            ...cardStyle,
             marginBottom: '32px',
+            position: 'relative',
+            overflow: 'hidden',
+            maxWidth: '600px',
+            margin: '0 auto 32px auto',
           }}>
-            {/* Navara BCBA Option - Now First */}
-            <motion.div variants={itemVariants} style={{
-              ...cardStyle,
-              marginBottom: 0,
-              flex: 1,
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <motion.div
-                variants={floatingVariants}
-                animate="animate"
-                style={{
-                  position: 'absolute',
-                  top: '15px',
-                  right: '15px',
-                  fontSize: isMobile ? '40px' : '45px',
-                  color: `${colors.secondary}15`,
-                  zIndex: 0,
-                }}
-              >
-                <i className="fas fa-lightbulb" />
-              </motion.div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <motion.h3 variants={itemVariants} style={{
-                  fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.primary,
-                  fontWeight: '600',
-                  marginBottom: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}>
-                  <i className="fas fa-user-graduate" style={{ color: colors.accent, fontSize: '16px' }} />
-                  Navara BCBA Coaching
-                </motion.h3>
-
-                <motion.p variants={itemVariants} style={{
-                  fontSize: textSizes.sm.fontSize,
-                  fontFamily: textSizes.sm.fontFamily,
-                  color: colors.text,
-                  lineHeight: '1.6',
-                  marginBottom: '16px',
-                }}>
-                  Hands-on support from expert BCBAs trained in the Navara Method™
-                </motion.p>
-
-                <motion.div variants={itemVariants} style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '8px',
-                  marginBottom: '16px',
-                }}>
-                  <div style={{
-                    background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
-                    borderRadius: '6px',
-                    padding: '8px 12px',
-                    border: `1px solid ${colors.primary}30`,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                    <span style={{
-                      fontSize: textSizes.sm.fontSize,
-                      fontFamily: textSizes.sm.fontFamily,
-                      color: colors.text,
-                    }}>
-                      Intro Session:
-                    </span>
-                    <span style={{
-                      fontSize: textSizes.base.fontSize,
-                      fontFamily: textSizes.base.fontFamily,
-                      color: colors.primary,
-                      fontWeight: '700',
-                    }}>
-                      $85
-                    </span>
-                  </div>
-
-                  <div style={{
-                    background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
-                    borderRadius: '6px',
-                    padding: '8px 12px',
-                    border: `1px solid ${colors.primary}30`,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                    <span style={{
-                      fontSize: textSizes.sm.fontSize,
-                      fontFamily: textSizes.sm.fontFamily,
-                      color: colors.text,
-                    }}>
-                      45-min Follow-Up:
-                    </span>
-                    <span style={{
-                      fontSize: textSizes.base.fontSize,
-                      fontFamily: textSizes.base.fontFamily,
-                      color: colors.primary,
-                      fontWeight: '700',
-                    }}>
-                      $115
-                    </span>
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}>
-                  <button
-                    onClick={() => setIsCalendlyModalOpen(true)}
-                    style={{
-                      ...buttonStyle,
-                      background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                      color: 'white',
-                      fontSize: textSizes.sm.fontSize,
-                      padding: isMobile ? '10px 16px' : '12px 20px',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                    }}
-                  >
-                    <i className="fas fa-calendar-check" style={{ marginRight: '6px' }} />
-                    Book with Navara BCBA
-                  </button>
-                </motion.div>
-              </div>
+            <motion.div
+              variants={floatingVariants}
+              animate="animate"
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                fontSize: isMobile ? '40px' : '45px',
+                color: `${colors.secondary}15`,
+                zIndex: 0,
+              }}
+            >
+              <i className="fas fa-user-md" />
             </motion.div>
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <motion.h3 variants={itemVariants} style={{
+                fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+                fontFamily: textSizes.xl.fontFamily,
+                color: colors.primary,
+                fontWeight: '600',
+                marginBottom: '16px',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+              }}>
+                <i className="fas fa-calendar-check" style={{ color: colors.accent, fontSize: '20px' }} />
+                1:1 Coaching Session
+              </motion.h3>
 
-            {/* David Option - Now Second */}
-            <motion.div variants={itemVariants} style={{
-              ...cardStyle,
-              marginBottom: 0,
-              flex: 1,
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <motion.div
-                variants={floatingVariants}
-                animate="animate"
-                style={{
-                  position: 'absolute',
-                  top: '15px',
-                  left: '15px',
-                  fontSize: isMobile ? '40px' : '45px',
-                  color: `${colors.accent}15`,
-                  zIndex: 0,
-                }}
-              >
-                <i className="fas fa-star" />
+              <motion.p variants={itemVariants} style={{
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: colors.text,
+                lineHeight: '1.6',
+                marginBottom: '24px',
+                textAlign: 'center',
+              }}>
+                Choose your preferred coach for personalized behavioral support
+              </motion.p>
+
+              {/* Coach Selection Dropdown */}
+              <motion.div variants={itemVariants} style={{
+                marginBottom: '24px',
+              }}>
+                <select
+                  value={selectedCoach}
+                  onChange={(e) => setSelectedCoach(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '12px',
+                    border: `2px solid ${colors.primary}30`,
+                    background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.95'})`,
+                    color: colors.text,
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${colors.primary.replace('#', '%23')}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 12px center',
+                    backgroundSize: '20px',
+                    paddingRight: '40px',
+                  }}
+                >
+                  <option value="bcba">Navara BCBA - Expert support from certified BCBAs</option>
+                  <option value="david">David Nisan Fetman - Founder & Director</option>
+                </select>
               </motion.div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <motion.h3 variants={itemVariants} style={{
-                  fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.primary,
-                  fontWeight: '600',
-                  marginBottom: '12px',
+
+              {/* Pricing Display */}
+              <motion.div variants={itemVariants} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                marginBottom: '24px',
+              }}>
+                <div style={{
+                  background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
+                  borderRadius: '8px',
+                  padding: '12px 16px',
+                  border: `1px solid ${colors.primary}30`,
                   display: 'flex',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  gap: '6px',
                 }}>
-                  <i className="fas fa-user-tie" style={{ color: colors.accent, fontSize: '16px' }} />
-                  David Nisan Fetman
-                </motion.h3>
-
-                <motion.p variants={itemVariants} style={{
-                  fontSize: textSizes.sm.fontSize,
-                  fontFamily: textSizes.sm.fontFamily,
-                  color: colors.text,
-                  lineHeight: '1.6',
-                  marginBottom: '16px',
-                }}>
-                  Founder and Director
-                </motion.p>
-
-                <motion.div variants={itemVariants} style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '8px',
-                  marginBottom: '16px',
-                }}>
-                  <div style={{
-                    background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
-                    borderRadius: '6px',
-                    padding: '8px 12px',
-                    border: `1px solid ${colors.primary}30`,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                  <span style={{
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.text,
+                    fontWeight: '500',
                   }}>
-                    <span style={{
-                      fontSize: textSizes.sm.fontSize,
-                      fontFamily: textSizes.sm.fontFamily,
-                      color: colors.text,
-                    }}>
-                      45-min Intro Session:
-                    </span>
-                    <span style={{
-                      fontSize: textSizes.base.fontSize,
-                      fontFamily: textSizes.base.fontFamily,
-                      color: colors.primary,
-                      fontWeight: '700',
-                    }}>
-                      $125
-                    </span>
-                  </div>
-
-                  <div style={{
-                    background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
-                    borderRadius: '6px',
-                    padding: '8px 12px',
-                    border: `1px solid ${colors.primary}30`,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    {selectedCoach === 'bcba' ? 'Intro Session:' : '45-min Intro Session:'}
+                  </span>
+                  <span style={{
+                    fontSize: textSizes.lg.fontSize,
+                    fontFamily: textSizes.lg.fontFamily,
+                    color: colors.primary,
+                    fontWeight: '700',
                   }}>
-                    <span style={{
-                      fontSize: textSizes.sm.fontSize,
-                      fontFamily: textSizes.sm.fontFamily,
-                      color: colors.text,
-                    }}>
-                      45-min Follow-Up:
-                    </span>
-                    <span style={{
-                      fontSize: textSizes.base.fontSize,
-                      fontFamily: textSizes.base.fontFamily,
-                      color: colors.primary,
-                      fontWeight: '700',
-                    }}>
-                      $150
-                    </span>
-                  </div>
-                </motion.div>
+                    {selectedCoach === 'bcba' ? '$85' : '$125'}
+                  </span>
+                </div>
 
-                <motion.div variants={itemVariants} style={{
+                <div style={{
+                  background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
+                  borderRadius: '8px',
+                  padding: '12px 16px',
+                  border: `1px solid ${colors.primary}30`,
                   display: 'flex',
-                  justifyContent: 'center',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}>
-                  <button
-                    onClick={() => setIsCalendlyModalOpen(true)}
-                    style={{
-                      ...buttonStyle,
-                      background: 'transparent',
-                      color: colors.primary,
-                      border: `2px solid ${colors.primary}`,
-                      fontSize: textSizes.sm.fontSize,
-                      padding: isMobile ? '10px 16px' : '12px 20px',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = colors.primary;
-                      e.target.style.color = 'white';
-                      e.target.style.transform = 'translateY(-2px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'transparent';
-                      e.target.style.color = colors.primary;
-                      e.target.style.transform = 'translateY(0)';
-                    }}
-                  >
-                    <i className="fas fa-calendar-plus" style={{ marginRight: '6px' }} />
-                    Book with David
-                  </button>
-                </motion.div>
-              </div>
-            </motion.div>
+                  <span style={{
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.text,
+                    fontWeight: '500',
+                  }}>
+                    45-min Follow-Up:
+                  </span>
+                  <span style={{
+                    fontSize: textSizes.lg.fontSize,
+                    fontFamily: textSizes.lg.fontFamily,
+                    color: colors.primary,
+                    fontWeight: '700',
+                  }}>
+                    {selectedCoach === 'bcba' ? '$115' : '$150'}
+                  </span>
+                </div>
+              </motion.div>
+
+              <motion.div variants={itemVariants} style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}>
+                <button
+                  onClick={() => setIsCalendlyModalOpen(true)}
+                  style={{
+                    ...buttonStyle,
+                    background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                    color: 'white',
+                    fontSize: textSizes.base.fontSize,
+                    padding: isMobile ? '12px 24px' : '14px 32px',
+                    minWidth: '200px',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                  }}
+                >
+                  <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
+                  Book {selectedCoach === 'bcba' ? 'with Navara BCBA' : 'with David'}
+                </button>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -1514,9 +1419,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             justifyContent: 'center',
             alignItems: 'stretch',
           }}>
-            {siteData.sections.team.divisions
+            {/* Include founder and behavior support team members */}
+            {[siteData.sections.team.founder, ...(siteData.sections.team.divisions
               .find(division => division.title === "Behavior Support")
-              ?.members.map((member, memberIndex) => (
+              ?.members || [])].map((member, memberIndex) => (
               <motion.div
                 key={memberIndex}
                 variants={itemVariants}
