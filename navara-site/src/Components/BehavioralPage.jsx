@@ -568,7 +568,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    Weekly 1:1 Sessions With Your Navara BCBA
+                    Weekly 1:1 Sessions With Your Navara Behavior Specialist
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
                     Consistent, personalized guidance each week to help you understand your child's behavior, strengthen your parenting confidence, and build momentum toward real change.
@@ -923,7 +923,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 lineHeight: '1.8',
                 margin: 0,
               }}>
-                Book a 45-minute private session with one of our BCBAs trained in the Navara Behavior Method™
+                Book a 45-minute private session with one of our Behavior Specialists trained in the Navara Behavior Method™
               </motion.p>
             </motion.div>
           </motion.div>
@@ -1006,7 +1006,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                     paddingRight: '40px',
                   }}
                 >
-                  <option value="bcba">Navara BCBA - Expert support from certified BCBAs</option>
+                  <option value="bcba">Navara Behavior Specialist - Expert support from certified specialists</option>
                   <option value="david">David Nisan Fetman - Founder & Director</option>
                 </select>
               </motion.div>
@@ -1097,7 +1097,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                   }}
                 >
                   <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-                  Book {selectedCoach === 'bcba' ? 'with Navara BCBA' : 'with David'}
+                  Book {selectedCoach === 'bcba' ? 'with Navara Behavior Specialist' : 'with David'}
                 </button>
               </motion.div>
             </div>
