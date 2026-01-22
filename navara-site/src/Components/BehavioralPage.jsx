@@ -668,32 +668,37 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               <div style={{
                 background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
                 borderRadius: '12px',
-                padding: '20px',
-                border: `1px solid ${colors.primary}30`,
+                padding: '16px 20px',
+                border: `1px solid ${colors.primary}20`,
                 textAlign: 'center',
               }}>
                 <div style={{
-                  fontSize: isMobile ? textSizes.sm.fontSize : textSizes.base.fontSize,
-                  fontFamily: textSizes.base.fontFamily,
-                  color: colors.text,
-                  marginBottom: '8px',
-                }}>
-                  <i className="fas fa-dollar-sign" style={{ marginRight: '4px' }} />
-                  Investment:
-                </div>
-                <div style={{
-                  fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
-                  fontFamily: textSizes.xl.fontFamily,
-                  color: colors.primary,
-                  fontWeight: '700',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
                   marginBottom: '4px',
                 }}>
-                  $3,500 total
+                  <span style={{
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
+                    color: colors.textSecondary,
+                  }}>
+                    Program Investment:
+                  </span>
+                  <span style={{
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.primary,
+                    fontWeight: '600',
+                  }}>
+                    $5,400
+                  </span>
                 </div>
                 <div style={{
-                  fontSize: textSizes.sm.fontSize,
-                  fontFamily: textSizes.sm.fontFamily,
-                  color: colors.text,
+                  fontSize: textSizes.xs.fontSize,
+                  fontFamily: textSizes.xs.fontFamily,
+                  color: colors.textSecondary,
                 }}>
                   Payment plans available
                 </div>
@@ -1250,15 +1255,17 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           <motion.div variants={itemVariants} style={{
             textAlign: 'center',
             marginBottom: '48px',
+            maxWidth: '700px',
+            margin: '0 auto 48px auto',
           }}>
             <motion.h2 variants={itemVariants} style={{
               fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
               fontFamily: textSizes['3xl'].fontFamily,
               color: colors.primary,
               fontWeight: '700',
-              marginBottom: '16px',
+              marginBottom: '24px',
             }}>
-              Pricing
+              Your Investment
             </motion.h2>
             
             <motion.p variants={itemVariants} style={{
@@ -1266,29 +1273,54 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               fontFamily: textSizes.lg.fontFamily,
               color: colors.text,
               lineHeight: '1.8',
-              marginBottom: '24px',
+              marginBottom: '20px',
             }}>
-              You're not just paying for 12 weeks.<br />
-              You're investing in a lifetime of clarity, connection, and confidence.
+              You're not purchasing sessions. You're investing in a structured, evidence-based system that changes how you understand, respond to, and guide your child long after the 12 weeks are over.
+            </motion.p>
+            
+            <motion.p variants={itemVariants} style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.textSecondary,
+              lineHeight: '1.8',
+              marginBottom: '32px',
+            }}>
+              The Navara Behavior Method™ is designed to replace years of trial-and-error, conflicting advice, and reactive parenting with clarity, confidence, and a repeatable framework you can use for life.
             </motion.p>
             
             <motion.div variants={itemVariants} style={{
-              ...cardStyle,
-              background: `linear-gradient(135deg, ${colors.primary}10, ${colors.secondary}05)`,
-              border: `2px solid ${colors.primary}30`,
-              display: 'inline-block',
-              padding: '32px 48px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              marginBottom: '8px',
             }}>
-              <div style={{
-                fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
-                fontFamily: textSizes['3xl'].fontFamily,
-                color: colors.primary,
-                fontWeight: '700',
-                marginBottom: '16px',
+              <span style={{
+                fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+                fontFamily: textSizes.lg.fontFamily,
+                color: colors.text,
+                fontWeight: '500',
               }}>
-                $3,500
-              </div>
+                Program Investment:
+              </span>
+              <span style={{
+                fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+                fontFamily: textSizes.xl.fontFamily,
+                color: colors.primary,
+                fontWeight: '600',
+              }}>
+                $5,400
+              </span>
             </motion.div>
+            
+            <motion.p variants={itemVariants} style={{
+              fontSize: textSizes.sm.fontSize,
+              fontFamily: textSizes.sm.fontFamily,
+              color: colors.textSecondary,
+              fontStyle: 'italic',
+            }}>
+              Limited enrollment per cohort to ensure depth, quality, and individualized support.
+            </motion.p>
           </motion.div>
 
           <motion.div variants={itemVariants} style={{
