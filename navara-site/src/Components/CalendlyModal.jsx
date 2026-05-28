@@ -219,7 +219,7 @@ const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
                 margin: 0,
                 marginBottom: '4px',
               }}>
-                Schedule Your Free Consultation
+                Book Your Free 15-Minute Consultation
               </h2>
               <p style={{
                 fontSize: textSizes.sm.fontSize,
@@ -227,7 +227,7 @@ const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
                 color: colors.textSecondary,
                 margin: 0,
               }}>
-                Book a 15-minute consultation with our team
+                No waitlist. No insurance hoops. Just a direct conversation with our team.
               </p>
             </div>
             <button

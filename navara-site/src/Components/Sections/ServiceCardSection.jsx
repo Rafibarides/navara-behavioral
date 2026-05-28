@@ -1,271 +1,313 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
 const ServiceCardSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
+  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
-  // Check if mobile on mount and resize
   useEffect(() => {
-    const checkMobile = () => {
+    const check = () => {
       setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
     };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Dynamic array for service cards
-  const serviceCards = [
+  const divisions = [
     {
-      icon: 'fas fa-heart',
-      title: 'Navara Wellness',
-      section: 'wellness'
-    },
-    {
-      icon: 'fas fa-stethoscope',
-      title: 'Navara Diagnostics',
-      section: 'diagnostics'
-    },
-    {
+      title: 'Navara Behavior Support',
+      tagline: 'Live · Accepting clients now',
+      description: 'Evidence-based ABA, parent training, and behavioral consulting — no waitlists, no insurance.',
       icon: 'fas fa-brain',
-      title: 'Navara Behavioral',
-      section: 'behavioral'
-    }
+      route: '/behavioral',
+      live: true,
+    },
+    {
+      title: 'Navara Diagnostics',
+      tagline: 'Coming Soon',
+      description: 'Comprehensive psychological evaluations, ASD and ADHD assessments, and diagnostic consultations.',
+      icon: 'fas fa-stethoscope',
+      route: '/diagnostics',
+      live: false,
+    },
+    {
+      title: 'Navara Wellness',
+      tagline: 'Coming Soon',
+      description: 'Individual therapy, group counseling, and process-focused therapeutic programs.',
+      icon: 'fas fa-heart',
+      route: '/wellness',
+      live: false,
+    },
+    {
+      title: 'Navara Nutrition',
+      tagline: 'Coming Soon',
+      description: 'Nutritional guidance and lifestyle support for neurodivergent children and their families.',
+      icon: 'fas fa-leaf',
+      route: '/nutrition',
+      live: false,
+    },
+    {
+      title: 'Navara Pathways',
+      tagline: 'Coming Soon',
+      description: 'Career exploration, personality assessments, and internship connections for teens and young adults.',
+      icon: 'fas fa-compass',
+      route: '/pathways',
+      live: false,
+    },
+    {
+      title: 'Navara Medical',
+      tagline: 'Coming Soon',
+      description: 'Psychiatric medication management and integrated behavioral-medical care.',
+      icon: 'fas fa-user-md',
+      route: '/medical',
+      live: false,
+    },
   ];
 
-  const handleLearnMore = (section) => {
-    // Find the section element by ID
-    const targetElement = document.getElementById(section);
-    if (targetElement) {
-      // Calculate offset for fixed navbar (adjust this value as needed)
-      const navbarOffset = 80;
-      const elementPosition = targetElement.offsetTop - navbarOffset;
-      
-      // Smooth scroll to the section
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
-    } else {
-      console.warn(`Section with ID "${section}" not found`);
-    }
-  };
-
-  // Smoother animation variants for the container
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15, // Slightly faster stagger
-        delayChildren: 0.2,
-        ease: [0.4, 0, 0.2, 1], // Custom cubic bezier
-      }
-    }
-  };
-
-  // Smoother animation variants for individual cards
-  const cardVariants = {
-    hidden: (index) => ({
-      x: isMobile ? 0 : (index === 0 ? -80 : index === 2 ? 80 : 0), // Reduced initial offset
-      y: isMobile ? (index === 0 ? -60 : index === 2 ? 60 : 0) : 0,
-      rotate: isMobile ? (index === 0 ? -12 : index === 2 ? 12 : 0) : (index === 0 ? -8 : index === 2 ? 8 : 0),
-      scale: 0.85,
-      opacity: 0.6,
-    }),
-    visible: {
-      x: 0,
-      y: 0,
-      rotate: 0,
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 120, // Higher stiffness for snappier feel
-        damping: 20, // Increased damping for less bounce
-        mass: 0.8, // Reduced mass for lighter feel
-        ease: [0.4, 0, 0.2, 1],
-      }
-    }
+  const handleClick = (division) => {
+    navigate(division.live ? division.route : '/divisions');
   };
 
   return (
     <section style={{
       backgroundColor: colors.surface,
       width: '100vw',
-      padding: '80px 20px',
+      padding: isMobile ? '60px 20px' : '80px 20px',
       margin: 0,
       boxSizing: 'border-box',
     }}>
       {/* Section Title */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ 
-          duration: 0.8,
-          ease: [0.4, 0, 0.2, 1]
-        }}
+      <div
         style={{
           textAlign: 'center',
-          marginBottom: '60px',
-          maxWidth: '800px',
-          margin: '0 auto 60px auto',
+          marginBottom: '48px',
+          maxWidth: '820px',
+          margin: '0 auto 48px auto',
         }}
       >
         <h2 style={{
-          fontSize: textSizes['4xl'].fontSize,
+          fontSize: isMobile ? textSizes['3xl'].fontSize : textSizes['4xl'].fontSize,
           fontFamily: textSizes['4xl'].fontFamily,
           color: colors.primary,
           fontWeight: '700',
-          marginBottom: '16px',
+          marginBottom: '14px',
         }}>
-          Our Services
+          Our Divisions
         </h2>
         <p style={{
-          fontSize: textSizes.lg.fontSize,
+          fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
           fontFamily: textSizes.lg.fontFamily,
           color: colors.textSecondary,
           lineHeight: '1.6',
+          margin: 0,
         }}>
-          Comprehensive support tailored to your family's unique needs
+          A multi-division behavioral health group. Navara Behavior Support is live today — five more
+          divisions are on the way.
         </p>
-      </motion.div>
+      </div>
 
-      {/* Service Cards Container */}
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+      {/* Division Cards */}
+      <div
         style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-          gap: '30px',
-          maxWidth: '1000px', // Reduced from 1200px
+          gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+          gap: '24px',
+          maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 20px',
-          position: 'relative',
         }}
       >
-        {serviceCards.map((service, index) => (
-          <motion.div
+        {divisions.map((division, index) => (
+          <div
             key={index}
-            custom={index}
-            variants={cardVariants}
+            onClick={() => handleClick(division)}
             style={{
+              position: 'relative',
               backgroundColor: colors.background,
-              border: `1px solid ${colors.border}`,
-              borderRadius: '20px',
-              padding: '30px 25px', // Reduced from 40px 30px
-              textAlign: 'center',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              border: division.live
+                ? `2px solid ${colors.primary}40`
+                : `1px solid ${colors.border}`,
+              borderRadius: '18px',
+              padding: isMobile ? '24px' : '28px',
+              boxShadow: division.live
+                ? '0 6px 24px rgba(27, 59, 98, 0.1)'
+                : '0 4px 16px rgba(0, 0, 0, 0.05)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              minHeight: '240px', // Reduced from 280px
-              justifyContent: 'space-between',
-              willChange: 'transform',
-            }}
-            whileHover={{
-              y: -8,
-              boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
-              // Removed borderColor change
-              transition: { 
-                duration: 0.3,
-                ease: [0.4, 0, 0.2, 1]
-              }
-            }}
-            whileTap={{ 
-              scale: 0.98,
-              transition: { duration: 0.1 }
+              gap: '10px',
+              minHeight: '220px',
+              opacity: division.live ? 1 : 0.8,
+              overflow: 'hidden',
             }}
           >
-            {/* Icon */}
-            <motion.div 
-              style={{
-                width: '70px', // Reduced from 80px
-                height: '70px', // Reduced from 80px
-                backgroundColor: colors.primary + '15',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px', // Reduced from 24px
-              }}
-              whileHover={{ 
-                scale: 1.08,
-                backgroundColor: colors.primary + '25',
-                transition: {
-                  duration: 0.3,
-                  ease: [0.4, 0, 0.2, 1]
-                }
-              }}
-            >
-              <i 
-                className={service.icon}
-                style={{
-                  fontSize: '28px', // Reduced from 32px
-                  color: colors.primary,
-                }}
-              />
-            </motion.div>
-
-            {/* Title */}
-            <h3 style={{
-              fontSize: textSizes.xl.fontSize, // Reduced from 2xl
-              fontFamily: textSizes.xl.fontFamily,
-              color: colors.text,
-              fontWeight: '600',
-              marginBottom: '18px', // Reduced from 20px
-              lineHeight: '1.2',
-            }}>
-              {service.title}
-            </h3>
-
-            {/* Learn More Button with Arrow - Only show on desktop */}
-            {!isMobile && (
-            <motion.button
-              onClick={() => handleLearnMore(service.section)}
-              style={{
-                backgroundColor: colors.primary,
-                color: colors.surface,
-                border: 'none',
-                borderRadius: '25px',
-                padding: '10px 20px', // Reduced from 12px 24px
-                fontSize: textSizes.sm.fontSize, // Reduced from base
-                fontFamily: textSizes.sm.fontFamily,
-                fontWeight: '500',
-                cursor: 'pointer',
-                marginTop: 'auto',
+            {/* Status badge */}
+            {division.live ? (
+              <div style={{
+                position: 'absolute',
+                top: '14px',
+                right: '14px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-              }}
-              whileHover={{
-                backgroundColor: colors.secondary,
-                scale: 1.03,
-                transition: {
-                  duration: 0.2,
-                  ease: [0.4, 0, 0.2, 1]
-                }
-              }}
-              whileTap={{ 
-                scale: 0.97,
-                transition: { duration: 0.1 }
-              }}
-            >
-              Learn More
-              <i className="fas fa-arrow-right" style={{ fontSize: '12px' }} />
-            </motion.button>
+                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                color: 'white',
+                padding: '4px 12px',
+                borderRadius: '999px',
+                fontSize: '10px',
+                fontWeight: '700',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                boxShadow: '0 4px 12px rgba(27, 59, 98, 0.3)',
+              }}>
+                <span style={{
+                  display: 'inline-block',
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: '#7CFC7C',
+                  boxShadow: '0 0 6px #7CFC7C',
+                }} />
+                Live
+              </div>
+            ) : (
+              <div style={{
+                position: 'absolute',
+                top: '14px',
+                right: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                background: colors.border + 'CC',
+                backdropFilter: 'blur(6px)',
+                color: colors.textSecondary,
+                padding: '4px 12px',
+                borderRadius: '999px',
+                fontSize: '10px',
+                fontWeight: '600',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}>
+                <i className="fas fa-lock" style={{ fontSize: '9px' }} />
+                Soon
+              </div>
             )}
-          </motion.div>
+
+            {/* Icon */}
+            <div style={{
+              width: '52px',
+              height: '52px',
+              borderRadius: '14px',
+              background: division.live
+                ? `linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}15)`
+                : colors.border + '60',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '6px',
+            }}>
+              <i
+                className={division.icon}
+                style={{
+                  fontSize: '22px',
+                  color: division.live ? colors.primary : colors.textSecondary,
+                }}
+              />
+            </div>
+
+            <h3 style={{
+              fontSize: textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              fontWeight: '700',
+              margin: 0,
+              lineHeight: '1.3',
+            }}>
+              {division.title}
+            </h3>
+
+            <p style={{
+              fontSize: textSizes.sm.fontSize,
+              fontFamily: textSizes.sm.fontFamily,
+              color: division.live ? colors.primary : colors.textSecondary,
+              fontWeight: '600',
+              fontStyle: division.live ? 'normal' : 'italic',
+              margin: 0,
+            }}>
+              {division.tagline}
+            </p>
+
+            <p style={{
+              fontSize: textSizes.sm.fontSize,
+              fontFamily: textSizes.sm.fontFamily,
+              color: colors.text,
+              lineHeight: '1.55',
+              margin: 0,
+              flex: 1,
+            }}>
+              {division.description}
+            </p>
+
+            {division.live && !isMobile && (
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                color: colors.primary,
+                fontSize: textSizes.sm.fontSize,
+                fontFamily: textSizes.sm.fontFamily,
+                fontWeight: '600',
+                marginTop: '4px',
+              }}>
+                Explore Division
+                <i className="fas fa-arrow-right" style={{ fontSize: '11px' }} />
+              </span>
+            )}
+          </div>
         ))}
-      </motion.div>
+      </div>
+
+      {/* View all link */}
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: '40px',
+        }}
+      >
+        <button
+          onClick={() => navigate('/divisions')}
+          style={{
+            background: 'transparent',
+            color: colors.primary,
+            border: `2px solid ${colors.primary}`,
+            borderRadius: '12px',
+            padding: isMobile ? '12px 24px' : '14px 28px',
+            fontSize: textSizes.base.fontSize,
+            fontFamily: textSizes.base.fontFamily,
+            fontWeight: '600',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = colors.primary;
+            e.currentTarget.style.color = 'white';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = colors.primary;
+          }}
+        >
+          <i className="fas fa-th-large" />
+          View All Divisions
+        </button>
+      </div>
     </section>
   );
 };

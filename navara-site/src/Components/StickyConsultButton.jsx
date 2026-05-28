@@ -88,7 +88,7 @@ const StickyConsultButton = ({ isDarkMode = false }) => {
           transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
           padding: isMobile ? '0' : '0 20px 0 0',
           overflow: 'hidden',
-          width: isExpanded && !isMobile ? '300px' : isMobile ? '50px' : '56px',
+          width: isExpanded && !isMobile ? '320px' : isMobile ? '50px' : '56px',
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
         }}
@@ -144,7 +144,7 @@ const StickyConsultButton = ({ isDarkMode = false }) => {
               letterSpacing: '0.3px',
               textTransform: 'uppercase',
             }}>
-              Schedule Your Free Consult
+              Book Free 15-Min Consultation
             </span>
           </motion.div>
         )}

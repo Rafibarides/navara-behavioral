@@ -121,6 +121,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         alignItems: 'center',
         justifyContent: 'center',
         transform: isMobile ? 'translateY(10px)' : 'none',
+        gap: isMobile ? '20px' : '28px',
       }}>
         {/* Animated Welcome Text */}
         <h1 style={{ 
@@ -141,6 +142,43 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         }}>
           {welcomePhrases[currentPhraseIndex]}
         </h1>
+
+        {/* Free 15-Minute Consultation CTA */}
+        <a
+          href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: isMobile ? '10px 20px' : '14px 28px',
+            borderRadius: '999px',
+            background: 'rgba(255, 255, 255, 0.95)',
+            color: '#1B3B62',
+            fontSize: isMobile ? '13px' : '15px',
+            fontFamily: "'Montserrat', sans-serif",
+            fontWeight: '700',
+            textDecoration: 'none',
+            letterSpacing: '0.02em',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+            transition: 'all 0.3s ease',
+            border: '1px solid rgba(255, 255, 255, 0.4)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.25)';
+          }}
+        >
+          <i className="fas fa-calendar-check" style={{ fontSize: isMobile ? '12px' : '14px' }} />
+          Book Your Free 15-Minute Consultation
+        </a>
       </div>
     </section>
   );

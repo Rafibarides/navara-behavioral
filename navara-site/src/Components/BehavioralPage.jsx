@@ -16,7 +16,6 @@ const BehavioralPage = ({ isDarkMode = false }) => {
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [openFAQ, setOpenFAQ] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const [selectedCoach, setSelectedCoach] = useState('bcba');
 
   // Get the behavioral service from siteData
   const behavioralService = siteData.sections.services.behavioral;
@@ -281,7 +280,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-            Behavioral Support
+            Navara Behavior Support
           </h1>
         </div>
       </section>
@@ -289,8 +288,210 @@ const BehavioralPage = ({ isDarkMode = false }) => {
       {/* Navigation */}
       <NavBarMenu isDarkMode={isDarkMode} />
 
-      {/* Combined Hero & Video Section */}
+      {/* Division Intro + Three Services Overview */}
+      <motion.section
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        style={{
+          ...sectionStyle,
+          paddingTop: isMobile ? '50px' : '80px',
+          paddingBottom: isMobile ? '20px' : '40px',
+        }}
+      >
+        <div style={containerStyle}>
+          <motion.p variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+            fontFamily: textSizes.xl.fontFamily,
+            color: colors.text,
+            lineHeight: '1.7',
+            textAlign: 'center',
+            maxWidth: '820px',
+            margin: '0 auto 16px auto',
+            fontStyle: 'italic',
+          }}>
+            Navara Behavior Support offers flexible, evidence-based services for families who want real results —
+            without the waitlists, the insurance hoops, or the one-size-fits-all approach.
+          </motion.p>
+
+          <motion.div variants={itemVariants} style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '32px',
+            marginBottom: isMobile ? '40px' : '56px',
+          }}>
+            <a
+              href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                ...buttonStyle,
+                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                color: 'white',
+                textDecoration: 'none',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+              }}
+            >
+              <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
+              Book Your Free 15-Minute Consultation
+            </a>
+          </motion.div>
+
+          {/* 3-service overview cards */}
+          <motion.div variants={itemVariants} style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr' : 'repeat(3, 1fr)',
+            gap: '20px',
+            maxWidth: '1100px',
+            margin: '0 auto',
+          }}>
+            {[
+              {
+                title: 'The Navara Behavior Method™',
+                tagline: '12-Week Parent Training Program',
+                description: 'Our flagship offering. A structured 12-week program built on the Four Cs Framework — Clarity, Connection, Control, and Carryover.',
+                icon: 'fas fa-graduation-cap',
+                anchor: 'service-method',
+                featured: true,
+              },
+              {
+                title: 'Navara Direct ABA™',
+                tagline: 'Private, BCBA-Led ABA',
+                description: 'Insurance-free ABA designed around your family. BCBA-only or BCBA + paraprofessional packages — scheduled on your terms.',
+                icon: 'fas fa-user-md',
+                anchor: 'service-direct-aba',
+                featured: false,
+              },
+              {
+                title: 'Behavioral Consulting',
+                tagline: 'Expert-Level Guidance',
+                description: 'A single focused session for families or professionals who need straight answers from a senior BCBA — no commitment, no program required.',
+                icon: 'fas fa-comments',
+                anchor: 'service-consulting',
+                featured: false,
+              },
+            ].map((service, idx) => (
+              <motion.button
+                key={idx}
+                onClick={() => scrollToSection(service.anchor)}
+                whileHover={{
+                  y: -6,
+                  boxShadow: '0 16px 40px rgba(0, 0, 0, 0.15)',
+                  transition: { duration: 0.3 }
+                }}
+                style={{
+                  textAlign: 'left',
+                  background: service.featured
+                    ? `linear-gradient(135deg, ${colors.primary}10, ${colors.secondary}08)`
+                    : colors.surface,
+                  borderRadius: '20px',
+                  padding: isMobile ? '24px' : '28px',
+                  border: service.featured
+                    ? `2px solid ${colors.primary}40`
+                    : `1px solid ${colors.border}`,
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  fontFamily: textSizes.base.fontFamily,
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '8px',
+                  marginBottom: '4px',
+                }}>
+                  <div style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '12px',
+                    background: `linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}15)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                    <i className={service.icon} style={{ fontSize: '20px', color: colors.primary }} />
+                  </div>
+                  {service.featured && (
+                    <span style={{
+                      fontSize: '10px',
+                      fontWeight: '700',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      color: colors.primary,
+                      background: colors.primary + '15',
+                      padding: '4px 10px',
+                      borderRadius: '999px',
+                    }}>
+                      Flagship
+                    </span>
+                  )}
+                </div>
+                <h3 style={{
+                  fontSize: textSizes.lg.fontSize,
+                  fontFamily: textSizes.lg.fontFamily,
+                  color: colors.text,
+                  fontWeight: '700',
+                  margin: 0,
+                  lineHeight: '1.3',
+                }}>
+                  {service.title}
+                </h3>
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '600',
+                  margin: 0,
+                }}>
+                  {service.tagline}
+                </p>
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.text,
+                  lineHeight: '1.5',
+                  margin: 0,
+                  flex: 1,
+                }}>
+                  {service.description}
+                </p>
+                <span style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '600',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginTop: '6px',
+                }}>
+                  Learn more
+                  <i className="fas fa-arrow-down" style={{ fontSize: '11px' }} />
+                </span>
+              </motion.button>
+            ))}
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Service 1: The Navara Behavior Method™ — Combined Hero & Video Section */}
       <motion.section 
+        id="service-method"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -426,7 +627,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             flexWrap: 'wrap',
           }}>
             <button
-              onClick={() => scrollToSection('navara-method')}
+              onClick={() => scrollToSection('service-method')}
               style={{
                 ...buttonStyle,
                 background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
@@ -446,7 +647,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             </button>
 
             <button
-              onClick={() => scrollToSection('coaching-options')}
+              onClick={() => scrollToSection('service-direct-aba')}
               style={{
                 ...buttonStyle,
                 background: 'transparent',
@@ -465,7 +666,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               }}
             >
               <i className="fas fa-user-md" style={{ marginRight: '8px' }} />
-              Book Individual Coaching
+              Explore Direct ABA
             </button>
           </motion.div>
         </div>
@@ -860,252 +1061,796 @@ const BehavioralPage = ({ isDarkMode = false }) => {
         </div>
       </motion.section>
 
-      {/* Section 2: 1:1 Behavior Coaching Options */}
-      <motion.section 
-        id="coaching-options"
+      {/* Service 2: Navara Direct ABA™ */}
+      <motion.section
+        id="service-direct-aba"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.2 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
+          {/* Service badge */}
+          <motion.div variants={itemVariants} style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '12px',
+          }}>
+            <span style={{
+              display: 'inline-block',
+              background: colors.primary + '15',
+              color: colors.primary,
+              padding: '6px 16px',
+              borderRadius: '999px',
+              fontSize: '11px',
+              fontWeight: '700',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+            }}>
+              Service 2
+            </span>
+          </motion.div>
+
           <motion.h2 variants={itemVariants} style={{
-            fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
+            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
             color: colors.primary,
             fontWeight: '700',
-            marginBottom: '24px',
+            marginBottom: '16px',
             textAlign: 'center',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '12px',
           }}>
-            <i className="fas fa-users" style={{ color: colors.accent }} />
-            Not ready for a full program?
+            Navara Direct ABA™
           </motion.h2>
-          
-          <motion.h3 variants={itemVariants} style={{
+
+          <motion.p variants={itemVariants} style={{
             fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
             fontFamily: textSizes.xl.fontFamily,
             color: colors.text,
             fontWeight: '600',
-            marginBottom: '24px',
             textAlign: 'center',
+            marginBottom: '24px',
+            maxWidth: '780px',
+            margin: '0 auto 24px auto',
+            lineHeight: '1.4',
           }}>
-            Try a 1:1 coaching session first!
-          </motion.h3>
+            Private ABA therapy, led directly by a BCBA — structured, flexible, and built around your family.
+          </motion.p>
 
           <motion.div variants={itemVariants} style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: isMobile ? '20px' : '40px',
-            flexDirection: isMobile ? 'column' : 'row-reverse',
-            margin: '0 auto 48px auto',
-            maxWidth: '1000px',
+            maxWidth: '820px',
+            margin: '0 auto 24px auto',
           }}>
-            <motion.img 
-              variants={imageVariants}
-              src="/assets/parenting2.jpg"
-              alt="One-on-one coaching session"
-              style={{
-                width: isMobile ? '200px' : '250px',
-                height: isMobile ? '200px' : '250px',
-                borderRadius: '20px',
-                objectFit: 'cover',
-                border: `4px solid ${colors.secondary}30`,
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-                transform: 'rotate(2deg)',
-              }}
-            />
-            <motion.div style={{ textAlign: isMobile ? 'center' : 'left', maxWidth: '500px' }}>
-              <motion.p variants={itemVariants} style={{
-                fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
-                fontFamily: textSizes.base.fontFamily,
-                color: colors.text,
-                lineHeight: '1.8',
-                margin: 0,
-              }}>
-                Book a 45-minute private session with one of our Behavior Specialists trained in the Navara Behavior Method™
-              </motion.p>
-            </motion.div>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.7',
+              marginBottom: '20px',
+            }}>
+              Navara Direct ABA is a private, insurance-free ABA service designed for families who want
+              targeted, high-quality support without the delays, limitations, or one-size-fits-all
+              structure that often comes with traditional ABA programs.
+            </p>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.7',
+              marginBottom: '20px',
+            }}>
+              Every session is led by a Board Certified Behavior Analyst. Every plan is individualized.
+              And because we operate outside of the insurance model, we can move at your pace, adjust in
+              real time, and stay focused on what actually matters for your child and your family.
+            </p>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.textSecondary,
+              lineHeight: '1.7',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              marginBottom: '40px',
+            }}>
+              We offer three levels of support so you can choose the structure that fits your family's needs.
+            </p>
           </motion.div>
 
-          {/* Combined Coaching Options */}
+          {/* Three Plans Grid */}
           <motion.div variants={itemVariants} style={{
-            ...cardStyle,
-            marginBottom: '32px',
-            position: 'relative',
-            overflow: 'hidden',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr' : 'repeat(3, 1fr)',
+            gap: '24px',
+            maxWidth: '1200px',
+            margin: '0 auto 40px auto',
           }}>
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
+            {[
+              {
+                name: 'Essential Plan',
+                tagline: 'Consistent Guidance. Clear Direction.',
+                description: 'Designed for families who want professional support and a clear plan, and feel comfortable carrying strategies through between sessions.',
+                includes: [
+                  '1 weekly in-home session (60 minutes)',
+                  'Direct BCBA-led intervention',
+                  'Individualized behavior plan development and guidance',
+                  'Dedicated parent coaching segment within each session (approx. 15–20 minutes)',
+                  'Clear weekly action steps',
+                ],
+                price: '$800',
+                pricePeriod: '/month',
+                featured: false,
+                note: null,
+              },
+              {
+                name: 'Advanced Plan',
+                tagline: 'Ongoing Support. Active Progress.',
+                description: 'Ideal for families who want more consistent touchpoints, between-session guidance, and the ability to adjust strategies in real time.',
+                includes: [
+                  '1 weekly in-home session (60 minutes)',
+                  'Direct BCBA-led intervention',
+                  'Ongoing behavior plan development and refinement',
+                  'Weekly virtual parent coaching session (45 minutes)',
+                  'Between-session communication (text/email) for guidance and adjustments',
+                  'Structured weekly targets and accountability',
+                ],
+                price: '$1,500',
+                pricePeriod: '/month',
+                featured: true,
+                note: null,
+              },
+              {
+                name: 'Comprehensive Plan',
+                tagline: 'Comprehensive Support. Consistent Implementation.',
+                description: 'For families who require a higher level of structure and in-home consistency. Combines direct BCBA sessions with dedicated paraprofessional support throughout the week — ensuring strategies are implemented consistently, not just during sessions.',
+                includes: [
+                  '2 weekly in-home BCBA sessions (60 minutes each)',
+                  '6 hours/week of in-home behavioral support (paraprofessional)',
+                  'Weekly parent coaching session (45 minutes)',
+                  'Ongoing program oversight, coordination, and plan refinement',
+                ],
+                price: '$6,000',
+                pricePeriod: '/month',
+                featured: false,
+                note: 'Limited availability. Please inquire for details.',
+              },
+            ].map((plan, idx) => (
+              <motion.div
+                key={idx}
+                variants={itemVariants}
+                style={{
+                  background: plan.featured
+                    ? `linear-gradient(135deg, ${colors.primary}12, ${colors.secondary}08)`
+                    : `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.9'})`,
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  borderRadius: '20px',
+                  padding: isMobile ? '28px 24px' : '32px 28px',
+                  border: plan.featured
+                    ? `2px solid ${colors.primary}60`
+                    : `1px solid rgba(255, 255, 255, ${isDarkMode ? '0.2' : '0.3'})`,
+                  boxShadow: plan.featured
+                    ? '0 16px 48px rgba(27, 59, 98, 0.18)'
+                    : '0 8px 32px rgba(0, 0, 0, 0.1)',
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                {plan.featured && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '-12px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                    color: 'white',
+                    padding: '5px 16px',
+                    borderRadius: '999px',
+                    fontSize: '10px',
+                    fontWeight: '700',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    boxShadow: '0 4px 12px rgba(27, 59, 98, 0.3)',
+                  }}>
+                    Most Popular
+                  </div>
+                )}
+                <h3 style={{
+                  fontSize: textSizes.xl.fontSize,
+                  fontFamily: textSizes.xl.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '700',
+                  margin: '0 0 6px 0',
+                  textAlign: 'center',
+                }}>
+                  {plan.name}
+                </h3>
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.text,
+                  fontStyle: 'italic',
+                  textAlign: 'center',
+                  margin: '0 0 20px 0',
+                }}>
+                  {plan.tagline}
+                </p>
+
+                {/* Price */}
+                <div style={{
+                  textAlign: 'center',
+                  marginBottom: '20px',
+                  paddingBottom: '20px',
+                  borderBottom: `1px solid ${colors.border}80`,
+                }}>
+                  <span style={{
+                    fontSize: textSizes['3xl'].fontSize,
+                    fontFamily: textSizes['3xl'].fontFamily,
+                    color: colors.primary,
+                    fontWeight: '800',
+                  }}>
+                    {plan.price}
+                  </span>
+                  <span style={{
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.textSecondary,
+                    fontWeight: '500',
+                    marginLeft: '4px',
+                  }}>
+                    {plan.pricePeriod}
+                  </span>
+                </div>
+
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.text,
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                }}>
+                  {plan.description}
+                </p>
+
+                <div style={{
+                  fontSize: textSizes.xs.fontSize,
+                  fontFamily: textSizes.xs.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '700',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  marginBottom: '12px',
+                }}>
+                  Includes
+                </div>
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: '0 0 20px 0',
+                  flex: 1,
+                }}>
+                  {plan.includes.map((item, itemIdx) => (
+                    <li
+                      key={itemIdx}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '10px',
+                        marginBottom: '10px',
+                        fontSize: textSizes.sm.fontSize,
+                        fontFamily: textSizes.sm.fontFamily,
+                        color: colors.text,
+                        lineHeight: '1.5',
+                      }}
+                    >
+                      <i
+                        className="fas fa-check"
+                        style={{
+                          color: colors.primary,
+                          fontSize: '12px',
+                          marginTop: '4px',
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {plan.note && (
+                  <p style={{
+                    fontSize: textSizes.xs.fontSize,
+                    fontFamily: textSizes.xs.fontFamily,
+                    color: colors.textSecondary,
+                    fontStyle: 'italic',
+                    textAlign: 'center',
+                    margin: '0 0 16px 0',
+                  }}>
+                    {plan.note}
+                  </p>
+                )}
+
+                <a
+                  href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    background: plan.featured
+                      ? `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`
+                      : 'transparent',
+                    color: plan.featured ? 'white' : colors.primary,
+                    border: plan.featured ? 'none' : `2px solid ${colors.primary}`,
+                    borderRadius: '12px',
+                    padding: '12px 18px',
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <i className="fas fa-calendar-check" />
+                  Book Free Consultation
+                </a>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Additional Support */}
+          <motion.div variants={itemVariants} style={{
+            maxWidth: '820px',
+            margin: '0 auto',
+            padding: isMobile ? '24px' : '32px',
+            background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.7'})`,
+            borderRadius: '16px',
+            border: `1px solid ${colors.border}`,
+          }}>
+            <h4 style={{
+              fontSize: textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.primary,
+              fontWeight: '700',
+              margin: '0 0 12px 0',
+            }}>
+              Additional Support
+            </h4>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              margin: '0 0 12px 0',
+              lineHeight: '1.6',
+            }}>
+              The following services are available as needed across any plan:
+            </p>
+            <ul style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: 0,
+            }}>
+              {[
+                'School collaboration — observations, teacher consultations, and coordination',
+                'Additional sessions',
+              ].map((item, idx) => (
+                <li
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '10px',
+                    padding: '6px 0',
+                    fontSize: textSizes.base.fontSize,
+                    fontFamily: textSizes.base.fontFamily,
+                    color: colors.text,
+                  }}
+                >
+                  <i className="fas fa-circle" style={{ fontSize: '6px', color: colors.primary, marginTop: '9px' }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p style={{
+              fontSize: textSizes.sm.fontSize,
+              fontFamily: textSizes.sm.fontFamily,
+              color: colors.textSecondary,
+              margin: '12px 0 0 0',
+              fontStyle: 'italic',
+            }}>
+              Available upon request.
+            </p>
+          </motion.div>
+
+          {/* Not sure CTA */}
+          <motion.div variants={itemVariants} style={{
+            maxWidth: '720px',
+            margin: '40px auto 0 auto',
+            textAlign: 'center',
+            padding: isMobile ? '28px 24px' : '36px',
+            background: `linear-gradient(135deg, ${colors.primary}12, ${colors.secondary}08)`,
+            borderRadius: '20px',
+            border: `1px solid ${colors.primary}25`,
+          }}>
+            <h4 style={{
+              fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+              fontFamily: textSizes.xl.fontFamily,
+              color: colors.primary,
+              fontWeight: '700',
+              margin: '0 0 12px 0',
+            }}>
+              Not sure which plan is right for you?
+            </h4>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.7',
+              margin: '0 0 24px 0',
+            }}>
+              Every family situation is different. We start with a brief conversation to understand your goals and find the right fit.
+            </p>
+            <a
+              href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
-                position: 'absolute',
-                top: '15px',
-                right: '15px',
-                fontSize: isMobile ? '40px' : '45px',
-                color: `${colors.secondary}15`,
-                zIndex: 0,
+                ...buttonStyle,
+                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                color: 'white',
+                textDecoration: 'none',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
               }}
             >
-              <i className="fas fa-user-md" />
-            </motion.div>
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <motion.h3 variants={itemVariants} style={{
-                fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
-                fontFamily: textSizes.xl.fontFamily,
-                color: colors.primary,
-                fontWeight: '600',
-                marginBottom: '16px',
-                textAlign: 'center',
+              <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
+              Book Your Free 15-Minute Consultation
+            </a>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Service 3: Behavioral Consulting */}
+      <motion.section
+        id="service-consulting"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        style={{
+          ...sectionStyle,
+          background: `linear-gradient(135deg, ${colors.primary}08, ${colors.secondary}04)`,
+        }}
+      >
+        <div style={containerStyle}>
+          {/* Service badge */}
+          <motion.div variants={itemVariants} style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '12px',
+          }}>
+            <span style={{
+              display: 'inline-block',
+              background: colors.primary + '15',
+              color: colors.primary,
+              padding: '6px 16px',
+              borderRadius: '999px',
+              fontSize: '11px',
+              fontWeight: '700',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+            }}>
+              Service 3
+            </span>
+          </motion.div>
+
+          <motion.h2 variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
+            fontFamily: textSizes['3xl'].fontFamily,
+            color: colors.primary,
+            fontWeight: '700',
+            marginBottom: '16px',
+            textAlign: 'center',
+          }}>
+            Behavioral Consulting
+          </motion.h2>
+
+          <motion.p variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+            fontFamily: textSizes.xl.fontFamily,
+            color: colors.text,
+            fontWeight: '600',
+            textAlign: 'center',
+            margin: '0 auto 28px auto',
+            maxWidth: '820px',
+            lineHeight: '1.4',
+          }}>
+            Direct access to expert-level behavioral guidance — for the families and professionals who want answers, not a waiting list.
+          </motion.p>
+
+          <motion.div variants={itemVariants} style={{
+            maxWidth: '820px',
+            margin: '0 auto 40px auto',
+          }}>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.7',
+              marginBottom: '20px',
+            }}>
+              Sometimes you don't need a full program. You need someone who knows what they're looking
+              at, can cut through the noise, and give you a clear direction.
+            </p>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.text,
+              lineHeight: '1.7',
+              margin: 0,
+            }}>
+              Behavioral Consulting at Navara is a single, focused session with David Nisan Fetman,
+              M.A., BCBA — designed for those who value precision, discretion, and time.
+            </p>
+          </motion.div>
+
+          {/* Two cards: Families / Professionals */}
+          <motion.div variants={itemVariants} style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: '24px',
+            maxWidth: '1100px',
+            margin: '0 auto 40px auto',
+          }}>
+            {/* For Families */}
+            <div style={{
+              background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.9'})`,
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              borderRadius: '20px',
+              padding: isMobile ? '28px 24px' : '36px 32px',
+              border: `1px solid rgba(255, 255, 255, ${isDarkMode ? '0.2' : '0.3'})`,
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
+            }}>
+              <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
+                gap: '12px',
+                marginBottom: '16px',
               }}>
-                <i className="fas fa-calendar-check" style={{ color: colors.accent, fontSize: '20px' }} />
-                1:1 Coaching Session
-              </motion.h3>
-
-              <motion.p variants={itemVariants} style={{
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '14px',
+                  background: `linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}15)`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <i className="fas fa-home" style={{ fontSize: '22px', color: colors.primary }} />
+                </div>
+                <h3 style={{
+                  fontSize: textSizes.xl.fontSize,
+                  fontFamily: textSizes.xl.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '700',
+                  margin: 0,
+                }}>
+                  For Families
+                </h3>
+              </div>
+              <p style={{
                 fontSize: textSizes.base.fontSize,
                 fontFamily: textSizes.base.fontFamily,
                 color: colors.text,
-                lineHeight: '1.6',
-                marginBottom: '24px',
-                textAlign: 'center',
+                lineHeight: '1.7',
+                marginBottom: '20px',
               }}>
-                Choose your preferred coach for personalized behavioral support
-              </motion.p>
-
-              {/* Coach Selection Dropdown */}
-              <motion.div variants={itemVariants} style={{
-                marginBottom: '24px',
+                You have questions. You've done the research. You just want a straight answer from
+                someone who has seen it before and knows what works.
+              </p>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
               }}>
-                <select
-                  value={selectedCoach}
-                  onChange={(e) => setSelectedCoach(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: '12px',
-                    border: `2px solid ${colors.primary}30`,
-                    background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.95'})`,
-                    color: colors.text,
-                    fontSize: textSizes.base.fontSize,
-                    fontFamily: textSizes.base.fontFamily,
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${colors.primary.replace('#', '%23')}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'right 12px center',
-                    backgroundSize: '20px',
-                    paddingRight: '40px',
-                  }}
-                >
-                  <option value="bcba">Navara Behavior Specialist - Expert support from certified specialists</option>
-                  <option value="david">David Nisan Fetman - Founder & Director</option>
-                </select>
-              </motion.div>
-
-              {/* Pricing Display */}
-              <motion.div variants={itemVariants} style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
-                marginBottom: '24px',
-              }}>
-                <div style={{
-                  background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
-                  borderRadius: '8px',
-                  padding: '12px 16px',
-                  border: `1px solid ${colors.primary}30`,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                  <span style={{
-                    fontSize: textSizes.base.fontSize,
-                    fontFamily: textSizes.base.fontFamily,
-                    color: colors.text,
-                    fontWeight: '500',
-                  }}>
-                    {selectedCoach === 'bcba' ? 'Intro Session:' : '45-min Intro Session:'}
-                  </span>
-                  <span style={{
-                    fontSize: textSizes.lg.fontSize,
-                    fontFamily: textSizes.lg.fontFamily,
-                    color: colors.primary,
-                    fontWeight: '700',
-                  }}>
-                    {selectedCoach === 'bcba' ? '$85' : '$125'}
-                  </span>
-                </div>
-
-                <div style={{
-                  background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.8'})`,
-                  borderRadius: '8px',
-                  padding: '12px 16px',
-                  border: `1px solid ${colors.primary}30`,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                  <span style={{
-                    fontSize: textSizes.base.fontSize,
-                    fontFamily: textSizes.base.fontFamily,
-                    color: colors.text,
-                    fontWeight: '500',
-                  }}>
-                    45-min Follow-Up:
-                  </span>
-                  <span style={{
-                    fontSize: textSizes.lg.fontSize,
-                    fontFamily: textSizes.lg.fontFamily,
-                    color: colors.primary,
-                    fontWeight: '700',
-                  }}>
-                    {selectedCoach === 'bcba' ? '$115' : '$150'}
-                  </span>
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants} style={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}>
-                <button
-                  onClick={() => setIsCalendlyModalOpen(true)}
-                  style={{
-                    ...buttonStyle,
-                    background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                    color: 'white',
-                    fontSize: textSizes.base.fontSize,
-                    padding: isMobile ? '12px 24px' : '14px 32px',
-                    minWidth: '200px',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'translateY(-2px)';
-                    e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                  }}
-                >
-                  <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-                  Book {selectedCoach === 'bcba' ? 'with Navara Behavior Specialist' : 'with David'}
-                </button>
-              </motion.div>
+                {[
+                  "A focused 45-minute session to discuss your child's behavior, your concerns, and a clear path forward",
+                  'No intake process, no waitlist, no commitment beyond the session itself',
+                  'Ideal as a standalone consult or as a first step before enrolling in the Navara Behavior Method™ or Navara Direct ABA™',
+                ].map((item, idx) => (
+                  <li
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '10px',
+                      marginBottom: '10px',
+                      fontSize: textSizes.sm.fontSize,
+                      fontFamily: textSizes.sm.fontFamily,
+                      color: colors.text,
+                      lineHeight: '1.6',
+                    }}
+                  >
+                    <i className="fas fa-check" style={{ color: colors.primary, fontSize: '12px', marginTop: '4px', flexShrink: 0 }} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            {/* For Professionals */}
+            <div style={{
+              background: `rgba(255, 255, 255, ${isDarkMode ? '0.05' : '0.9'})`,
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              borderRadius: '20px',
+              padding: isMobile ? '28px 24px' : '36px 32px',
+              border: `1px solid rgba(255, 255, 255, ${isDarkMode ? '0.2' : '0.3'})`,
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px',
+              }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '14px',
+                  background: `linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}15)`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <i className="fas fa-briefcase-medical" style={{ fontSize: '22px', color: colors.primary }} />
+                </div>
+                <h3 style={{
+                  fontSize: textSizes.xl.fontSize,
+                  fontFamily: textSizes.xl.fontFamily,
+                  color: colors.primary,
+                  fontWeight: '700',
+                  margin: 0,
+                }}>
+                  For Professionals
+                </h3>
+              </div>
+              <p style={{
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: colors.text,
+                lineHeight: '1.7',
+                marginBottom: '20px',
+              }}>
+                Navara offers case consultation and behavioral guidance to select professionals seeking an
+                expert perspective.
+              </p>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+              }}>
+                {[
+                  'Psychiatrists, psychologists, and pediatricians seeking behavioral context for complex cases',
+                  'BCBAs looking for case consultation or a second opinion',
+                  'Educators and school psychologists navigating challenging behavioral presentations',
+                ].map((item, idx) => (
+                  <li
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '10px',
+                      marginBottom: '10px',
+                      fontSize: textSizes.sm.fontSize,
+                      fontFamily: textSizes.sm.fontFamily,
+                      color: colors.text,
+                      lineHeight: '1.6',
+                    }}
+                  >
+                    <i className="fas fa-check" style={{ color: colors.primary, fontSize: '12px', marginTop: '4px', flexShrink: 0 }} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p style={{
+                fontSize: textSizes.sm.fontSize,
+                fontFamily: textSizes.sm.fontFamily,
+                color: colors.textSecondary,
+                fontStyle: 'italic',
+                margin: '16px 0 0 0',
+              }}>
+                Sessions are confidential, focused, and built around your specific clinical question.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Pricing + CTA */}
+          <motion.div variants={itemVariants} style={{
+            maxWidth: '640px',
+            margin: '0 auto',
+            textAlign: 'center',
+            padding: isMobile ? '32px 24px' : '40px',
+            background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}10)`,
+            borderRadius: '20px',
+            border: `1px solid ${colors.primary}30`,
+          }}>
+            <div style={{
+              fontSize: textSizes.sm.fontSize,
+              fontFamily: textSizes.sm.fontFamily,
+              color: colors.textSecondary,
+              fontWeight: '600',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              marginBottom: '8px',
+            }}>
+              Session Investment
+            </div>
+            <div style={{
+              fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
+              fontFamily: textSizes['3xl'].fontFamily,
+              color: colors.primary,
+              fontWeight: '800',
+              marginBottom: '6px',
+            }}>
+              $150
+              <span style={{
+                fontSize: textSizes.base.fontSize,
+                fontWeight: '500',
+                color: colors.textSecondary,
+                marginLeft: '6px',
+              }}>
+                / 45-minute session
+              </span>
+            </div>
+            <p style={{
+              fontSize: textSizes.sm.fontSize,
+              fontFamily: textSizes.sm.fontFamily,
+              color: colors.textSecondary,
+              fontStyle: 'italic',
+              margin: '0 0 24px 0',
+            }}>
+              Limited availability. Serious inquiries only.
+            </p>
+            <a
+              href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                ...buttonStyle,
+                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                color: 'white',
+                textDecoration: 'none',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+              }}
+            >
+              <i className="fas fa-comments" style={{ marginRight: '8px' }} />
+              Request a Consulting Session
+            </a>
           </motion.div>
         </div>
       </motion.section>
@@ -1378,7 +2123,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             textAlign: 'center',
           }}>
             <button
-              onClick={() => scrollToSection('coaching-options')}
+              onClick={() => scrollToSection('service-consulting')}
               style={{
                 ...buttonStyle,
                 background: 'transparent',
@@ -1396,8 +2141,8 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 e.target.style.transform = 'translateY(0)';
               }}
             >
-              <i className="fas fa-arrow-up" style={{ marginRight: '8px' }} />
-              Not Ready Yet? Book a Coaching Session First
+              <i className="fas fa-comments" style={{ marginRight: '8px' }} />
+              Need Just an Expert Opinion? Book a Consult
             </button>
           </motion.div>
         </div>

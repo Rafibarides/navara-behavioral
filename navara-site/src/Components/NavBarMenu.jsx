@@ -87,12 +87,14 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  const navItems = ['home', 'services', 'about', 'contact'];
+  const navItems = ['home', 'divisions', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Diagnostics', id: 'diagnostics', key: 'diagnostics' },
-    // { name: 'Pathways', id: 'pathways', key: 'pathways' }, // Temporarily disabled
-    { name: 'Behavior Support', id: 'behavioral', key: 'behavioral' },
-    { name: 'Wellness', id: 'wellness', key: 'wellness' }
+    { name: 'Behavior Support', id: 'behavioral', key: 'behavioral', live: true },
+    { name: 'Diagnostics', id: 'diagnostics', key: 'diagnostics', live: false },
+    { name: 'Wellness', id: 'wellness', key: 'wellness', live: false },
+    { name: 'Nutrition', id: 'nutrition', key: 'nutrition', live: false },
+    { name: 'Pathways', id: 'pathways', key: 'pathways', live: false },
+    { name: 'Medical', id: 'medical', key: 'medical', live: false }
   ];
 
   const scrollToSection = (sectionId) => {
@@ -119,7 +121,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   };
 
   const handleNavClick = (item) => {
-    if (item === 'services') {
+    if (item === 'divisions') {
       setIsServicesOpen(!isServicesOpen);
     } else {
       let sectionId = '';
@@ -159,9 +161,13 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     }
   };
 
-  const handleServiceClick = (serviceId, serviceKey) => {
-    // Navigate directly to the service page
-    navigate(`/${serviceKey}`);
+  const handleServiceClick = (serviceId, serviceKey, live = true) => {
+    if (!live) {
+      // Send users to the Divisions overview page for coming-soon items
+      navigate('/divisions');
+    } else {
+      navigate(`/${serviceKey}`);
+    }
     setIsServicesOpen(false);
     setIsMobileMenuOpen(false);
   };
@@ -181,8 +187,9 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   };
 
   const isItemActive = (item) => {
-    if (item === 'services') {
-      return ['diagnostics', 'pathways', 'behavioral', 'wellness'].includes(activeSection);
+    if (item === 'divisions') {
+      return ['diagnostics', 'pathways', 'behavioral', 'wellness', 'nutrition', 'medical'].includes(activeSection)
+        || location.pathname === '/divisions';
     }
     return activeSection === item;
   };
@@ -335,73 +342,112 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           }}>
             {navItems.map(item => (
               <div key={item}>
+            <button
+              onClick={() => handleNavClick(item)}
+              style={{
+                width: '100%',
+                background: isItemActive(item) ? colors.accent + '4D' : 'none',
+                border: 'none',
+                padding: '12px 16px',
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: isItemActive(item) ? colors.primary : colors.text,
+                cursor: 'pointer',
+                borderRadius: '8px',
+                textAlign: 'left',
+                textTransform: 'capitalize',
+                transition: 'all 0.3s ease',
+                fontWeight: isItemActive(item) ? '500' : '400',
+              }}
+              onMouseEnter={(e) => {
+                if (!isItemActive(item)) {
+                  e.target.style.backgroundColor = colors.accent + '33';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isItemActive(item)) {
+                  e.target.style.backgroundColor = 'transparent';
+                }
+              }}
+            >
+              {item}
+            </button>
+            
+            {item === 'divisions' && isServicesOpen && (
+              <div style={{ marginLeft: '16px', marginTop: '8px' }}>
                 <button
-                  onClick={() => handleNavClick(item)}
+                  onClick={() => { navigate('/divisions'); setIsServicesOpen(false); setIsMobileMenuOpen(false); }}
                   style={{
                     width: '100%',
-                    background: isItemActive(item) ? colors.accent + '4D' : 'none',
+                    background: location.pathname === '/divisions' ? colors.accent + '33' : 'none',
                     border: 'none',
-                    padding: '12px 16px',
-                    fontSize: textSizes.base.fontSize,
-                    fontFamily: textSizes.base.fontFamily,
-                    color: isItemActive(item) ? colors.primary : colors.text,
+                    padding: '8px 12px',
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
+                    color: colors.primary,
                     cursor: 'pointer',
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     textAlign: 'left',
-                    textTransform: 'capitalize',
                     transition: 'all 0.3s ease',
-                    fontWeight: isItemActive(item) ? '500' : '400',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isItemActive(item)) {
-                      e.target.style.backgroundColor = colors.accent + '33';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isItemActive(item)) {
-                      e.target.style.backgroundColor = 'transparent';
-                    }
+                    fontWeight: '600',
+                    marginBottom: '6px',
                   }}
                 >
-                  {item}
+                  All Divisions
                 </button>
-                
-                {item === 'services' && isServicesOpen && (
-                  <div style={{ marginLeft: '16px', marginTop: '8px' }}>
-                    {serviceItems.map(service => (
-                      <button
-                        key={service.id}
-                        onClick={() => handleServiceClick(service.id, service.key)}
-                        style={{
-                          width: '100%',
-                          background: isServiceActive(service.key) ? colors.accent + '33' : 'none',
-                          border: 'none',
-                          padding: '8px 12px',
-                          fontSize: textSizes.sm.fontSize,
-                          fontFamily: textSizes.sm.fontFamily,
-                          color: isServiceActive(service.key) ? colors.primary : colors.textSecondary,
-                          cursor: 'pointer',
-                          borderRadius: '6px',
-                          textAlign: 'left',
-                          transition: 'all 0.3s ease',
-                          fontWeight: isServiceActive(service.key) ? '500' : '400',
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!isServiceActive(service.key)) {
-                            e.target.style.backgroundColor = colors.accent + '26';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!isServiceActive(service.key)) {
-                            e.target.style.backgroundColor = 'transparent';
-                          }
-                        }}
-                      >
-                        {service.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                {serviceItems.map(service => (
+                  <button
+                    key={service.id}
+                    onClick={() => handleServiceClick(service.id, service.key, service.live)}
+                    style={{
+                      width: '100%',
+                      background: isServiceActive(service.key) ? colors.accent + '33' : 'none',
+                      border: 'none',
+                      padding: '8px 12px',
+                      fontSize: textSizes.sm.fontSize,
+                      fontFamily: textSizes.sm.fontFamily,
+                      color: isServiceActive(service.key)
+                        ? colors.primary
+                        : (service.live ? colors.textSecondary : colors.textSecondary + 'AA'),
+                      cursor: 'pointer',
+                      borderRadius: '6px',
+                      textAlign: 'left',
+                      transition: 'all 0.3s ease',
+                      fontWeight: isServiceActive(service.key) ? '500' : '400',
+                      opacity: service.live ? 1 : 0.7,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '8px',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isServiceActive(service.key)) {
+                        e.currentTarget.style.backgroundColor = colors.accent + '26';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isServiceActive(service.key)) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }
+                    }}
+                  >
+                    <span>{service.name}</span>
+                    {!service.live && (
+                      <span style={{
+                        fontSize: '10px',
+                        color: colors.textSecondary,
+                        fontWeight: '500',
+                        letterSpacing: '0.05em',
+                        textTransform: 'uppercase',
+                      }}>
+                        <i className="fas fa-lock" style={{ marginRight: '4px', fontSize: '9px' }} />
+                        Soon
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
               </div>
             ))}
           </div>
@@ -444,8 +490,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           <div 
             key={item} 
             style={{ position: 'relative' }}
-            onMouseEnter={item === 'services' ? handleServicesMouseEnter : undefined}
-            onMouseLeave={item === 'services' ? handleServicesMouseLeave : undefined}
+            onMouseEnter={item === 'divisions' ? handleServicesMouseEnter : undefined}
+            onMouseLeave={item === 'divisions' ? handleServicesMouseLeave : undefined}
           >
             <button
               onClick={() => handleNavClick(item)}
@@ -499,7 +545,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               {item}
             </button>
 
-            {item === 'services' && isServicesOpen && (
+            {item === 'divisions' && isServicesOpen && (
               <div
                 style={{
                   position: 'absolute',
@@ -513,7 +559,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   border: getDropdownBorder(),
                   borderRadius: '16px',
                   padding: '12px',
-                  minWidth: '180px',
+                  minWidth: '240px',
                   boxShadow: `
                     0 8px 32px rgba(0, 0, 0, 0.15),
                     inset 0 1px 0 rgba(255, 255, 255, 0.9),
@@ -536,10 +582,43 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     }
                   `}
                 </style>
+                <button
+                  onClick={() => { navigate('/divisions'); setIsServicesOpen(false); }}
+                  style={{
+                    width: '100%',
+                    background: location.pathname === '/divisions'
+                      ? `linear-gradient(135deg, ${colors.accent}66, ${colors.accent}40)`
+                      : 'transparent',
+                    border: location.pathname === '/divisions' ? `1px solid ${colors.accent}66` : 'none',
+                    padding: '10px 16px',
+                    fontSize: textSizes.sm.fontSize,
+                    fontFamily: textSizes.sm.fontFamily,
+                    color: colors.primary,
+                    cursor: 'pointer',
+                    borderRadius: '8px',
+                    textAlign: 'left',
+                    transition: 'all 0.3s ease',
+                    fontWeight: '600',
+                    marginBottom: '4px',
+                    borderBottom: `1px solid ${colors.border}40`,
+                    paddingBottom: '12px',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = `linear-gradient(135deg, ${colors.accent}33, ${colors.accent}1A)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (location.pathname !== '/divisions') {
+                      e.currentTarget.style.background = 'transparent';
+                    }
+                  }}
+                >
+                  <i className="fas fa-th-large" style={{ marginRight: '8px', fontSize: '12px' }} />
+                  All Divisions
+                </button>
                 {serviceItems.map(service => (
                   <button
                     key={service.id}
-                    onClick={() => handleServiceClick(service.id, service.key)}
+                    onClick={() => handleServiceClick(service.id, service.key, service.live)}
                     style={{
                       width: '100%',
                       background: isServiceActive(service.key) 
@@ -554,33 +633,55 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                       padding: '10px 16px',
                       fontSize: textSizes.sm.fontSize,
                       fontFamily: textSizes.sm.fontFamily,
-                      color: isServiceActive(service.key) ? colors.primary : colors.text,
+                      color: isServiceActive(service.key)
+                        ? colors.primary
+                        : (service.live ? colors.text : colors.textSecondary),
                       cursor: 'pointer',
                       borderRadius: '8px',
                       textAlign: 'left',
                       transition: 'all 0.3s ease',
                       fontWeight: isServiceActive(service.key) ? '500' : '400',
                       backdropFilter: isServiceActive(service.key) ? 'blur(5px)' : 'none',
+                      opacity: service.live ? 1 : 0.75,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px',
                     }}
                     onMouseEnter={(e) => {
                       if (!isServiceActive(service.key)) {
-                        e.target.style.background = `linear-gradient(135deg, 
+                        e.currentTarget.style.background = `linear-gradient(135deg, 
                           ${colors.accent}33, 
                           ${colors.accent}1A
                         )`;
-                        e.target.style.backdropFilter = 'blur(5px)';
-                        e.target.style.border = `1px solid ${colors.accent}33`;
+                        e.currentTarget.style.backdropFilter = 'blur(5px)';
+                        e.currentTarget.style.border = `1px solid ${colors.accent}33`;
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (!isServiceActive(service.key)) {
-                        e.target.style.background = 'transparent';
-                        e.target.style.backdropFilter = 'none';
-                        e.target.style.border = 'none';
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.backdropFilter = 'none';
+                        e.currentTarget.style.border = 'none';
                       }
                     }}
                   >
-                    {service.name}
+                    <span>{service.name}</span>
+                    {!service.live && (
+                      <span style={{
+                        fontSize: '10px',
+                        color: colors.textSecondary,
+                        fontWeight: '500',
+                        letterSpacing: '0.05em',
+                        textTransform: 'uppercase',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}>
+                        <i className="fas fa-lock" style={{ fontSize: '9px' }} />
+                        Soon
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>

@@ -27,11 +27,11 @@ const FooterSection = ({ isDarkMode = false }) => {
       { name: 'Careers', href: '/careers', type: 'route' },
       { name: 'Contact', href: 'contact', type: 'scroll' }
     ],
-    services: [
-      { name: 'Diagnostics', href: 'diagnostics', type: 'scroll' },
-      { name: 'Pathways', href: 'pathways', type: 'scroll' },
-      { name: 'Behavioral Method', href: 'behavioral', type: 'scroll' },
-      { name: 'Consultations', href: 'contact', type: 'scroll' }
+    divisions: [
+      { name: 'Behavior Support', href: '/behavioral', type: 'route' },
+      { name: 'Diagnostics (Soon)', href: '/divisions', type: 'route' },
+      { name: 'Wellness (Soon)', href: '/divisions', type: 'route' },
+      { name: 'All Divisions', href: '/divisions', type: 'route' }
     ],
     resources: [
       { name: 'Client Portal', href: '/client-portal', type: 'route' },
@@ -156,7 +156,7 @@ const FooterSection = ({ isDarkMode = false }) => {
               marginBottom: '24px',
               maxWidth: '400px',
             }}>
-              Providing comprehensive behavioral support, diagnostics, and career guidance for families and young adults.
+              Evidence-based behavior support for families who want real results — no waitlists, no insurance, no one-size-fits-all.
             </p>
             {/* Security Badge */}
             <div style={{
@@ -219,7 +219,7 @@ const FooterSection = ({ isDarkMode = false }) => {
             </div>
           </div>
 
-          {/* Services Links */}
+          {/* Divisions Links */}
           <div>
             <h4 style={{
               fontSize: textSizes.xl.fontSize,
@@ -228,14 +228,14 @@ const FooterSection = ({ isDarkMode = false }) => {
               marginBottom: '24px',
               color: 'white',
             }}>
-              Services
+              Divisions
             </h4>
             <div style={{
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
             }}>
-              {footerLinks.services.map((link, index) => (
+              {footerLinks.divisions.map((link, index) => (
                 <button
                   key={index}
                   onClick={() => handleLinkClick(link.href, link.type)}

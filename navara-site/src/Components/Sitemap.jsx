@@ -17,15 +17,19 @@ const Sitemap = ({ isDarkMode = false }) => {
 
   const siteStructure = {
     main: [
-      { name: 'Home', path: '/', description: 'Main landing page with overview of services' },
-      { name: 'About Us', path: '/#about-section', description: 'Information about Navara Behavioral Group' },
-      { name: 'Our Team', path: '/#team-section', description: 'Meet our behavioral health professionals' },
-      { name: 'Contact', path: '/#contact-section', description: 'Get in touch with our team' }
+      { name: 'Home', path: '/', description: 'Main landing page with overview of divisions' },
+      { name: 'About Us', path: '/#about', description: 'Information about Navara Behavioral Group' },
+      { name: 'Our Team', path: '/#team', description: 'Meet our behavioral health professionals' },
+      { name: 'Contact', path: '/#contact', description: 'Get in touch with our team' }
     ],
-    services: [
-      { name: 'Diagnostics', path: '/#diagnostics-section', description: 'Comprehensive behavioral assessments' },
-      { name: 'Pathways', path: '/#pathways-section', description: 'Career guidance and life planning' },
-      { name: 'Behavioral Method', path: '/#behavioral-section', description: 'Our approach to behavioral health' }
+    divisions: [
+      { name: 'All Divisions', path: '/divisions', description: 'Overview of all six Navara divisions' },
+      { name: 'Navara Behavior Support', path: '/behavioral', description: 'Live — Behavior Method, Direct ABA, and Behavioral Consulting' },
+      { name: 'Navara Diagnostics (Coming Soon)', path: '/diagnostics', description: 'Comprehensive psychological evaluations' },
+      { name: 'Navara Wellness (Coming Soon)', path: '/wellness', description: 'Therapy and group counseling' },
+      { name: 'Navara Nutrition (Coming Soon)', path: '/nutrition', description: 'Nutritional guidance for neurodivergent families' },
+      { name: 'Navara Pathways (Coming Soon)', path: '/pathways', description: 'Career exploration for teens and young adults' },
+      { name: 'Navara Medical (Coming Soon)', path: '/medical', description: 'Psychiatric medication management' }
     ],
     resources: [
       { name: 'Client Portal', path: '/client-portal', description: 'Secure access to your records and appointments' },
@@ -192,7 +196,7 @@ const Sitemap = ({ isDarkMode = false }) => {
             ))}
           </div>
 
-          {/* Services */}
+          {/* Divisions */}
           <div style={{
             background: colors.surface,
             borderRadius: '16px',
@@ -210,10 +214,10 @@ const Sitemap = ({ isDarkMode = false }) => {
               alignItems: 'center',
               gap: '12px'
             }}>
-              <i className="fas fa-stethoscope" style={{ fontSize: '20px' }} />
-              Services
+              <i className="fas fa-th-large" style={{ fontSize: '20px' }} />
+              Divisions
             </h2>
-            {siteStructure.services.map((service, index) => (
+            {siteStructure.divisions.map((service, index) => (
               <div key={index} style={{ marginBottom: '20px' }}>
                 <button
                   onClick={() => handleLinkClick(service.path)}
