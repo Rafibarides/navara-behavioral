@@ -131,22 +131,7 @@
         },
         {
           "title": "Operations & Support",
-          "members": [
-            {
-              "photo": "assets/gwen.jpg",
-              "name": "Gwen Margaux A. Velarde, CHRA",
-              "position": "Executive Assistant",
-              "introSentence": "Gwen Margaux A. Velarde is a Certified Human Resource Associate (CHRA) with a background in psychology and multidisciplinary support roles.",
-              "fullText": "Gwen holds a Bachelor of Science in Psychology and brings experience across clinical, research, and administrative settings. Since joining Navara Behavioral Group in 2025, she has combined her mental health knowledge with operational expertise to streamline internal systems and enhance team efficiency. Her proactive approach and attention to detail help ensure that every aspect of Navara's day-to-day operations runs smoothly, ultimately supporting the team in delivering consistent, client-centered care."
-            },
-            {
-              "photo": "alanalewish.jpg",
-              "name": "Alana Lewis",
-              "position": "Intake Coordinator",
-              "introSentence": "Alana is the Intake Coordinator at Navara, bringing a creative and collaborative approach to welcoming clients.",
-              "fullText": "Alana is the Intake Coordinator at Navara, bringing a creative and collaborative approach to welcoming clients and connecting them with the services that best meet their needs. She earned her bachelor's degree in Psychology from Touro College and is completing her Master of Social Work at Wurzweiler. With experience in case management, supporting children and individuals with developmental disabilities, and directing a youth group, Alana is passionate about helping clients feel understood, supported, and empowered from their very first contact."
-            }
-          ]
+          "members": []
         }
       ]
     },
