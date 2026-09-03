@@ -1074,6 +1074,83 @@ const BehavioralPage = ({ isDarkMode = false }) => {
         </div>
       </motion.section>
 
+      {/* Research */}
+      <motion.section
+        id="research"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        style={sectionStyle}
+      >
+        <div style={containerStyle}>
+          <motion.h2 variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
+            fontFamily: textSizes['3xl'].fontFamily,
+            color: colors.primary,
+            fontWeight: '700',
+            marginBottom: '24px',
+            textAlign: 'center',
+          }}>
+            Built on research — and being studied.
+          </motion.h2>
+
+          <motion.p variants={itemVariants} style={{
+            fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+            fontFamily: textSizes.lg.fontFamily,
+            color: colors.textSecondary,
+            lineHeight: '1.6',
+            maxWidth: '780px',
+            margin: '0 auto 48px auto',
+            textAlign: 'center',
+          }}>
+            Most parent programs call themselves evidence-based. Here is what that means at Navara, specifically.
+          </motion.p>
+
+          <motion.div variants={itemVariants} style={cardStyle}>
+            <h3 style={{
+              fontSize: textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.primary,
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              The method is built on established science
+            </h3>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              lineHeight: '1.8',
+              margin: 0,
+            }}>
+              Every session names the researcher behind the idea being taught. Attachment and co-regulation come from Bowlby and Ainsworth. Emotion coaching is Gottman's framework. The parenting-style grid is Baumrind, extended by Maccoby and Martin. The escalation cycles most parents recognize instantly were described by Patterson as coercive family process. The four functions of behavior come from Iwata and colleagues. Functional communication training is Carr and Durand. Generalization is Stokes and Baer. Parents get the citation, and a reading if they want to go further.
+            </p>
+          </motion.div>
+
+          <motion.div variants={itemVariants} style={cardStyle}>
+            <h3 style={{
+              fontSize: textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.primary,
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              And the method itself is the subject of doctoral research
+            </h3>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              color: colors.text,
+              lineHeight: '1.8',
+              margin: 0,
+            }}>
+              Our founder's doctoral work examines whether front-loading structured connection-building — before any behavioral instruction begins — improves outcomes in parent training, compared with the conventional order. That question is the reason the four phases run Connection first. It is also why we can tell you what the sequence is designed to do, and why.
+            </p>
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* Service 2: Navara Direct ABA™ */}
       <motion.section
         id="service-direct-aba"
