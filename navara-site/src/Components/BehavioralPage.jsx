@@ -357,7 +357,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               {
                 title: 'The Navara Behavior Method™',
                 tagline: '12-Week Parent Training Program',
-                description: 'Our flagship offering. A structured 12-week program built on the Four Cs Framework — Clarity, Connection, Control, and Carryover.',
+                description: 'Our flagship offering. A structured 12-week program built on the Four Cs Framework — Connection, Clarity, Control, and Carryover.',
                 icon: 'fas fa-graduation-cap',
                 anchor: 'service-method',
                 featured: true,
@@ -796,7 +796,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                     Full Access to the 4Cs Framework Curriculum
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    Learn and master Navara's signature Clarity, Connection, Control, and Carryover model — a blueprint for understanding behavior, strengthening the parent-child relationship, and creating long-term stability at home.
+                    Learn and master Navara's signature Connection, Clarity, Control, and Carryover model — a blueprint for repairing the parent-child relationship first, then understanding behavior and creating long-term stability at home.
                   </div>
                 </div>
               </div>
@@ -943,46 +943,49 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           }}>
             {[
               {
-                title: 'Clarity (Weeks 1–3)',
-                description: 'Understand the "why" behind the behavior',
+                title: 'Connection (Weeks 1–3)',
+                description: 'Learn to think like a developmental psychologist',
                 items: [
-                  'Learn behavior science in plain language',
-                  'Identify key patterns through guided observation',
-                  'Complete a collaborative Functional Behavior Assessment (FBA)',
-                  'Develop your Behavior Roadmap™'
+                  'Co-regulation and attachment — why strategy fails a dysregulated child',
+                  'Emotion coaching: notice, label, tolerate, respond',
+                  'Parenting style, your own triggers, and the science of rupture and repair',
+                  'Complete your Navara Parent Profile (NPBP) — the instrument that shapes the plan'
                 ],
-                icon: 'fas fa-lightbulb',
+                icon: 'fas fa-heart',
                 color: colors.primary
               },
               {
-                title: 'Connection (Weeks 4–6)',
-                description: 'Build trust while shaping change',
+                title: 'Clarity (Weeks 4–7)',
+                description: 'Learn to think like a behavior analyst',
                 items: [
-                  'Master co-regulation and emotionally-attuned parenting',
-                  'Implement structure that feels safe, not stiff',
-                  'Build rapport with your child through play and positive reinforcement'
+                  'ABC observation, operational definitions, and real baseline data',
+                  'Reinforcement, punishment, and the four functions of behavior',
+                  'Setting events — why the same strategy works one day and fails the next',
+                  'Build a Functional Behavior Assessment, signed by a BCBA'
                 ],
-                icon: 'fas fa-heart',
+                icon: 'fas fa-lightbulb',
                 color: colors.secondary
               },
               {
-                title: 'Control (Weeks 7–9)',
-                description: 'Guide behavior with confidence',
+                title: 'Control (Weeks 8–10)',
+                description: 'Your knowledge put to the test — actually execute your BIP',
                 items: [
-                  'Apply clear, predictable systems of rewards and consequences',
-                  'Learn to set boundaries that work — and stick',
-                  'Handle tantrums, refusals, and escalation using evidence-based tools'
+                  'Write a Behavior Intervention Plan built from your own FBA',
+                  'Recognize extinction bursts as expected, not as failure',
+                  'Track treatment fidelity — whether the plan was actually run as written',
+                  'Adjust the plan to the home you actually have, not an ideal one'
                 ],
                 icon: 'fas fa-compass',
                 color: colors.accent
               },
               {
-                title: 'Carryover (Weeks 10–12)',
-                description: 'Make change last',
+                title: 'Carryover (Weeks 11–12)',
+                description: 'Prepare for generalization, change, and life beyond the program',
                 items: [
-                  'Learn how to generalize to school, grandparents, other settings',
-                  'Use scripts, routines, and visuals to promote independence',
-                  'Graduate with a Behavior Toolbox™ — templates, charts, and systems that work'
+                  'Program generalization to school, grandparents, and other caregivers',
+                  'Write a relapse protocol before you need it',
+                  'Build the version of the plan that survives a bad month',
+                  'Leave with your complete file — profile, assessment, plan, and data, in your name'
                 ],
                 icon: 'fas fa-graduation-cap',
                 color: colors.primary
