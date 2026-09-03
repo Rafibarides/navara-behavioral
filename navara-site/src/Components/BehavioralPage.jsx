@@ -526,7 +526,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             textAlign: 'center',
             lineHeight: '1.3',
           }}>
-            A 12-Week Parent-Led Behavior Program that Disrupts the ABA Industry
+            A 12-Week Clinical Training Program — For the Parent, Not the Child
           </motion.h2>
 
           {/* Video Section */}
@@ -542,7 +542,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               lineHeight: '1.6',
               marginBottom: '32px',
             }}>
-              Watch this introduction to understand how we're revolutionizing behavior support
+              A short introduction to how the program works
             </motion.p>
 
             <motion.div variants={itemVariants} style={{
@@ -605,7 +605,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 fontWeight: '700',
                 marginBottom: '16px',
               }}>
-                We don't babysit.
+                When plans fail, parents get blamed.
               </motion.h3>
               <motion.p variants={itemVariants} style={{
                 fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
@@ -614,7 +614,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 lineHeight: '1.8',
                 margin: 0,
               }}>
-                The Navara Behavior Method™ flips the script on traditional ABA. While many agencies have become glorified babysitting services, incentivized by insurance to keep your child enrolled as long as possible, we do the opposite.
+                It is almost always the parent who is told they did not follow through. We built the Navara Behavior Method™ on the opposite assumption: that most plans fail because they were handed to parents instead of built with them. So across twelve weeks we teach you the same clinical reasoning a behavior analyst uses — the research, the assessment, the plan — and you build your child's plan yourself, with a BCBA beside you.
               </motion.p>
             </motion.div>
           </motion.div>
@@ -693,7 +693,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             marginBottom: '24px',
             textAlign: 'center',
           }}>
-            This isn't just a behavior plan. It's a transformation.
+            This is not a parenting class. It is clinical training.
           </motion.h2>
 
           <motion.div variants={itemVariants} style={{
@@ -731,19 +731,19 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               }}>
                 <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                   <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                  <span>In just 12 weeks, we train you, the parent, to become your child's behavior expert.</span>
+                  <span>22 sessions across 12 weeks — not a course you watch, a program you are coached through.</span>
                 </li>
                 <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                   <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                  <span>We focus on parent empowerment, not endless therapy hours.</span>
+                  <span>You learn the actual science, with the sources named: Bowlby, Gottman, Baumrind, Patterson, Iwata, Carr & Durand.</span>
                 </li>
                 <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                   <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                  <span>We are incentivized to get results, not to extend services indefinitely.</span>
+                  <span>You finish with a Functional Behavior Assessment signed by a BCBA — a document you can bring to a school or IEP meeting.</span>
                 </li>
                 <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                   <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
-                  <span>We believe the change starts with you and not with a stranger.</span>
+                  <span>The goal is that you stop needing us. We are paid to reach that in twelve weeks, not to extend it.</span>
                 </li>
               </motion.ul>
             </motion.div>
@@ -758,6 +758,16 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               What You Get
             </motion.h3>
 
+            <motion.p variants={itemVariants} style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
+              color: colors.textSecondary,
+              lineHeight: '1.6',
+              marginBottom: '24px',
+            }}>
+              Twelve weeks of graduate-level training, and four clinical documents with your name on the author line.
+            </motion.p>
+
             <motion.div variants={itemVariants} style={{
               fontSize: textSizes.base.fontSize,
               fontFamily: textSizes.base.fontFamily,
@@ -769,10 +779,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    Weekly 1:1 Sessions With Your Navara Behavior Specialist
+                    22 Sessions With Your Navara Behavior Specialist
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    Consistent, personalized guidance each week to help you understand your child's behavior, strengthen your parenting confidence, and build momentum toward real change.
+                    Twice a week for most of the twelve weeks — 22 one-to-one sessions, not a weekly check-in. Every session teaches a concept, names the research behind it, and then applies it live to your own child's data.
                   </div>
                 </div>
               </div>
@@ -781,10 +791,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    A Fully Customized Behavior Roadmap + Collaborative FBA
+                    Your Navara Parent Behavior Profile
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    A clear, step-by-step plan created with you, identifying the "why" behind your child's behavior and outlining exactly how to respond, prevent, and support.
+                    A formal profile of you — how you respond under stress, where you escalate, withdraw, or give in, and the conditions that make each more likely. Most parents have never seen their own patterns written down. It is also what determines how your child's plan gets designed.
                   </div>
                 </div>
               </div>
@@ -793,10 +803,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    Full Access to the 4Cs Framework Curriculum
+                    A Collaborative Functional Behavior Assessment
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    Learn and master Navara's signature Connection, Clarity, Control, and Carryover model — a blueprint for repairing the parent-child relationship first, then understanding behavior and creating long-term stability at home.
+                    Target behavior definitions, five days of baseline data, setting-event analysis, a function hypothesis supported by your own observations, and an identified replacement behavior. You write it. A BCBA signs it. You can bring it to a school or IEP meeting.
                   </div>
                 </div>
               </div>
@@ -805,10 +815,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    Unlimited Email & Check-In Support Between Sessions
+                    A Behavior Intervention Plan Built From Your Own Data
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    You are never alone. Ask questions, get feedback, and stay supported as real-life situations come up throughout your week.
+                    Antecedent strategies, the replacement behavior and how to teach it, a reinforcement plan, and a data system — designed around your profile and constrained to what you can actually run on a hard day. Then three weeks of coached implementation with real fidelity data.
                   </div>
                 </div>
               </div>
@@ -817,10 +827,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    Continued Coaching at a Reduced Rate Post-Program
+                    The Actual Research, Not a Simplified Version
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    For families who want ongoing support, you maintain priority access at a preferred rate.
+                    Bowlby and Ainsworth on attachment. Gottman on emotion coaching. Baumrind on parenting style. Patterson on coercive cycles. Iwata on the four functions of behavior. Carr and Durand on functional communication. Every session names its source, and offers a reading if you want to go deeper.
                   </div>
                 </div>
               </div>
@@ -829,10 +839,10 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    Tools & Strategies You Will Use for Life
+                    Support Between Sessions, and After the Program
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    You leave with skills that last forever — the ability to read behavior clearly, prevent escalation, respond effectively, and create a calmer, more connected home environment.
+                    Unlimited email and check-in access throughout the twelve weeks, plus a written relapse protocol and maintenance plan you keep — and continued coaching at a reduced rate if you want it.
                   </div>
                 </div>
               </div>
