@@ -50,13 +50,13 @@ const WelcomeSection = ({ isDarkMode = false }) => {
       id="welcome-section"
       style={{
         position: 'relative',
-        height: isMobile ? '25vh' : '50vh',
-        minHeight: isMobile ? '200px' : '400px',
+        height: isMobile ? 'auto' : '50vh',
+        minHeight: isMobile ? '440px' : '400px',
         width: '100vw',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2rem',
+        padding: isMobile ? '96px 24px 32px' : '2rem',
         margin: 0,
         boxSizing: 'border-box',
         overflow: 'hidden',
@@ -117,7 +117,8 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        transform: isMobile ? 'translateY(10px)' : 'none',
+        width: '100%',
+        transform: 'none',
         gap: isMobile ? '20px' : '28px',
       }}>
         {/* Animated Welcome Text */}
@@ -132,7 +133,8 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
           transition: 'all 0.5s ease-in-out',
-          minHeight: isMobile ? '1em' : '1.2em', // Smaller height on mobile
+          minHeight: isMobile ? '180px' : '1.2em',
+          lineHeight: 1.2,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
