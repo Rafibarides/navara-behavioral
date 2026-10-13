@@ -12,8 +12,8 @@ import siteData from '../../SiteData.json';
 const ParentTrainingPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
+  const [isTablet, setIsTablet] = useState(() => window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [openFAQ, setOpenFAQ] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState(null);
@@ -25,8 +25,8 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
   // Check screen sizes on mount and resize
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+      setIsTablet(window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
     };
     
     checkScreenSize();
@@ -151,7 +151,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
       <motion.span
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.5 }}
         transition={{
           staggerChildren: 0.08,
           delayChildren: delay,
@@ -479,7 +479,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -726,7 +726,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -881,7 +881,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -957,7 +957,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -1034,7 +1034,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -1175,7 +1175,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -1335,7 +1335,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
