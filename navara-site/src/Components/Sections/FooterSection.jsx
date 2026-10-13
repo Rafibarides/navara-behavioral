@@ -155,7 +155,7 @@ const FooterSection = ({ isDarkMode = false }) => {
               marginBottom: '24px',
               maxWidth: '400px',
             }}>
-              Evidence-based behavior support for families who want real results — no waitlists, no insurance, no one-size-fits-all.
+              Evidence-based behavior support for families who want real results — no waitlists, no one-size-fits-all.
             </p>
             {/* Security Badge */}
             <div style={{
