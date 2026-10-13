@@ -9,15 +9,15 @@ import ContactSection from './Sections/ContactSection';
 const DirectAbaPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
+  const [isTablet, setIsTablet] = useState(() => window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
   const navigate = useNavigate();
 
   // Check screen sizes on mount and resize
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+      setIsTablet(window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
     };
 
     checkScreenSize();
@@ -217,7 +217,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -660,7 +660,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={{
           ...sectionStyle,
           paddingBottom: 0,
