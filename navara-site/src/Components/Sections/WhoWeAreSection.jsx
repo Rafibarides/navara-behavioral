@@ -6,7 +6,7 @@ import siteData from '../../../SiteData.json';
 const WhoWeAreSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [letterOpacities, setLetterOpacities] = useState({});
   const textRefs = useRef([]);
   const sectionRef = useRef(null);
@@ -31,7 +31,7 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -241,12 +241,15 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
               >
                 <motion.img
                   src={strip.photo}
-                  alt={strip.title}
+                  alt={strip.photoAlt || strip.title}
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     width: '100%',
                     maxWidth: '400px',
                     height: '300px',
                     objectFit: 'cover',
+                    objectPosition: strip.photoPosition || 'center',
                     borderRadius: '16px',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
                     scale: transforms.imageScale,
@@ -346,11 +349,14 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
             >
               <motion.img
                 src={strip.photo}
-                alt={strip.title}
+                alt={strip.photoAlt || strip.title}
+                  loading="lazy"
+                  decoding="async"
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
+                    objectPosition: strip.photoPosition || 'center',
                   borderRadius: '16px',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
                   scale: transforms.imageScale,
