@@ -119,8 +119,8 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         id="welcome-section"
         style={{
           position: 'relative',
-          height: isMobile ? '25vh' : '50vh',
-          minHeight: isMobile ? '200px' : '400px',
+          height: isMobile ? '14vh' : '24vh',
+          minHeight: isMobile ? '110px' : '190px',
           width: '100vw',
           display: 'flex',
           alignItems: 'center',
@@ -184,34 +184,6 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
           />
         </div>
 
-        {/* Content Overlay */}
-        <div style={{
-          position: 'relative',
-          zIndex: 3,
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transform: isMobile ? 'translateY(10px)' : 'none',
-        }}>
-          {/* Behavioral Text */}
-          <h1 style={{ 
-            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
-            fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
-            margin: 0,
-            textAlign: 'center',
-            color: 'white',
-            fontWeight: '700',
-            letterSpacing: '0.02em',
-            minHeight: isMobile ? '1em' : '1.2em',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            Navara Direct ABA™
-          </h1>
-        </div>
       </section>
 
       {/* Navigation */}
@@ -224,7 +196,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         initial="hidden"
         whileInView="visible"
         animate={autoRevealCount >= 1 ? "visible" : undefined}
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -264,7 +236,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
               lineHeight: '1.7',
               marginBottom: '20px',
             }}>
-              Navara Direct ABA is a private, insurance-free ABA service designed for families who want
+              Navara Direct ABA is a private ABA service designed for families who want
               targeted, high-quality support without the delays, limitations, or one-size-fits-all
               structure that often comes with traditional ABA programs.
             </p>
@@ -276,7 +248,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
               marginBottom: '20px',
             }}>
               Every session is led by a Board Certified Behavior Analyst. Every plan is individualized.
-              And because we operate outside of the insurance model, we can move at your pace, adjust in
+              Because we are a private practice, we can move at your pace, adjust in
               real time, and stay focused on what actually matters for your child and your family.
             </p>
             <p style={{
@@ -667,7 +639,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           paddingBottom: 0,
