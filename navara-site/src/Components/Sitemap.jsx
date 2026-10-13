@@ -17,19 +17,15 @@ const Sitemap = ({ isDarkMode = false }) => {
 
   const siteStructure = {
     main: [
-      { name: 'Home', path: '/', description: 'Main landing page with overview of divisions' },
+      { name: 'Home', path: '/', description: 'Main landing page with an overview of our services' },
       { name: 'About Us', path: '/#about', description: 'Information about Navara Behavioral Group' },
       { name: 'Our Team', path: '/#team', description: 'Meet our behavioral health professionals' },
       { name: 'Contact', path: '/#contact', description: 'Get in touch with our team' }
     ],
     divisions: [
-      { name: 'All Divisions', path: '/divisions', description: 'Overview of all six Navara divisions' },
-      { name: 'Navara Behavior Support', path: '/behavioral', description: 'Live — Behavior Method, Direct ABA, and Behavioral Consulting' },
-      { name: 'Navara Diagnostics (Coming Soon)', path: '/diagnostics', description: 'Comprehensive psychological evaluations' },
-      { name: 'Navara Wellness (Coming Soon)', path: '/wellness', description: 'Therapy and group counseling' },
-      { name: 'Navara Nutrition (Coming Soon)', path: '/nutrition', description: 'Nutritional guidance for neurodivergent families' },
-      { name: 'Navara Pathways (Coming Soon)', path: '/pathways', description: 'Career exploration for teens and young adults' },
-      { name: 'Navara Medical (Coming Soon)', path: '/medical', description: 'Psychiatric medication management' }
+      { name: 'The Navara Behavior Method', path: '/services/parent-training', description: '12-week parent training program' },
+      { name: 'Navara Direct ABA', path: '/services/direct-aba', description: 'Private, BCBA-led ABA' },
+      { name: 'Behavioral Consulting', path: '/services/consulting', description: 'One-time expert guidance sessions' }
     ],
     resources: [
       { name: 'Client Portal', path: '/client-portal', description: 'Secure access to your records and appointments' },
@@ -196,7 +192,7 @@ const Sitemap = ({ isDarkMode = false }) => {
             ))}
           </div>
 
-          {/* Divisions */}
+          {/* Services */}
           <div style={{
             background: colors.surface,
             borderRadius: '16px',
@@ -215,7 +211,7 @@ const Sitemap = ({ isDarkMode = false }) => {
               gap: '12px'
             }}>
               <i className="fas fa-th-large" style={{ fontSize: '20px' }} />
-              Divisions
+              Services
             </h2>
             {siteStructure.divisions.map((service, index) => (
               <div key={index} style={{ marginBottom: '20px' }}>
