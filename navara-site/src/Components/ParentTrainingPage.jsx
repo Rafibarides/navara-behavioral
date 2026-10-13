@@ -1339,7 +1339,7 @@ Book a One-Time Consult
           backgroundColor: colors.surface,
         }}
       >
-        <div style={containerStyle}>
+        <div style={{ ...containerStyle, paddingBottom: '24px' }}>
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
