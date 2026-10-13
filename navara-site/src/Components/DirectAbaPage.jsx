@@ -721,7 +721,7 @@ Book a One-Time Consult
         </div>
       </motion.section>
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} />
+      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
