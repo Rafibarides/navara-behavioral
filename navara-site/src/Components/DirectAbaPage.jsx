@@ -663,11 +663,11 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.2 }}
         style={{
           ...sectionStyle,
-          paddingBottom: isMobile ? '16px' : '20px',
+          paddingBottom: 0,
           backgroundColor: colors.surface,
         }}
       >
-        <div style={{ ...containerStyle, textAlign: 'center' }}>
+        <div style={{ ...containerStyle, paddingBottom: '8px', textAlign: 'center' }}>
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
