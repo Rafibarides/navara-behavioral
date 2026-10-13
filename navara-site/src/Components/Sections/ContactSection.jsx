@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import CalendlyModal from '../CalendlyModal';
 
-const ContactSection = ({ isDarkMode = false, heading = null }) => {
+const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
@@ -137,24 +137,13 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
       style={{
         backgroundColor: colors.surface,
         width: '100vw',
-        padding: isMobile ? '80px 20px' : '120px 40px',
+        padding: servicePage ? (isMobile ? '24px 20px 80px' : '28px 40px 100px') : (isMobile ? '80px 20px' : '120px 40px'),
         margin: 0,
         boxSizing: 'border-box',
       }}
     >
-      {heading && (
-        <h2 style={{
-          fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
-          fontFamily: textSizes['3xl'].fontFamily,
-          color: colors.primary,
-          fontWeight: '700',
-          textAlign: 'center',
-          margin: '0 0 60px',
-          paddingTop: '32px',
-          borderTop: `1px solid ${colors.border}`,
-        }}>
-          {heading}
-        </h2>
+      {servicePage && (
+        <div style={{ borderTop: `1px solid ${colors.border}`, maxWidth: '1200px', margin: '0 auto 36px' }} />
       )}
       <div style={{
         maxWidth: '1200px',
@@ -172,7 +161,7 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
             marginBottom: '40px',
           }}>
             <h3 style={{
-              fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+              fontSize: servicePage ? (isMobile ? textSizes.xl.fontSize : textSizes['2xl'].fontSize) : (isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize),
               fontFamily: isMobile ? textSizes.lg.fontFamily : textSizes.xl.fontFamily,
               fontWeight: '600',
               marginBottom: '8px',
