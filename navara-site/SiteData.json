@@ -3,14 +3,18 @@
     "whoWeAre": {
       "strips": [
         {
-          "photo": "/assets/NAVARA7.jpg",
+          "photo": "/assets/1-home-parent-play.webp",
           "title": "Who We Are",
-          "text": "Navara was founded to bridge the gap between families and the support they actually need. Today, that means evidence-based behavior support for children and the parents raising them - practical, personal, and built around your family."
+          "text": "Navara was founded to bridge the gap between families and the support they actually need. Today, that means evidence-based behavior support for children and the parents raising them - practical, personal, and built around your family.",
+          "photoAlt": "A mother and her young daughter playing with wooden toys at home",
+          "photoPosition": "center 72%"
         },
         {
-          "photo": "/assets/NAVARA8.jpg",
+          "photo": "/assets/2-home-parent-read.webp",
           "title": "We exist to simplify the process",
-          "text": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no insurance runaround."
+          "text": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no insurance runaround.",
+          "photoAlt": "A mother reading a book with her young daughter on the sofa",
+          "photoPosition": "center 43%"
         }
       ]
     },
@@ -71,8 +75,8 @@
       "title": "OUR TEAM",
       "subtext": "Meet the dedicated professionals committed to providing exceptional care and support",
       "founder": {
-        "photo": "/assets/nisanFetman.png",
-        "eyesClosed": "/assets/nisanFetmanEyesClosed.png",
+        "photo": "/assets/4-nisan-headshot.webp",
+        "eyesClosed": "/assets/4-nisan-headshot.webp",
         "name": "David Nisan Fetman, MA, BCBA",
         "position": "Founder & Clinical Director",
         "introSentence": "David Nisan Fetman, known as Nisan, is a Board Certified Behavior Analyst, clinical leader, and psychology doctoral candidate with nearly a decade of experience in behavioral healthcare. His work spans behavioral science, clinical psychology, and the intersection of research, clinical practice, and innovative treatment approaches.",
