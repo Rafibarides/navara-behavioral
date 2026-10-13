@@ -35,20 +35,19 @@ const OurTeamSection = ({ isDarkMode = false }) => {
         transition: 'transform 180ms ease',
       }}
     >
-      {isFounder && (
-            <svg aria-hidden="true" viewBox="0 0 700 150" style={{ width: '172px', height: '37px', display: 'block', margin: '0 auto -4px' }}>
-              <path d="M155 32 Q365 -48 625 91 Q382 -25 155 32Z" fill="#A7BDA9" />
-              <path d="M0 145 Q329 -85 700 145 Q337 -57 0 145Z" fill="#56898C" />
-              <path d="M90 145 Q378 -19 700 145 Q388 3 90 145Z" fill="#1B3B62" />
-            </svg>
-      )}
-      <img src={staff.photo} alt={staff.name} loading="lazy" decoding="async" style={{
+      <span style={{
         width: isFounder ? '156px' : (isMobile ? '112px' : '136px'),
         height: isFounder ? '156px' : (isMobile ? '112px' : '136px'),
-        objectFit: 'cover', objectPosition: staff.name.startsWith('Sarah') ? 'center 15%' : 'center', borderRadius: '50%', border: `4px solid ${colors.surface}`,
+        display: 'block', overflow: 'hidden', borderRadius: '50%', border: `4px solid ${colors.surface}`,
         boxShadow: '0 5px 18px rgba(0,0,0,0.10)', marginBottom: '18px',
-      }} />
-      <span style={{ fontSize: isFounder ? '20px' : (isMobile ? '16px' : '18px'), fontWeight: 700, lineHeight: 1.4, marginBottom: '6px' }}>
+      }}>
+        <img src={staff.photo} alt={staff.name} loading="lazy" decoding="async" style={{
+          width: '100%', height: '100%', display: 'block', objectFit: 'cover',
+          objectPosition: staff.name.startsWith('Sarah') ? 'center 15%' : 'center',
+          transform: staff.name.startsWith('Sarah') ? 'translateX(8px) scale(1.16)' : 'none',
+        }} />
+      </span>
+      <span style={{ fontSize: isFounder ? (isMobile ? '15px' : '17px') : (isMobile ? '16px' : '18px'), fontWeight: 700, lineHeight: 1.4, marginBottom: '6px', whiteSpace: isFounder ? 'nowrap' : 'normal' }}>
         {staff.name}
       </span>
       <span style={{ fontSize: isMobile ? '14px' : '15px', color: colors.primary, lineHeight: 1.5 }}>
@@ -62,6 +61,11 @@ const OurTeamSection = ({ isDarkMode = false }) => {
       <section id="team" style={{ backgroundColor: colors.background, width: '100%', padding: isMobile ? '64px 20px' : '96px 40px', boxSizing: 'border-box' }}>
         <div style={{ maxWidth: '1160px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+            <svg aria-hidden="true" viewBox="0 0 700 150" style={{ width: '104px', height: '26px', display: 'block', margin: '0 auto 18px' }}>
+              <path d="M155 32 Q365 -48 625 91 Q382 -25 155 32Z" fill="#A7BDA9" />
+              <path d="M0 145 Q329 -85 700 145 Q337 -57 0 145Z" fill="#56898C" />
+              <path d="M90 145 Q378 -19 700 145 Q388 3 90 145Z" fill="#1B3B62" />
+            </svg>
 
             <h2 style={{ fontFamily: textSizes.base.fontFamily, fontSize: isMobile ? '30px' : '36px', color: colors.primary, margin: '0 0 16px', fontWeight: 700, letterSpacing: '0.05em' }}>Meet the Team</h2>
             <p style={{ fontFamily: textSizes.base.fontFamily, fontSize: '18px', color: colors.textSecondary, lineHeight: 1.6, maxWidth: '600px', margin: '0 auto' }}>{subtext}</p>
