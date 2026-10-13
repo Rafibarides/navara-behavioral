@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
@@ -7,6 +7,7 @@ import FooterSection from './Sections/FooterSection';
 import ContactSection from './Sections/ContactSection';
 import CalendlyModal from './CalendlyModal';
 import StaffModal from './StaffModal';
+import PromoVideo from './PromoVideo';
 import siteData from '../../SiteData.json';
 
 const ParentTrainingPage = ({ isDarkMode = false }) => {
@@ -182,6 +183,47 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
     );
   };
 
+
+  // Original flyer lettering, extracted without changing its shapes, spacing or color.
+  const MirrorWriting = () => {
+    const reduceMotion = useReducedMotion();
+    const [visible, setVisible] = useState(false);
+    const words = [[0, 730], [730, 1030], [1030, 1590], [1590, 2190], [2190, 2375]];
+    const duration = (v) => reduceMotion ? '0s' : v;
+    return (
+      <motion.div className="mirror-lettering" onViewportEnter={() => setVisible(true)} viewport={{ once: true, amount: 0.7 }}
+        role="img" aria-label="Maybe all they need is you."
+        style={{ position: 'absolute', top: '13%', left: '50%', transform: 'translateX(-50%)', width: '92%', pointerEvents: 'none', zIndex: 2 }}>
+        <span style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>Maybe all they need is you.</span>
+        <svg aria-hidden="true" viewBox="0 0 2375 209" style={{ display: 'block', width: '100%', overflow: 'visible' }}>
+          <defs>
+            {words.map(([x, end], i) => <clipPath id={`flyer-word-${i}`} key={i}>
+              <rect x={x} y="0" width={visible || reduceMotion ? end-x : 0} height="209"
+                style={{ transition: `width ${duration('0.48s')} ease ${reduceMotion ? '0s' : `${0.6+i*0.42}s`}` }} />
+            </clipPath>)}
+          </defs>
+          {words.map((_, i) => <image key={i} href="/assets/1-navara-flyer-line.png" width="2375" height="209" clipPath={`url(#flyer-word-${i})`} />)}
+        </svg>
+        <svg aria-hidden="true" viewBox="0 0 993 570" style={{ display: 'block', width: '42%', margin: '5px auto 0', overflow: 'visible' }}>
+          <defs><mask id="flyer-script-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="993" height="570">
+            <rect width="993" height="570" fill="black" />
+            {[
+              ['M 56 56 C 13 133 -25 274 72 219 C 122 182 195 108 235 28 C 231 171 205 304 133 477 C 76 583 54 562 89 477 L 246 239 L 332 120', 590, 0],
+              ['M 328 113 C 250 212 291 353 357 289 C 412 248 391 210 366 174 C 411 170 482 161 516 148', 450, 0.82],
+              ['M 606 68 C 557 153 517 267 568 244 C 626 213 696 130 758 63 C 735 160 718 290 776 263 C 834 241 901 174 944 128', 720, 1.45],
+              ['M 975 301 L 975 309', 20, 2.35],
+            ].map(([d, length, delay], i) => <path key={i} d={d} fill="none" stroke="white" strokeWidth="88" strokeLinecap="round" strokeLinejoin="round" pathLength={length}
+              strokeDasharray={length} strokeDashoffset={visible || reduceMotion ? 0 : length}
+              style={{ transition: `stroke-dashoffset ${duration(i===3?'0.15s':'0.85s')} linear ${reduceMotion ? '0s' : `${2.8+delay}s`}` }} />)}
+            <rect width="993" height="570" fill="white" opacity={visible || reduceMotion ? 1 : 0}
+              style={{ transition: `opacity ${duration('0.15s')} linear ${reduceMotion ? '0s' : '5.3s'}` }} />
+          </mask></defs>
+          <image href="/assets/2-navara-flyer-you.png" width="993" height="570" mask="url(#flyer-script-mask)" />
+        </svg>
+      </motion.div>
+    );
+  };
+
   if (!behavioralService) return null;
 
   return (
@@ -352,32 +394,8 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
               A short introduction to how the program works
             </motion.p>
 
-            <motion.div variants={itemVariants} style={{
-              position: 'relative',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              background: '#000',
-              aspectRatio: '16/9',
-              maxWidth: '100%',
-              margin: '0 auto 32px auto',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-              border: `4px solid ${colors.primary}20`,
-            }}>
-              <video
-                controls
-                preload="metadata"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-                poster=""
-              >
-                <source src="https://pub-6b585af950464b7ca12da1ee87798b6d.r2.dev/navaravideo.m4v" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </motion.div>
+            <PromoVideo isDarkMode={isDarkMode} />
+
           </motion.div>
 
           {/* Content with Image */}
@@ -390,20 +408,23 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
             margin: '0 auto 48px auto',
             maxWidth: '1000px',
           }}>
+            <div style={{ position: 'relative', width: 'fit-content', flexShrink: 0 }}>
             <motion.img 
               variants={imageVariants}
-              src="/assets/parenting1.jpg"
-              alt="Parent and child connection"
+              src="/assets/9-navara-mirror-family.webp"
+              alt="A child sees his family beside him in the mirror"
               style={{
                 width: isMobile ? '220px' : '280px',
-                height: isMobile ? '180px' : '220px',
+                height: isMobile ? '302px' : '384px',
                 borderRadius: '20px',
                 objectFit: 'cover',
                 border: `4px solid ${colors.primary}30`,
                 boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-                transform: 'rotate(-2deg)',
+                transform: 'none',
               }}
             />
+            <MirrorWriting />
+            </div>
             <motion.div style={{ textAlign: isMobile ? 'center' : 'left', maxWidth: '500px' }}>
               <motion.h3 variants={itemVariants} style={{
                 fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,

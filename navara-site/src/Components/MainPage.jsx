@@ -1,4 +1,5 @@
 import React from 'react';
+import PromoVideo from './PromoVideo';
 import WelcomeSection from './Sections/WelcomeSection';
 import WhoWeAreSection from './Sections/WhoWeAreSection';
 import AboutSection from './Sections/AboutSection';
@@ -24,6 +25,9 @@ const MainPage = ({ isDarkMode, toggleDarkMode }) => {
           are surfaced in the Divisions overview as "Coming Soon". */}
       <WelcomeSection isDarkMode={isDarkMode} />
       <WhoWeAreSection isDarkMode={isDarkMode} />
+      <section id="method-video" style={{ padding: "64px 20px", background: isDarkMode ? "#182536" : "#f4f6f3" }}>
+        <PromoVideo isDarkMode={isDarkMode} showHeading showBooking />
+      </section>
       <ServiceCardSection isDarkMode={isDarkMode} />
       <BehavioralSection isDarkMode={isDarkMode} />
       <AboutSection isDarkMode={isDarkMode} />
