@@ -31,7 +31,7 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
     {
       title: 'Navara Direct ABA\u2122',
       tagline: 'Private, BCBA-Led ABA',
-      description: 'Insurance-free ABA designed around your family. Every session is led by a Board Certified Behavior Analyst, scheduled on your terms, with a plan individualized to your child.',
+      description: 'Private ABA designed around your family. Every session is led by a Board Certified Behavior Analyst, scheduled on your terms, with a plan individualized to your child.',
       icon: 'fas fa-user-md',
       route: '/services/direct-aba',
       live: true,
