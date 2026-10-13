@@ -1283,8 +1283,10 @@ Book a One-Time Consult
               onClick={() => setIsCalendlyModalOpen(true)}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.secondary}, ${colors.accent})`,
-                color: 'white',
+                background: `linear-gradient(to bottom, ${colors.primary} 0%, ${colors.primary}F2 52%, ${colors.primary}99 78%, ${colors.primary}00 100%)`,
+                color: isDarkMode ? '#1A2A40' : 'white',
+                border: `1px solid ${colors.primary}55`,
+                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 16px rgba(0, 0, 0, 0.12)',
               }}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'translateY(-2px)';
