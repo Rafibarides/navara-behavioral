@@ -140,6 +140,20 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           {welcomePhrases[currentPhraseIndex]}
         </h1>
 
+        {/* Supporting subline */}
+        <p style={{
+          fontSize: isMobile ? textSizes.sm.fontSize : textSizes.lg.fontSize,
+          fontFamily: textSizes.base.fontFamily,
+          color: 'rgba(255, 255, 255, 0.92)',
+          margin: 0,
+          textAlign: 'center',
+          maxWidth: '640px',
+          lineHeight: '1.5',
+          textShadow: '0 2px 12px rgba(0, 0, 0, 0.35)',
+        }}>
+          Warm, evidence-based behavior support for your family, led by a Board Certified Behavior Analyst.
+        </p>
+
         {/* Free 15-Minute Consultation CTA */}
         <a
           href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
