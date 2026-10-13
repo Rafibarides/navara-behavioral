@@ -5,7 +5,7 @@ import siteData from '../../../SiteData.json';
 const AboutSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [isDifferentSectionVisible, setIsDifferentSectionVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -24,7 +24,7 @@ const AboutSection = ({ isDarkMode = false }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -73,18 +73,12 @@ const AboutSection = ({ isDarkMode = false }) => {
             setTimeout(() => {
               setIsDifferentSectionVisible(true);
             }, 800);
-          } else {
-            // Reset when section leaves view
-            setIsContentVisible(false);
-            setIsDifferentSectionVisible(false);
-            setIsHovered(false);
-            setIsPermanentlyExpanded(false);
-            setTypedText('');
+
           }
         });
       },
       {
-        threshold: 0.3,
+        threshold: 0.01,
         rootMargin: '0px 0px -100px 0px'
       }
     );

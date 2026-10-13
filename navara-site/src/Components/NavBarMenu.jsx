@@ -5,7 +5,7 @@ import { getColors, getTextSizes } from '../utils/colorsAndText';
 const NavBarMenu = ({ isDarkMode = false }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [activeSection, setActiveSection] = useState('home');
   const [isNearTopOfPage, setIsNearTopOfPage] = useState(true);
   const servicesTimeoutRef = useRef(null);
@@ -18,7 +18,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -79,7 +79,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
 
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Parent Training Program', path: '/services/parent-training' },
+    { name: 'Behavior Method', path: '/services/parent-training' },
     { name: 'Direct ABA', path: '/services/direct-aba' },
     { name: 'Behavioral Consulting', path: '/services/consulting' }
   ];
@@ -269,6 +269,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
         zIndex: 1000,
       }}>
         <button
+          aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={isMobileMenuOpen}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           style={{
             background: getNavBackground(),
@@ -281,6 +283,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             border: getNavBorder(),
             borderRadius: '12px',
             padding: '12px',
+            minHeight: '44px',
+            minWidth: '44px',
             cursor: 'pointer',
             display: 'flex',
             flexDirection: 'column',
@@ -318,6 +322,10 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             borderRadius: '16px',
             padding: '16px',
             minWidth: '200px',
+            maxWidth: 'calc(100vw - 40px)',
+            maxHeight: 'calc(100dvh - 100px)',
+            overflowY: 'auto',
+            boxSizing: 'border-box',
             boxShadow: `
               0 8px 32px rgba(0, 0, 0, 0.15),
               inset 0 1px 0 rgba(255, 255, 255, 0.9)
@@ -367,6 +375,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                       background: isServiceActive(service.path) ? colors.accent + '33' : 'none',
                       border: 'none',
                       padding: '8px 12px',
+                      minHeight: '44px',
                       fontSize: textSizes.sm.fontSize,
                       fontFamily: textSizes.sm.fontFamily,
                       color: isServiceActive(service.path)

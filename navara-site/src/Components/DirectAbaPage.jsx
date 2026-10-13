@@ -7,17 +7,23 @@ import FooterSection from './Sections/FooterSection';
 import ContactSection from './Sections/ContactSection';
 
 const DirectAbaPage = ({ isDarkMode = false }) => {
+
+  const [autoRevealCount, setAutoRevealCount] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => setAutoRevealCount(1), 2500);
+    return () => { clearTimeout(start); };
+  }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
+  const [isTablet, setIsTablet] = useState(() => window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
   const navigate = useNavigate();
 
   // Check screen sizes on mount and resize
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+      setIsTablet(window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
     };
 
     checkScreenSize();
@@ -217,7 +223,8 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        animate={autoRevealCount >= 1 ? "visible" : undefined}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -660,13 +667,14 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={{
           ...sectionStyle,
+          paddingBottom: 0,
           backgroundColor: colors.surface,
         }}
       >
-        <div style={{ ...containerStyle, textAlign: 'center' }}>
+        <div style={{ ...containerStyle, paddingBottom: '8px', textAlign: 'center' }}>
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
@@ -690,8 +698,14 @@ Want to learn to handle the behavior yourself? The Navara Behavior Method™ tra
               onClick={() => navigate('/services/parent-training')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
+                transform: 'none',
               }}
             >
 Explore the 12-Week Program
@@ -711,8 +725,14 @@ Not ready for a program? Start with a single Behavioral Consulting session and g
               onClick={() => navigate('/services/consulting')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
+                transform: 'none',
               }}
             >
 Book a One-Time Consult
@@ -721,7 +741,7 @@ Book a One-Time Consult
         </div>
       </motion.section>
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
+      <ContactSection isDarkMode={isDarkMode} servicePage />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />

@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import CalendlyModal from '../CalendlyModal';
 
-const ContactSection = ({ isDarkMode = false, heading = null }) => {
+const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,7 +26,7 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -60,14 +60,12 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsContentVisible(true);
-          } else {
-            // Reset when section leaves view
-            setIsContentVisible(false);
+
           }
         });
       },
       {
-        threshold: 0.3,
+        threshold: 0.01,
         rootMargin: '0px 0px -100px 0px'
       }
     );
@@ -137,24 +135,13 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
       style={{
         backgroundColor: colors.surface,
         width: '100vw',
-        padding: isMobile ? '80px 20px' : '120px 40px',
+        padding: servicePage ? (isMobile ? '24px 20px 80px' : '28px 40px 100px') : (isMobile ? '80px 20px' : '120px 40px'),
         margin: 0,
         boxSizing: 'border-box',
       }}
     >
-      {heading && (
-        <h2 style={{
-          fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
-          fontFamily: textSizes['3xl'].fontFamily,
-          color: colors.primary,
-          fontWeight: '700',
-          textAlign: 'center',
-          margin: '0 0 60px',
-          paddingTop: '32px',
-          borderTop: `1px solid ${colors.border}`,
-        }}>
-          {heading}
-        </h2>
+      {servicePage && (
+        <div style={{ borderTop: `1px solid ${colors.border}`, maxWidth: '1200px', margin: '0 auto 36px' }} />
       )}
       <div style={{
         maxWidth: '1200px',
@@ -172,7 +159,7 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
             marginBottom: '40px',
           }}>
             <h3 style={{
-              fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
+              fontSize: servicePage ? (isMobile ? textSizes.xl.fontSize : textSizes['2xl'].fontSize) : (isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize),
               fontFamily: isMobile ? textSizes.lg.fontFamily : textSizes.xl.fontFamily,
               fontWeight: '600',
               marginBottom: '8px',
@@ -367,9 +354,10 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
                   style={{
                     width: '100%',
                     padding: '12px 14px',
+                    minHeight: '44px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm.fontSize,
+                    fontSize: isMobile ? '16px' : textSizes.sm.fontSize,
                     fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
@@ -403,9 +391,10 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
                   style={{
                     width: '100%',
                     padding: '12px 14px',
+                    minHeight: '44px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm.fontSize,
+                    fontSize: isMobile ? '16px' : textSizes.sm.fontSize,
                     fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
@@ -439,9 +428,10 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
                   style={{
                     width: '100%',
                     padding: '12px 14px',
+                    minHeight: '44px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm.fontSize,
+                    fontSize: isMobile ? '16px' : textSizes.sm.fontSize,
                     fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
@@ -464,6 +454,7 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
                   border: 'none',
                   borderRadius: '25px',
                   padding: '12px 24px',
+                  minHeight: '44px',
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
                   fontWeight: '600',
@@ -555,6 +546,7 @@ const ContactSection = ({ isDarkMode = false, heading = null }) => {
                   border: `1px solid ${colors.primary}`,
                   borderRadius: '20px',
                   padding: '8px 16px',
+                  minHeight: '44px',
                   fontSize: textSizes.xs.fontSize,
                   fontFamily: textSizes.xs.fontFamily,
                   fontWeight: '500',

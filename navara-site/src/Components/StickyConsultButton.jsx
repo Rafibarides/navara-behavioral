@@ -6,14 +6,14 @@ import CalendlyModal from './CalendlyModal';
 const StickyConsultButton = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -58,6 +58,7 @@ const StickyConsultButton = ({ isDarkMode = false }) => {
   return (
     <>
       <motion.button
+        aria-label="Book a free 15-minute consultation"
         initial={{ opacity: 0, scale: 0, x: -100 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ 

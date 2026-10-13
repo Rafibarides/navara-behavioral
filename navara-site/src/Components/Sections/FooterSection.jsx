@@ -5,14 +5,14 @@ import { getColors, getTextSizes } from '../../utils/colorsAndText';
 const FooterSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const navigate = useNavigate();
   const location = useLocation();
 
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -28,7 +28,7 @@ const FooterSection = ({ isDarkMode = false }) => {
       { name: 'Contact', href: 'contact', type: 'scroll' }
     ],
     divisions: [
-      { name: 'Parent Training Program', href: '/services/parent-training', type: 'route' },
+      { name: 'Behavior Method', href: '/services/parent-training', type: 'route' },
       { name: 'Direct ABA', href: '/services/direct-aba', type: 'route' },
       { name: 'Behavioral Consulting', href: '/services/consulting', type: 'route' }
     ],
@@ -205,7 +205,8 @@ const FooterSection = ({ isDarkMode = false }) => {
                     fontSize: textSizes.base.fontSize,
                     fontFamily: textSizes.base.fontFamily,
                     cursor: 'pointer',
-                    padding: 0,
+                    padding: isMobile ? '8px 0' : 0,
+                    minHeight: isMobile ? '44px' : undefined,
                     textAlign: 'left',
                     transition: 'color 0.2s ease',
                   }}
@@ -245,7 +246,8 @@ const FooterSection = ({ isDarkMode = false }) => {
                     fontSize: textSizes.base.fontSize,
                     fontFamily: textSizes.base.fontFamily,
                     cursor: 'pointer',
-                    padding: 0,
+                    padding: isMobile ? '8px 0' : 0,
+                    minHeight: isMobile ? '44px' : undefined,
                     textAlign: 'left',
                     transition: 'color 0.2s ease',
                   }}
@@ -285,7 +287,8 @@ const FooterSection = ({ isDarkMode = false }) => {
                     fontSize: textSizes.base.fontSize,
                     fontFamily: textSizes.base.fontFamily,
                     cursor: 'pointer',
-                    padding: 0,
+                    padding: isMobile ? '8px 0' : 0,
+                    minHeight: isMobile ? '44px' : undefined,
                     textAlign: 'left',
                     transition: 'color 0.2s ease',
                   }}

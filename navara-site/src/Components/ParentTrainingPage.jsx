@@ -10,10 +10,16 @@ import StaffModal from './StaffModal';
 import siteData from '../../SiteData.json';
 
 const ParentTrainingPage = ({ isDarkMode = false }) => {
+
+  const [autoRevealCount, setAutoRevealCount] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => setAutoRevealCount(1), 2500);
+    return () => { clearTimeout(start); };
+  }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
+  const [isTablet, setIsTablet] = useState(() => window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [openFAQ, setOpenFAQ] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState(null);
@@ -25,8 +31,8 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
   // Check screen sizes on mount and resize
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+      setIsTablet(window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
     };
     
     checkScreenSize();
@@ -151,7 +157,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
       <motion.span
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.5 }}
         transition={{
           staggerChildren: 0.08,
           delayChildren: delay,
@@ -479,7 +485,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -726,7 +732,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -881,7 +887,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -957,7 +963,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -987,8 +993,14 @@ Looking for in-home help instead? Navara Direct ABA™ brings a Board Certified 
               onClick={() => navigate('/services/direct-aba')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
+                transform: 'none',
               }}
             >
 Explore Direct ABA
@@ -1008,8 +1020,14 @@ Just need an expert opinion first? A single Behavioral Consulting session gives 
               onClick={() => navigate('/services/consulting')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
+                transform: 'none',
               }}
             >
 Book a One-Time Consult
@@ -1022,7 +1040,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -1163,7 +1181,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -1323,13 +1341,13 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
         }}
       >
-        <div style={containerStyle}>
+        <div style={{ ...containerStyle, paddingBottom: '24px' }}>
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
@@ -1496,7 +1514,7 @@ Book a One-Time Consult
       </motion.section>
 
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
+      <ContactSection isDarkMode={isDarkMode} servicePage />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />

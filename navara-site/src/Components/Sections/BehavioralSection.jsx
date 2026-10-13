@@ -5,14 +5,20 @@ import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import siteData from '../../../SiteData.json';
 
 const BehavioralSection = ({ isDarkMode = false }) => {
+
+  const [autoRevealCount, setAutoRevealCount] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => setAutoRevealCount(1), 2500);
+    return () => { clearTimeout(start); };
+  }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
 
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -76,6 +82,7 @@ const BehavioralSection = ({ isDarkMode = false }) => {
       <motion.span
         initial="hidden"
         whileInView="visible"
+        animate={autoRevealCount >= 1 ? "visible" : undefined}
         viewport={{ once: true, amount: 0.5 }}
         transition={{
           staggerChildren: 0.08,

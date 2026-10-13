@@ -4,7 +4,7 @@ import { getColors, getTextSizes } from '../utils/colorsAndText';
 const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [isCalendlyLoaded, setIsCalendlyLoaded] = useState(false);
   const [isWidgetInitialized, setIsWidgetInitialized] = useState(false);
   const widgetContainerRef = useRef(null);
@@ -12,7 +12,7 @@ const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -231,6 +231,7 @@ const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
               </p>
             </div>
             <button
+              aria-label="Close booking"
               onClick={onClose}
               style={{
                 background: 'none',
@@ -244,8 +245,8 @@ const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s ease',
-                width: '36px',
-                height: '36px',
+                width: '44px',
+                height: '44px',
                 lineHeight: 1,
               }}
               onMouseEnter={(e) => {

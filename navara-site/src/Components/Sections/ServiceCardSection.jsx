@@ -6,13 +6,13 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
+  const [isTablet, setIsTablet] = useState(() => window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
 
   useEffect(() => {
     const check = () => {
-      setIsMobile(window.innerWidth <= 768);
-      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+      setIsTablet(window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
     };
     check();
     window.addEventListener('resize', check);

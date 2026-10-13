@@ -33,18 +33,21 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={staff.name}
       onClick={handleBackdropClick}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100vw',
-        height: '100vh',
+        height: '100dvh',
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 1000,
+        zIndex: 10000,
         padding: '20px',
         boxSizing: 'border-box',
       }}
@@ -53,10 +56,11 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
         style={{
           backgroundColor: colors.surface,
           borderRadius: '24px',
-          padding: '40px',
+          padding: 'clamp(24px, 6vw, 40px)',
+          boxSizing: 'border-box',
           maxWidth: '600px',
           width: '100%',
-          maxHeight: '80vh',
+          maxHeight: 'calc(100dvh - 40px)',
           overflowY: 'auto',
           position: 'relative',
           boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
@@ -65,6 +69,7 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
       >
         {/* Close Button */}
         <button
+          aria-label="Close biography"
           onClick={onClose}
           style={{
             position: 'absolute',
@@ -75,8 +80,8 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
             fontSize: '24px',
             color: colors.textSecondary,
             cursor: 'pointer',
-            width: '40px',
-            height: '40px',
+            width: '44px',
+            height: '44px',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',

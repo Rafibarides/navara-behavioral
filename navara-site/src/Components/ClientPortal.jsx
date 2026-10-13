@@ -6,7 +6,7 @@ import SignInPage from './SignInPage';
 const ClientPortal = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [activeTab, setActiveTab] = useState('records');
   const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -159,7 +159,7 @@ const ClientPortal = ({ isDarkMode = false }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
