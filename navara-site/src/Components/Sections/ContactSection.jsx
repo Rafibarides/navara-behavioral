@@ -5,7 +5,7 @@ import CalendlyModal from '../CalendlyModal';
 const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,7 +26,7 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
     checkMobile();
@@ -354,9 +354,10 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                   style={{
                     width: '100%',
                     padding: '12px 14px',
+                    minHeight: '44px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm.fontSize,
+                    fontSize: isMobile ? '16px' : textSizes.sm.fontSize,
                     fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
@@ -390,9 +391,10 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                   style={{
                     width: '100%',
                     padding: '12px 14px',
+                    minHeight: '44px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm.fontSize,
+                    fontSize: isMobile ? '16px' : textSizes.sm.fontSize,
                     fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
@@ -426,9 +428,10 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                   style={{
                     width: '100%',
                     padding: '12px 14px',
+                    minHeight: '44px',
                     border: `1px solid ${colors.border}`,
                     borderRadius: '10px',
-                    fontSize: textSizes.sm.fontSize,
+                    fontSize: isMobile ? '16px' : textSizes.sm.fontSize,
                     fontFamily: textSizes.sm.fontFamily,
                     backgroundColor: colors.surface,
                     color: colors.text,
@@ -451,6 +454,7 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                   border: 'none',
                   borderRadius: '25px',
                   padding: '12px 24px',
+                  minHeight: '44px',
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
                   fontWeight: '600',
@@ -542,6 +546,7 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                   border: `1px solid ${colors.primary}`,
                   borderRadius: '20px',
                   padding: '8px 16px',
+                  minHeight: '44px',
                   fontSize: textSizes.xs.fontSize,
                   fontFamily: textSizes.xs.fontFamily,
                   fontWeight: '500',
