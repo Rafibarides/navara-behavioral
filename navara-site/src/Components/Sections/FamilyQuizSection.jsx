@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion as Motion, useReducedMotion } from 'framer-motion';
 import CalendlyModal from '../CalendlyModal';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
@@ -16,17 +17,33 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [responseReady, setResponseReady] = useState(false);
+  const reduceMotion = useReducedMotion();
   const heading = useRef(null);
   const complete = step === questions.length;
+  useEffect(() => {
+    if (!complete) return;
+    const timer = window.setTimeout(() => setResponseReady(true), 2000);
+    return () => window.clearTimeout(timer);
+  }, [complete]);
+
+  useEffect(() => {
+    if (responseReady) {
+      heading.current?.focus({ preventScroll: true });
+      heading.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+  }, [responseReady]);
+
   const buttonStyle = {
     font: 'inherit', fontWeight: 600, minHeight: 48, padding: '12px 22px',
     borderRadius: 12, border: 'none', cursor: 'pointer',
   };
   const moveTo = (nextStep) => {
+    setResponseReady(false);
     setStep(nextStep);
     requestAnimationFrame(() => {
       heading.current?.focus({ preventScroll: true });
-      heading.current?.scrollIntoView({ behavior: 'auto', block: 'center' });
+      heading.current?.scrollIntoView({ behavior: 'instant', block: nextStep === questions.length ? 'start' : 'center' });
     });
   };
 
@@ -43,11 +60,34 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
           Five quick questions, no wrong answers. Let's find a starting point for your family. No email needed.
         </p>
         <div style={{ background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: 22, padding: 'clamp(20px, 4vw, 36px)', boxShadow: '0 8px 30px rgba(27,59,98,0.06)' }}>
-          {complete ? (
+          {complete && !responseReady ? (
+            <div role="status" aria-live="polite" style={{ minHeight: 260, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 26 }}>
+              <Motion.svg
+                aria-hidden="true" viewBox="100 115 1170 245"
+                style={{ width: 'min(240px, 80%)', height: 'auto', color: colors.primary }}
+                animate={reduceMotion ? { opacity: 1, scale: 1 } : { opacity: [0.35, 1, 0.35], scale: [0.97, 1.03, 0.97] }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <defs>
+                  <mask id="quiz-navara-arcs" maskUnits="userSpaceOnUse" x="0" y="0" width="1369" height="839">
+                    <image href="/logo-white.png" width="1369" height="839" />
+                  </mask>
+                </defs>
+                <rect width="1369" height="839" fill="currentColor" mask="url(#quiz-navara-arcs)" />
+              </Motion.svg>
+              <p ref={heading} tabIndex={-1} style={{ color: colors.textSecondary, fontSize: 17, margin: 0, scrollMarginTop: 300 }}>
+                One moment...
+              </p>
+            </div>
+          ) : complete ? (
             <>
-              <h3 ref={heading} tabIndex={-1} style={{ color: colors.primary, fontSize: 25, textAlign: 'center', lineHeight: 1.3, margin: '0 0 20px' }}>
-                We're here to help your family
-              </h3>
+              <Motion.h3 ref={heading} tabIndex={-1}
+                initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ color: colors.primary, fontSize: 'clamp(30px, 5vw, 36px)', fontWeight: 700, textAlign: 'center', lineHeight: 1.3, margin: '0 0 20px', scrollMarginTop: 110 }}>
+                We can help.
+              </Motion.h3>
+              <Motion.div initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.22 }}>
               <p style={{ fontSize: 17, lineHeight: 1.8, margin: '0 0 26px' }}>
                 Based on your responses, we are definitely able to help. Options such as the Navara Behavior Method, Navara Direct ABA, and even a simple consulting session may be very helpful for you and your family. Please click below to schedule a 15-minute consultation, completely free of charge.
               </p>
@@ -57,6 +97,7 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
               <button type="button" onClick={() => { setAnswers({}); moveTo(0); }} style={{ ...buttonStyle, display: 'block', margin: '12px auto 0', background: 'transparent', color: colors.primary, textDecoration: 'underline' }}>
                 Start again
               </button>
+              </Motion.div>
             </>
           ) : (
             <>
