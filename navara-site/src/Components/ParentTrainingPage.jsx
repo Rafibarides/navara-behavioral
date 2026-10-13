@@ -1283,7 +1283,7 @@ Book a One-Time Consult
               onClick={() => setIsCalendlyModalOpen(true)}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.secondary}, ${colors.accent})`,
+                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
                 color: 'white',
               }}
               onMouseEnter={(e) => {
