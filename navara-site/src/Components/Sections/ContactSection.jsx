@@ -60,14 +60,12 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsContentVisible(true);
-          } else {
-            // Reset when section leaves view
-            setIsContentVisible(false);
+
           }
         });
       },
       {
-        threshold: 0.3,
+        threshold: 0.01,
         rootMargin: '0px 0px -100px 0px'
       }
     );
