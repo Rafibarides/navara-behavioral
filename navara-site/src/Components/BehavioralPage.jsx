@@ -165,9 +165,9 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               delay: index * 0.08 + delay,
               ease: "easeOut"
             }}
-            style={{ display: 'inline-block', marginRight: '0.3em' }}
+            style={{ display: 'inline-block', whiteSpace: 'pre-wrap' }}
           >
-            {word}
+            {word}{' '}
           </motion.span>
         ))}
       </motion.span>
@@ -219,7 +219,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             zIndex: 1,
           }}
         >
-          <source src="assets/background-video.mp4" type="video/mp4" />
+          <source src="/assets/background-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -245,7 +245,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           zIndex: 3,
         }}>
           <img 
-            src="assets/service-logos/behavioral.png" 
+            src="/assets/service-logos/behavioral.png" 
             alt="Behavioral Logo"
             style={{
               height: '50px',
@@ -873,7 +873,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 }}
               >
                 <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-                Enroll Now in the 12-Week Program
+                Apply for the Next Open Spot
               </button>
 
               <div style={{
@@ -1979,36 +1979,44 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           }}>
             {[
               {
-                question: "Is this just another version of ABA?",
-                answer: "No — this is a behavior intervention program for the parent. While rooted in ABA principles, this is about helping you understand and manage your child's behavior with confidence."
+                question: "Who is this program for?",
+                answer: "Parents of children with challenging behavior: tantrums, refusals, aggression, rigidity, daily power struggles. It works for children with autism, ADHD, anxiety, or ODD, and just as well for children with no diagnosis at all. If behavior is running your house, this is for you."
               },
               {
-                question: "Is this only for kids with Autism?",
-                answer: "No. While it works extremely well for children with Autism, ADHD, anxiety, or ODD, it's for any child with challenging behavior — tantrums, refusals, aggression, rigidity, etc."
+                question: "Does my child need a diagnosis first?",
+                answer: "No. Behavior is behavior. We work from what your child actually does, not from a label. If an evaluation would help, I will tell you on the call."
               },
               {
-                question: "What if my child is already in therapy?",
-                answer: "No problem. This program works alongside or instead of therapy. In fact, many families report better outcomes because they understand how to maintain progress at home."
+                question: "What is the time commitment?",
+                answer: "12 weeks, 22 sessions total. Coaching sessions run 60 to 75 minutes per week, scheduled flexibly around your life, including evenings and weekends. Everything else is built into your normal daily routine, not added on top of it."
               },
               {
-                question: "Can I participate even if I work full-time?",
-                answer: "Yes. Sessions are scheduled flexibly — evenings, weekends, or early mornings. You only need 60–75 minutes per week for coaching, and the rest is integrated into your daily routine."
+                question: "How is this different from ABA therapy?",
+                answer: "Traditional ABA sends a therapist to work with your child. This program trains you. You learn to read what your child's behavior is telling you and respond with a plan built from your own family's data. The goal is a parent who does not need a therapist in the room."
               },
               {
-                question: "What if I miss a session?",
-                answer: "We allow for one rescheduled session during the 12 weeks. If more are needed, we offer optional makeup sessions at a discounted rate."
+                question: "What actually happens over the 12 weeks?",
+                answer: "Four phases: Connection, Clarity, Control, Carryover. We start with your parent profile and a collaborative functional behavior assessment, build a written behavior intervention plan from your own data, then spend three weeks implementing it together with me coaching you live. You finish with a plan you know how to run."
               },
               {
-                question: "Do both parents attend?",
-                answer: "We recommend both caregivers attend whenever possible, but it is not required. Solo parents and grandparents often succeed with this program."
+                question: "What happens on the free 15-minute call?",
+                answer: "You tell me what is going on at home. I tell you honestly whether this program fits it and how it would work. If it is not a fit, I will say so and point you somewhere useful. No pressure either way."
               },
               {
-                question: "Can this replace traditional ABA?",
-                answer: "Yes — for many families, it becomes the preferred option. You get real results without relying on 20–30 hours/week of outside therapy."
+                question: "How do enrollment and payment work?",
+                answer: "I work with one family at a time. After the call, if we both want to move forward, you receive an invoice for the program ($5,400). Once it is paid, we schedule your first session and start."
               },
               {
                 question: "What happens after the 12 weeks?",
-                answer: "You'll have a solid foundation — but we offer maintenance sessions, check-ins, or re-enrollment options if desired."
+                answer: "You keep your written plan, including a relapse protocol and maintenance plan. Follow-up check-ins and continued coaching are available at a reduced rate if you want them."
+              },
+              {
+                question: "Do both parents need to attend?",
+                answer: "Both caregivers are welcome and encouraged, but not required. Solo parents and grandparents do this program successfully."
+              },
+              {
+                question: "What if I need to miss a session?",
+                answer: "Life happens. One rescheduled session is built into the 12 weeks, and makeup sessions are available if you need more."
               }
             ].map((faq, index) => (
               <motion.div key={index} variants={itemVariants} style={{
@@ -2154,7 +2162,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               color: colors.textSecondary,
               fontStyle: 'italic',
             }}>
-              Limited enrollment per cohort to ensure depth, quality, and individualized support.
+              One family at a time, so your family gets full attention and a plan built around you.
             </motion.p>
           </motion.div>
 
@@ -2205,7 +2213,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               }}
             >
               <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-              Enroll Now in the 12-Week Program
+              Apply for the Next Open Spot
             </button>
           </motion.div>
 

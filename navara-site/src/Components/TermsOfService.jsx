@@ -133,7 +133,7 @@ const TermsOfService = ({ isDarkMode = false }) => {
               color: colors.text,
               marginBottom: '16px'
             }}>
-              Navara Behavioral Group provides behavioral health services, diagnostic evaluations, and related support services. Our services include:
+              Navara Behavioral Group provides behavioral health and behavior support services. Our services include:
             </p>
             <ul style={{
               fontSize: textSizes.base.fontSize,
@@ -142,9 +142,9 @@ const TermsOfService = ({ isDarkMode = false }) => {
               marginBottom: '16px',
               paddingLeft: '20px'
             }}>
-              <li>Behavioral assessments and evaluations</li>
-              <li>Individual and family therapy sessions</li>
-              <li>Career guidance and pathways consulting</li>
+              <li>Parent training and behavior support programs</li>
+              <li>Direct ABA services</li>
+              <li>Behavioral consulting for families and professionals</li>
               <li>Online client portal access</li>
               <li>Appointment scheduling and management</li>
             </ul>
@@ -311,8 +311,8 @@ const TermsOfService = ({ isDarkMode = false }) => {
               color: colors.text
             }}>
               <strong>Navara Behavioral Group</strong><br />
-              Email: info@navara.com<br />
-              Phone: (555) 123-4567
+              Email: info@navarabehavioralgroup.com<br />
+              Phone: (1) 877-7NAVARA (877-762-8272)
             </p>
           </section>
         </div>

@@ -373,8 +373,8 @@ const PrivacyPolicy = ({ isDarkMode = false }) => {
               marginBottom: '16px'
             }}>
               <strong>Navara Behavioral Group</strong><br />
-              Email: privacy@navara.com<br />
-              Phone: (555) 123-4567
+              Email: info@navarabehavioralgroup.com<br />
+              Phone: (1) 877-7NAVARA (877-762-8272)
             </p>
           </section>
         </div>

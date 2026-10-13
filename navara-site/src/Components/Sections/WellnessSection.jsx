@@ -96,9 +96,9 @@ const WellnessSection = ({ isDarkMode = false }) => {
               delay: index * 0.08 + delay,
               ease: "easeOut"
             }}
-            style={{ display: 'inline-block', marginRight: '0.3em' }}
+            style={{ display: 'inline-block', whiteSpace: 'pre-wrap' }}
           >
-            {word}
+            {word}{' '}
           </motion.span>
         ))}
       </motion.span>

@@ -19,12 +19,9 @@ const WelcomeSection = ({ isDarkMode = false }) => {
 
   // Array of welcome phrases
   const welcomePhrases = [
-    "We are here to help",
-    "Change starts here",
-    "Your journey begins now",
-    "Supporting families forward",
-    "Building brighter futures",
-    "Empowering growth together"
+    "Maybe all they need is you.",
+    "Your child doesn't need fixing. You need the right plan.",
+    "12 weeks to train the parent, not the child."
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -82,7 +79,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           zIndex: 1,
         }}
       >
-        <source src="assets/background-video.mp4" type="video/mp4" />
+        <source src="/assets/background-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -93,13 +90,13 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: `${colors.secondary}D9`, // Dark blue with 70% opacity
+        backgroundColor: `${colors.secondary}80`, // Dark blue with 50% opacity (was D9/85% - hid the video)
         zIndex: 1,
       }} />
 
       {/* Logo in top left corner */}
       <img 
-        src="assets/logo-white.png" 
+        src="/assets/logo-white.png" 
         alt="Navara Logo"
         style={{
           position: 'absolute',
@@ -142,6 +139,20 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         }}>
           {welcomePhrases[currentPhraseIndex]}
         </h1>
+
+        {/* Supporting subline */}
+        <p style={{
+          fontSize: isMobile ? textSizes.sm.fontSize : textSizes.lg.fontSize,
+          fontFamily: textSizes.base.fontFamily,
+          color: 'rgba(255, 255, 255, 0.92)',
+          margin: 0,
+          textAlign: 'center',
+          maxWidth: '640px',
+          lineHeight: '1.5',
+          textShadow: '0 2px 12px rgba(0, 0, 0, 0.35)',
+        }}>
+          Warm, evidence-based behavior support for your family, led by a Board Certified Behavior Analyst.
+        </p>
 
         {/* Free 15-Minute Consultation CTA */}
         <a

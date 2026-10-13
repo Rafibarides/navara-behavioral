@@ -29,7 +29,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   // Track active section based on scroll position
   useEffect(() => {
     // Pages that should have transparent nav when at top (with welcome-section)
-    const pagesWithWelcomeSection = ['/', '/diagnostics', '/pathways', '/behavioral', '/wellness'];
+    const pagesWithWelcomeSection = ['/', '/services/parent-training', '/services/direct-aba', '/services/consulting'];
     
     if (!pagesWithWelcomeSection.includes(location.pathname)) {
       setActiveSection('');
@@ -40,10 +40,6 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     const handleScroll = () => {
       const sections = [
         { id: 'welcome-section', name: 'home' },
-        { id: 'diagnostics', name: 'diagnostics' },
-        { id: 'pathways', name: 'pathways' },
-        { id: 'behavioral', name: 'behavioral' },
-        { id: 'wellness', name: 'wellness' },
         { id: 'about', name: 'about' },
         { id: 'contact', name: 'contact' }
       ];
@@ -70,13 +66,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
         }
       } else {
         // Set active section based on current route for service pages
-        const routeToSection = {
-          '/diagnostics': 'diagnostics',
-          '/pathways': 'pathways',
-          '/behavioral': 'behavioral',
-          '/wellness': 'wellness'
-        };
-        setActiveSection(routeToSection[location.pathname] || '');
+        setActiveSection(location.pathname.startsWith('/services') || location.pathname === '/behavioral' ? 'services' : '');
       }
     };
 
@@ -87,14 +77,11 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  const navItems = ['home', 'divisions', 'about', 'contact'];
+  const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Behavior Support', id: 'behavioral', key: 'behavioral', live: true },
-    { name: 'Diagnostics', id: 'diagnostics', key: 'diagnostics', live: false },
-    { name: 'Wellness', id: 'wellness', key: 'wellness', live: false },
-    { name: 'Nutrition', id: 'nutrition', key: 'nutrition', live: false },
-    { name: 'Pathways', id: 'pathways', key: 'pathways', live: false },
-    { name: 'Medical', id: 'medical', key: 'medical', live: false }
+    { name: 'Parent Training Program', path: '/services/parent-training' },
+    { name: 'Direct ABA', path: '/services/direct-aba' },
+    { name: 'Behavioral Consulting', path: '/services/consulting' }
   ];
 
   const scrollToSection = (sectionId) => {
@@ -121,7 +108,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   };
 
   const handleNavClick = (item) => {
-    if (item === 'divisions') {
+    if (item === 'services') {
       setIsServicesOpen(!isServicesOpen);
     } else {
       let sectionId = '';
@@ -161,13 +148,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     }
   };
 
-  const handleServiceClick = (serviceId, serviceKey, live = true) => {
-    if (!live) {
-      // Send users to the Divisions overview page for coming-soon items
-      navigate('/divisions');
-    } else {
-      navigate(`/${serviceKey}`);
-    }
+  const handleServiceClick = (path) => {
+    navigate(path);
     setIsServicesOpen(false);
     setIsMobileMenuOpen(false);
   };
@@ -187,15 +169,16 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   };
 
   const isItemActive = (item) => {
-    if (item === 'divisions') {
-      return ['diagnostics', 'pathways', 'behavioral', 'wellness', 'nutrition', 'medical'].includes(activeSection)
-        || location.pathname === '/divisions';
+    if (item === 'services') {
+      return activeSection === 'services'
+        || location.pathname.startsWith('/services')
+        || location.pathname === '/behavioral';
     }
     return activeSection === item;
   };
 
-  const isServiceActive = (serviceKey) => {
-    return activeSection === serviceKey;
+  const isServiceActive = (path) => {
+    return location.pathname === path;
   };
 
   useEffect(() => {
@@ -373,77 +356,40 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               {item}
             </button>
             
-            {item === 'divisions' && isServicesOpen && (
+            {item === 'services' && isServicesOpen && (
               <div style={{ marginLeft: '16px', marginTop: '8px' }}>
-                <button
-                  onClick={() => { navigate('/divisions'); setIsServicesOpen(false); setIsMobileMenuOpen(false); }}
-                  style={{
-                    width: '100%',
-                    background: location.pathname === '/divisions' ? colors.accent + '33' : 'none',
-                    border: 'none',
-                    padding: '8px 12px',
-                    fontSize: textSizes.sm.fontSize,
-                    fontFamily: textSizes.sm.fontFamily,
-                    color: colors.primary,
-                    cursor: 'pointer',
-                    borderRadius: '6px',
-                    textAlign: 'left',
-                    transition: 'all 0.3s ease',
-                    fontWeight: '600',
-                    marginBottom: '6px',
-                  }}
-                >
-                  All Divisions
-                </button>
                 {serviceItems.map(service => (
                   <button
-                    key={service.id}
-                    onClick={() => handleServiceClick(service.id, service.key, service.live)}
+                    key={service.path}
+                    onClick={() => handleServiceClick(service.path)}
                     style={{
                       width: '100%',
-                      background: isServiceActive(service.key) ? colors.accent + '33' : 'none',
+                      background: isServiceActive(service.path) ? colors.accent + '33' : 'none',
                       border: 'none',
                       padding: '8px 12px',
                       fontSize: textSizes.sm.fontSize,
                       fontFamily: textSizes.sm.fontFamily,
-                      color: isServiceActive(service.key)
+                      color: isServiceActive(service.path)
                         ? colors.primary
-                        : (service.live ? colors.textSecondary : colors.textSecondary + 'AA'),
+                        : colors.textSecondary,
                       cursor: 'pointer',
                       borderRadius: '6px',
                       textAlign: 'left',
                       transition: 'all 0.3s ease',
-                      fontWeight: isServiceActive(service.key) ? '500' : '400',
-                      opacity: service.live ? 1 : 0.7,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: '8px',
+                      fontWeight: isServiceActive(service.path) ? '500' : '400',
                     }}
                     onMouseEnter={(e) => {
-                      if (!isServiceActive(service.key)) {
+                      if (!isServiceActive(service.path)) {
                         e.currentTarget.style.backgroundColor = colors.accent + '26';
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!isServiceActive(service.key)) {
+                      if (!isServiceActive(service.path)) {
                         e.currentTarget.style.backgroundColor = 'transparent';
                       }
                     }}
                   >
                     <span>{service.name}</span>
-                    {!service.live && (
-                      <span style={{
-                        fontSize: '10px',
-                        color: colors.textSecondary,
-                        fontWeight: '500',
-                        letterSpacing: '0.05em',
-                        textTransform: 'uppercase',
-                      }}>
-                        <i className="fas fa-lock" style={{ marginRight: '4px', fontSize: '9px' }} />
-                        Soon
-                      </span>
-                    )}
                   </button>
                 ))}
               </div>
@@ -490,8 +436,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
           <div 
             key={item} 
             style={{ position: 'relative' }}
-            onMouseEnter={item === 'divisions' ? handleServicesMouseEnter : undefined}
-            onMouseLeave={item === 'divisions' ? handleServicesMouseLeave : undefined}
+            onMouseEnter={item === 'services' ? handleServicesMouseEnter : undefined}
+            onMouseLeave={item === 'services' ? handleServicesMouseLeave : undefined}
           >
             <button
               onClick={() => handleNavClick(item)}
@@ -545,7 +491,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
               {item}
             </button>
 
-            {item === 'divisions' && isServicesOpen && (
+            {item === 'services' && isServicesOpen && (
               <div
                 style={{
                   position: 'absolute',
@@ -582,74 +528,36 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     }
                   `}
                 </style>
-                <button
-                  onClick={() => { navigate('/divisions'); setIsServicesOpen(false); }}
-                  style={{
-                    width: '100%',
-                    background: location.pathname === '/divisions'
-                      ? `linear-gradient(135deg, ${colors.accent}66, ${colors.accent}40)`
-                      : 'transparent',
-                    border: location.pathname === '/divisions' ? `1px solid ${colors.accent}66` : 'none',
-                    padding: '10px 16px',
-                    fontSize: textSizes.sm.fontSize,
-                    fontFamily: textSizes.sm.fontFamily,
-                    color: colors.primary,
-                    cursor: 'pointer',
-                    borderRadius: '8px',
-                    textAlign: 'left',
-                    transition: 'all 0.3s ease',
-                    fontWeight: '600',
-                    marginBottom: '4px',
-                    borderBottom: `1px solid ${colors.border}40`,
-                    paddingBottom: '12px',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = `linear-gradient(135deg, ${colors.accent}33, ${colors.accent}1A)`;
-                  }}
-                  onMouseLeave={(e) => {
-                    if (location.pathname !== '/divisions') {
-                      e.currentTarget.style.background = 'transparent';
-                    }
-                  }}
-                >
-                  <i className="fas fa-th-large" style={{ marginRight: '8px', fontSize: '12px' }} />
-                  All Divisions
-                </button>
                 {serviceItems.map(service => (
                   <button
-                    key={service.id}
-                    onClick={() => handleServiceClick(service.id, service.key, service.live)}
+                    key={service.path}
+                    onClick={() => handleServiceClick(service.path)}
                     style={{
                       width: '100%',
-                      background: isServiceActive(service.key) 
+                      background: isServiceActive(service.path) 
                         ? `linear-gradient(135deg, 
                             ${colors.accent}66, 
                             ${colors.accent}40
                           )`
                         : 'transparent',
-                      border: isServiceActive(service.key) 
+                      border: isServiceActive(service.path) 
                         ? `1px solid ${colors.accent}66` 
                         : 'none',
                       padding: '10px 16px',
                       fontSize: textSizes.sm.fontSize,
                       fontFamily: textSizes.sm.fontFamily,
-                      color: isServiceActive(service.key)
+                      color: isServiceActive(service.path)
                         ? colors.primary
-                        : (service.live ? colors.text : colors.textSecondary),
+                        : colors.text,
                       cursor: 'pointer',
                       borderRadius: '8px',
                       textAlign: 'left',
                       transition: 'all 0.3s ease',
-                      fontWeight: isServiceActive(service.key) ? '500' : '400',
-                      backdropFilter: isServiceActive(service.key) ? 'blur(5px)' : 'none',
-                      opacity: service.live ? 1 : 0.75,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: '12px',
+                      fontWeight: isServiceActive(service.path) ? '500' : '400',
+                      backdropFilter: isServiceActive(service.path) ? 'blur(5px)' : 'none',
                     }}
                     onMouseEnter={(e) => {
-                      if (!isServiceActive(service.key)) {
+                      if (!isServiceActive(service.path)) {
                         e.currentTarget.style.background = `linear-gradient(135deg, 
                           ${colors.accent}33, 
                           ${colors.accent}1A
@@ -659,7 +567,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!isServiceActive(service.key)) {
+                      if (!isServiceActive(service.path)) {
                         e.currentTarget.style.background = 'transparent';
                         e.currentTarget.style.backdropFilter = 'none';
                         e.currentTarget.style.border = 'none';
@@ -667,21 +575,6 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     }}
                   >
                     <span>{service.name}</span>
-                    {!service.live && (
-                      <span style={{
-                        fontSize: '10px',
-                        color: colors.textSecondary,
-                        fontWeight: '500',
-                        letterSpacing: '0.05em',
-                        textTransform: 'uppercase',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                      }}>
-                        <i className="fas fa-lock" style={{ fontSize: '9px' }} />
-                        Soon
-                      </span>
-                    )}
                   </button>
                 ))}
               </div>

@@ -258,9 +258,9 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
               delay: index * 0.08 + delay,
               ease: "easeOut"
             }}
-            style={{ display: 'inline-block', marginRight: '0.3em' }}
+            style={{ display: 'inline-block', whiteSpace: 'pre-wrap' }}
           >
-            {word}
+            {word}{' '}
           </motion.span>
         ))}
       </motion.span>
@@ -310,7 +310,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
             zIndex: 1,
           }}
         >
-          <source src="assets/background-video.mp4" type="video/mp4" />
+          <source src="/assets/background-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -327,7 +327,7 @@ const DiagnosticsPage = ({ isDarkMode = false }) => {
 
         {/* Diagnostics Logo in top left corner */}
         <img 
-          src="assets/service-logos/diagnostics.png" 
+          src="/assets/service-logos/diagnostics.png" 
           alt="Diagnostics Logo"
           style={{
             position: 'absolute',

@@ -201,7 +201,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
             zIndex: 1,
           }}
         >
-          <source src="assets/background-video.mp4" type="video/mp4" />
+          <source src="/assets/background-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -218,7 +218,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
 
         {/* Wellness Logo in top left corner */}
         <img 
-          src="assets/service-logos/behavioral.png" 
+          src="/assets/service-logos/behavioral.png" 
           alt="Wellness Logo"
           style={{
             position: 'absolute',
