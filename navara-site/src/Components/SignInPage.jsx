@@ -1,36 +1,17 @@
 import React, { useState } from 'react';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 
-const SignInPage = ({ isDarkMode = false, onSignIn }) => {
+const SignInPage = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [notice, setNotice] = useState(false);
 
-  // Mock credentials - in the future this will be handled by backend
-  const mockCredentials = {
-    email: 'rafi@gmail.com',
-    password: '1234'
-  };
-
-  const handleSubmit = async (e) => {
+  // The portal is not live yet. The form never checks credentials or signs anyone in.
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
-
-    // Simulate API call delay
-    setTimeout(() => {
-      if (email === mockCredentials.email && password === mockCredentials.password) {
-        // Store session
-        sessionStorage.setItem('navaraSignedIn', 'true');
-        onSignIn(true);
-      } else {
-        setError('Invalid email or password. Please try again.');
-      }
-      setIsLoading(false);
-    }, 1000);
+    setNotice(true);
   };
 
   return (
@@ -41,6 +22,8 @@ const SignInPage = ({ isDarkMode = false, onSignIn }) => {
       padding: 0,
       background: colors.background,
       boxSizing: 'border-box',
+      paddingTop: '90px',
+      paddingBottom: '40px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -176,35 +159,33 @@ const SignInPage = ({ isDarkMode = false, onSignIn }) => {
               />
             </div>
 
-            {error && (
+            {notice && (
               <div style={{
-                background: '#fee2e2',
-                border: '1px solid #fecaca',
+                background: colors.accent + '55',
+                border: `1px solid ${colors.border}`,
                 borderRadius: '12px',
-                padding: '12px 16px',
+                padding: '14px 16px',
                 marginBottom: '24px',
               }}>
                 <p style={{
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
-                  color: '#dc2626',
+                  color: colors.text,
                   margin: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
+                  lineHeight: 1.5,
                 }}>
-                  <i className="fas fa-exclamation-circle" />
-                  {error}
+                  <i className="fas fa-info-circle" style={{ marginRight: '8px' }} />
+                  Our client portal is opening soon. For records in the meantime, please contact us at:{' '}
+                  <a href="mailto:info@navarabehavioralgroup.com" style={{ color: colors.primary, fontWeight: 600, display: 'block', marginTop: '6px', fontSize: '13px', wordBreak: 'normal', overflowWrap: 'normal' }}>info@navarabehavioralgroup.com</a>
                 </p>
               </div>
             )}
 
             <button
               type="submit"
-              disabled={isLoading}
-              style={{
+                            style={{
                 width: '100%',
-                background: isLoading ? colors.textSecondary : colors.primary,
+                background: colors.primary,
                 color: 'white',
                 border: 'none',
                 borderRadius: '12px',
@@ -212,7 +193,7 @@ const SignInPage = ({ isDarkMode = false, onSignIn }) => {
                 fontSize: textSizes.base.fontSize,
                 fontFamily: textSizes.base.fontFamily,
                 fontWeight: '600',
-                cursor: isLoading ? 'not-allowed' : 'pointer',
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 display: 'flex',
                 alignItems: 'center',
@@ -220,27 +201,16 @@ const SignInPage = ({ isDarkMode = false, onSignIn }) => {
                 gap: '8px'
               }}
               onMouseEnter={(e) => {
-                if (!isLoading) {
-                  e.target.style.background = colors.secondary;
-                }
+                e.target.style.background = colors.secondary;
               }}
               onMouseLeave={(e) => {
-                if (!isLoading) {
-                  e.target.style.background = colors.primary;
-                }
+                e.target.style.background = colors.primary;
               }}
             >
-              {isLoading ? (
-                <>
-                  <i className="fas fa-spinner fa-spin" />
-                  Signing In...
-                </>
-              ) : (
-                <>
+                              <>
                   <i className="fas fa-sign-in-alt" />
                   Sign In
                 </>
-              )}
             </button>
           </form>
         </div>
