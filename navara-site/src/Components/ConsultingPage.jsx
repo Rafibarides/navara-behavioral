@@ -7,6 +7,12 @@ import FooterSection from './Sections/FooterSection';
 import ContactSection from './Sections/ContactSection';
 
 const ConsultingPage = ({ isDarkMode = false }) => {
+
+  const [autoRevealCount, setAutoRevealCount] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => setAutoRevealCount(1), 2500);
+    return () => { clearTimeout(start); };
+  }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
@@ -217,6 +223,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
+        animate={autoRevealCount >= 1 ? "visible" : undefined}
         viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
         style={{
           ...sectionStyle,
