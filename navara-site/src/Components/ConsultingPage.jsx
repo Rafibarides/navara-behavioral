@@ -527,6 +527,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.2 }}
         style={{
           ...sectionStyle,
+          paddingBottom: isMobile ? '16px' : '20px',
           backgroundColor: colors.surface,
         }}
       >
@@ -554,8 +555,14 @@ Need more than one session? The Navara Behavior Method™ trains you over 12 wee
               onClick={() => navigate('/services/parent-training')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
+                transform: 'none',
               }}
             >
 Explore the 12-Week Program
@@ -575,8 +582,14 @@ Want a behavior analyst working directly with your child? Navara Direct ABA™ b
               onClick={() => navigate('/services/direct-aba')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
+                transform: 'none',
               }}
             >
 Explore Direct ABA
@@ -585,7 +598,7 @@ Explore Direct ABA
         </div>
       </motion.section>
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
+      <ContactSection isDarkMode={isDarkMode} servicePage />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
