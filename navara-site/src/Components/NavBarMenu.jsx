@@ -79,7 +79,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
 
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Parent Training Program', path: '/services/parent-training' },
+    { name: 'Behavior Method', path: '/services/parent-training' },
     { name: 'Direct ABA', path: '/services/direct-aba' },
     { name: 'Behavioral Consulting', path: '/services/consulting' }
   ];
