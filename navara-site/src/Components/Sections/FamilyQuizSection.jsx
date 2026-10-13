@@ -64,16 +64,13 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
             <div role="status" aria-live="polite" style={{ minHeight: 260, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 26 }}>
               <Motion.svg
                 aria-hidden="true" viewBox="100 115 1170 245"
-                style={{ width: 'min(240px, 80%)', height: 'auto', color: colors.primary }}
+                style={{ width: 'min(240px, 80%)', height: 'auto' }}
                 animate={reduceMotion ? { opacity: 1, scale: 1 } : { opacity: [0.35, 1, 0.35], scale: [0.97, 1.03, 0.97] }}
                 transition={reduceMotion ? { duration: 0 } : { duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <defs>
-                  <mask id="quiz-navara-arcs" maskUnits="userSpaceOnUse" x="0" y="0" width="1369" height="839">
-                    <image href="/logo-white.png" width="1369" height="839" />
-                  </mask>
-                </defs>
-                <rect width="1369" height="839" fill="currentColor" mask="url(#quiz-navara-arcs)" />
+                <path fill="#B1C9B3" d="M395 165 L482 151 L565 145 L639 145 L740 153 L817 165 L909 186 L1004 215 L1104 252 L1075 236 L1009 206 L915 172 L815 147 L737 135 L635 129 L556 132 L506 138 L456 147 Z" />
+                <path fill="#5F8D9C" d="M139 345 L206 305 L252 281 L304 258 L367 235 L439 215 L490 205 L557 196 L616 192 L692 192 L744 195 L826 205 L923 224 L1008 247 L1076 270 L1148 299 L1224 336 L1160 297 L1086 262 L1018 236 L945 213 L866 194 L788 181 L697 173 L617 173 L537 180 L476 190 L425 202 L361 222 L303 245 L245 274 L191 306 Z" />
+                <path fill="#1E324A" d="M276 347 L344 315 L387 298 L449 278 L502 264 L556 253 L618 244 L692 238 L776 238 L880 247 L985 266 L1102 299 L1232 348 L1170 316 L1116 293 L1065 274 L1000 254 L952 242 L888 230 L843 224 L775 219 L703 219 L634 224 L572 233 L504 248 L459 261 L397 283 L328 315 Z" />
               </Motion.svg>
               <p ref={heading} tabIndex={-1} style={{ color: colors.textSecondary, fontSize: 17, margin: 0, scrollMarginTop: 300 }}>
                 One moment...
