@@ -4,13 +4,13 @@
       "strips": [
         {
           "photo": "/assets/NAVARA7.jpg",
-          "title": "Who We Are!",
-          "text": "Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration, all under one streamlined, client focused model."
+          "title": "Who We Are",
+          "text": "Navara was founded to bridge the gap between families and the support they actually need. Today, that means evidence-based behavior support for children and the parents raising them - practical, personal, and built around your family."
         },
         {
           "photo": "/assets/NAVARA8.jpg",
           "title": "We exist to simplify the process",
-          "text": "Whether it's understanding a child's development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward."
+          "text": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no insurance runaround."
         }
       ]
     },
@@ -26,7 +26,7 @@
       },
       "behavioral": {
         "id": "behavioral",
-        "title": "Behavior Support",
+        "title": "The Navara Behavior Method",
         "logo": "assets/service-logos/behavioral.png",
         "photo": "/assets/NAVARA2.jpg",
         "p1": "We provide personalized behavior support services that address the unique needs of each child and family. Our approach combines proven behavioral strategies with practical, family-centered solutions.",
@@ -41,6 +41,15 @@
         "p1": "Our career exploration program helps young adults discover and pursue meaningful career paths. We combine assessment, guidance, and practical experience to support informed career decisions.",
         "highlight": "Your career journey should reflect your unique strengths and aspirations.",
         "p2": "Through personalized guidance and hands-on experience, we help young adults identify career paths that align with their interests, strengths, and long-term goals."
+      },
+      "wellness": {
+        "id": "wellness",
+        "title": "Navara Wellness",
+        "logo": "assets/service-logos/wellness.png",
+        "photo": "/assets/NAVARA4.jpg",
+        "p1": "Private, personalized therapy support from licensed therapists - no insurance hassle, no waiting lists, no judgment. We provide whole-person approach therapy that meets you where you are.",
+        "highlight": "Where therapy meets clarity, care, and change.",
+        "p2": "Whether you're overwhelmed, stuck, healing, or growing, our licensed therapists provide compassionate, goal-aligned support with transparent pricing and flexible scheduling."
       }
     },
     "about": {
@@ -50,32 +59,74 @@
         "Change."
       ],
       "mainContent": {
-        "p1": "Navara was founded to bridge the gap between families and the support they actually need. We provide high-quality diagnostic evaluations, evidence-based behavior support, and guided career exploration\u2014all under one streamlined, client-focused model.",
-        "p2": "We exist to simplify the process of getting help. Whether it's understanding a child's development, managing challenging behaviors, or navigating early career decisions, our goal is to give families and young adults the tools, clarity, and confidence they need to move forward."
+        "p1": "Navara was founded to bridge the gap between families and the support they actually need. Today, that means evidence-based behavior support for children and the parents raising them - practical, personal, and built around your family.",
+        "p2": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no insurance runaround."
       },
       "differentSection": {
         "title": "What Makes Us Different?",
-        "content": "We don't believe in long waitlists, cookie-cutter solutions, or overly complicated systems. At Navara, you get direct access to licensed professionals, concise communication, and actionable plans that actually work\u2014because we know your time and trust matter."
+        "content": "We don't believe in long waitlists, cookie-cutter solutions, or overly complicated systems. At Navara, you get direct access to licensed professionals, concise communication, and actionable plans that actually work - because we know your time and trust matter."
       }
     },
     "team": {
       "title": "OUR TEAM",
       "subtext": "Meet the dedicated professionals committed to providing exceptional care and support",
-      "members": [
+      "founder": {
+        "photo": "/assets/nisanFetman.png",
+        "eyesClosed": "/assets/nisanFetmanEyesClosed.png",
+        "name": "David Nisan Fetman, MA. BCBA, Psychology Doctoral Student",
+        "position": "Founder & Clinical Director",
+        "introSentence": "David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee",
+        "fullText": "Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress."
+      },
+      "divisions": [
         {
-          "photo": "/assets/nisanFetman.png",
-          "eyesClosed": "/assets/nisanFetmanEyesClosed.png",
-          "name": "David Nisan Fetman, BCBA",
-          "position": "Founder",
-          "introSentence": "David Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee",
-          "fullText": "Nisan is a Board Certified Behavior Analyst (BCBA) and doctoral-level psychology trainee with extensive experience in child development, behavioral assessment, and intervention. In 2025, he founded Navara Behavioral Group with the mission of delivering direct, effective, and family-centered care. Nisan is known for his clear communication style, practical strategies, and deep commitment to helping children and families make meaningful progress."
+          "title": "Behavior Support",
+          "members": [
+            {
+              "photo": "/layamilstein.png",
+              "name": "Laya Milstein, MPS",
+              "position": "Behavior Specialist",
+              "introSentence": "Laya is known for her creative, compassionate, and deeply relational approach to supporting children and families.",
+              "fullText": "Laya is known for her creative, compassionate, and deeply relational approach to supporting children and families in both school and home-based settings. She builds lasting connections that foster trust, growth, and collaboration beyond the therapy room. A mother of five with over three decades of parenting experience, Laya brings empathy, insight, and real-world understanding to every interaction. She approaches each case with curiosity and courage—thinking outside the box to find what truly works. Laya holds a Master's in Professional Studies and is dedicated to helping every child grow, succeed, and shine."
+            },
+            {
+              "photo": "/tammyfetman.jpg",
+              "name": "Tammy Fetman, M.S.Ed.",
+              "position": "Behavior Specialist",
+              "introSentence": "Tammy brings over 27 years of experience as the owner and director of a licensed New York daycare.",
+              "fullText": "Tammy Fetman brings over 27 years of experience as the owner and director of a licensed New York daycare, along with dual master's degrees in early childhood education and special education. She has taught early childhood courses as an adjunct professor at Touro College and has provided extensive parenting guidance to families, supporting children's academic, emotional, and developmental growth. Currently pursuing her LMHC degree, Tammy integrates her expertise in education and counseling to empower parents to become confident advocates for their children's well-being and long-term success."
+            },
+            {
+              "photo": "/assets/lena.png",
+              "name": "Lena Marciano",
+              "position": "Behavior Specialist",
+              "introSentence": "Lena is a Board Certified Behavior Analyst with several years of experience supporting children and families through Applied Behavior Analysis.",
+              "fullText": "Lena is a Board Certified Behavior Analyst with several years of experience supporting children and families through Applied Behavior Analysis. As a parent herself, she understands the challenges and rewards of raising children and brings a practical, compassionate approach to her work. Lena is passionate about empowering parents with effective strategies to create positive change at home. Her goal is to help families build connection, confidence, and lasting progress together."
+            },
+            {
+              "photo": "/brittneykushner.png",
+              "name": "Brittney Kushner",
+              "position": "Behavior Specialist",
+              "introSentence": "Brittney holds a degree in Applied Behavior Analysis with a focus on becoming a Board Certified Behavior Analyst (BCBA).",
+              "fullText": "Brittney Kushner holds a degree in Applied Behavior Analysis with a focus on becoming a Board Certified Behavior Analyst (BCBA). She has experience working with children with special needs and is passionate about helping each child reach their fullest potential. She is compassionate, caring, and easygoing, and strives to create a supportive and positive environment for both children and their families. She believes in building meaningful relationships while using individualized, evidence-based strategies to help children develop important skills and achieve their goals."
+            }
+          ]
         },
         {
-          "photo": "/assets/lady1.png",
-          "name": "Sarah Levine, M.Ed, BCBA",
-          "position": "Senior Behavior Analyst",
-          "introSentence": "Sarah Levine is a Senior Board Certified Behavior Analyst (BCBA) with expertise in early intervention and educational programming.",
-          "fullText": "Levine has over a decade of experience designing and implementing individualized behavior intervention plans in school and home settings. She earned her Master of Education in Special Education and has trained numerous parents and professionals in positive behavior support techniques. Sarah is passionate about empowering families and educators through data-driven strategies and compassionate guidance."
+          "title": "Occupational Therapy",
+          "members": [
+            {
+              "photo": "/assets/sarala.jpg",
+              "name": "Sarah Manela, OTR/L",
+              "position": "Pediatric Occupational Therapist",
+              "introSentence": "Sarah Manela is a pediatric occupational therapist with over a decade of experience helping children build motor, sensory, and daily living skills.",
+              "fullText": "With over a decade of experience in pediatric occupational therapy, Sarah brings deep expertise, warmth, and creativity to her work with children and families. She specializes in helping kids build the motor, sensory, and daily living skills they need to thrive at home, in school, and in the community. As a mom of four herself, Sarah deeply understands the concerns parents face and brings a strong sense of empathy and partnership to her work. Sarah is passionate about creating playful, personalized interventions that empower children and support caregivers every step of the way."
+            }
+          ]
+        },
+        {
+          "title": "Operations & Support",
+          "members": []
         }
       ]
     },
