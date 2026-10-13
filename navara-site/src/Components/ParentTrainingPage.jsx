@@ -158,7 +158,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
       <motion.span
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.5 }}
+        viewport={{ once: true, amount: 0.01 }}
         transition={{
           staggerChildren: 0.08,
           delayChildren: delay,
@@ -240,8 +240,8 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         id="welcome-section"
         style={{
           position: 'relative',
-          height: isMobile ? '25vh' : '50vh',
-          minHeight: isMobile ? '200px' : '400px',
+          height: isMobile ? '14vh' : '24vh',
+          minHeight: isMobile ? '110px' : '190px',
           width: '100vw',
           display: 'flex',
           alignItems: 'center',
@@ -305,34 +305,6 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
           />
         </div>
 
-        {/* Content Overlay */}
-        <div style={{
-          position: 'relative',
-          zIndex: 3,
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transform: isMobile ? 'translateY(10px)' : 'none',
-        }}>
-          {/* Behavioral Text */}
-          <h1 style={{ 
-            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
-            fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
-            margin: 0,
-            textAlign: 'center',
-            color: 'white',
-            fontWeight: '700',
-            letterSpacing: '0.02em',
-            minHeight: isMobile ? '1em' : '1.2em',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            The Navara Behavior Method™
-          </h1>
-        </div>
       </section>
 
       {/* Navigation */}
@@ -506,7 +478,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -610,7 +582,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
                     22 Sessions With Your Navara Behavior Specialist
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    Twice a week for most of the twelve weeks — 22 one-to-one sessions, not a weekly check-in. Every session teaches a concept, names the research behind it, and then applies it live to your own child's data.
+                    About two sessions a week, 45 minutes each, for most of the twelve weeks — 22 one-to-one sessions, not a weekly check-in. Every session teaches a concept, names the research behind it, and then applies it live to your own child's data.
                   </div>
                 </div>
               </div>
@@ -753,7 +725,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -908,7 +880,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -984,7 +956,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -1061,7 +1033,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
@@ -1099,7 +1071,7 @@ Book a One-Time Consult
               },
               {
                 question: "What is the time commitment?",
-                answer: "12 weeks, 22 sessions total. Coaching sessions run 60 to 75 minutes per week, scheduled flexibly around your life, including evenings and weekends. Everything else is built into your normal daily routine, not added on top of it."
+                answer: "12 weeks, 22 sessions total. Coaching sessions run about 45 minutes each, roughly twice a week, scheduled flexibly around your life, including evenings and weekends. Everything else is built into your normal daily routine, not added on top of it."
               },
               {
                 question: "How is this different from ABA therapy?",
@@ -1202,7 +1174,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={sectionStyle}
       >
         <div style={containerStyle}>
@@ -1362,7 +1334,7 @@ Book a One-Time Consult
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.3 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           backgroundColor: colors.surface,
