@@ -317,7 +317,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 lineHeight: '1.8',
                 marginBottom: '32px',
               }}>
-                Private, personalized support from licensed therapists - no insurance hassle, no waiting lists, no judgment.
+                Private, personalized support from licensed therapists - no waiting lists, no judgment.
               </motion.p>
 
               <motion.div variants={itemVariants} style={{
@@ -517,7 +517,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
                   fontWeight: '600',
                   marginBottom: '12px',
                 }}>
-                  No Insurance Needed
+                  Private Pay
                 </h3>
                 <p style={{
                   fontSize: textSizes.base.fontSize,
@@ -923,7 +923,7 @@ const WellnessPage = ({ isDarkMode = false }) => {
             gap: '12px',
           }}>
             <i className="fas fa-dollar-sign" style={{ color: colors.accent }} />
-            Simple, transparent pricing - no insurance games.
+            Simple, transparent pricing.
           </motion.h2>
 
           <motion.div variants={itemVariants} style={{
@@ -1032,7 +1032,6 @@ const WellnessPage = ({ isDarkMode = false }) => {
                 paddingLeft: '20px',
                 margin: 0,
               }}>
-                <li>We do not accept insurance</li>
                 <li>HSA/FSA cards accepted</li>
                 <li>Good Faith Estimates available upon request</li>
               </ul>
