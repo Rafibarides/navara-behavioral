@@ -960,7 +960,6 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.2 }}
         style={{
           ...sectionStyle,
-          paddingBottom: isMobile ? '16px' : '20px',
           backgroundColor: colors.surface,
         }}
       >
@@ -988,10 +987,13 @@ Looking for in-home help instead? Navara Direct ABA™ brings a Board Certified 
               onClick={() => navigate('/services/direct-aba')}
               style={{
                 ...buttonStyle,
-                background: isDarkMode ? '#363b43' : '#eceef0',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
                 color: isDarkMode ? '#e5e7eb' : '#555b64',
-                boxShadow: 'none',
-                border: `1px solid ${isDarkMode ? '#555b64' : '#d5d9dd'}`,
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
                 transform: 'none',
               }}
             >
@@ -1012,10 +1014,13 @@ Just need an expert opinion first? A single Behavioral Consulting session gives 
               onClick={() => navigate('/services/consulting')}
               style={{
                 ...buttonStyle,
-                background: isDarkMode ? '#363b43' : '#eceef0',
+                background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
                 color: isDarkMode ? '#e5e7eb' : '#555b64',
-                boxShadow: 'none',
-                border: `1px solid ${isDarkMode ? '#555b64' : '#d5d9dd'}`,
+                backdropFilter: 'blur(18px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                borderRadius: '999px',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(255,255,255,0.3), 0 5px 14px rgba(45,55,70,0.10)',
+                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(205,213,222,0.65)'}`,
                 transform: 'none',
               }}
             >
@@ -1258,11 +1263,8 @@ Book a One-Time Consult
               rel="noopener noreferrer"
               style={{
                 ...buttonStyle,
-                background: isDarkMode ? '#363b43' : '#eceef0',
-                color: isDarkMode ? '#e5e7eb' : '#555b64',
-                boxShadow: 'none',
-                border: `1px solid ${isDarkMode ? '#555b64' : '#d5d9dd'}`,
-                transform: 'none',
+                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                color: 'white',
                 textDecoration: 'none',
               }}
               onMouseEnter={(e) => {
