@@ -28,10 +28,9 @@ const FooterSection = ({ isDarkMode = false }) => {
       { name: 'Contact', href: 'contact', type: 'scroll' }
     ],
     divisions: [
-      { name: 'Behavior Support', href: '/behavioral', type: 'route' },
-      { name: 'Diagnostics (Soon)', href: '/divisions', type: 'route' },
-      { name: 'Wellness (Soon)', href: '/divisions', type: 'route' },
-      { name: 'All Divisions', href: '/divisions', type: 'route' }
+      { name: 'Parent Training Program', href: '/services/parent-training', type: 'route' },
+      { name: 'Direct ABA', href: '/services/direct-aba', type: 'route' },
+      { name: 'Behavioral Consulting', href: '/services/consulting', type: 'route' }
     ],
     resources: [
       { name: 'Client Portal', href: '/client-portal', type: 'route' },
@@ -228,7 +227,7 @@ const FooterSection = ({ isDarkMode = false }) => {
               marginBottom: '24px',
               color: 'white',
             }}>
-              Divisions
+              Services
             </h4>
             <div style={{
               display: 'flex',
