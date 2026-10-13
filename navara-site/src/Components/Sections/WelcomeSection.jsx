@@ -82,7 +82,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           zIndex: 1,
         }}
       >
-        <source src="assets/background-video.mp4" type="video/mp4" />
+        <source src="/assets/background-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -93,13 +93,13 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: `${colors.secondary}D9`, // Dark blue with 70% opacity
+        backgroundColor: `${colors.secondary}80`, // Dark blue with 50% opacity (was D9/85% - hid the video)
         zIndex: 1,
       }} />
 
       {/* Logo in top left corner */}
       <img 
-        src="assets/logo-white.png" 
+        src="/assets/logo-white.png" 
         alt="Navara Logo"
         style={{
           position: 'absolute',
