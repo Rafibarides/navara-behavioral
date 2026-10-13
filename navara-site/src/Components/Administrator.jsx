@@ -87,8 +87,8 @@ const Administrator = ({ isDarkMode = false }) => {
   // Add new team member
   const addTeamMember = () => {
     const newMember = {
-      photo: "/assets/4-nisan-headshot.webp",
-      eyesClosed: "/assets/4-nisan-headshot.webp",
+      photo: "/assets/1-8-nisan-centered.webp",
+      eyesClosed: "/assets/1-8-nisan-centered.webp",
       name: "New Team Member",
       position: "Position",
       introSentence: "Brief introduction...",
@@ -920,4 +920,4 @@ const Administrator = ({ isDarkMode = false }) => {
   );
 };
 
-export default Administrator; 
+export default Administrator;

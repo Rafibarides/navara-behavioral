@@ -13,7 +13,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
 
   const [autoRevealCount, setAutoRevealCount] = useState(0);
   useEffect(() => {
-    const start = setTimeout(() => setAutoRevealCount(1), 2500);
+    const start = setTimeout(() => setAutoRevealCount(1), 1000);
     return () => { clearTimeout(start); };
   }, []);
   const colors = getColors(isDarkMode);

@@ -48,7 +48,7 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
         setIsWordVisible(true);
       }, 300); // Fade out duration
       
-    }, 3000); // Change word every 3 seconds
+    }, 2300); // Change word every 2.3 seconds
 
     return () => clearInterval(interval);
   }, [helpWords.length]);

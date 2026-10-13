@@ -35,13 +35,19 @@ const OurTeamSection = ({ isDarkMode = false }) => {
         transition: 'transform 180ms ease',
       }}
     >
-      <img src={staff.photo} alt={staff.name} loading="lazy" decoding="async" style={{
+      <span style={{
         width: isFounder ? '156px' : (isMobile ? '112px' : '136px'),
         height: isFounder ? '156px' : (isMobile ? '112px' : '136px'),
-        objectFit: 'cover', borderRadius: '50%', border: `4px solid ${colors.surface}`,
+        display: 'block', overflow: 'hidden', borderRadius: '50%', border: `4px solid ${colors.surface}`,
         boxShadow: '0 5px 18px rgba(0,0,0,0.10)', marginBottom: '18px',
-      }} />
-      <span style={{ fontSize: isFounder ? '20px' : (isMobile ? '16px' : '18px'), fontWeight: 700, lineHeight: 1.4, marginBottom: '6px' }}>
+      }}>
+        <img src={staff.photo} alt={staff.name} loading="lazy" decoding="async" style={{
+          width: '100%', height: '100%', display: 'block', objectFit: 'cover',
+          objectPosition: staff.name.startsWith('Sarah') ? 'center 15%' : 'center',
+          transform: staff.name.startsWith('Sarah') ? 'translateX(8px) scale(1.16)' : 'none',
+        }} />
+      </span>
+      <span style={{ fontSize: isFounder ? (isMobile ? '15px' : '17px') : (isMobile ? '16px' : '18px'), fontWeight: 700, lineHeight: 1.4, marginBottom: '6px', whiteSpace: isFounder ? 'nowrap' : 'normal' }}>
         {staff.name}
       </span>
       <span style={{ fontSize: isMobile ? '14px' : '15px', color: colors.primary, lineHeight: 1.5 }}>
@@ -60,8 +66,10 @@ const OurTeamSection = ({ isDarkMode = false }) => {
               <path d="M0 145 Q329 -85 700 145 Q337 -57 0 145Z" fill="#56898C" />
               <path d="M90 145 Q378 -19 700 145 Q388 3 90 145Z" fill="#1B3B62" />
             </svg>
+
             <h2 style={{ fontFamily: textSizes.base.fontFamily, fontSize: isMobile ? '30px' : '36px', color: colors.primary, margin: '0 0 16px', fontWeight: 700, letterSpacing: '0.05em' }}>Meet the Team</h2>
             <p style={{ fontFamily: textSizes.base.fontFamily, fontSize: '18px', color: colors.textSecondary, lineHeight: 1.6, maxWidth: '600px', margin: '0 auto' }}>{subtext}</p>
+            <p style={{ fontFamily: textSizes.base.fontFamily, fontSize: '14px', color: colors.textSecondary, margin: '14px 0 0' }}>Click on a profile to read the bio.</p>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isMobile ? '28px' : '40px' }}>{person(founder, true)}</div>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(5, minmax(0, 1fr))', gap: isMobile ? '24px 12px' : '24px', justifyItems: 'center', alignItems: 'start' }}>
