@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 import NavBarMenu from './NavBarMenu';
@@ -7,6 +7,7 @@ import FooterSection from './Sections/FooterSection';
 import ContactSection from './Sections/ContactSection';
 import CalendlyModal from './CalendlyModal';
 import StaffModal from './StaffModal';
+import PromoVideo from './PromoVideo';
 import siteData from '../../SiteData.json';
 
 const ParentTrainingPage = ({ isDarkMode = false }) => {
@@ -182,6 +183,67 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
     );
   };
 
+
+  // Handwriting-style reveal over the mirror, scroll-triggered once.
+  const MirrorWriting = () => {
+    const reduceMotion = useReducedMotion();
+    const words = ['Maybe', 'all', 'they', 'need', 'is'];
+    const letters = ['y', 'o', 'u', '.'];
+    const serifStyle = {
+      display: 'inline-block',
+      fontFamily: "'Cormorant Garamond', serif",
+      fontWeight: 300,
+      fontSize: isMobile ? '12px' : '13px',
+      letterSpacing: '0.1em',
+      color: '#23324b',
+      textShadow: '0 0 6px rgba(255,255,255,0.9), 0 0 2px rgba(255,255,255,0.9)',
+      
+    };
+    const scriptStyle = {
+      display: 'inline-block',
+      fontFamily: "'Caveat', cursive",
+      fontWeight: 600,
+      fontSize: isMobile ? '42px' : '52px',
+      lineHeight: 0.9,
+      color: '#9cb899',
+      textShadow: '0 0 8px rgba(255,255,255,0.95), 0 0 3px rgba(255,255,255,0.9)',
+    };
+    const inner = (
+      <>
+        <div style={{ marginBottom: isMobile ? '2px' : '4px', whiteSpace: 'nowrap' }}>
+          {words.map((w, i) => (
+            <motion.span key={w} style={serifStyle}
+              initial={reduceMotion ? false : { opacity: 0, x: -7, filter: 'blur(4px)' }}
+              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ delay: 0.6 + i * 0.38, duration: 0.45, ease: 'easeOut' }}
+            >{w}{'\u00A0'}</motion.span>
+          ))}
+        </div>
+        <div style={{ whiteSpace: 'nowrap' }}>
+          {letters.map((ch, i) => (
+            <motion.span key={i} style={scriptStyle} custom={i}
+              initial={reduceMotion ? false : { opacity: 0, filter: 'blur(7px)', y: 8 }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ delay: 0.6 + words.length * 0.38 + i * 0.16, duration: 0.5, ease: 'easeOut' }}
+            >{ch}</motion.span>
+          ))}
+        </div>
+      </>
+    );
+    return (
+      <div aria-label="Maybe all they need is you." role="img"
+        style={{
+          position: 'absolute', top: isMobile ? '15%' : '17%', left: '50%',
+          transform: 'translateX(-50%) rotate(-2.5deg)',
+          width: '94%', textAlign: 'center', pointerEvents: 'none', zIndex: 2,
+        }}>
+        {inner}
+      </div>
+    );
+  };
+
   if (!behavioralService) return null;
 
   return (
@@ -352,32 +414,8 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
               A short introduction to how the program works
             </motion.p>
 
-            <motion.div variants={itemVariants} style={{
-              position: 'relative',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              background: '#000',
-              aspectRatio: '16/9',
-              maxWidth: '100%',
-              margin: '0 auto 32px auto',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-              border: `4px solid ${colors.primary}20`,
-            }}>
-              <video
-                controls
-                preload="metadata"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-                poster=""
-              >
-                <source src="https://pub-6b585af950464b7ca12da1ee87798b6d.r2.dev/navaravideo.m4v" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </motion.div>
+            <PromoVideo isDarkMode={isDarkMode} />
+
           </motion.div>
 
           {/* Content with Image */}
@@ -390,20 +428,23 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
             margin: '0 auto 48px auto',
             maxWidth: '1000px',
           }}>
+            <div style={{ position: 'relative', width: 'fit-content', flexShrink: 0 }}>
             <motion.img 
               variants={imageVariants}
-              src="/assets/parenting1.jpg"
-              alt="Parent and child connection"
+              src="/assets/9-navara-mirror-family.webp"
+              alt="A child sees his family beside him in the mirror"
               style={{
                 width: isMobile ? '220px' : '280px',
-                height: isMobile ? '180px' : '220px',
+                height: isMobile ? '302px' : '384px',
                 borderRadius: '20px',
                 objectFit: 'cover',
                 border: `4px solid ${colors.primary}30`,
                 boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-                transform: 'rotate(-2deg)',
+                transform: 'none',
               }}
             />
+            <MirrorWriting />
+            </div>
             <motion.div style={{ textAlign: isMobile ? 'center' : 'left', maxWidth: '500px' }}>
               <motion.h3 variants={itemVariants} style={{
                 fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
