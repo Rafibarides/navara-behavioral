@@ -19,12 +19,9 @@ const WelcomeSection = ({ isDarkMode = false }) => {
 
   // Array of welcome phrases
   const welcomePhrases = [
-    "We are here to help",
-    "Change starts here",
-    "Your journey begins now",
-    "Supporting families forward",
-    "Building brighter futures",
-    "Empowering growth together"
+    "Maybe all they need is you.",
+    "Your child doesn't need fixing. You need the right plan.",
+    "12 weeks to train the parent, not the child."
   ];
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
