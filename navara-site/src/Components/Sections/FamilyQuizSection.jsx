@@ -32,20 +32,20 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
 
   return (
     <section id="family-quiz" aria-labelledby="family-quiz-title" style={{
-      padding: '64px 20px', background: colors.background, color: colors.text,
+      padding: '60px 20px', background: colors.background, color: colors.text,
       fontFamily: text.base.fontFamily,
     }}>
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
-        <h2 id="family-quiz-title" style={{ color: colors.primary, fontSize: 'clamp(28px, 5vw, 40px)', margin: '0 0 14px', lineHeight: 1.2 }}>
+        <h2 id="family-quiz-title" style={{ color: colors.primary, fontSize: 'clamp(30px, 5vw, 36px)', textAlign: 'center', margin: '0 0 14px', lineHeight: 1.2 }}>
           Where should we start?
         </h2>
-        <p style={{ fontSize: 17, lineHeight: 1.7, margin: '0 0 28px', color: colors.textSecondary }}>
+        <p style={{ fontSize: 17, lineHeight: 1.6, textAlign: 'center', maxWidth: 620, margin: '0 auto 32px', color: colors.textSecondary }}>
           Five quick questions, no wrong answers. Let's find a starting point for your family. No email needed.
         </p>
         <div style={{ background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: 22, padding: 'clamp(20px, 4vw, 36px)', boxShadow: '0 8px 30px rgba(27,59,98,0.06)' }}>
           {complete ? (
             <>
-              <h3 ref={heading} tabIndex={-1} style={{ color: colors.primary, fontSize: 25, lineHeight: 1.3, margin: '0 0 20px' }}>
+              <h3 ref={heading} tabIndex={-1} style={{ color: colors.primary, fontSize: 25, textAlign: 'center', lineHeight: 1.3, margin: '0 0 20px' }}>
                 We're here to help your family
               </h3>
               <p style={{ fontSize: 17, lineHeight: 1.8, margin: '0 0 26px' }}>
@@ -54,13 +54,13 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
               <button type="button" onClick={() => setBookingOpen(true)} style={{ ...buttonStyle, background: isDarkMode ? colors.primary : '#1B3B62', color: isDarkMode ? '#1A2A40' : '#FFFFFF', width: '100%', lineHeight: 1.5 }}>
                 Schedule a free 15-minute consultation
               </button>
-              <button type="button" onClick={() => { setAnswers({}); moveTo(0); }} style={{ ...buttonStyle, marginTop: 12, background: 'transparent', color: colors.primary, textDecoration: 'underline' }}>
+              <button type="button" onClick={() => { setAnswers({}); moveTo(0); }} style={{ ...buttonStyle, display: 'block', margin: '12px auto 0', background: 'transparent', color: colors.primary, textDecoration: 'underline' }}>
                 Start again
               </button>
             </>
           ) : (
             <>
-              <p style={{ color: colors.textSecondary, fontSize: 14, margin: '0 0 16px' }}>Question {step + 1} of {questions.length}</p>
+              <p style={{ color: colors.textSecondary, fontSize: 14, textAlign: 'center', margin: '0 0 16px' }}>Question {step + 1} of {questions.length}</p>
               <div aria-hidden="true" style={{ height: 5, background: colors.border, borderRadius: 5, marginBottom: 26 }}>
                 <div style={{ height: '100%', width: `${((step + 1) / questions.length) * 100}%`, background: colors.primary, borderRadius: 5 }} />
               </div>
@@ -70,7 +70,7 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
                 </legend>
                 <div style={{ display: 'grid', gap: 12 }}>
                   {questions[step].options.map((option, index) => (
-                    <label key={`${step}-${index}`} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', minHeight: 48, boxSizing: 'border-box', borderRadius: 12, cursor: 'pointer', lineHeight: 1.6, border: `2px solid ${answers[step] === index ? colors.primary : colors.border}`, background: answers[step] === index ? (isDarkMode ? '#23344b' : '#edf3f8') : colors.surface }}>
+                    <label key={`${step}-${index}`} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', minHeight: 48, boxSizing: 'border-box', borderRadius: 12, cursor: 'pointer', lineHeight: 1.6, border: `2px solid ${answers[step] === index ? colors.primary : colors.border}`, background: answers[step] === index ? (isDarkMode ? '#23344b' : '#edf3f8') : colors.surface }}>
                       <input type="radio" name={`family-question-${step}`} checked={answers[step] === index} onChange={() => setAnswers({ ...answers, [step]: index })} style={{ width: 18, height: 18, margin: 0, flexShrink: 0, accentColor: colors.primary }} />
                       <span>{option}</span>
                     </label>
@@ -85,7 +85,7 @@ const FamilyQuizSection = ({ isDarkMode = false }) => {
               </div>
             </>
           )}
-          <p style={{ color: colors.textSecondary, fontSize: 13, lineHeight: 1.6, margin: '22px 0 0' }}>A friendly guide, not an assessment. Your answers stay on this page and are not sent to us.</p>
+          <p style={{ color: colors.textSecondary, fontSize: 13, textAlign: 'center', lineHeight: 1.6, margin: '22px 0 0' }}>A friendly guide, not an assessment. Your answers stay on this page and are not sent to us.</p>
         </div>
       </div>
       <CalendlyModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} isDarkMode={isDarkMode} />
