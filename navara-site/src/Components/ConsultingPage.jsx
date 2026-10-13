@@ -473,7 +473,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
               Limited availability. Serious inquiries only.
             </p>
             <a
-              href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+              href="https://calendly.com/nisan-navarabehavioralgroup/behavioral-consultation"
               target="_blank"
               rel="noopener noreferrer"
               style={{
