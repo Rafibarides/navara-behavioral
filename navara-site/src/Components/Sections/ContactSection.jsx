@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import CalendlyModal from '../CalendlyModal';
 
-const ContactSection = ({ isDarkMode = false }) => {
+const ContactSection = ({ isDarkMode = false, heading = null }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(false);
@@ -142,6 +142,20 @@ const ContactSection = ({ isDarkMode = false }) => {
         boxSizing: 'border-box',
       }}
     >
+      {heading && (
+        <h2 style={{
+          fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
+          fontFamily: textSizes['3xl'].fontFamily,
+          color: colors.primary,
+          fontWeight: '700',
+          textAlign: 'center',
+          margin: '0 0 60px',
+          paddingTop: '32px',
+          borderTop: `1px solid ${colors.border}`,
+        }}>
+          {heading}
+        </h2>
+      )}
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
