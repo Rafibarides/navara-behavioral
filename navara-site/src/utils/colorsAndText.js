@@ -18,8 +18,8 @@ export const getColors = (isDarkMode = false) => {
       accent: '#CBD9C5',         // Light green
       background: '#F2F2F2',     // Light gray background
       surface: '#FFFFFF',        // White surface
-      text: '#595959',           // Dark gray text
-      textSecondary: '#808080',  // Medium gray
+      text: '#3D3D3D',           // Dark gray text
+      textSecondary: '#595959',  // Medium gray
       border: '#E0E0E0',         // Light border
     };
   }

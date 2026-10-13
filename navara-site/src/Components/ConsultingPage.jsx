@@ -119,8 +119,8 @@ const ConsultingPage = ({ isDarkMode = false }) => {
         id="welcome-section"
         style={{
           position: 'relative',
-          height: isMobile ? '25vh' : '50vh',
-          minHeight: isMobile ? '200px' : '400px',
+          height: isMobile ? '14vh' : '24vh',
+          minHeight: isMobile ? '110px' : '190px',
           width: '100vw',
           display: 'flex',
           alignItems: 'center',
@@ -184,34 +184,6 @@ const ConsultingPage = ({ isDarkMode = false }) => {
           />
         </div>
 
-        {/* Content Overlay */}
-        <div style={{
-          position: 'relative',
-          zIndex: 3,
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transform: isMobile ? 'translateY(10px)' : 'none',
-        }}>
-          {/* Behavioral Text */}
-          <h1 style={{ 
-            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
-            fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
-            margin: 0,
-            textAlign: 'center',
-            color: 'white',
-            fontWeight: '700',
-            letterSpacing: '0.02em',
-            minHeight: isMobile ? '1em' : '1.2em',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            Behavioral Consulting
-          </h1>
-        </div>
       </section>
 
       {/* Navigation */}
@@ -224,7 +196,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
         initial="hidden"
         whileInView="visible"
         animate={autoRevealCount >= 1 ? "visible" : undefined}
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           background: `linear-gradient(135deg, ${colors.primary}08, ${colors.secondary}04)`,
@@ -501,7 +473,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
               Limited availability. Serious inquiries only.
             </p>
             <a
-              href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation"
+              href="https://calendly.com/nisan-navarabehavioralgroup/behavioral-consultation"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -531,7 +503,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: isMobile ? 0.01 : 0.2 }}
+        viewport={{ once: true, amount: 0.01 }}
         style={{
           ...sectionStyle,
           paddingBottom: 0,

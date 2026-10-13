@@ -12,7 +12,7 @@
         {
           "photo": "/assets/2-home-parent-read.webp",
           "title": "We exist to simplify the process",
-          "text": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no insurance runaround.",
+          "text": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no runaround.",
           "photoAlt": "A mother reading a book with her young daughter on the sofa",
           "photoPosition": "center 43%"
         }
@@ -51,7 +51,7 @@
         "title": "Navara Wellness",
         "logo": "assets/service-logos/wellness.png",
         "photo": "/assets/NAVARA4.jpg",
-        "p1": "Private, personalized therapy support from licensed therapists - no insurance hassle, no waiting lists, no judgment. We provide whole-person approach therapy that meets you where you are.",
+        "p1": "Private, personalized therapy support from licensed therapists - no waiting lists, no judgment. We provide whole-person approach therapy that meets you where you are.",
         "highlight": "Where therapy meets clarity, care, and change.",
         "p2": "Whether you're overwhelmed, stuck, healing, or growing, our licensed therapists provide compassionate, goal-aligned support with transparent pricing and flexible scheduling."
       }
@@ -64,7 +64,7 @@
       ],
       "mainContent": {
         "p1": "Navara was founded to bridge the gap between families and the support they actually need. Today, that means evidence-based behavior support for children and the parents raising them - practical, personal, and built around your family.",
-        "p2": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no insurance runaround."
+        "p2": "We exist to simplify the process of getting help. If your child's behavior is running your house, we give you the tools, clarity, and confidence to move forward - no waitlists, no runaround."
       },
       "differentSection": {
         "title": "What Makes Us Different?",
@@ -219,7 +219,7 @@
       },
       "pricing": {
         "title": "Packages & Pricing",
-        "description": "We offer direct-pay diagnostic packages. No waiting lists. No insurance roadblocks.",
+        "description": "We offer direct-pay diagnostic packages. No waiting lists.",
         "packages": [
           {
             "title": "Comprehensive ASD Evaluation",

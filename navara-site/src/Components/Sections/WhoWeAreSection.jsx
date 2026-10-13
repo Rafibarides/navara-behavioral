@@ -92,7 +92,7 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
           
           for (let i = 0; i < totalLetters; i++) {
             const letterProgress = (easedProgress * totalLetters - i) / 2; // Reduced spread for smoother effect
-            const opacity = Math.max(0.5, Math.min(1, 0.5 + letterProgress * 0.5));
+            const opacity = Math.max(0.9, Math.min(1, 0.9 + letterProgress * 0.1));
             newOpacities[`${stripIndex}-${i}`] = opacity;
           }
         }
@@ -110,7 +110,7 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
   // Function to render text with animated letters
   const renderAnimatedText = (text, stripIndex) => {
     return text.split('').map((char, charIndex) => {
-      const opacity = letterOpacities[`${stripIndex}-${charIndex}`] || 0.5;
+      const opacity = letterOpacities[`${stripIndex}-${charIndex}`] || 0.9;
       return (
         <span
           key={charIndex}

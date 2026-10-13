@@ -227,7 +227,7 @@ const CalendlyModal = ({ isOpen, onClose, isDarkMode = false }) => {
                 color: colors.textSecondary,
                 margin: 0,
               }}>
-                No waitlist. No insurance hoops. Just a direct conversation with our team.
+                No waitlist. Just a direct conversation with our team.
               </p>
             </div>
             <button

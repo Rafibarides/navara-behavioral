@@ -14,7 +14,7 @@ const AboutSection = ({ isDarkMode = false }) => {
   const sectionRef = useRef(null);
 
   // Get data from siteData
-  const { heroWords, mainContent, differentSection } = siteData.sections.about;
+  const { heroWords, differentSection } = siteData.sections.about;
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -70,9 +70,7 @@ const AboutSection = ({ isDarkMode = false }) => {
           if (entry.isIntersecting) {
             setIsContentVisible(true);
             // Start typing animation after main content appears
-            setTimeout(() => {
-              setIsDifferentSectionVisible(true);
-            }, 800);
+            setIsDifferentSectionVisible(true);
 
           }
         });
@@ -139,38 +137,6 @@ const AboutSection = ({ isDarkMode = false }) => {
           }}>
             {heroWords[currentWordIndex]}
           </h1>
-        </div>
-
-        {/* Main Content with Animation */}
-        <div style={{
-          marginBottom: isMobile ? '60px' : '80px',
-          textAlign: 'left',
-        }}>
-          <p style={{
-            fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
-            fontFamily: isMobile ? textSizes.lg.fontFamily : textSizes.xl.fontFamily,
-            color: colors.text,
-            lineHeight: '1.7',
-            marginBottom: '32px',
-            opacity: isContentVisible ? 1 : 0,
-            transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease-out 0.2s', // 0.2s delay
-          }}>
-            {mainContent.p1}
-          </p>
-
-          <p style={{
-            fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
-            fontFamily: isMobile ? textSizes.lg.fontFamily : textSizes.xl.fontFamily,
-            color: colors.text,
-            lineHeight: '1.7',
-            margin: 0,
-            opacity: isContentVisible ? 1 : 0,
-            transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease-out 0.4s', // 0.4s delay for stagger effect
-          }}>
-            {mainContent.p2}
-          </p>
         </div>
 
         {/* Static What Makes Us Different Section */}

@@ -153,7 +153,6 @@ const PrivacyPolicy = ({ isDarkMode = false }) => {
             }}>
               <li>Name, email address, and contact information</li>
               <li>Medical and behavioral health information</li>
-              <li>Insurance information</li>
               <li>Payment information</li>
               <li>Appointment and scheduling data</li>
             </ul>
@@ -207,7 +206,7 @@ const PrivacyPolicy = ({ isDarkMode = false }) => {
               <li>Provide behavioral health services and support</li>
               <li>Process appointments and manage your care</li>
               <li>Communicate with you about your treatment</li>
-              <li>Process payments and insurance claims</li>
+              <li>Process payments</li>
               <li>Comply with legal and regulatory requirements</li>
               <li>Send appointment reminders and care notifications via SMS (with your consent)</li>
             </ul>
@@ -239,7 +238,6 @@ const PrivacyPolicy = ({ isDarkMode = false }) => {
               paddingLeft: '20px'
             }}>
               <li>Healthcare providers involved in your care</li>
-              <li>Insurance companies for billing and coverage verification</li>
               <li>Legal authorities when required by law</li>
               <li>Service providers who assist with our operations (under strict confidentiality agreements)</li>
             </ul>

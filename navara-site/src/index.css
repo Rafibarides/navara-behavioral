@@ -2,3 +2,7 @@
   margin: 0;
   padding: 0;
 }
+/* Long URLs and emails wrap instead of overflowing on phones */
+p, li, a, h1, h2, h3, h4 {
+  overflow-wrap: anywhere;
+}
