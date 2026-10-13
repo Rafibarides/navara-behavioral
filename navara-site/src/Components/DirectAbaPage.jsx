@@ -221,27 +221,6 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         style={sectionStyle}
       >
         <div style={containerStyle}>
-          {/* Service badge */}
-          <motion.div variants={itemVariants} style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: '12px',
-          }}>
-            <span style={{
-              display: 'inline-block',
-              background: colors.primary + '15',
-              color: colors.primary,
-              padding: '6px 16px',
-              borderRadius: '999px',
-              fontSize: '11px',
-              fontWeight: '700',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-            }}>
-              Available Now
-            </span>
-          </motion.div>
-
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
@@ -326,7 +305,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
                   'Dedicated parent coaching segment within each session (approx. 15–20 minutes)',
                   'Clear weekly action steps',
                 ],
-                price: '$800',
+                price: '$1,200',
                 pricePeriod: '/month',
                 featured: false,
                 note: null,
@@ -343,7 +322,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
                   'Between-session communication (text/email) for guidance and adjustments',
                   'Structured weekly targets and accountability',
                 ],
-                price: '$1,500',
+                price: '$1,900',
                 pricePeriod: '/month',
                 featured: true,
                 note: null,
@@ -358,7 +337,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
                   'Weekly parent coaching session (45 minutes)',
                   'Ongoing program oversight, coordination, and plan refinement',
                 ],
-                price: '$6,000',
+                price: '$6,400',
                 pricePeriod: '/month',
                 featured: false,
                 note: 'Limited availability. Please inquire for details.',
@@ -742,7 +721,7 @@ Book a One-Time Consult
         </div>
       </motion.section>
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} />
+      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />

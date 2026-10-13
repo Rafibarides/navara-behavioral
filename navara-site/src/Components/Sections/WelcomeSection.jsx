@@ -90,7 +90,7 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: `${colors.secondary}80`, // Dark blue with 50% opacity (was D9/85% - hid the video)
+        backgroundColor: `${colors.secondary}D9`, // Preserve the original dark blue overlay (85% opacity)
         zIndex: 1,
       }} />
 

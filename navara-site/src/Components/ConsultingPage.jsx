@@ -224,27 +224,6 @@ const ConsultingPage = ({ isDarkMode = false }) => {
         }}
       >
         <div style={containerStyle}>
-          {/* Service badge */}
-          <motion.div variants={itemVariants} style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: '12px',
-          }}>
-            <span style={{
-              display: 'inline-block',
-              background: colors.primary + '15',
-              color: colors.primary,
-              padding: '6px 16px',
-              borderRadius: '999px',
-              fontSize: '11px',
-              fontWeight: '700',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-            }}>
-              Available Now
-            </span>
-          </motion.div>
-
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
             fontFamily: textSizes['3xl'].fontFamily,
@@ -606,7 +585,7 @@ Explore Direct ABA
         </div>
       </motion.section>
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} />
+      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
