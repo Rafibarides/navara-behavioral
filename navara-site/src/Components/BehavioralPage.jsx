@@ -165,9 +165,9 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               delay: index * 0.08 + delay,
               ease: "easeOut"
             }}
-            style={{ display: 'inline-block', marginRight: '0.3em' }}
+            style={{ display: 'inline-block', whiteSpace: 'pre-wrap' }}
           >
-            {word}
+            {word}{' '}
           </motion.span>
         ))}
       </motion.span>
@@ -219,7 +219,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             zIndex: 1,
           }}
         >
-          <source src="assets/background-video.mp4" type="video/mp4" />
+          <source src="/assets/background-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -245,7 +245,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
           zIndex: 3,
         }}>
           <img 
-            src="assets/service-logos/behavioral.png" 
+            src="/assets/service-logos/behavioral.png" 
             alt="Behavioral Logo"
             style={{
               height: '50px',
@@ -873,7 +873,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
                 }}
               >
                 <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-                Enroll Now in the 12-Week Program
+                Apply for the Next Open Spot
               </button>
 
               <div style={{
@@ -2205,7 +2205,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               }}
             >
               <i className="fas fa-calendar-check" style={{ marginRight: '8px' }} />
-              Enroll Now in the 12-Week Program
+              Apply for the Next Open Spot
             </button>
           </motion.div>
 
