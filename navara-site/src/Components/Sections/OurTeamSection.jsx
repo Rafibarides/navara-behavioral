@@ -42,8 +42,8 @@ const OurTeamSection = ({ isDarkMode = false }) => {
       }}>
         <img className="navara-team-portrait" src={staff.photo} alt={staff.name} loading="lazy" decoding="async" style={{
           width: '100%', height: '100%', display: 'block', objectFit: 'cover',
-          objectPosition: staff.name.startsWith('Sarah') ? 'center 15%' : 'center',
-          transform: staff.name.startsWith('Sarah') ? 'translateX(8px) scale(1.16)' : 'none',
+          objectPosition: 'center',
+          transform: 'none',
         }} />
       </span>
       <span style={{ fontSize: isFounder ? (isMobile ? '15px' : '17px') : (isMobile ? '16px' : '18px'), fontWeight: 700, lineHeight: 1.4, marginBottom: '6px', whiteSpace: isFounder ? 'nowrap' : 'normal' }}>
