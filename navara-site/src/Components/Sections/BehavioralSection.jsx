@@ -9,8 +9,7 @@ const BehavioralSection = ({ isDarkMode = false }) => {
   const [autoRevealCount, setAutoRevealCount] = useState(0);
   useEffect(() => {
     const start = setTimeout(() => setAutoRevealCount(1), 2500);
-    const sequence = setInterval(() => setAutoRevealCount(count => count + 1), 3500);
-    return () => { clearTimeout(start); clearInterval(sequence); };
+    return () => { clearTimeout(start); };
   }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
@@ -116,7 +115,6 @@ const BehavioralSection = ({ isDarkMode = false }) => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        animate={autoRevealCount >= 2 ? "visible" : undefined}
         viewport={{ once: true, amount: 0.2 }}
         style={{
           backgroundColor: colors.background,
@@ -287,7 +285,6 @@ const BehavioralSection = ({ isDarkMode = false }) => {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-        animate={autoRevealCount >= 3 ? "visible" : undefined}
       viewport={{ once: true, amount: 0.2 }}
       style={{
         backgroundColor: colors.background,
