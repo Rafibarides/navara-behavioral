@@ -56,12 +56,12 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
         style={{
           backgroundColor: colors.surface,
           borderRadius: '24px',
-          padding: 'clamp(24px, 6vw, 40px)',
+          paddingTop: '64px',
           boxSizing: 'border-box',
           maxWidth: '600px',
           width: '100%',
           maxHeight: 'calc(100dvh - 40px)',
-          overflowY: 'auto',
+          overflow: 'hidden',
           position: 'relative',
           boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
         }}
@@ -73,9 +73,11 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: '20px',
-            right: '20px',
-            background: 'none',
+            top: '10px',
+            right: '16px',
+            background: colors.surface,
+            boxShadow: '0 2px 10px rgba(0,0,0,0.12)',
+            zIndex: 1,
             border: 'none',
             fontSize: '24px',
             color: colors.textSecondary,
@@ -89,13 +91,13 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
             transition: 'background-color 0.2s ease',
           }}
           onMouseEnter={(e) => e.target.style.backgroundColor = colors.background}
-          onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = colors.surface}
         >
           ×
         </button>
 
         {/* Content */}
-        <div style={{ textAlign: 'center' }}>
+        <div className="navara-bio-scroll" style={{ textAlign: 'center', maxHeight: 'calc(100dvh - 104px)', overflowY: 'auto', overscrollBehavior: 'contain', padding: 'clamp(24px, 6vw, 40px)', boxSizing: 'border-box' }}>
           {/* Profile Photo */}
           <div style={{ marginBottom: '24px' }}>
             <img
