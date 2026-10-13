@@ -138,6 +138,7 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
               fontFamily: textSizes.base.fontFamily,
               color: colors.text,
               lineHeight: '1.7',
+              whiteSpace: 'pre-line',
               margin: 0,
             }}>
               {staff.fullText}
