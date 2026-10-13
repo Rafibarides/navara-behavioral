@@ -312,7 +312,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             fontStyle: 'italic',
           }}>
             Navara Behavior Support offers flexible, evidence-based services for families who want real results —
-            without the waitlists, the insurance hoops, or the one-size-fits-all approach.
+            without the waitlists or the one-size-fits-all approach.
           </motion.p>
 
           <motion.div variants={itemVariants} style={{
@@ -365,7 +365,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               {
                 title: 'Navara Direct ABA™',
                 tagline: 'Private, BCBA-Led ABA',
-                description: 'Insurance-free ABA designed around your family. BCBA-only or BCBA + paraprofessional packages — scheduled on your terms.',
+                description: 'Private ABA designed around your family. BCBA-only or BCBA + paraprofessional packages — scheduled on your terms.',
                 icon: 'fas fa-user-md',
                 anchor: 'service-direct-aba',
                 featured: false,
@@ -1218,7 +1218,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               lineHeight: '1.7',
               marginBottom: '20px',
             }}>
-              Navara Direct ABA is a private, insurance-free ABA service designed for families who want
+              Navara Direct ABA is a private ABA service designed for families who want
               targeted, high-quality support without the delays, limitations, or one-size-fits-all
               structure that often comes with traditional ABA programs.
             </p>
@@ -1230,7 +1230,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
               marginBottom: '20px',
             }}>
               Every session is led by a Board Certified Behavior Analyst. Every plan is individualized.
-              And because we operate outside of the insurance model, we can move at your pace, adjust in
+              Because we are a private practice, we can move at your pace, adjust in
               real time, and stay focused on what actually matters for your child and your family.
             </p>
             <p style={{
