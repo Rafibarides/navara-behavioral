@@ -28,7 +28,7 @@ const FooterSection = ({ isDarkMode = false }) => {
       { name: 'Contact', href: 'contact', type: 'scroll' }
     ],
     divisions: [
-      { name: 'Parent Training Program', href: '/services/parent-training', type: 'route' },
+      { name: 'Behavior Method', href: '/services/parent-training', type: 'route' },
       { name: 'Direct ABA', href: '/services/direct-aba', type: 'route' },
       { name: 'Behavioral Consulting', href: '/services/consulting', type: 'route' }
     ],
