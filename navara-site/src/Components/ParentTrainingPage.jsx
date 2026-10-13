@@ -1067,7 +1067,7 @@ Book a One-Time Consult
               },
               {
                 question: "Does my child need a diagnosis first?",
-                answer: "No. Behavior is behavior. We work from what your child actually does, not from a label. If an evaluation would help, I will tell you on the call."
+                answer: "No. Behavior is behavior. We work from what your child actually does, not from a label. If an evaluation would add value, we will tell you plainly on your call."
               },
               {
                 question: "What is the time commitment?",
@@ -1079,15 +1079,15 @@ Book a One-Time Consult
               },
               {
                 question: "What actually happens over the 12 weeks?",
-                answer: "Four phases: Connection, Clarity, Control, Carryover. We start with your parent profile and a collaborative functional behavior assessment, build a written behavior intervention plan from your own data, then spend three weeks implementing it together with me coaching you live. You finish with a plan you know how to run."
+                answer: "Four phases: Connection, Clarity, Control, Carryover. We begin with your parent profile and a collaborative functional behavior assessment, then build a written behavior intervention plan from your own family's data. From there we implement it alongside you, coaching you live. You finish with a plan you know how to run."
               },
               {
                 question: "What happens on the free 15-minute call?",
-                answer: "You tell me what is going on at home. I tell you honestly whether this program fits it and how it would work. If it is not a fit, I will say so and point you somewhere useful. No pressure either way."
+                answer: "You tell us what is happening at home. We give you an honest read on whether this program fits and how it would work. If it is not the right fit, we will say so and point you toward a better one. No pressure either way."
               },
               {
                 question: "How do enrollment and payment work?",
-                answer: "I work with one family at a time. After the call, if we both want to move forward, you receive an invoice for the program ($5,400). Once it is paid, we schedule your first session and start."
+                answer: "Enrollment is limited, because each family is paired with a dedicated behavior specialist and receives their full attention. After your call, if the program is the right fit for you, you receive an invoice for the program ($5,400). Once it is paid, we schedule your first session and begin."
               },
               {
                 question: "What happens after the 12 weeks?",
@@ -1147,7 +1147,7 @@ Book a One-Time Consult
                 </div>
                 
                 <div style={{
-                  maxHeight: openFAQ === index ? '200px' : '0',
+                  maxHeight: openFAQ === index ? '480px' : '0',
                   opacity: openFAQ === index ? 1 : 0,
                   overflow: 'hidden',
                   transition: 'all 0.4s ease',
@@ -1245,7 +1245,7 @@ Book a One-Time Consult
               color: colors.textSecondary,
               fontStyle: 'italic',
             }}>
-              One family at a time, so your family gets full attention and a plan built around you.
+              Limited availability. Each family works with a dedicated specialist and a plan built around them.
             </motion.p>
           </motion.div>
 
