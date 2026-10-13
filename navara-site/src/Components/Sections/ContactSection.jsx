@@ -13,6 +13,8 @@ const ContactSection = ({ isDarkMode = false }) => {
   });
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const sectionRef = useRef(null);
 
@@ -97,25 +99,35 @@ const ContactSection = ({ isDarkMode = false }) => {
       return;
     }
 
-    // Show success state immediately
-    setIsSubmitted(true);
-    
-    // Submit to Formspree in the background
+    setSubmitError(false);
+    setIsSending(true);
+
+    // Submit to Formspree and only show success if it actually went through
     const formDataToSend = new FormData(e.target);
     try {
-      await fetch("https://formspree.io/f/mblyywzv", {
+      const response = await fetch("https://formspree.io/f/mblyywzv", {
         method: "POST",
-        body: formDataToSend
+        body: formDataToSend,
+        headers: { 'Accept': 'application/json' }
       });
+      if (!response.ok) {
+        throw new Error('Form submission failed with status ' + response.status);
+      }
+      setIsSubmitted(true);
+      // Clear form and reset after 3 seconds
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
     } catch (error) {
       console.error('Error submitting form:', error);
+      setSubmitError(true);
+      setTimeout(() => {
+        setSubmitError(false);
+      }, 6000);
+    } finally {
+      setIsSending(false);
     }
-
-    // Clear form and reset after 3 seconds
-    setFormData({ name: '', email: '', message: '' });
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 3000);
   };
 
   return (
@@ -431,7 +443,7 @@ const ContactSection = ({ isDarkMode = false }) => {
               {/* Submit Button - Send Message */}
               <button
                 type="submit"
-                disabled={isSubmitted}
+                disabled={isSubmitted || isSending}
                 style={{
                   backgroundColor: isSubmitted ? colors.accent : colors.primary,
                   color: isSubmitted ? colors.surface : colors.surface,
@@ -462,7 +474,12 @@ const ContactSection = ({ isDarkMode = false }) => {
                   }
                 }}
               >
-                {isSubmitted ? (
+                {isSending ? (
+                  <>
+                    <i className="fas fa-circle-notch fa-spin" style={{ fontSize: '14px' }} />
+                    Sending...
+                  </>
+                ) : isSubmitted ? (
                   <>
                     <i className="fas fa-check" style={{ fontSize: '14px' }} />
                     Message Sent!
@@ -483,6 +500,17 @@ const ContactSection = ({ isDarkMode = false }) => {
                   marginTop: '8px',
                 }}>
                   A team member will be in touch shortly
+                </p>
+              )}
+              {submitError && (
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: '#c0392b',
+                  textAlign: 'center',
+                  marginTop: '8px',
+                }}>
+                  Something went wrong sending your message. Please try again, or email us at info@navarabehavioralgroup.com.
                 </p>
               )}
             </form>
