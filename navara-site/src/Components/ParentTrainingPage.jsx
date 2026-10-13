@@ -10,6 +10,12 @@ import StaffModal from './StaffModal';
 import siteData from '../../SiteData.json';
 
 const ParentTrainingPage = ({ isDarkMode = false }) => {
+
+  const [autoRevealCount, setAutoRevealCount] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => setAutoRevealCount(1), 2500);
+    return () => { clearTimeout(start); };
+  }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
