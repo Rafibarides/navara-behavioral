@@ -132,7 +132,7 @@ const DivisionsPage = ({ isDarkMode = false }) => {
             zIndex: 1,
           }}
         >
-          <source src="assets/background-video.mp4" type="video/mp4" />
+          <source src="/assets/background-video.mp4" type="video/mp4" />
         </video>
 
         <div style={{
@@ -146,7 +146,7 @@ const DivisionsPage = ({ isDarkMode = false }) => {
         }} />
 
         <img
-          src="assets/logo-white.png"
+          src="/assets/logo-white.png"
           alt="Navara Logo"
           style={{
             position: 'absolute',
