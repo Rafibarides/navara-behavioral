@@ -223,7 +223,7 @@ const TermsOfService = ({ isDarkMode = false }) => {
               color: colors.text,
               marginBottom: '16px'
             }}>
-              Payment is due at the time of service unless other arrangements have been made. We accept cash, checks, and major credit cards. Insurance claims will be processed according to your coverage benefits.
+              Payment is due at the time of service unless other arrangements have been made. We accept cash, checks, and major credit cards.
             </p>
           </section>
 
