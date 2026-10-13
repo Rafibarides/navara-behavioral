@@ -122,8 +122,8 @@ const WelcomeSection = ({ isDarkMode = false }) => {
       }}>
         {/* Animated Welcome Text */}
         <h1 style={{ 
-          fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['4xl'].fontSize,
-          fontFamily: isMobile ? textSizes['2xl'].fontFamily : textSizes['4xl'].fontFamily,
+          fontSize: isMobile ? textSizes['3xl'].fontSize : textSizes['5xl'].fontSize,
+          fontFamily: isMobile ? textSizes['3xl'].fontFamily : textSizes['5xl'].fontFamily,
           margin: 0,
           textAlign: 'center',
           color: 'white',
@@ -139,20 +139,6 @@ const WelcomeSection = ({ isDarkMode = false }) => {
         }}>
           {welcomePhrases[currentPhraseIndex]}
         </h1>
-
-        {/* Supporting subline */}
-        <p style={{
-          fontSize: isMobile ? textSizes.sm.fontSize : textSizes.lg.fontSize,
-          fontFamily: textSizes.base.fontFamily,
-          color: 'rgba(255, 255, 255, 0.92)',
-          margin: 0,
-          textAlign: 'center',
-          maxWidth: '640px',
-          lineHeight: '1.5',
-          textShadow: '0 2px 12px rgba(0, 0, 0, 0.35)',
-        }}>
-          Warm, evidence-based behavior support for your family, led by a Board Certified Behavior Analyst.
-        </p>
 
         {/* Free 15-Minute Consultation CTA */}
         <a
