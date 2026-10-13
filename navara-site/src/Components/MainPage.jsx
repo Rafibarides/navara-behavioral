@@ -5,6 +5,7 @@ import WhoWeAreSection from './Sections/WhoWeAreSection';
 import AboutSection from './Sections/AboutSection';
 import ServiceCardSection from './Sections/ServiceCardSection';
 import BehavioralSection from './Sections/BehavioralSection';
+import FamilyQuizSection from './Sections/FamilyQuizSection';
 import OurTeamSection from './Sections/OurTeamSection';
 import ContactSection from './Sections/ContactSection';
 import FooterSection from './Sections/FooterSection';
@@ -30,6 +31,7 @@ const MainPage = ({ isDarkMode, toggleDarkMode }) => {
       </section>
       <ServiceCardSection isDarkMode={isDarkMode} />
       <BehavioralSection isDarkMode={isDarkMode} />
+      <FamilyQuizSection isDarkMode={isDarkMode} />
       <AboutSection isDarkMode={isDarkMode} />
       <OurTeamSection isDarkMode={isDarkMode} />
       <ContactSection isDarkMode={isDarkMode} />
