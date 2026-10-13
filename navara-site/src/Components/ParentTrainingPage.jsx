@@ -960,6 +960,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.2 }}
         style={{
           ...sectionStyle,
+          paddingBottom: isMobile ? '16px' : '20px',
           backgroundColor: colors.surface,
         }}
       >
@@ -987,8 +988,11 @@ Looking for in-home help instead? Navara Direct ABA™ brings a Board Certified 
               onClick={() => navigate('/services/direct-aba')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? '#363b43' : '#eceef0',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'none',
+                border: `1px solid ${isDarkMode ? '#555b64' : '#d5d9dd'}`,
+                transform: 'none',
               }}
             >
 Explore Direct ABA
@@ -1008,8 +1012,11 @@ Just need an expert opinion first? A single Behavioral Consulting session gives 
               onClick={() => navigate('/services/consulting')}
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? '#363b43' : '#eceef0',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'none',
+                border: `1px solid ${isDarkMode ? '#555b64' : '#d5d9dd'}`,
+                transform: 'none',
               }}
             >
 Book a One-Time Consult
@@ -1251,8 +1258,11 @@ Book a One-Time Consult
               rel="noopener noreferrer"
               style={{
                 ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
+                background: isDarkMode ? '#363b43' : '#eceef0',
+                color: isDarkMode ? '#e5e7eb' : '#555b64',
+                boxShadow: 'none',
+                border: `1px solid ${isDarkMode ? '#555b64' : '#d5d9dd'}`,
+                transform: 'none',
                 textDecoration: 'none',
               }}
               onMouseEnter={(e) => {
@@ -1496,7 +1506,7 @@ Book a One-Time Consult
       </motion.section>
 
       {/* Contact Section */}
-      <ContactSection isDarkMode={isDarkMode} heading="Get in touch" />
+      <ContactSection isDarkMode={isDarkMode} servicePage />
 
       {/* Footer */}
       <FooterSection isDarkMode={isDarkMode} />
