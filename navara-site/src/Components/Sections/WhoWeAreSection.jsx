@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 import siteData from '../../../SiteData.json';
@@ -10,7 +10,6 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
   const [letterOpacities, setLetterOpacities] = useState({});
   const textRefs = useRef([]);
   const sectionRef = useRef(null);
-  const lastUpdateTime = useRef(0);
 
   // Get strips from siteData
   const strips = siteData.sections.whoWeAre.strips;
@@ -39,84 +38,66 @@ const WhoWeAreSection = ({ isDarkMode = false }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Throttle function for better performance
-  const throttle = useCallback((func, limit) => {
-    let inThrottle;
-    return function() {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
-      }
-    }
-  }, []);
-
-  // Optimized scroll animation effect for letter opacity
+  // Letter-by-letter scroll reveal: text starts soft grey and darkens as it scrolls into view.
+  // MIN_OPACITY keeps the unrevealed text readable (contrast), while still visibly lighter.
   useEffect(() => {
-    const handleScroll = throttle(() => {
-      const now = performance.now();
-      if (now - lastUpdateTime.current < 16) return; // Limit to 60fps
-      lastUpdateTime.current = now;
+    const MIN_OPACITY = 0.38;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let frame = 0;
 
+    const update = () => {
+      frame = 0;
       const newOpacities = {};
+      const windowHeight = window.innerHeight;
 
       textRefs.current.forEach((textRef, stripIndex) => {
-        if (textRef) {
+        if (!textRef) return;
+        const text = strips[stripIndex].text;
+        const totalLetters = text.length;
+
+        let eased = 1;
+        if (!reduceMotion) {
           const rect = textRef.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-          
-          const elementTop = rect.top;
-          const elementBottom = rect.bottom;
-          
-          // More responsive trigger points
-          const startPoint = windowHeight * 0.85;
-          const endPoint = windowHeight * 0.15;
-          
-          let progress = 0;
-          if (elementTop < startPoint && elementBottom > endPoint) {
-            if (elementTop <= endPoint) {
-              progress = 1;
-            } else {
-              progress = (startPoint - elementTop) / (startPoint - endPoint);
-            }
-          }
-          
-          // Smooth easing curve
-          progress = Math.max(0, Math.min(1, progress));
-          const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
-          
-          const text = strips[stripIndex].text;
-          const totalLetters = text.length;
-          
-          for (let i = 0; i < totalLetters; i++) {
-            const letterProgress = (easedProgress * totalLetters - i) / 2; // Reduced spread for smoother effect
-            const opacity = Math.max(0.9, Math.min(1, 0.9 + letterProgress * 0.1));
-            newOpacities[`${stripIndex}-${i}`] = opacity;
-          }
+          const startPoint = windowHeight * 0.92; // starts when text enters the bottom
+          const endPoint = windowHeight * 0.45;   // fully dark by mid-screen
+          const progress = Math.max(0, Math.min(1, (startPoint - rect.top) / (startPoint - endPoint)));
+          eased = progress;
+        }
+
+        const spread = 12; // letters that are mid-fade at once
+        for (let i = 0; i < totalLetters; i++) {
+          const letterProgress = Math.max(0, Math.min(1, (eased * (totalLetters + spread) - i) / spread));
+          newOpacities[`${stripIndex}-${i}`] = MIN_OPACITY + (1 - MIN_OPACITY) * letterProgress;
         }
       });
 
       setLetterOpacities(newOpacities);
-    }, 8); // Higher frequency for smoother updates
+    };
 
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [strips, throttle]);
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [strips, isMobile]);
 
   // Function to render text with animated letters
   const renderAnimatedText = (text, stripIndex) => {
     return text.split('').map((char, charIndex) => {
-      const opacity = letterOpacities[`${stripIndex}-${charIndex}`] || 0.9;
+      const opacity = letterOpacities[`${stripIndex}-${charIndex}`] ?? 0.38;
       return (
         <span
           key={charIndex}
           style={{
             opacity: opacity,
-            transition: 'opacity 0.08s cubic-bezier(0.4, 0, 0.2, 1)', // Smoother easing
+            transition: 'opacity 0.12s linear',
             willChange: 'opacity', // Optimize for animation
           }}
         >
