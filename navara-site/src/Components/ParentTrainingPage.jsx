@@ -377,7 +377,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
             justifyContent: 'center',
             gap: isMobile ? '32px' : '48px',
             flexDirection: isMobile ? 'column' : 'row',
-            margin: '0 auto 48px auto',
+            margin: '0 auto',
             maxWidth: '1000px',
           }}>
             <div style={{ position: 'relative', width: 'fit-content', flexShrink: 0 }}>
@@ -417,57 +417,6 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
                 It is almost always the parent who is told they did not follow through. We built the Navara Behavior Method™ on the opposite assumption: that most plans fail because they were handed to parents instead of built with them. So across twelve weeks we teach you the same clinical reasoning a behavior analyst uses — the research, the assessment, the plan — and you build your child's plan yourself, with a BCBA beside you.
               </motion.p>
             </motion.div>
-          </motion.div>
-
-          {/* Action Buttons */}
-          <motion.div variants={itemVariants} style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: isMobile ? '16px' : '24px',
-            flexWrap: 'wrap',
-          }}>
-            <button
-              onClick={() => scrollToSection('service-method')}
-              style={{
-                ...buttonStyle,
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                color: 'white',
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-              }}
-            >
-              <i className="fas fa-graduation-cap" style={{ marginRight: '8px' }} />
-              Learn More
-            </button>
-
-            <button
-              onClick={() => navigate('/services/direct-aba')}
-              style={{
-                ...buttonStyle,
-                background: 'transparent',
-                color: colors.primary,
-                border: `2px solid ${colors.primary}`,
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = colors.primary;
-                e.target.style.color = 'white';
-                e.target.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'transparent';
-                e.target.style.color = colors.primary;
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              <i className="fas fa-user-md" style={{ marginRight: '8px' }} />
-              Explore Direct ABA
-            </button>
           </motion.div>
         </div>
       </motion.section>
