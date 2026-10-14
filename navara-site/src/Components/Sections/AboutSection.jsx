@@ -100,13 +100,14 @@ const AboutSection = ({ isDarkMode = false }) => {
         <div className="about-founder">
           <div className="about-photo" data-about-reveal>
             <img src={siteData.sections.team.founder.photo} alt="David Nisan Fetman" loading="lazy" />
-            <p className="about-photo-caption"><strong>David Nisan Fetman<br /><span style={{ whiteSpace: 'nowrap' }}>MA, BCBA</span></strong>Founder &amp; Clinical Director</p>
+            <p className="about-photo-caption"><strong>David Nisan Fetman<br /><span style={{ whiteSpace: 'nowrap' }}>MA, BCBA</span></strong>Founder &amp; Clinical Director<br /><a href="https://nisanfetman.com/" style={{ color: 'var(--about-ink)', textDecoration: 'underline', textDecorationThickness: '1.5px', textUnderlineOffset: '4px', display: 'inline-block', marginTop: '10px' }}>Learn more about Nisan ↗</a></p>
           </div>
           <div data-about-reveal>
             <p className="about-kicker">The founder</p>
             <h2>Built from experience. Guided by connection.</h2>
             <p>David Nisan Fetman, MA, BCBA, known as Nisan, founded Navara after nearly a decade in behavioral healthcare. A Board Certified Behavior Analyst, clinical leader, and psychology doctoral candidate, he brings together behavioral science, clinical psychology, and a practical understanding of family life.</p>
             <p>He is pursuing a doctorate in psychology and a second master's degree in clinical psychopharmacology, while working toward the BCBA-D designation. That depth of training supports a simple conviction: connection comes before compliance.</p>
+            <p><a href="https://nisanfetman.com/" style={{ color: 'var(--about-ink)', textDecoration: 'underline', textDecorationThickness: '1.5px', textUnderlineOffset: '4px' }}>Learn more about Nisan ↗</a></p>
           </div>
         </div>
         <div className="about-vision" data-about-reveal>
