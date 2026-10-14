@@ -367,10 +367,13 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             {item === 'services' && isServicesOpen && (
               <div style={{ marginLeft: '16px', marginTop: '8px' }}>
                 {serviceItems.map(service => (
-                  <button
+                  <a
                     key={service.path}
-                    onClick={() => handleServiceClick(service.path)}
+                    href={service.path}
+                    onClick={(event) => { event.preventDefault(); handleServiceClick(service.path); }}
                     style={{
+                      textDecoration: 'none',
+                      boxSizing: 'border-box',
                       width: '100%',
                       background: isServiceActive(service.path) ? colors.accent + '33' : 'none',
                       border: 'none',
@@ -399,7 +402,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     }}
                   >
                     <span>{service.name}</span>
-                  </button>
+                  </a>
                 ))}
               </div>
             )}
@@ -538,10 +541,13 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                   `}
                 </style>
                 {serviceItems.map(service => (
-                  <button
+                  <a
                     key={service.path}
-                    onClick={() => handleServiceClick(service.path)}
+                    href={service.path}
+                    onClick={(event) => { event.preventDefault(); handleServiceClick(service.path); }}
                     style={{
+                      textDecoration: 'none',
+                      boxSizing: 'border-box',
                       width: '100%',
                       background: isServiceActive(service.path) 
                         ? `linear-gradient(135deg, 
@@ -584,7 +590,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     }}
                   >
                     <span>{service.name}</span>
-                  </button>
+                  </a>
                 ))}
               </div>
             )}
