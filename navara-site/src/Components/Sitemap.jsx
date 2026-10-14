@@ -23,7 +23,7 @@ const Sitemap = ({ isDarkMode = false }) => {
       { name: 'Contact', path: '/#contact', description: 'Get in touch with our team' }
     ],
     divisions: [
-      { name: 'The Navara Behavior Method', path: '/services/parent-training', description: '12-week parent training program' },
+      { name: 'The Navara Behavior Method', path: '/services/behavior-method', description: '12-week parent training program' },
       { name: 'Navara Direct ABA', path: '/services/direct-aba', description: 'Private, BCBA-led ABA' },
       { name: 'Behavioral Consulting', path: '/services/consulting', description: 'One-time expert guidance sessions' }
     ],

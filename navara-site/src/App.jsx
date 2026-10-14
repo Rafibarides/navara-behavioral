@@ -54,8 +54,9 @@ function App() {
           <Route path="/" element={<MainPage isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
           <Route path="/careers" element={<Careers isDarkMode={isDarkMode} />} />
           <Route path="/client-portal" element={<ClientPortal isDarkMode={isDarkMode} />} />
-          <Route path="/behavioral" element={<Navigate to="/services/parent-training" replace />} />
-          <Route path="/services/parent-training" element={<ParentTrainingPage isDarkMode={isDarkMode} />} />
+          <Route path="/behavioral" element={<Navigate to="/services/behavior-method" replace />} />
+          <Route path="/services/parent-training" element={<Navigate to="/services/behavior-method" replace />} />
+          <Route path="/services/behavior-method" element={<ParentTrainingPage isDarkMode={isDarkMode} />} />
           <Route path="/services/direct-aba" element={<DirectAbaPage isDarkMode={isDarkMode} />} />
           <Route path="/services/consulting" element={<ConsultingPage isDarkMode={isDarkMode} />} />
           <Route path="/privacy" element={<PrivacyPolicy isDarkMode={isDarkMode} />} />

@@ -531,7 +531,7 @@ const ConsultingPage = ({ isDarkMode = false }) => {
 Need more than one session? The Navara Behavior Method™ trains you over 12 weeks to understand and run the plan yourself.
             </p>
             <button
-              onClick={() => navigate('/services/parent-training')}
+              onClick={() => navigate('/services/behavior-method')}
               style={{
                 ...buttonStyle,
                 background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',

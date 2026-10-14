@@ -39,7 +39,9 @@ try {
   const origin='https://navarabehavioralgroup.com';
   await writeFile(dist+'/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+pages.filter(p=>!p.noindex).map(p=>'<url><loc>'+origin+p.path+'</loc></url>').join('')+'</urlset>\n');
   await writeFile(dist+'/robots.txt','User-agent: *\nAllow: /\n\nSitemap: '+origin+'/sitemap.xml\n');
-  // Keep old /behavioral inbound links without pretending they are a separate service.
-  const legacy='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><link rel="canonical" href="'+origin+'/services/parent-training"><meta http-equiv="refresh" content="0;url=/services/parent-training"><title>Navara Behavior Method</title></head><body><a href="/services/parent-training">Navara Behavior Method</a></body></html>';
-  await mkdir(dist+'/behavioral',{recursive:true});await writeFile(dist+'/behavioral/index.html',legacy);
+  // Keep legacy inbound links as non-indexable redirects to the current service URL.
+  const legacy='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><link rel="canonical" href="'+origin+'/services/behavior-method"><meta http-equiv="refresh" content="0;url=/services/behavior-method"><title>Navara Behavior Method</title></head><body><a href="/services/behavior-method">Navara Behavior Method</a></body></html>';
+  for (const path of ['/behavioral', '/services/parent-training']) {
+    await mkdir(dist+path,{recursive:true});await writeFile(dist+path+'/index.html',legacy);
+  }
 } finally {await browser.close();server.close();}
