@@ -100,7 +100,7 @@ const AboutSection = ({ isDarkMode = false }) => {
         <div className="about-founder">
           <div className="about-photo" data-about-reveal>
             <img src={siteData.sections.team.founder.photo} alt="David Nisan Fetman" loading="lazy" />
-            <p className="about-photo-caption"><strong>David Nisan Fetman<br /><span style={{ whiteSpace: 'nowrap' }}>MA, BCBA</span></strong>Founder &amp; Clinical Director<br /><a href="https://nisanfetman.com/" style={{ color: 'var(--about-ink)', textDecoration: 'underline', textDecorationThickness: '1.5px', textUnderlineOffset: '4px', display: 'inline-block', marginTop: '10px' }}>Learn more about Nisan ↗</a></p>
+            <p className="about-photo-caption"><strong>David Nisan Fetman<br /><span style={{ whiteSpace: 'nowrap' }}>MA, BCBA</span></strong>Founder &amp; Clinical Director<br /><a href="https://nisanfetman.com/" style={{ color: 'var(--about-ink)', textDecoration: 'underline', textDecorationThickness: '1.5px', textUnderlineOffset: '4px', display: 'inline-block', position: 'relative', zIndex: 1, marginTop: '10px' }}>Learn more about Nisan ↗</a></p>
           </div>
           <div data-about-reveal>
             <p className="about-kicker">The founder</p>
