@@ -24,7 +24,7 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
       tagline: '12-Week Parent Training Program',
       description: 'Our flagship offering. A structured 12-week program built on the Four Cs Framework - Connection, Clarity, Control, and Carryover - that trains you to understand and respond to your child\'s behavior with confidence.',
       icon: 'fas fa-graduation-cap',
-      route: '/services/parent-training',
+      route: '/services/behavior-method',
       live: true,
     },
     {
