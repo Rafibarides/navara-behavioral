@@ -373,6 +373,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     onClick={(event) => { event.preventDefault(); handleServiceClick(service.path); }}
                     style={{
                       textDecoration: 'none',
+                      display: 'block',
+                      whiteSpace: 'nowrap',
                       boxSizing: 'border-box',
                       width: '100%',
                       background: isServiceActive(service.path) ? colors.accent + '33' : 'none',
@@ -547,6 +549,8 @@ const NavBarMenu = ({ isDarkMode = false }) => {
                     onClick={(event) => { event.preventDefault(); handleServiceClick(service.path); }}
                     style={{
                       textDecoration: 'none',
+                      display: 'block',
+                      whiteSpace: 'nowrap',
                       boxSizing: 'border-box',
                       width: '100%',
                       background: isServiceActive(service.path) 
