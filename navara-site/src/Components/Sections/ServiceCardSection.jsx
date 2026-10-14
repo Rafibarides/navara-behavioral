@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
 const ServiceCardSection = ({ isDarkMode = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
-  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [isTablet, setIsTablet] = useState(() => window.matchMedia('(min-width: 769px) and (max-width: 1024px)').matches);
 
@@ -46,9 +45,6 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
     },
   ];
 
-  const handleClick = (division) => {
-    navigate(division.route);
-  };
 
 
   return (
@@ -100,10 +96,12 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
         }}
       >
         {divisions.map((division, index) => (
-          <div
+          <Link
             key={index}
-            onClick={() => handleClick(division)}
+            to={division.route}
             style={{
+              textDecoration: 'none',
+              color: 'inherit',
               position: 'relative',
               backgroundColor: colors.background,
               border: `2px solid ${colors.primary}40`,
@@ -186,7 +184,7 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
                 <i className="fas fa-arrow-right" style={{ fontSize: '11px' }} />
               </span>
             )}
-          </div>
+          </Link>
         ))}
       </div>
 
