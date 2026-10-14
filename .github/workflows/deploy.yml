@@ -22,6 +22,7 @@ jobs:
         working-directory: navara-site
         run: |
           npm ci
+          npx playwright install --with-deps chromium
           npm run build
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
