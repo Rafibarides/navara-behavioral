@@ -667,7 +667,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
 Want to learn to handle the behavior yourself? The Navara Behavior Method™ trains you in 12 weeks, so the progress does not depend on a therapist in the room.
             </p>
             <button
-              onClick={() => navigate('/services/parent-training')}
+              onClick={() => navigate('/services/behavior-method')}
               style={{
                 ...buttonStyle,
                 background: isDarkMode ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))' : 'linear-gradient(135deg, rgba(235,239,243,0.72), rgba(245,247,250,0.45))',
