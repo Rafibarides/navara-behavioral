@@ -29,7 +29,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
   // Track active section based on scroll position
   useEffect(() => {
     // Pages that should have transparent nav when at top (with welcome-section)
-    const pagesWithWelcomeSection = ['/', '/services/parent-training', '/services/direct-aba', '/services/consulting'];
+    const pagesWithWelcomeSection = ['/', '/services/behavior-method', '/services/direct-aba', '/services/consulting'];
     
     if (!pagesWithWelcomeSection.includes(location.pathname)) {
       setActiveSection('');
@@ -79,7 +79,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
 
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
-    { name: 'Behavior Method', path: '/services/parent-training' },
+    { name: 'Behavior Method', path: '/services/behavior-method' },
     { name: 'Direct ABA', path: '/services/direct-aba' },
     { name: 'Behavioral Consulting', path: '/services/consulting' }
   ];
