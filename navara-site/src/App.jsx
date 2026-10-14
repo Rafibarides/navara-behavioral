@@ -12,6 +12,8 @@ import Sitemap from './Components/Sitemap';
 import DarkModeToggle from './Components/DarkModeToggle';
 import ScrollToTop from './Components/ScrollToTop';
 import StickyConsultButton from './Components/StickyConsultButton';
+import PageMetadata from './seo/PageMetadata';
+import NotFound from './Components/NotFound';
 import './App.css'
 
 function App() {
@@ -40,6 +42,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <PageMetadata />
       <div style={{ width: '100%', minHeight: '100vh' }}>
         {/* Global Dark Mode Toggle - shown on all pages */}
         <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
@@ -59,7 +62,7 @@ function App() {
           <Route path="/terms" element={<TermsOfService isDarkMode={isDarkMode} />} />
           <Route path="/sitemap" element={<Sitemap isDarkMode={isDarkMode} />} />
           {/* Fallback route for unmatched paths */}
-          <Route path="*" element={<MainPage isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>

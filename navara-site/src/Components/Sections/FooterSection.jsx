@@ -195,10 +195,13 @@ const FooterSection = ({ isDarkMode = false }) => {
               gap: '16px',
             }}>
               {footerLinks.company.map((link, index) => (
-                <button
+                <a
                   key={index}
-                  onClick={() => handleLinkClick(link.href, link.type)}
+                  href={link.type === "route" ? link.href : "/#" + link.href}
+                    onClick={(event) => { event.preventDefault(); handleLinkClick(link.href, link.type); }}
                   style={{
+                    textDecoration: 'none',
+                    display: 'block',
                     background: 'none',
                     border: 'none',
                     color: 'rgba(255, 255, 255, 0.8)',
@@ -214,7 +217,7 @@ const FooterSection = ({ isDarkMode = false }) => {
                   onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.8)'}
                 >
                   {link.name}
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -236,10 +239,13 @@ const FooterSection = ({ isDarkMode = false }) => {
               gap: '16px',
             }}>
               {footerLinks.divisions.map((link, index) => (
-                <button
+                <a
                   key={index}
-                  onClick={() => handleLinkClick(link.href, link.type)}
+                  href={link.type === "route" ? link.href : "/#" + link.href}
+                    onClick={(event) => { event.preventDefault(); handleLinkClick(link.href, link.type); }}
                   style={{
+                    textDecoration: 'none',
+                    display: 'block',
                     background: 'none',
                     border: 'none',
                     color: 'rgba(255, 255, 255, 0.8)',
@@ -255,7 +261,7 @@ const FooterSection = ({ isDarkMode = false }) => {
                   onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.8)'}
                 >
                   {link.name}
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -277,10 +283,13 @@ const FooterSection = ({ isDarkMode = false }) => {
               gap: '16px',
             }}>
               {footerLinks.resources.map((link, index) => (
-                <button
+                <a
                   key={index}
-                  onClick={() => handleLinkClick(link.href, link.type)}
+                  href={link.type === "route" ? link.href : "/#" + link.href}
+                    onClick={(event) => { event.preventDefault(); handleLinkClick(link.href, link.type); }}
                   style={{
+                    textDecoration: 'none',
+                    display: 'block',
                     background: 'none',
                     border: 'none',
                     color: 'rgba(255, 255, 255, 0.8)',
@@ -296,7 +305,7 @@ const FooterSection = ({ isDarkMode = false }) => {
                   onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.8)'}
                 >
                   {link.name}
-                </button>
+                </a>
               ))}
             </div>
           </div>

@@ -159,9 +159,11 @@ const Sitemap = ({ isDarkMode = false }) => {
             </h2>
             {siteStructure.main.map((page, index) => (
               <div key={index} style={{ marginBottom: '20px' }}>
-                <button
-                  onClick={() => handleLinkClick(page.path)}
+                <a
+                  href={page.path.startsWith("/") ? page.path : "/#" + page.path}
+                  onClick={(event) => { event.preventDefault(); handleLinkClick(page.path); }}
                   style={{
+                    textDecoration: 'none',
                     background: 'none',
                     border: 'none',
                     color: colors.primary,
@@ -179,7 +181,7 @@ const Sitemap = ({ isDarkMode = false }) => {
                   onMouseLeave={(e) => e.target.style.color = colors.primary}
                 >
                   {page.name}
-                </button>
+                </a>
                 <p style={{
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
@@ -215,9 +217,11 @@ const Sitemap = ({ isDarkMode = false }) => {
             </h2>
             {siteStructure.divisions.map((service, index) => (
               <div key={index} style={{ marginBottom: '20px' }}>
-                <button
-                  onClick={() => handleLinkClick(service.path)}
+                <a
+                  href={service.path.startsWith("/") ? service.path : "/#" + service.path}
+                  onClick={(event) => { event.preventDefault(); handleLinkClick(service.path); }}
                   style={{
+                    textDecoration: 'none',
                     background: 'none',
                     border: 'none',
                     color: colors.primary,
@@ -235,7 +239,7 @@ const Sitemap = ({ isDarkMode = false }) => {
                   onMouseLeave={(e) => e.target.style.color = colors.primary}
                 >
                   {service.name}
-                </button>
+                </a>
                 <p style={{
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
@@ -271,9 +275,11 @@ const Sitemap = ({ isDarkMode = false }) => {
             </h2>
             {siteStructure.resources.map((resource, index) => (
               <div key={index} style={{ marginBottom: '20px' }}>
-                <button
-                  onClick={() => handleLinkClick(resource.path)}
+                <a
+                  href={resource.path.startsWith("/") ? resource.path : "/#" + resource.path}
+                  onClick={(event) => { event.preventDefault(); handleLinkClick(resource.path); }}
                   style={{
+                    textDecoration: 'none',
                     background: 'none',
                     border: 'none',
                     color: colors.primary,
@@ -291,7 +297,7 @@ const Sitemap = ({ isDarkMode = false }) => {
                   onMouseLeave={(e) => e.target.style.color = colors.primary}
                 >
                   {resource.name}
-                </button>
+                </a>
                 <p style={{
                   fontSize: textSizes.sm.fontSize,
                   fontFamily: textSizes.sm.fontFamily,
