@@ -150,6 +150,7 @@ const StaffModal = ({ staff, isDarkMode = false, onClose }) => {
             }}>
               {staff.fullText}
             </p>
+            {staff.name === 'David Nisan Fetman, MA, BCBA' && <p style={{ margin: '24px 0 0', fontSize: textSizes.base.fontSize, fontFamily: textSizes.base.fontFamily }}><a href="https://nisanfetman.com/" style={{ color: colors.primary, textDecoration: 'underline', textDecorationThickness: '1.5px', textUnderlineOffset: '4px' }}>Learn more about Nisan ↗</a></p>}
           </div>
         </div>
       </div>
