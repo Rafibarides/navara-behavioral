@@ -80,8 +80,8 @@ const ServiceCardSection = ({ isDarkMode = false }) => {
           lineHeight: '1.6',
           margin: 0,
         }}>
-          Real support, available today. Three ways to work with a Board Certified Behavior Analyst -
-          pick the one that fits your family.
+          Real support, available today. These are the three services Navara offers -
+          each one built around your child and your family.
         </p>
       </div>
 
