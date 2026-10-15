@@ -22,7 +22,7 @@ const PromoVideo = ({ isDarkMode = false, showHeading = false, showBooking = fal
         </video>
         {!started && <button onClick={play} aria-label="Play Navara introduction with sound" style={{ position: 'absolute', inset: 0, border: 0, background: 'linear-gradient(transparent 55%, rgba(15,31,49,.65))', cursor: 'pointer', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', padding: '0 16px 35px', gap: '12px', fontFamily: textSizes.base.fontFamily }}>
           <span style={{ width: '60px', height: '60px', borderRadius: '50%', background: '#1b3b62', display: 'grid', placeItems: 'center', boxShadow: '0 4px 16px #0003', fontSize: '24px' }} aria-hidden="true">▶</span>
-          <span style={{ fontSize: '14px', fontWeight: 600 }}>Watch with sound · 58 seconds</span>
+          <span style={{ fontSize: '14px', fontWeight: 600 }}>Play video</span>
         </button>}
       </div>
       {showBooking && <button onClick={() => setBooking(true)} style={{ marginTop: '30px', background: colors.primary, color: '#fff', border: 0, borderRadius: '28px', padding: '15px 24px', fontFamily: textSizes.base.fontFamily, fontSize: '15px', fontWeight: 600, cursor: 'pointer' }}>Book your free 15-minute consultation</button>}
