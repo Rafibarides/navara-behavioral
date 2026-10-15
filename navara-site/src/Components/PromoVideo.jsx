@@ -17,7 +17,7 @@ const PromoVideo = ({ isDarkMode = false, showHeading = false, showBooking = fal
       {showHeading && <h2 style={{ color: colors.primary, fontFamily: textSizes['3xl'].fontFamily, fontSize: 'clamp(26px, 3vw, 36px)', margin: '0 0 32px', lineHeight: 1.2 }}>See the Navara Behavior Method</h2>}
       <div style={{ position: 'relative', width: 'min(100%, 290px)', aspectRatio: '9 / 16', margin: '0 auto', border: '8px solid #172b43', borderRadius: '34px', overflow: 'hidden', background: '#172b43', boxShadow: '0 22px 50px rgba(27,59,98,.18)', boxSizing: 'border-box' }}>
         <video ref={videoRef} controls={started} playsInline preload="none" poster="/assets/8-navara-promo-poster.webp" aria-label="Navara Behavior Method introduction video" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}>
-          <source src="/assets/11-navara-method-promo.mp4" type="video/mp4" />
+          <source src="/assets/3-11-navara-method-promo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {!started && <button onClick={play} aria-label="Play Navara introduction with sound" style={{ position: 'absolute', inset: 0, border: 0, background: 'linear-gradient(transparent 55%, rgba(15,31,49,.65))', cursor: 'pointer', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', padding: '0 16px 35px', gap: '12px', fontFamily: textSizes.base.fontFamily }}>
