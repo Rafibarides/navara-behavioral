@@ -249,7 +249,7 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                   margin: 0,
                   fontWeight: '500',
                 }}>
-                  Info@navarabehavioralgroup.com
+                  info@navarabehavioralgroup.com
                 </p>
               </div>
             </div>
