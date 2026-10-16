@@ -119,13 +119,13 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         id="welcome-section"
         style={{
           position: 'relative',
-          height: isMobile ? '14vh' : '24vh',
-          minHeight: isMobile ? '110px' : '190px',
+          height: 'auto',
+          minHeight: isMobile ? '150px' : '210px',
           width: '100vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem',
+          padding: isMobile ? '5.25rem 1.25rem 1.5rem' : '6.5rem 2rem 2rem',
           margin: 0,
           boxSizing: 'border-box',
           overflow: 'hidden',
@@ -184,6 +184,22 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
           />
         </div>
 
+        {/* Page title */}
+        <h1 style={{
+          position: 'relative',
+          zIndex: 3,
+          margin: 0,
+          color: '#ffffff',
+          textAlign: 'center',
+          fontFamily: textSizes['4xl'].fontFamily,
+          fontWeight: '700',
+          lineHeight: 1.15,
+          fontSize: isMobile ? '2rem' : '3.5rem',
+          textShadow: '0 2px 12px rgba(0,0,0,0.35)',
+        }}>
+          Navara Direct ABA™
+        </h1>
+
       </section>
 
       {/* Navigation */}
@@ -199,18 +215,7 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
         viewport={{ once: true, amount: 0.01 }}
         style={sectionStyle}
       >
-        <div style={containerStyle}>
-          <motion.h2 variants={itemVariants} style={{
-            fontSize: isMobile ? textSizes['2xl'].fontSize : textSizes['3xl'].fontSize,
-            fontFamily: textSizes['3xl'].fontFamily,
-            color: colors.primary,
-            fontWeight: '700',
-            marginBottom: '16px',
-            textAlign: 'center',
-          }}>
-            Navara Direct ABA™
-          </motion.h2>
-
+        <div style={{ ...containerStyle, paddingTop: isMobile ? '24px' : '36px' }}>
           <motion.p variants={itemVariants} style={{
             fontSize: isMobile ? textSizes.lg.fontSize : textSizes.xl.fontSize,
             fontFamily: textSizes.xl.fontFamily,
