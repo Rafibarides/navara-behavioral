@@ -7,17 +7,56 @@ const LINKS = (<>
   <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
 </>);
 
+const priceNote = { fontSize: 14, fontWeight: 600, color: 'var(--ink-2)' };
+const priceNoteFeatured = { fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.7)' };
+
+function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, join, onBack }) {
+  return (<>
+    <div className="plans">
+      <div className="plan rv">
+        <h3>Sample</h3><div className="p-price">Free, no account</div>
+        <ul><li>{sampleLine}</li><li>Explanations for every answer</li></ul>
+        <a className="btn btn-navy" href="/pathways/sample-quiz" style={{ justifyContent: 'center' }}>Take the quiz</a>
+      </div>
+      <div className="plan rv rv-d1">
+        <h3>Self-Study</h3>
+        <div className="p-price">{selfPrice}<span style={priceNote}> /month</span></div>
+        <ul><li>{bankLine}</li><li>Timed mock exams</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
+        <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>Join Self-Study</button>
+      </div>
+      <div className="plan featured rv rv-d2">
+        <span className="most">Most complete</span>
+        <h3>Guided</h3>
+        <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
+        <ul><li>Everything in Self-Study</li><li>One 45-minute 1:1 each month with a Navara behavior specialist</li><li>Add a second monthly session at a discount</li><li>Session booking inside your account</li><li>Priority support</li></ul>
+        <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>Join Guided</button>
+      </div>
+    </div>
+    <p style={{ textAlign: 'center', marginTop: 30 }}><a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--teal-3)' }}>&larr; Choose a different exam</a></p>
+    <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Cancel anytime from your account. The full refund policy appears at checkout.</p>
+  </>);
+}
+
+const TRACKS = {
+  rbt: {
+    eyebrow: 'RBT track', heading: 'RBT exam prep.', selfPrice: '$49', guidedPrice: '$249',
+    sampleLine: '10-question RBT sample quiz', bankLine: 'Full RBT question bank',
+  },
+  bcba: {
+    eyebrow: 'BCBA track', heading: 'BCBA exam prep.', selfPrice: '$129', guidedPrice: '$450',
+    sampleLine: '10-question BCBA sample quiz', bankLine: 'Full BCBA question bank',
+  },
+};
+
 export default function Plans() {
   usePathwaysEffects();
-  const [track, setTrack] = useState('rbt');
+  const [track, setTrack] = useState(null);
   const [modal, setModal] = useState(null);
-  const join = async (plan) => {
-    if (!modal) {
-      const res = await startCheckout(track, plan);
-      if (res && res.testMode) setModal(res.message);
-    }
+  const join = async (t, plan) => {
+    const res = await startCheckout(t, plan);
+    if (res && res.testMode) setModal(res.message);
   };
-  const tabStyle = { background: 'rgba(255,255,255,.08)', color: '#fff', borderColor: 'rgba(255,255,255,.3)' };
+  const t = track ? TRACKS[track] : null;
   return (<>
     <Nav links={LINKS} />
     <main>
@@ -26,38 +65,46 @@ export default function Plans() {
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
           <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
-          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Each track is its own plan. Pricing is set at launch; checkout runs in test mode during this preview.</p>
-          <div className="track-tabs" style={{ justifyContent: 'center', marginBottom: 0 }}>
-            <button className={'ttab' + (track === 'rbt' ? ' active' : '')} style={tabStyle} onClick={() => setTrack('rbt')}>RBT track</button>
-            <button className={'ttab' + (track === 'bcba' ? ' active' : '')} style={tabStyle} onClick={() => setTrack('bcba')}>BCBA track</button>
-          </div>
+          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Pick your exam to see its plans. Checkout runs in test mode during this preview; nothing is charged.</p>
         </div>
       </header>
-      <section className="section">
-        <div className="wrap">
-          <div className="plans">
-            <div className="plan rv">
-              <div className="p-tag">Free</div><h3>Sample</h3><div className="p-price">Free, no account</div>
-              <ul><li>10-question sample quiz</li><li>Explanations for every answer</li><li>For both tracks</li></ul>
-              <a className="btn btn-navy" href="/pathways/sample-quiz" style={{ justifyContent: 'center' }}>Take the quiz</a>
+      {!track && (
+        <section className="section">
+          <div className="wrap">
+            <div className="section-head rv"><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Choose your exam</span>
+              <h2>Which exam are you sitting for?</h2>
             </div>
-            <div className="plan rv rv-d1">
-              <div className="p-tag">Self-Study</div><h3>Self-Study</h3><div className="p-price">Price set at launch, per track</div>
-              <ul><li>Full question bank for your track</li><li>Timed mock exams</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
-              <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join('self-study')}>Join Self-Study</button>
-            </div>
-            <div className="plan featured rv rv-d2">
-              <span className="most">Most complete</span>
-              <div className="p-tag">Guided</div><h3>Guided</h3><div className="p-price">Price set at launch, per track</div>
-              <ul><li>Everything in Self-Study</li><li>Monthly 1:1 sessions with a Navara behavior specialist</li><li>Session booking inside your account</li><li>Priority support</li></ul>
-              <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join('guided')}>Join Guided</button>
+            <div className="tracks">
+              <a className="track-card rv" href="#rbt" onClick={(e) => { e.preventDefault(); setTrack('rbt'); }}>
+                <div className="glow" style={{ background: '#5F8D9C' }}></div>
+                <span className="track-tag tag-teal">RBT track</span>
+                <h3>RBT exam prep</h3>
+                <p>For behavior technicians getting certified. Full question bank, timed mocks, and optional 1:1 specialist time.</p>
+                <span className="card-link">See RBT plans <span className="arr">&rarr;</span></span>
+              </a>
+              <a className="track-card rv rv-d1" href="#bcba" onClick={(e) => { e.preventDefault(); setTrack('bcba'); }}>
+                <div className="glow" style={{ background: '#87aa99' }}></div>
+                <span className="track-tag tag-navy">BCBA track</span>
+                <h3>BCBA exam prep</h3>
+                <p>For analysts sitting for the board exam. Scenario practice, full-length mocks, and optional 1:1 specialist time.</p>
+                <span className="card-link">See BCBA plans <span className="arr">&rarr;</span></span>
+              </a>
             </div>
           </div>
-          <p style={{ textAlign: 'center', marginTop: 34, fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Cancel anytime from your account. The full refund policy appears at checkout.</p>
-        </div>
-      </section>
+        </section>
+      )}
+      {track && (
+        <section className="section">
+          <div className="wrap">
+            <span className="eyebrow rv in">{t.eyebrow}</span>
+            <h2 data-rise style={{ marginBottom: 34 }}>{t.heading}</h2>
+            <PlanCards track={track} selfPrice={t.selfPrice} guidedPrice={t.guidedPrice}
+              sampleLine={t.sampleLine} bankLine={t.bankLine} join={join} onBack={() => setTrack(null)} />
+          </div>
+        </section>
+      )}
       <Modal open={!!modal} onClose={() => setModal(null)} title="Checkout is in test mode">
-        {modal || 'Stripe goes live after the NJ prepaid-services review is complete and prices are set. In this preview no payment method is collected and nothing is charged.'}
+        {modal || 'Stripe goes live after the NJ prepaid-services review is complete. In this preview no payment method is collected and nothing is charged.'}
       </Modal>
     </main>
     <Footer />
