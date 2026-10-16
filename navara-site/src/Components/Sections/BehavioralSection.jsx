@@ -2,456 +2,78 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
-import siteData from '../../../SiteData.json';
+
+const PHASES = [
+  { n: 1, name: 'Connection', weeks: 'Weeks 1-3', line: 'Think like a developmental psychologist. Calm and trust first, because strategy fails a dysregulated child.', color: '#B1C9B3', ink: '#1E324A' },
+  { n: 2, name: 'Clarity', weeks: 'Weeks 4-7', line: 'Think like a behavior analyst. Learn what your child\u2019s behavior is really telling you.', color: '#5F8D9C', ink: '#FFFFFF' },
+  { n: 3, name: 'Control', weeks: 'Weeks 8-10', line: 'Put your plan to work in the home you actually have, with support.', color: '#1E324A', ink: '#FFFFFF' },
+  { n: 4, name: 'Carryover', weeks: 'Weeks 11-12', line: 'Make it last: school, grandparents, and the bad weeks.', color: 'linear-gradient(135deg, #B1C9B3, #5F8D9C 55%, #1E324A)', ink: '#FFFFFF' },
+];
 
 const BehavioralSection = ({ isDarkMode = false }) => {
-
-  const [autoRevealCount, setAutoRevealCount] = useState(0);
-  useEffect(() => {
-    const start = setTimeout(() => setAutoRevealCount(1), 1000);
-    return () => { clearTimeout(start); };
-  }, []);
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
-
-  // Check if mobile on mount and resize
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const check = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Get the behavioral service from siteData
-  const behavioralService = siteData.sections.services.behavioral;
-
-  if (!behavioralService) return null;
-
-  // Optimized animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-        staggerChildren: 0.15,
-      }
-    }
+  const fadeUp = {
+    hidden: { opacity: 0, y: 24 },
+    visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.12, ease: 'easeOut' } }),
   };
 
-  const imageVariants = {
-    hidden: { 
-      scale: 0.9, 
-      opacity: 0,
-    },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 1.2,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }
-    }
-  };
-
-  const textVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30 
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }
-    }
-  };
-
-  // Simplified typing animation
-  const TypingText = ({ text, delay = 0 }) => {
-    const words = text.split(' ');
-    
-    return (
-      <motion.span
-        initial="hidden"
-        whileInView="visible"
-        animate={autoRevealCount >= 1 ? "visible" : undefined}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{
-          staggerChildren: 0.08,
-          delayChildren: delay,
-        }}
-      >
-        {words.map((word, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.3,
-              delay: index * 0.08 + delay,
-              ease: "easeOut"
-            }}
-            style={{ display: 'inline-block', whiteSpace: 'pre-wrap' }}
-          >
-            {word}{' '}
-          </motion.span>
-        ))}
-      </motion.span>
-    );
-  };
-
-  // Mobile Layout
-  if (isMobile) {
-    return (
-      <motion.section 
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        style={{
-          backgroundColor: colors.background,
-          width: '100vw',
-          padding: '80px 20px',
-          margin: 0,
-          boxSizing: 'border-box',
-          willChange: 'transform, opacity',
-        }}
-      >
-        <div style={{
-          maxWidth: '600px',
-          margin: '0 auto',
-        }}>
-          {/* Service Logo & Title */}
-          <motion.div 
-            variants={textVariants}
-            style={{
-              textAlign: 'center',
-              marginBottom: '40px',
-            }}
-          >
-            <motion.img
-              variants={imageVariants}
-              src={behavioralService.logo}
-              alt={`${behavioralService.title} Logo`}
-              style={{
-                width: '140px',
-                height: '140px',
-                objectFit: 'contain',
-                marginBottom: '16px',
-              }}
-            />
-            <h2 style={{
-              fontSize: textSizes['3xl'].fontSize,
-              fontFamily: textSizes['3xl'].fontFamily,
-              color: colors.primary,
-              fontWeight: '700',
-              margin: 0,
-            }}>
-              {behavioralService.title}
-            </h2>
-          </motion.div>
-
-          {/* Photo */}
-          <motion.div 
-            variants={imageVariants}
-            style={{
-              marginBottom: '60px',
-              display: 'flex',
-              justifyContent: 'center',
-              willChange: 'transform, opacity',
-            }}
-          >
-            <img
-              src={behavioralService.photo}
-              alt={behavioralService.title}
-              style={{
-                width: '100%',
-                maxWidth: '400px',
-                height: '300px',
-                objectFit: 'cover',
-                borderRadius: '16px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-              }}
-            />
-          </motion.div>
-
-          {/* Content */}
-          <div style={{
-            textAlign: 'center',
-            padding: '0 20px',
-          }}>
-            <motion.p 
-              variants={textVariants}
-              style={{
-                fontSize: textSizes.base.fontSize,
-                fontFamily: textSizes.base.fontFamily,
-                color: colors.text,
-                lineHeight: '1.8',
-                marginBottom: '24px',
-              }}
-            >
-              {behavioralService.p1}
-            </motion.p>
-
-            {behavioralService.highlight && (
-              <motion.p 
-                variants={textVariants}
-                style={{
-                  fontSize: textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  color: colors.primary,
-                  fontWeight: '600',
-                  lineHeight: '1.6',
-                  marginBottom: '24px',
-                  fontStyle: 'italic',
-                  padding: '24px',
-                  backgroundColor: colors.accent + '15',
-                  borderRadius: '12px',
-                }}
-              >
-                <TypingText text={behavioralService.highlight} delay={0.5} />
-              </motion.p>
-            )}
-
-            <motion.p 
-              variants={textVariants}
-              style={{
-                fontSize: textSizes.base.fontSize,
-                fontFamily: textSizes.base.fontFamily,
-                color: colors.text,
-                lineHeight: '1.8',
-                margin: 0,
-              }}
-            >
-              {behavioralService.p2}
-            </motion.p>
-
-            <motion.div 
-              variants={textVariants}
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '24px',
-              }}
-            >
-              <Link 
-                to="/behavioral"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                  color: 'white',
-                  padding: '12px 24px',
-                  borderRadius: '12px',
-                  textDecoration: 'none',
-                  fontSize: textSizes.base.fontSize,
-                  fontFamily: textSizes.base.fontFamily,
-                  fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                }}
-              >
-                Learn More
-                <i className="fas fa-arrow-right" style={{ fontSize: '14px' }} />
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
-    );
-  }
-
-  // Desktop Layout with Overlay Effect
   return (
-    <motion.section 
-      id="behavioral"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      style={{
-        backgroundColor: colors.background,
-        width: '100vw',
-        padding: '100px 40px',
-        margin: 0,
-        boxSizing: 'border-box',
-        willChange: 'transform, opacity',
-      }}
+    <section
+      id="behavior-method"
+      style={{ backgroundColor: colors.background, width: '100vw', padding: isMobile ? '64px 20px' : '88px 20px', margin: 0, boxSizing: 'border-box' }}
     >
-      <div style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        gap: '80px',
-      }}>
-        {/* Photo Section - Left Side */}
-        <motion.div 
-          variants={imageVariants}
-          style={{
-            flex: '0 0 500px',
-            height: '600px',
-            willChange: 'transform, opacity',
-          }}
-        >
-          <img
-            src={behavioralService.photo}
-            alt={behavioralService.title}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: '20px',
-              boxShadow: '0 12px 48px rgba(0,0,0,0.15)',
-            }}
-          />
-        </motion.div>
+      <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
+        <svg aria-hidden="true" viewBox="100 115 1170 245" style={{ width: 'min(200px, 55%)', height: 'auto', marginBottom: 18 }}>
+          <path fill="#B1C9B3" d="M395 165 L482 151 L565 145 L639 145 L740 153 L817 165 L909 186 L1004 215 L1104 252 L1075 236 L1009 206 L915 172 L815 147 L737 135 L635 129 L556 132 L506 138 L456 147 Z" />
+          <path fill="#5F8D9C" d="M139 345 L206 305 L252 281 L304 258 L367 235 L439 215 L490 205 L557 196 L616 192 L692 192 L744 195 L826 205 L923 224 L1008 247 L1076 270 L1148 299 L1224 336 L1160 297 L1086 262 L1018 236 L945 213 L866 194 L788 181 L697 173 L617 173 L537 180 L476 190 L425 202 L361 222 L303 245 L245 274 L191 306 Z" />
+          <path fill="#1E324A" d="M276 347 L344 315 L387 298 L449 278 L502 264 L556 253 L618 244 L692 238 L776 238 L880 247 L985 266 L1102 299 L1232 348 L1170 316 L1116 293 L1065 274 L1000 254 L952 242 L888 230 L843 224 L775 219 L703 219 L634 224 L572 233 L504 248 L459 261 L397 283 L328 315 Z" />
+        </svg>
 
-        {/* Content Section - Right Side */}
-        <div style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-        }}>
-          {/* Service Logo & Title */}
-          <motion.div 
-            variants={textVariants}
-            style={{
-              marginBottom: '32px',
-            }}
-          >
-            <motion.img
-              variants={imageVariants}
-              src={behavioralService.logo}
-              alt={`${behavioralService.title} Logo`}
-              style={{
-                width: '160px',
-                height: '160px',
-                objectFit: 'contain',
-                marginBottom: '16px',
-                display: 'block',
-              }}
-            />
-            <h2 style={{
-              fontSize: textSizes['4xl'].fontSize,
-              fontFamily: textSizes['4xl'].fontFamily,
-              color: colors.primary,
-              fontWeight: '700',
-              margin: 0,
-            }}>
-              {behavioralService.title}
-            </h2>
-          </motion.div>
+        <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
+          style={{ fontSize: isMobile ? textSizes['3xl'].fontSize : textSizes['4xl'].fontSize, fontFamily: textSizes['4xl'].fontFamily, color: colors.primary, fontWeight: 700, margin: '0 0 14px' }}>
+          The Navara Behavior Method&trade;
+        </motion.h2>
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
+          style={{ maxWidth: 720, margin: '0 auto 44px', fontSize: textSizes.lg.fontSize, fontFamily: textSizes.lg.fontFamily, color: colors.text, lineHeight: 1.7 }}>
+          A 12-week program that uses four phases to train <strong>YOU</strong>, the parent, to think like a BCBA and a developmental psychologist.</motion.p>
 
-          {/* Content */}
-          <div>
-            <motion.p 
-              variants={textVariants}
-              style={{
-                fontSize: textSizes.lg.fontSize,
-                fontFamily: textSizes.lg.fontFamily,
-                color: colors.text,
-                lineHeight: '1.8',
-                marginBottom: '24px',
-              }}
-            >
-              {behavioralService.p1}
-            </motion.p>
-
-            {behavioralService.highlight && (
-              <motion.p 
-                variants={textVariants}
-                style={{
-                  fontSize: textSizes['2xl'].fontSize,
-                  fontFamily: textSizes['2xl'].fontFamily,
-                  color: colors.primary,
-                  fontWeight: '700',
-                  lineHeight: '1.5',
-                  marginBottom: '24px',
-                  fontStyle: 'italic',
-                  padding: '32px',
-                  backgroundColor: colors.accent + '20',
-                  borderLeft: `4px solid ${colors.primary}`,
-                  borderRadius: '12px',
-                }}
-              >
-                <TypingText text={behavioralService.highlight} delay={0.8} />
-              </motion.p>
-            )}
-
-            <motion.p 
-              variants={textVariants}
-              style={{
-                fontSize: textSizes.lg.fontSize,
-                fontFamily: textSizes.lg.fontFamily,
-                color: colors.text,
-                lineHeight: '1.8',
-                margin: 0,
-              }}
-            >
-              {behavioralService.p2}
-            </motion.p>
-
-            <motion.div 
-              variants={textVariants}
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                marginTop: '24px',
-              }}
-            >
-              <Link 
-                to="/behavioral"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                  color: 'white',
-                  padding: '14px 28px',
-                  borderRadius: '12px',
-                  textDecoration: 'none',
-                  fontSize: textSizes.lg.fontSize,
-                  fontFamily: textSizes.lg.fontFamily,
-                  fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
-                }}
-              >
-                Learn More
-                <i className="fas fa-arrow-right" style={{ fontSize: '16px' }} />
-              </Link>
+        <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gap: isMobile ? 18 : 22, textAlign: 'left' }}>
+                    {PHASES.map((p, i) => (
+            <motion.div key={p.name} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}
+              style={{ position: 'relative', background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: 18, padding: '22px 20px 24px', boxShadow: '0 8px 26px rgba(27,59,98,0.07)', overflow: 'hidden', display: 'flex', flexDirection: isMobile ? 'row' : 'column', gap: isMobile ? 16 : 0, alignItems: isMobile ? 'flex-start' : 'stretch' }}>
+              <div aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 5, background: p.color }} />
+              <div style={{ width: 52, height: 52, flex: '0 0 52px', borderRadius: '50%', background: p.color, color: p.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 22, fontFamily: textSizes.lg.fontFamily, marginBottom: isMobile ? 0 : 16, boxShadow: '0 0 0 5px ' + colors.surface }}>
+                {p.n}
+              </div>
+              <div>
+                <div style={{ fontSize: textSizes.xl.fontSize, fontFamily: textSizes.xl.fontFamily, fontWeight: 700, color: colors.primary }}>{p.name}</div>
+                <div style={{ fontSize: textSizes.xs.fontSize, fontFamily: textSizes.xs.fontFamily, color: colors.textSecondary, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600, margin: '2px 0 10px' }}>{p.weeks}</div>
+                <p style={{ margin: 0, fontSize: textSizes.sm.fontSize, fontFamily: textSizes.sm.fontFamily, color: colors.text, lineHeight: 1.65 }}>{p.line}</p>
+              </div>
             </motion.div>
-          </div>
+          ))}
         </div>
+
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
+          <Link
+            to="/services/behavior-method"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: isDarkMode ? colors.primary : '#1B3B62', color: isDarkMode ? '#1A2A40' : '#FFFFFF', padding: '14px 28px', borderRadius: 12, textDecoration: 'none', fontSize: textSizes.lg.fontSize, fontFamily: textSizes.lg.fontFamily, fontWeight: 600, boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}
+          >
+            Learn More
+            <i className="fas fa-arrow-right" style={{ fontSize: 16 }} />
+          </Link>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
