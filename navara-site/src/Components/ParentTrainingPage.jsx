@@ -240,13 +240,13 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         id="welcome-section"
         style={{
           position: 'relative',
-          height: isMobile ? '14vh' : '24vh',
-          minHeight: isMobile ? '110px' : '190px',
+          height: 'auto',
+          minHeight: isMobile ? '150px' : '210px',
           width: '100vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem',
+          padding: isMobile ? '5.25rem 1.25rem 1.5rem' : '6.5rem 2rem 2rem',
           margin: 0,
           boxSizing: 'border-box',
           overflow: 'hidden',
@@ -305,6 +305,22 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
           />
         </div>
 
+        {/* Page title */}
+        <h1 style={{
+          position: 'relative',
+          zIndex: 3,
+          margin: 0,
+          color: '#ffffff',
+          textAlign: 'center',
+          fontFamily: textSizes['4xl'].fontFamily,
+          fontWeight: '700',
+          lineHeight: 1.15,
+          fontSize: isMobile ? '2rem' : '3.5rem',
+          textShadow: '0 2px 12px rgba(0,0,0,0.35)',
+        }}>
+          The Navara Behavior Method™
+        </h1>
+
       </section>
 
       {/* Navigation */}
@@ -319,25 +335,12 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
         style={{
           ...sectionStyle,
           background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}10)`,
-          paddingTop: '40px',
+          paddingTop: '0px',
           paddingBottom: '60px',
           position: 'relative',
         }}
       >
-        <div style={containerStyle}>
-          {/* Main Title */}
-          <motion.h1 variants={itemVariants} style={{
-            fontSize: isMobile ? textSizes['2xl'].fontSize : isTablet ? textSizes['3xl'].fontSize : textSizes['4xl'].fontSize,
-            fontFamily: textSizes['4xl'].fontFamily,
-            color: colors.primary,
-            fontWeight: '700',
-            marginBottom: '16px',
-            textAlign: 'center',
-            lineHeight: '1.2',
-          }}>
-            The Navara Behavior Method™
-          </motion.h1>
-          
+        <div style={{ ...containerStyle, paddingTop: isMobile ? '24px' : '36px' }}>
           <motion.h2 variants={itemVariants} style={{
             fontSize: isMobile ? textSizes.lg.fontSize : isTablet ? textSizes.xl.fontSize : textSizes['2xl'].fontSize,
             fontFamily: textSizes['2xl'].fontFamily,
