@@ -178,9 +178,6 @@ const WelcomeSection = ({ isDarkMode = false }) => {
           <i className="fas fa-calendar-check" style={{ fontSize: isMobile ? '12px' : '14px' }} />
           Book Your Free 15-Minute Consultation
         </a>
-        <p style={{ margin: 0, color: 'rgba(255, 255, 255, 0.85)', fontSize: isMobile ? '13px' : '15px', fontFamily: "'Montserrat', sans-serif", letterSpacing: '0.02em', textAlign: 'center', padding: '0 20px' }}>
-          In-home Direct ABA in the NY/NJ and Missouri/Kansas areas
-        </p>
       </div>
     </section>
   );
