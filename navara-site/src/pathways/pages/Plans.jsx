@@ -104,7 +104,7 @@ export default function Plans() {
         </section>
       )}
       <Modal open={!!modal} onClose={() => setModal(null)} title="Checkout is in test mode">
-        {modal || 'Stripe goes live after the NJ prepaid-services review is complete. In this preview no payment method is collected and nothing is charged.'}
+        {modal || 'Stripe goes live after final compliance checks are complete. In this preview no payment method is collected and nothing is charged.'}
       </Modal>
     </main>
     <Footer />

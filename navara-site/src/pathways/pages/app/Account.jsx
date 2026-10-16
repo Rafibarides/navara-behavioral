@@ -32,7 +32,7 @@ export default function Account() {
       </div>
     </section>
     <Modal open={open} onClose={() => setOpen(false)} title="Stripe customer portal goes here">
-      In the live product this opens your Stripe billing portal, where you can update your card, change plans, or cancel. Checkout stays in test mode until the NJ review clears.
+      In the live product this opens your Stripe billing portal, where you can update your card, change plans, or cancel. Checkout stays in test mode until final compliance checks clear.
     </Modal>
   </>);
 }
