@@ -157,6 +157,17 @@ const FooterSection = ({ isDarkMode = false }) => {
             }}>
               Evidence-based behavior support for families who want real results — no waitlists, no one-size-fits-all.
             </p>
+            <p style={{
+              fontSize: textSizes.base.fontSize,
+              fontFamily: textSizes.base.fontFamily,
+              lineHeight: '1.6',
+              color: 'rgba(255, 255, 255, 0.8)',
+              margin: 0,
+              marginBottom: '24px',
+              maxWidth: '400px',
+            }}>
+              In-home Direct ABA serving the NY/NJ and Missouri/Kansas areas.
+            </p>
             {/* Security Badge */}
             <div style={{
               display: 'flex',
