@@ -254,6 +254,16 @@ const DirectAbaPage = ({ isDarkMode = false }) => {
             <p style={{
               fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
               fontFamily: textSizes.lg.fontFamily,
+              color: colors.primary,
+              fontWeight: '600',
+              lineHeight: '1.7',
+              marginBottom: '20px',
+            }}>
+              Where we serve: Direct ABA sessions take place in your home, in the New York/New Jersey area and the Missouri/Kansas area.
+            </p>
+            <p style={{
+              fontSize: isMobile ? textSizes.base.fontSize : textSizes.lg.fontSize,
+              fontFamily: textSizes.lg.fontFamily,
               color: colors.textSecondary,
               lineHeight: '1.7',
               fontStyle: 'italic',
