@@ -414,7 +414,7 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
                 lineHeight: '1.8',
                 margin: 0,
               }}>
-                It is almost always the parent who is told they did not follow through. We built the Navara Behavior Method™ on the opposite assumption: that most plans fail because they were handed to parents instead of built with them. So across twelve weeks we teach you the same clinical reasoning a behavior analyst uses — the research, the assessment, the plan — and you build your child's plan yourself, with a BCBA beside you.
+                It is almost always the parent who is told they did not follow through. We built the Navara Behavior Method™ on the opposite assumption: that most plans fail because they were handed to parents instead of built with them. So across twelve weeks we teach you the same clinical reasoning a behavior analyst uses — the research, the assessment, the plan — and you build your child's plan yourself, in sessions led by your NBM Certified Behavior Specialist.
               </motion.p>
             </motion.div>
           </motion.div>
@@ -528,10 +528,10 @@ const ParentTrainingPage = ({ isDarkMode = false }) => {
                 <span style={{ color: colors.primary, fontWeight: 'bold', minWidth: '8px', marginTop: '6px' }}>•</span>
                 <div>
                   <div style={{ fontWeight: '700', marginBottom: '8px', color: colors.text }}>
-                    22 Sessions With Your Navara Behavior Specialist
+                    22 Sessions Led by Your NBM Certified Behavior Specialist
                   </div>
                   <div style={{ color: colors.textSecondary, lineHeight: '1.6' }}>
-                    About two sessions a week, 45 minutes each, for most of the twelve weeks — 22 one-to-one sessions, not a weekly check-in. Every session teaches a concept, names the research behind it, and then applies it live to your own child's data.
+                    About two sessions a week, 45 minutes each, for most of the twelve weeks — 22 one-to-one sessions, not a weekly check-in. This is individualized learning with your NBM Certified Behavior Specialist. You are never placed in a group with other parents whose situations differ from yours. Every session teaches a concept, names the research behind it, and then applies it live to your own child's data.
                   </div>
                 </div>
               </div>
