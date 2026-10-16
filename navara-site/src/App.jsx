@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PathwaysApp from './pathways/PathwaysApp';
 import MainPage from './Components/MainPage';
 import Careers from './Components/Careers';
 import ClientPortal from './Components/ClientPortal';
@@ -63,6 +64,7 @@ function App() {
           <Route path="/terms" element={<TermsOfService isDarkMode={isDarkMode} />} />
           <Route path="/sitemap" element={<Sitemap isDarkMode={isDarkMode} />} />
           {/* Fallback route for unmatched paths */}
+          <Route path="/pathways/*" element={<PathwaysApp />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

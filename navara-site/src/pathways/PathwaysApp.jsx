@@ -1,0 +1,37 @@
+// Mounted at /pathways/* from App.jsx. Owns all Pathways routes and the stylesheet.
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import './pathways.css';
+import Landing from './pages/Landing';
+import RbtTrack from './pages/RbtTrack';
+import BcbaTrack from './pages/BcbaTrack';
+import Plans from './pages/Plans';
+import Login from './pages/Login';
+import SampleQuiz from './pages/SampleQuiz';
+import Dashboard from './pages/app/Dashboard';
+import Practice from './pages/app/Practice';
+import Mock from './pages/app/Mock';
+import Book from './pages/app/Book';
+import Account from './pages/app/Account';
+import Specialist from './pages/app/Specialist';
+
+export default function PathwaysApp() {
+  return (
+    <Routes>
+      <Route index element={<Landing />} />
+      <Route path="rbt" element={<RbtTrack />} />
+      <Route path="bcba" element={<BcbaTrack />} />
+      <Route path="plans" element={<Plans />} />
+      <Route path="login" element={<Login />} />
+      <Route path="sample-quiz" element={<SampleQuiz />} />
+      <Route path="app" element={<Navigate to="dashboard" replace />} />
+      <Route path="app/dashboard" element={<Dashboard />} />
+      <Route path="app/practice" element={<Practice />} />
+      <Route path="app/mock" element={<Mock />} />
+      <Route path="app/book" element={<Book />} />
+      <Route path="app/account" element={<Account />} />
+      <Route path="app/specialist" element={<Specialist />} />
+      <Route path="*" element={<Navigate to="/pathways" replace />} />
+    </Routes>
+  );
+}

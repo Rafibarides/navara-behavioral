@@ -1,0 +1,28 @@
+import React from 'react';
+import { Arcs } from './Chrome';
+import { signOut } from '../lib/auth';
+
+const ITEMS = [
+  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['mock', 'Mock exams'],
+  ['book', 'Book a 1:1'], ['account', 'Account'],
+];
+export default function AppNav({ active }) {
+  return (
+    <nav className="nav app-nav" style={{ position: 'sticky' }}>
+      <div className="wrap nav-inner">
+        <a className="brand" href="/pathways">
+          <Arcs />
+          <span className="brand-name">Navara<small>Pathways</small></span>
+        </a>
+        <div className="nav-links">
+          {ITEMS.map(([id, label]) => (
+            <a key={id} href={'/pathways/app/' + id}
+               style={id === active ? { color: '#fff', borderBottom: '2px solid var(--sage)' } : undefined}>{label}</a>
+          ))}
+          <a className="btn btn-ghost btn-sm" href="/pathways/login"
+             onClick={(e) => { e.preventDefault(); signOut().then(() => { window.location.href = '/pathways/login'; }); }}>Log out</a>
+        </div>
+      </div>
+    </nav>
+  );
+}

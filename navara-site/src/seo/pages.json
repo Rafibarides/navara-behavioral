@@ -1,11 +1,78 @@
 [
- {"path":"/","title":"Parent Training, Direct ABA & Behavioral Consulting | Navara","description":"Explore the Navara Behavior Method, private BCBA-led Direct ABA and behavioral consulting. Practical support built around your family."},
- {"path":"/services/behavior-method","title":"Navara Behavior Method | 12-Week Parent Training","description":"A 12-week individual parent-training program built on Connection, Clarity, Control and Carryover. Learn a practical plan for your child's behavior."},
- {"path":"/services/direct-aba","title":"Private BCBA-Led Direct ABA | Navara Behavioral Group","description":"Explore private Direct ABA with sessions led by a Board Certified Behavior Analyst and a plan individualized to your child and family."},
- {"path":"/services/consulting","title":"Behavioral Consulting | Navara Behavioral Group","description":"Focused behavioral guidance for families and professionals. Book a 45-minute Behavioral Consultation with a BCBA for $150."},
- {"path":"/careers","title":"Careers | Navara Behavioral Group","description":"Learn about career opportunities at Navara Behavioral Group and submit your interest to the team."},
- {"path":"/client-portal","title":"Client Portal | Navara Behavioral Group","description":"Client portal information for Navara Behavioral Group.","noindex":true},
- {"path":"/privacy","title":"Privacy Policy | Navara Behavioral Group","description":"Read Navara Behavioral Group's privacy policy and information about how the website handles personal information."},
- {"path":"/terms","title":"Terms of Service | Navara Behavioral Group","description":"Read the terms of service for Navara Behavioral Group's website and services."},
- {"path":"/sitemap","title":"Sitemap | Navara Behavioral Group","description":"Find Navara Behavioral Group's services, careers, contact information and website policies."}
+  {
+    "path": "/",
+    "title": "Parent Training, Direct ABA & Behavioral Consulting | Navara",
+    "description": "Explore the Navara Behavior Method, private BCBA-led Direct ABA and behavioral consulting. Practical support built around your family."
+  },
+  {
+    "path": "/services/behavior-method",
+    "title": "Navara Behavior Method | 12-Week Parent Training",
+    "description": "A 12-week individual parent-training program built on Connection, Clarity, Control and Carryover. Learn a practical plan for your child's behavior."
+  },
+  {
+    "path": "/services/direct-aba",
+    "title": "Private BCBA-Led Direct ABA | Navara Behavioral Group",
+    "description": "Explore private Direct ABA with sessions led by a Board Certified Behavior Analyst and a plan individualized to your child and family."
+  },
+  {
+    "path": "/services/consulting",
+    "title": "Behavioral Consulting | Navara Behavioral Group",
+    "description": "Focused behavioral guidance for families and professionals. Book a 45-minute Behavioral Consultation with a BCBA for $150."
+  },
+  {
+    "path": "/careers",
+    "title": "Careers | Navara Behavioral Group",
+    "description": "Learn about career opportunities at Navara Behavioral Group and submit your interest to the team."
+  },
+  {
+    "path": "/client-portal",
+    "title": "Client Portal | Navara Behavioral Group",
+    "description": "Client portal information for Navara Behavioral Group.",
+    "noindex": true
+  },
+  {
+    "path": "/privacy",
+    "title": "Privacy Policy | Navara Behavioral Group",
+    "description": "Read Navara Behavioral Group's privacy policy and information about how the website handles personal information."
+  },
+  {
+    "path": "/terms",
+    "title": "Terms of Service | Navara Behavioral Group",
+    "description": "Read the terms of service for Navara Behavioral Group's website and services."
+  },
+  {
+    "path": "/sitemap",
+    "title": "Sitemap | Navara Behavioral Group",
+    "description": "Find Navara Behavioral Group's services, careers, contact information and website policies."
+  },
+  {
+    "path": "/pathways",
+    "title": "Navara Pathways | RBT and BCBA Exam Prep",
+    "description": "Exam preparation, training, and professional development from Navara Behavioral Group. RBT and BCBA tracks with practice banks, mock exams, and 1:1 coaching.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/rbt",
+    "title": "RBT Exam Prep | Navara Pathways",
+    "description": "Practice banks with explanations, timed mock exams, and 1:1 coaching for the RBT certification exam.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/bcba",
+    "title": "BCBA Exam Prep | Navara Pathways",
+    "description": "Practice banks with explanations, timed mock exams, and 1:1 coaching for the BCBA certification exam.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/plans",
+    "title": "Plans | Navara Pathways",
+    "description": "Free samples, Self-Study, and Guided plans for RBT and BCBA exam prep.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/sample-quiz",
+    "title": "Free Sample Quizzes | Navara Pathways",
+    "description": "Try ten free practice questions with explanations for the RBT or BCBA exam. No account needed.",
+    "noindex": true
+  }
 ]
