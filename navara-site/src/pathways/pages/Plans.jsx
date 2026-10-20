@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Nav, Footer, usePathwaysEffects, Modal } from '../components/Chrome';
+import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
 import { startCheckout } from '../lib/billing';
+import { joinWaitlist } from '../lib/db';
 
 const LINKS = (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
@@ -51,10 +52,20 @@ const TRACKS = {
 export default function Plans() {
   usePathwaysEffects();
   const [track, setTrack] = useState(null);
-  const [modal, setModal] = useState(null);
+  const [modal, setModal] = useState(null); // {track, plan}
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
+  const [err, setErr] = useState('');
   const join = async (t, plan) => {
     const res = await startCheckout(t, plan);
-    if (res && res.testMode) setModal(res.message);
+    if (res && res.testMode) { setModal({ track: t, plan }); setSent(false); setEmail(''); setErr(''); }
+  };
+  const notify = async () => {
+    if (!/^\S+@\S+\.\S+$/.test(email)) { setErr('Enter a valid email address.'); return; }
+    try {
+      await joinWaitlist({ email, track: modal.track, plan: modal.plan });
+      setSent(true);
+    } catch { setErr('Something went wrong - try again.'); }
   };
   const t = track ? TRACKS[track] : null;
   return (<>
@@ -65,7 +76,7 @@ export default function Plans() {
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
           <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
-          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Pick your exam to see its plans. Checkout runs in test mode during this preview; nothing is charged.</p>
+          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Pick your exam to see its plans. Online checkout opens shortly; leave your email at any plan and we will tell you the moment it does.</p>
         </div>
       </header>
       {!track && (
@@ -103,9 +114,24 @@ export default function Plans() {
           </div>
         </section>
       )}
-      <Modal open={!!modal} onClose={() => setModal(null)} title="Checkout is in test mode">
-        {modal || 'Stripe goes live after final compliance checks are complete. In this preview no payment method is collected and nothing is charged.'}
-      </Modal>
+      {modal && (
+        <div className="modal-veil open" onClick={() => setModal(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Enrollment opens shortly</h3>
+            {!sent ? (<>
+              <p>Online checkout opens as soon as final compliance checks clear. Leave your email and we will tell you the moment {modal.plan === 'guided' ? 'Guided' : 'Self-Study'} enrollment opens for the {modal.track === 'bcba' ? 'BCBA' : 'RBT'} track. Nothing is charged today.</p>
+              <div className="field" style={{ marginTop: 16 }}>
+                <input type="email" placeholder="you@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              {err && <p style={{ color: '#b3452e', fontSize: 13.5, fontWeight: 600, marginTop: 8 }}>{err}</p>}
+              <button className="btn btn-navy" style={{ justifyContent: 'center', width: '100%', marginTop: 14 }} onClick={notify}>Notify me</button>
+            </>) : (
+              <p>You are on the list. We will email you the moment enrollment opens.</p>
+            )}
+            <button className="btn btn-ghost" style={{ justifyContent: 'center', width: '100%', marginTop: 10 }} onClick={() => setModal(null)}>Close</button>
+          </div>
+        </div>
+      )}
     </main>
     <Footer />
   </>);

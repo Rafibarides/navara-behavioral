@@ -136,5 +136,15 @@
     "title": "Specialist View | Navara Pathways",
     "description": "Navara Pathways member area.",
     "noindex": true
+  },
+  {
+    "path": "/pathways/privacy",
+    "title": "Privacy Policy | Navara Pathways",
+    "description": "How Navara Pathways collects, uses, and protects your information."
+  },
+  {
+    "path": "/pathways/terms",
+    "title": "Terms of Service | Navara Pathways",
+    "description": "Terms of service for Navara Pathways exam preparation."
   }
 ]

@@ -19,7 +19,8 @@ export default function Dashboard() {
   }, [user]);
   if (!user) return null;
   const planLabel = (user.plan === 'guided' ? 'Guided' : user.plan === 'self-study' ? 'Self-Study' : 'Sample') + ' plan, ' + (user.track === 'bcba' ? 'BCBA' : 'RBT') + ' track' + (user.demo || DEMO ? ' (demo)' : '');
-  const bars = progress ? progress.map((r) => [r.area, r.pct]) : DEMO_PROGRESS;
+  const showDemo = DEMO || user.demo;
+  const bars = progress ? progress.map((r) => [r.area, r.pct]) : (showDemo ? DEMO_PROGRESS : null);
   return (<>
     <AppNav active="dashboard" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
@@ -32,10 +33,12 @@ export default function Dashboard() {
         <div className="dash-grid">
           <div className="panel span-8 rv in">
             <h3>Progress by topic</h3>
-            {bars.map(([label, w]) => (
+            {bars ? bars.map(([label, w]) => (
               <div className="prog" key={label}><div className="row"><span>{label}</span><span>{w}%</span></div><div className="bar"><i data-w={w}></i></div></div>
-            ))}
-            {!progress && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>{DEMO || user.demo ? 'Demo progress shown. Real tracking starts with your first practice set.' : 'Your first practice sets will draw this chart.'}</p>}
+            )) : (
+              <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, margin: '10px 0 4px' }}>No practice data yet. Your scores by topic will appear here after your first practice set.</p>
+            )}
+            {bars && !progress && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo progress shown. Real tracking starts with your first practice set.</p>}
           </div>
           <div className="panel span-4 rv in">
             <h3>1:1 sessions</h3>

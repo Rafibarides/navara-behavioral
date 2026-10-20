@@ -135,3 +135,10 @@ export async function fetchAdaptiveSet({ track, misconceptions, limit = 10 }) {
   if (error) throw error;
   return (data || []).map(toQuiz);
 }
+
+// Join the enrollment waitlist (anon insert; RLS allows insert-only).
+export async function joinWaitlist({ email, track, plan }) {
+  const sb = await getClient();
+  const { error } = await sb.from('waitlist').insert({ email, track, plan });
+  if (error) throw error;
+}
