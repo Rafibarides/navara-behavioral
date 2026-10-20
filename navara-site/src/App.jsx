@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import PathwaysApp from './pathways/PathwaysApp';
 import MainPage from './Components/MainPage';
 import Careers from './Components/Careers';
@@ -16,6 +16,12 @@ import StickyConsultButton from './Components/StickyConsultButton';
 import PageMetadata from './seo/PageMetadata';
 import NotFound from './Components/NotFound';
 import './App.css'
+
+function DarkToggleGate(props) {
+  const loc = useLocation();
+  if (loc.pathname.startsWith('/pathways')) return null;
+  return <DarkModeToggle {...props} />;
+}
 
 function App() {
   // Initialize dark mode from localStorage or default to false
@@ -46,7 +52,7 @@ function App() {
       <PageMetadata />
       <div style={{ width: '100%', minHeight: '100vh' }}>
         {/* Global Dark Mode Toggle - shown on all pages */}
-        <DarkModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <DarkToggleGate isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
         
         {/* Global Sticky Consult Button - shown on all pages */}
         <StickyConsultButton isDarkMode={isDarkMode} />
