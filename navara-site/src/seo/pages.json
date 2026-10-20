@@ -2,22 +2,36 @@
   {
     "path": "/",
     "title": "Parent Training, Direct ABA & Behavioral Consulting | Navara",
-    "description": "Explore the Navara Behavior Method, private BCBA-led Direct ABA and behavioral consulting. Practical support built around your family."
+    "description": "Explore the Navara Behavior Method, private BCBA-led Direct ABA and behavioral consulting. Practical support built around your family.",
+    "videos": [
+      "background",
+      "promo"
+    ]
   },
   {
     "path": "/services/behavior-method",
     "title": "Navara Behavior Method | 12-Week Parent Training",
-    "description": "A 12-week individual parent-training program built on Connection, Clarity, Control and Carryover. Learn a practical plan for your child's behavior."
+    "description": "A 12-week individual parent-training program built on Connection, Clarity, Control and Carryover. Learn a practical plan for your child's behavior.",
+    "videos": [
+      "background",
+      "promo"
+    ]
   },
   {
     "path": "/services/direct-aba",
     "title": "Private BCBA-Led Direct ABA | Navara Behavioral Group",
-    "description": "Explore private Direct ABA with sessions led by a Board Certified Behavior Analyst and a plan individualized to your child and family."
+    "description": "Explore private Direct ABA with sessions led by a Board Certified Behavior Analyst and a plan individualized to your child and family.",
+    "videos": [
+      "background"
+    ]
   },
   {
     "path": "/services/consulting",
     "title": "Behavioral Consulting | Navara Behavioral Group",
-    "description": "Focused behavioral guidance for families and professionals. Book a 45-minute Behavioral Consultation with a BCBA for $150."
+    "description": "Focused behavioral guidance for families and professionals. Book a 45-minute Behavioral Consultation with a BCBA for $150.",
+    "videos": [
+      "background"
+    ]
   },
   {
     "path": "/careers",
