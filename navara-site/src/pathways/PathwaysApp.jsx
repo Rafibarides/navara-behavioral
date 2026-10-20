@@ -1,6 +1,11 @@
 // Mounted at /pathways/* from App.jsx. Owns all Pathways routes and the stylesheet.
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+
+// Preserve the magic-link token hash across the index redirect so Supabase can read it.
+function AppIndexRedirect() {
+  return <Navigate to={'dashboard' + window.location.hash} replace />;
+}
 import './pathways.css';
 import Landing from './pages/Landing';
 import RbtTrack from './pages/RbtTrack';
@@ -24,7 +29,7 @@ export default function PathwaysApp() {
       <Route path="plans" element={<Plans />} />
       <Route path="login" element={<Login />} />
       <Route path="sample-quiz" element={<SampleQuiz />} />
-      <Route path="app" element={<Navigate to="dashboard" replace />} />
+      <Route path="app" element={<AppIndexRedirect />} />
       <Route path="app/dashboard" element={<Dashboard />} />
       <Route path="app/practice" element={<Practice />} />
       <Route path="app/mock" element={<Mock />} />

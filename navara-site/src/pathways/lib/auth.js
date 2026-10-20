@@ -18,7 +18,7 @@ export async function signIn(email) {
   if (DEMO) return signInDemo();
   const { getClient } = await import('./db');
   const sb = await getClient();
-  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + '/pathways/app' } });
+  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + '/pathways/app/dashboard' } });
   if (error) throw error;
   return null; // user arrives via email link
 }
