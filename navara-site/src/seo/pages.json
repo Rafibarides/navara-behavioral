@@ -146,5 +146,10 @@
     "path": "/pathways/terms",
     "title": "Terms of Service | Navara Pathways",
     "description": "Terms of service for Navara Pathways exam preparation."
+  },
+  {
+    "path": "/pathways/study-plan",
+    "title": "Free Study-Plan Builder | Navara Pathways",
+    "description": "Build a week-by-week RBT or BCBA study plan around your exam date. Free, no account."
   }
 ]

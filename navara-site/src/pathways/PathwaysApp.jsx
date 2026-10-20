@@ -10,6 +10,7 @@ import './pathways.css';
 import Landing from './pages/Landing';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
+import StudyPlan from './pages/StudyPlan';
 import RbtTrack from './pages/RbtTrack';
 import BcbaTrack from './pages/BcbaTrack';
 import Plans from './pages/Plans';
@@ -32,6 +33,7 @@ export default function PathwaysApp() {
       <Route path="login" element={<Login />} />
       <Route path="privacy" element={<Privacy />} />
       <Route path="terms" element={<Terms />} />
+      <Route path="study-plan" element={<StudyPlan />} />
       <Route path="sample-quiz" element={<SampleQuiz />} />
       <Route path="app" element={<AppIndexRedirect />} />
       <Route path="app/dashboard" element={<Dashboard />} />

@@ -20,6 +20,7 @@ export default function SampleQuiz() {
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Free, no account</span>
           <h1 data-rise>Ten questions. <span className="grad">Zero excuses.</span></h1>
           <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Pick your track. Every answer comes with the explanation, free.</p>
+          <p style={{ marginTop: 10, fontSize: 14.5, fontWeight: 700 }}><a href="/pathways/study-plan" style={{ color: 'var(--teal-2)' }}>New: build a free study plan around your exam date &rarr;</a></p>
         </div>
       </header>
       <section className="section" style={{ paddingTop: 70 }}>

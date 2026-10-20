@@ -8,6 +8,33 @@ import { DEMO } from '../config';
 // every attempt (with misconception tag) is recorded for pattern diagnostics.
 // Completion screen: score gauge, per-area breakdown, readiness note,
 // and an optional email capture (emailCta) that sends a sign-in link.
+
+// Branded shareable score card (canvas PNG). Score facts only - no readiness claims.
+function downloadScoreCard({ title, score, total }) {
+  const c = document.createElement('canvas');
+  c.width = 1200; c.height = 630;
+  const x = c.getContext('2d');
+  const g = x.createLinearGradient(0, 0, 1200, 630);
+  g.addColorStop(0, '#10233c'); g.addColorStop(0.55, '#1B3B62'); g.addColorStop(1, '#173038');
+  x.fillStyle = g; x.fillRect(0, 0, 1200, 630);
+  x.strokeStyle = 'rgba(177,201,179,.5)'; x.lineWidth = 10;
+  x.beginPath(); x.moveTo(650, 500); x.quadraticCurveTo(900, 250, 1220, 330); x.stroke();
+  x.strokeStyle = 'rgba(95,141,156,.55)';
+  x.beginPath(); x.moveTo(600, 545); x.quadraticCurveTo(880, 300, 1230, 400); x.stroke();
+  x.fillStyle = '#B1C9B3'; x.font = '700 34px Montserrat, sans-serif';
+  x.fillText('NAVARA PATHWAYS', 70, 100);
+  x.fillStyle = '#ffffff'; x.font = '800 120px Montserrat, sans-serif';
+  x.fillText(score + '/' + total, 70, 290);
+  x.fillStyle = 'rgba(255,255,255,.85)'; x.font = '600 40px Montserrat, sans-serif';
+  x.fillText('on the free ' + title.replace(/ sample$/i, '') + ' sample quiz', 70, 360);
+  x.fillStyle = 'rgba(255,255,255,.65)'; x.font = '600 30px Montserrat, sans-serif';
+  x.fillText('Think you can beat it? navarabehavioralgroup.com/pathways', 70, 560);
+  const a = document.createElement('a');
+  a.download = 'navara-pathways-score.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+
 export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample' }) {
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
@@ -77,6 +104,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={ctaHref}>{cta}</a>
           <button className="btn btn-navy" onClick={() => { setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setRound(r => r + 1); }}>Try again</button>
+          <button className="btn btn-ghost" onClick={() => downloadScoreCard({ title, score, total: questions.length })}>Share my score card</button>
         </div>
       </div>
     );
