@@ -1,38 +1,104 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { recordAttempt } from '../lib/db';
+import { signIn } from '../lib/auth';
+import { DEMO } from '../config';
 
 // Interactive quiz engine with real-time, choice-specific feedback:
 // wrong picks show why that option was tempting + what rules it out;
 // every attempt (with misconception tag) is recorded for pattern diagnostics.
-export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans' }) {
+// Completion screen: score gauge, per-area breakdown, readiness note,
+// and an optional email capture (emailCta) that sends a sign-in link.
+export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample' }) {
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState(null);
   const [done, setDone] = useState(false);
   const [round, setRound] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
+  const shownAt = useRef(Date.now());
 
   if (done) {
     const pct = Math.round((score / questions.length) * 100);
+    const areas = {};
+    answers.forEach(({ area, correct }) => {
+      areas[area] = areas[area] || { n: 0, c: 0 };
+      areas[area].n += 1;
+      if (correct) areas[area].c += 1;
+    });
+    const readiness = pct >= 80
+      ? 'Strong sample performance. The full banks go deeper - timed mocks will tell you if it holds under pressure.'
+      : pct >= 60
+        ? 'A workable foundation with real gaps. Targeted practice on your weak areas is the fastest way up from here.'
+        : 'This is exactly where guided practice pays off: every wrong answer in the full program tells you why it tempted you.';
+    const save = async (e) => {
+      e.preventDefault();
+      if (!email) return;
+      try { await signIn(email); } catch { /* still show the confirmation */ }
+      setSent(true);
+    };
     return (
       <div className="qcard q-score" key={'score' + round}>
         <div className="q-meta" style={{ justifyContent: 'center' }}><span>{title} complete</span></div>
         <div className="big">{pct}%</div>
-        <p style={{ color: 'var(--ink-2)', fontWeight: 600, margin: '8px 0 26px' }}>
-          {score} of {questions.length} correct. In the full program every question carries feedback specific to the option you picked, and your patterns feed your study plan.
+        <p style={{ color: 'var(--ink-2)', fontWeight: 600, margin: '8px 0 6px' }}>
+          {score} of {questions.length} correct.
         </p>
+        <p style={{ color: 'var(--ink-2)', fontWeight: 600, margin: '0 0 22px', fontSize: 14 }}>{readiness}</p>
+        {Object.keys(areas).length > 1 && (
+          <div style={{ textAlign: 'left', marginBottom: 24 }}>
+            {Object.entries(areas).map(([area, v]) => {
+              const p = Math.round((v.c / v.n) * 100);
+              return (
+                <div className="prog" key={area}>
+                  <div className="row"><span>{area}</span><span>{v.c}/{v.n}</span></div>
+                  <div className="bar"><i style={{ width: p + '%' }}></i></div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {emailCta && !sent && (
+          <form onSubmit={save} style={{ marginBottom: 22 }}>
+            <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>Save these results and keep practicing free:</p>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <input type="email" required placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)}
+                     style={{ padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(27,59,98,.25)', minWidth: 240, font: 'inherit' }} />
+              <button className="btn btn-navy" type="submit">{DEMO ? 'Save my results' : 'Email me a sign-in link'}</button>
+            </div>
+          </form>
+        )}
+        {emailCta && sent && (
+          <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--teal-3)', marginBottom: 22 }}>
+            {DEMO ? 'Results saved to your demo account.' : 'Check your inbox - your sign-in link is on its way.'}
+          </p>
+        )}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={ctaHref}>{cta}</a>
-          <button className="btn btn-navy" onClick={() => { setI(0); setScore(0); setPicked(null); setDone(false); setRound(r => r + 1); }}>Try again</button>
+          <button className="btn btn-navy" onClick={() => { setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setRound(r => r + 1); }}>Try again</button>
         </div>
       </div>
     );
   }
   const q = questions[i];
   const pick = (k) => {
+    const ms = Date.now() - shownAt.current;
     setPicked(k);
     const correct = k === q.a;
     if (correct) setScore(s => s + 1);
-    recordAttempt({ question: q.q.slice(0, 64), area: q.area, chosen: k, correct, misconception: correct ? null : (q.opts[k].misc || null) }).catch(() => {});
+    setAnswers(a => [...a, { area: q.area, correct }]);
+    recordAttempt({
+      questionId: q.id || null, chosenOption: k, correct, kind,
+      misconception: correct ? null : (q.opts[k].misc || null),
+      confusesWith: correct ? null : (q.opts[k].conf || null),
+      ms,
+    }).catch(() => {});
+  };
+  const next = () => {
+    shownAt.current = Date.now();
+    if (i === questions.length - 1) setDone(true);
+    else { setI(i + 1); setPicked(null); }
   };
   return (
     <div className="qcard" key={i + '-' + round}>
@@ -55,6 +121,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
             ? <><b>Correct.</b>{q.opts[q.a].exp}</>
             : <>
                 <b>Not quite.</b>{q.opts[picked].why}
+                {q.opts[picked].tempt ? <> <i>Why it tempts:</i> {q.opts[picked].tempt}</> : null}
                 {q.opts[picked].conf ? <> You may be confusing this with <b>{q.opts[picked].conf.replace(/_/g, ' ')}</b>.</> : null}
                 {' '}The right answer is {q.opts[q.a].t}. {q.opts[q.a].exp}
                 {q.opts[picked].rem ? <><br /><span style={{ fontWeight: 700 }}>Review:</span> {q.opts[picked].rem}</> : null}
@@ -63,8 +130,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       )}
       <div className="q-nav">
         <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-2)' }}>Score: {score}/{picked !== null ? i + 1 : i}</span>
-        <button className="btn btn-navy btn-sm" style={{ visibility: picked !== null ? 'visible' : 'hidden' }}
-          onClick={() => { if (i === questions.length - 1) setDone(true); else { setI(i + 1); setPicked(null); } }}>
+        <button className="btn btn-navy btn-sm" style={{ visibility: picked !== null ? 'visible' : 'hidden' }} onClick={next}>
           {i === questions.length - 1 ? 'See results' : 'Next question'} &rarr;
         </button>
       </div>

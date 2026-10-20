@@ -88,5 +88,53 @@
     "title": "Free Sample Quizzes | Navara Pathways",
     "description": "Try ten free practice questions with explanations for the RBT or BCBA exam. No account needed.",
     "noindex": true
+  },
+  {
+    "path": "/pathways/login",
+    "title": "Member Login | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app",
+    "title": "Member Dashboard | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/dashboard",
+    "title": "Member Dashboard | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/practice",
+    "title": "Practice | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/mock",
+    "title": "Mock Exams | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/book",
+    "title": "Book a 1:1 | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/account",
+    "title": "Account | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/specialist",
+    "title": "Specialist View | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
   }
 ]

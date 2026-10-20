@@ -30,7 +30,7 @@ export default function SampleQuiz() {
             <button className={'ttab' + (track === 'bcba' ? ' active' : '')} onClick={() => setTrack('bcba')}>BCBA sample quiz</button>
           </div>
           <Quiz key={track} questions={(track === 'rbt' ? RBT_QUESTIONS : BCBA_QUESTIONS).slice(0, 10)}
-                title={track === 'rbt' ? 'RBT sample' : 'BCBA sample'} />
+                title={track === 'rbt' ? 'RBT sample' : 'BCBA sample'} emailCta kind="sample" />
         </div>
       </section>
     </main>
