@@ -1,13 +1,6 @@
 import React from 'react';
-import { getColors, getTextSizes } from '../utils/colorsAndText';
 
 const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
-  const colors = getColors(isDarkMode);
-  const textSizes = getTextSizes(isDarkMode);
-
-  console.log(colors);
-  console.log(textSizes);
-
   return (
     <div style={{
       position: 'fixed',
@@ -15,13 +8,18 @@ const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
       right: '20px',
       zIndex: 1000,
     }}>
-      <i 
+      <button
+        type="button"
+        aria-label={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         className={isDarkMode ? 'fas fa-sun' : 'fas fa-moon'}
         onClick={toggleDarkMode}
         style={{
           fontSize: '20px',
           color: 'white',
           cursor: 'pointer',
+          background: 'none',
+          border: 'none',
+          padding: '6px',
           transition: 'all 0.3s ease',
           filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08))',
         }}
