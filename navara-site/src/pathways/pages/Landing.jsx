@@ -36,10 +36,10 @@ export default function Landing() {
   </div></div>
   <div className="wrap" style={{paddingTop:'80px'}}>
     <div className="stats">
-      <div className="stat rv"><div className="num" data-count="1000" data-suffix="">0</div><div className="lbl">Original practice questions across both banks</div></div>
-      <div className="stat rv rv-d1"><div className="num" data-count="2">0</div><div className="lbl">Exam tracks, RBT and BCBA</div></div>
-      <div className="stat rv rv-d2"><div className="num" data-count="15">0</div><div className="lbl">Content outline areas covered</div></div>
-      <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">0</div><div className="lbl">Time with a Navara behavior specialist</div></div>
+      <div className="stat rv"><div className="num" data-count="1000" data-suffix="">1,000</div><div className="lbl">Original practice questions across both banks</div></div>
+      <div className="stat rv rv-d1"><div className="num" data-count="2">2</div><div className="lbl">Exam tracks, RBT and BCBA</div></div>
+      <div className="stat rv rv-d2"><div className="num" data-count="15">15</div><div className="lbl">Content outline areas covered</div></div>
+      <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with a Navara behavior specialist</div></div>
     </div>
   </div>
 </div>

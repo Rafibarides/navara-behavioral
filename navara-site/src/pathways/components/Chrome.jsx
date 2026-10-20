@@ -85,7 +85,7 @@ export function usePathwaysEffects(deps = []) {
 }
 
 export function SampleFlag() {
-  return <span className="sample-flag">Sample placeholder questions - not from the live banks</span>;
+  return <span className="sample-flag">Sample questions - the full 1,000-question banks open after clinical review</span>;
 }
 
 export function Modal({ id, open, onClose, title, children }) {

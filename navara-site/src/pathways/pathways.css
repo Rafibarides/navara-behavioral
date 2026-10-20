@@ -174,7 +174,7 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 .q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
 .q-score{text-align:center;padding:20px 0}
 .q-score .big{font-size:64px;font-weight:800;background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sample-flag{display:inline-flex;align-items:center;gap:8px;background:rgba(210,89,95,.1);color:#a33b41;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.sample-flag{display:inline-flex;align-items:center;gap:8px;background:rgba(95,141,156,.12);color:#3d6f74;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 14px;border-radius:999px;margin-bottom:22px}
 
 /* forms */
 .auth-card{max-width:440px;margin:0 auto;background:#fff;border-radius:26px;box-shadow:var(--shadow-lg);padding:48px 42px}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
 import { startCheckout } from '../lib/billing';
 import { joinWaitlist } from '../lib/db';
+import { CHECKOUT_TEST_MODE } from '../config';
 
 const LINKS = (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
@@ -23,14 +24,14 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, join, 
         <h3>Self-Study</h3>
         <div className="p-price">{selfPrice}<span style={priceNote}> /month</span></div>
         <ul><li>{bankLine}</li><li>Timed mock exams</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
-        <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>Join Self-Study</button>
+        <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Self-Study'}</button>
       </div>
       <div className="plan featured rv rv-d2">
         <span className="most">Most complete</span>
         <h3>Guided</h3>
         <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
-        <ul><li>Everything in Self-Study</li><li>One 45-minute 1:1 each month with a Navara behavior specialist</li><li>Add a second monthly session at a discount</li><li>Session booking inside your account</li><li>Priority support</li></ul>
-        <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>Join Guided</button>
+        <ul><li>Everything in Self-Study</li><li>One 45-minute 1:1 each month with a Navara behavior specialist - you set the agenda</li><li>Add a second monthly session at a discount</li><li>Session booking inside your account</li><li>Priority support</li></ul>
+        <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
       </div>
     </div>
     <p style={{ textAlign: 'center', marginTop: 30 }}><a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--teal-3)' }}>&larr; Choose a different exam</a></p>
