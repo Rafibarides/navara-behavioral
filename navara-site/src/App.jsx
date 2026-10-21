@@ -23,6 +23,12 @@ function DarkToggleGate(props) {
   return <DarkModeToggle {...props} />;
 }
 
+function PathwaysGate({ children }) {
+  const loc = useLocation();
+  if (loc.pathname.startsWith('/pathways')) return null;
+  return children;
+}
+
 function App() {
   // Initialize dark mode from localStorage or default to false
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -55,7 +61,7 @@ function App() {
         <DarkToggleGate isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
         
         {/* Global Sticky Consult Button - shown on all pages */}
-        <StickyConsultButton isDarkMode={isDarkMode} />
+        <PathwaysGate><StickyConsultButton isDarkMode={isDarkMode} /></PathwaysGate>
         
         <Routes>
           <Route path="/" element={<MainPage isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
