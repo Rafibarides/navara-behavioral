@@ -65,7 +65,7 @@ export default function Showcase() {
               <h3 style={{ fontSize: 30, marginBottom: 12, color: '#fff' }}>{s.headline}</h3>
               <p style={{ fontSize: 16, lineHeight: 1.6 }}>{s.line}</p>
             </div>
-            <div style={{ flex: '1 1 420px', minWidth: 300 }}>
+            <div className={"showcase-float" + (i % 2 ? " showcase-float-alt" : "")} style={{ flex: '1 1 420px', minWidth: 300 }}>
               <video src={s.clip} poster={s.poster} autoPlay loop muted playsInline preload="metadata"
                 style={{ width: '100%', borderRadius: 16, boxShadow: '0 24px 60px rgba(10,30,50,.35)', display: 'block' }} />
             </div>

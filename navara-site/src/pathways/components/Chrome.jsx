@@ -62,6 +62,7 @@ export function usePathwaysEffects(deps = []) {
     const co = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return; co.unobserve(e.target);
       const el = e.target, end = +el.dataset.count, suf = el.dataset.suffix || '';
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = end.toLocaleString() + suf; return; }
       const t0 = performance.now(), dur = 1600;
       (function tick(t) { const p = Math.min(1, (t - t0) / dur), ease = 1 - Math.pow(1 - p, 3);
         el.textContent = Math.round(end * ease).toLocaleString() + suf;

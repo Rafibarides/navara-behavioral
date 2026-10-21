@@ -21,6 +21,11 @@ export default function RbtTrack() {
     <h1 data-rise>Become the technician <span className="grad">families remember.</span></h1>
     <p className="lead">Preparation for the RBT certification exam, built by clinicians who run sessions every day. Learn the task list the way it is actually used: measured, observed, and reinforced.</p>
     <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free RBT quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
+    <div className="stats" style={{ marginTop: 54, gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
+      <div className="stat rv rv-d1"><div className="num" data-count="6">6</div><div className="lbl">Content areas, full outline</div></div>
+      <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>
+    </div>
   </div>
 </header>
 <Showcase />
