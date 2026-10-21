@@ -46,12 +46,12 @@ const TRACKS = {
   rbt: {
     eyebrow: 'RBT track', heading: 'RBT exam prep.', selfPrice: '$49', guidedPrice: '$249',
     sampleLine: '10-question RBT sample quiz', bankLine: 'Full RBT question bank',
-    guidedLine: 'One 45-minute 1:1 each month with a Navara behavior specialist - you set the agenda',
+    guidedLine: 'One 45-minute 1:1 each month with a Navara Certified Behavior Specialist (NCBS) - you set the agenda',
   },
   bcba: {
     eyebrow: 'BCBA track', heading: 'BCBA exam prep.', selfPrice: '$129', guidedPrice: '$450',
     sampleLine: '10-question BCBA sample quiz', bankLine: 'Full BCBA question bank',
-    guidedLine: 'Two 45-minute 1:1s each month with a Navara behavior specialist - you set the agenda',
+    guidedLine: 'Two 45-minute 1:1s each month with an NCBS - you set the agenda',
   },
 };
 
@@ -103,14 +103,14 @@ export default function Plans() {
                 <div className="glow" style={{ background: '#5F8D9C' }}></div>
                 <span className="track-tag tag-teal">RBT track</span>
                 <h3>RBT exam prep</h3>
-                <p>For behavior technicians getting certified. Full question bank, timed mocks, and optional 1:1 specialist time.</p>
+                <p>For behavior technicians getting certified. Full question bank, timed mocks, and optional 1:1 time with an NCBS.</p>
                 <span className="card-link">See RBT plans <span className="arr">&rarr;</span></span>
               </a>
               <a className="track-card rv rv-d1" href="#bcba" onClick={(e) => { e.preventDefault(); setTrack('bcba'); }}>
                 <div className="glow" style={{ background: '#87aa99' }}></div>
                 <span className="track-tag tag-navy">BCBA track</span>
                 <h3>BCBA exam prep</h3>
-                <p>For analysts sitting for the board exam. Scenario practice, full-length mocks, and optional 1:1 specialist time.</p>
+                <p>For analysts sitting for the board exam. Scenario practice, full-length mocks, and optional 1:1 time with an NCBS.</p>
                 <span className="card-link">See BCBA plans <span className="arr">&rarr;</span></span>
               </a>
             </div>

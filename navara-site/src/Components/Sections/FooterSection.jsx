@@ -33,6 +33,8 @@ const FooterSection = ({ isDarkMode = false }) => {
       { name: 'Behavioral Consulting', href: '/services/consulting', type: 'route' }
     ],
     resources: [
+      ...(typeof window !== 'undefined' && /[?&]preview=1\b/.test(window.location.search)
+        ? [{ name: 'Exam Prep (RBT & BCBA)', href: '/pathways', type: 'route' }] : []),
       { name: 'Client Portal', href: '/client-portal', type: 'route' },
       { name: 'Privacy Policy', href: '/privacy', type: 'route' },
       { name: 'Terms of Service', href: '/terms', type: 'route' },

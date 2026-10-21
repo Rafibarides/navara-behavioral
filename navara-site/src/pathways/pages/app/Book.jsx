@@ -30,7 +30,7 @@ export default function Book() {
         <div className="panel" style={{ textAlign: 'center', marginTop: 26 }}>
           <div className="credit-bubble"><div><div className="n">{credits === null ? '-' : credits}</div><div className="t">left</div></div></div>
           <h3 style={{ marginBottom: 8 }}>Sessions remaining this month</h3>
-          <p style={{ fontSize: 14, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>Sessions are 45 minutes with a Navara behavior specialist. Bring a topic, a mock result, or just your stuck points.</p>
+          <p style={{ fontSize: 14, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>Sessions are 45 minutes with a Navara Certified Behavior Specialist (NCBS). Bring a topic, a mock result, or just your stuck points.</p>
           <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={pickTime} disabled={busy}>{busy ? 'Checking...' : 'Pick a time'}</button>
           {(DEMO || (user && user.demo)) && <p style={{ fontSize: 12, color: 'var(--ink-2)', fontWeight: 600, marginTop: 18 }}>Demo: booking connects to a private Calendly event type after the live credit check.</p>}
         </div>

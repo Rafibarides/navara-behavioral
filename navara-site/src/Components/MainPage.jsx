@@ -7,6 +7,7 @@ import ServiceCardSection from './Sections/ServiceCardSection';
 import BehavioralSection from './Sections/BehavioralSection';
 import FamilyQuizSection from './Sections/FamilyQuizSection';
 import FreeGuideSection from './Sections/FreeGuideSection';
+import PathwaysPreviewBand from './Sections/PathwaysPreviewBand';
 import OurTeamSection from './Sections/OurTeamSection';
 import ContactSection from './Sections/ContactSection';
 import FooterSection from './Sections/FooterSection';
@@ -34,6 +35,7 @@ const MainPage = ({ isDarkMode, toggleDarkMode }) => {
       <BehavioralSection isDarkMode={isDarkMode} />
       <FamilyQuizSection isDarkMode={isDarkMode} />
       <FreeGuideSection isDarkMode={isDarkMode} />
+      <PathwaysPreviewBand isDarkMode={isDarkMode} />
       <AboutSection isDarkMode={isDarkMode} />
       <OurTeamSection isDarkMode={isDarkMode} />
       <ContactSection isDarkMode={isDarkMode} />

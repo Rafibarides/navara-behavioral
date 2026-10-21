@@ -44,7 +44,7 @@ const SECTIONS = [
     clip: '/inside/clip3.mp4',
     poster: '/inside/poster3.jpg',
     headline: 'Walk in ready.',
-    line: 'Timed mocks under exam conditions. Guided plans add 1:1 time with a Navara behavior specialist.',
+    line: 'Timed mocks under exam conditions. Guided plans add 1:1 time with an NCBS.',
   },
 ];
 

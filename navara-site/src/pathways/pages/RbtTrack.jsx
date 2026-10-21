@@ -45,7 +45,7 @@ export default function RbtTrack() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Practice by topic</h4><p>Untimed sets with instant explanations. Learn why the right answer is right and why the rest are wrong.</p></div>
       <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed mock exams</h4><p>Full-length simulations under exam timing, so the real day feels like a rerun.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 specialist time</h4><p>On the Guided plan, bring your hardest topics to a Navara behavior specialist.</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 NCBS time</h4><p>On the Guided plan, bring your hardest topics to a Navara Certified Behavior Specialist (NCBS).</p></div>
     </div>
   </div>
 </section>
