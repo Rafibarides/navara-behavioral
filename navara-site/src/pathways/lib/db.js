@@ -26,7 +26,7 @@ export function toQuiz(q) {
       why: o.explanation,
       tempt: o.why_tempting,
       conf: o.confuses_with,
-      rem: o.remediation_pointer,
+      rem: (o.remediation_pointer || '').replace(/^review\s+/i, '') || null,
       misc: o.misconception_tag,
     })),
   };

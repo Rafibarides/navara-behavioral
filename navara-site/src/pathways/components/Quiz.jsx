@@ -151,7 +151,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
                 <b className="verdict">Not quite.</b>{q.opts[picked].why}
                 {q.opts[picked].tempt ? <> <i>Why it tempts:</i> {q.opts[picked].tempt}</> : null}
                 {q.opts[picked].conf ? <> You may be confusing this with <span className="term">{q.opts[picked].conf.replace(/_/g, ' ')}</span>.</> : null}
-                {' '}The right answer is {q.opts[q.a].t}. {q.opts[q.a].exp}
+                {' '}The right answer is {String.fromCharCode(65 + q.a)}. {q.opts[q.a].exp}
                 {q.opts[picked].rem ? <><br /><span style={{ fontWeight: 700 }}>Review:</span> {q.opts[picked].rem}</> : null}
               </>}
         </div>
