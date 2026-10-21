@@ -6,6 +6,12 @@
 // STRIPE_PRICE_RBT_GUIDED, STRIPE_PRICE_BCBA_SELF, STRIPE_PRICE_BCBA_GUIDED.
 import Stripe from 'npm:stripe@^16';
 
+const CORS = {
+  'Access-Control-Allow-Origin': 'https://navarabehavioralgroup.com',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
 const PRICES: Record<string, string | undefined> = {
   'rbt:self-study': Deno.env.get('STRIPE_PRICE_RBT_SELF'),
   'rbt:guided': Deno.env.get('STRIPE_PRICE_RBT_GUIDED'),
@@ -22,15 +28,16 @@ async function userFromToken(token: string) {
 }
 
 Deno.serve(async (req) => {
-  if (req.method !== 'POST') return new Response('{}', { status: 405 });
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  if (req.method !== 'POST') return new Response('{}', { status: 405, headers: CORS });
   const token = (req.headers.get('authorization') || '').replace(/^Bearer\s+/i, '');
-  if (!token) return new Response(JSON.stringify({ error: 'sign-in required' }), { status: 401 });
+  if (!token) return new Response(JSON.stringify({ error: 'sign-in required' }), { status: 401, headers: { ...CORS, 'content-type': 'application/json' } });
   const user = await userFromToken(token);
-  if (!user || !user.id) return new Response(JSON.stringify({ error: 'sign-in required' }), { status: 401 });
+  if (!user || !user.id) return new Response(JSON.stringify({ error: 'sign-in required' }), { status: 401, headers: { ...CORS, 'content-type': 'application/json' } });
 
   const { track, plan } = await req.json().catch(() => ({}));
   const price = PRICES[`${track}:${plan}`];
-  if (!price) return new Response('{}', { status: 400 });
+  if (!price) return new Response('{}', { status: 400, headers: { ...CORS, 'content-type': 'application/json' } });
 
   const stripe = new Stripe(Deno.env.get('STRIPE_SK')!, { apiVersion: '2024-06-20' });
   const origin = req.headers.get('origin') || 'https://navarabehavioralgroup.com';
@@ -48,6 +55,6 @@ Deno.serve(async (req) => {
     },
   });
   return new Response(JSON.stringify({ url: session.url }), {
-    status: 200, headers: { 'content-type': 'application/json' },
+    status: 200, headers: { ...CORS, 'content-type': 'application/json' },
   });
 });

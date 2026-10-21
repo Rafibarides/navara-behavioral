@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Nav, Footer } from '../components/Chrome';
-import { signIn, signInDemo } from '../lib/auth';
+import { signIn } from '../lib/auth';
 import { DEMO } from '../config';
 
 const LINKS = (<>
@@ -26,11 +26,6 @@ export default function Login() {
     } catch (ex) {
       setErr('Something went wrong sending your sign-in link. Try again in a moment.');
     } finally { setBusy(false); }
-  };
-  const demo = (e) => {
-    e && e.preventDefault();
-    signInDemo();
-    window.location.href = '/pathways/app/dashboard';
   };
   const creating = mode === 'create';
   const tabBtn = (m, label) => (
@@ -68,9 +63,6 @@ export default function Login() {
               <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} disabled={busy || !email} type="submit">
                 {busy ? 'Sending...' : creating ? 'Create my account' : 'Email me a sign-in link'}
               </button>
-              <div style={{ textAlign: 'center', marginTop: 18 }}>
-                <a href="#" onClick={demo} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Preview the demo account instead</a>
-              </div>
             </form>)}
           </div>
         </div>
