@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import MainSiteFooter from '../../Components/Sections/FooterSection';
 
 export function Arcs({ className }) {
   return (
@@ -21,7 +22,7 @@ export function Nav({ links, app }) {
   return (
     <nav className={'nav' + (app ? ' app-nav' : '')} ref={ref} style={app ? { position: 'sticky' } : undefined}>
       <div className="wrap nav-inner">
-        <a className="brand" href={app ? '/pathways' : '/pathways'}>
+        <a className="brand" href={app ? '/pathways' : '/'}>
           <Arcs className="" />
           <span className="brand-name">Navara<small>Pathways</small></span>
         </a>
@@ -32,24 +33,14 @@ export function Nav({ links, app }) {
 }
 
 export function Footer() {
-  return (
-    <footer><div className="wrap">
-      <div className="foot-grid">
-        <div>
-          <h5>Navara Pathways</h5>
-          <p style={{ maxWidth: '44ch' }}>Exam preparation, training, and professional development for the behavior analysis community - from Navara Behavioral Group.</p>
-        </div>
-        <div><h5>Company</h5><a href="https://navarabehavioralgroup.com/#about">About Us</a><a href="https://navarabehavioralgroup.com/#team">Our Team</a><a href="/careers">Careers</a><a href="https://navarabehavioralgroup.com/#contact">Contact</a></div>
-        <div><h5>Services</h5><a href="/services/behavior-method">Behavior Method</a><a href="/services/direct-aba">Direct ABA</a><a href="/services/consulting">Behavioral Consulting</a></div>
-        <div><h5>Pathways</h5><a href="/pathways/rbt">RBT exam prep</a><a href="/pathways/bcba">BCBA exam prep</a><a href="/pathways/sample-quiz">Sample quizzes</a><a href="/pathways/plans">Plans</a><a href="/pathways/login">Member login</a><a href="https://navarabehavioralgroup.com/#about">Learn about Nisan</a></div>
-        <div><h5>Resources</h5><a href="/pathways/privacy">Privacy Policy</a><a href="/pathways/terms">Terms of Service</a><a href="/sitemap">Sitemap</a></div>
-        <div><h5>Contact</h5><a href="tel:+18777628272">(1) 877-7NAVARA (877-762-8272)</a><a href="mailto:info@navarabehavioralgroup.com">info@navarabehavioralgroup.com</a><a href="https://navarabehavioralgroup.com/#contact">Contact Navara</a></div>
+  return (<>
+    <MainSiteFooter isDarkMode={false} />
+    <div style={{ background: '#1A2A40', color: 'rgba(255,255,255,.55)', fontSize: 12.5, lineHeight: 1.6, padding: '0 40px 34px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', borderTop: '1px solid rgba(255,255,255,.12)', paddingTop: 22 }}>
+        Navara Pathways is not affiliated with, endorsed by, or sponsored by the Behavior Analyst Certification Board (BACB). RBT&reg;, BCBA&reg;, and BACB&reg; are registered certification marks of the BACB. This program offers preparation for the RBT and BCBA certification exams; it does not provide BACB supervision or fieldwork hours. All practice questions are original works of Navara Behavioral Group.
       </div>
-      <div className="disclaimer">
-        Navara Pathways is not affiliated with, endorsed by, or sponsored by the Behavior Analyst Certification Board (BACB). RBT&reg;, BCBA&reg;, and BACB&reg; are registered certification marks of the BACB. This program offers preparation for the RBT and BCBA certification exams; it does not provide BACB supervision or fieldwork hours. All practice questions are original works of Navara Behavioral Group. &copy; 2026 Navara Behavioral Group &bull; Developed by RBM
-      </div>
-    </div></footer>
-  );
+    </div>
+  </>);
 }
 
 // Wires scroll reveals, counters, progress bars, and rising headlines for any page.

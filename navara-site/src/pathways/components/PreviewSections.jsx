@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Preview-only marketing sections for the track pages (Nisan-approved ChatGPT/Tab picks).
+// Preview-only marketing sections for the track pages, from the ChatGPT/Tab copy option sets.
 // Rendered only under ?preview=1; public pages are unchanged.
 
 export function Explainer({ title, lines, closing }) {

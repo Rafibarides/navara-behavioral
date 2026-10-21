@@ -52,19 +52,19 @@ export default function BcbaTrack() {
   { text: "Progress by topic, so your next study hour has a target" },
   { text: "Guided: two 45-minute 1:1 sessions each month with a Navara Certified Behavior Specialist (NCBS)", glow: true },
 ]} />}
-<section className={"section" + (preview ? "" : " dark")}>
+<section className="section dark">
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>From philosophy to supervision.</h2>
       <p>Practice sets follow the current BACB BCBA test content outline, weighted the way the exam weights them.</p>
     </div>
     <div className="areas">
-      <div className="area rv"><b>Foundations &amp; Principles</b><span>Behaviorism, reinforcement, punishment, stimulus control</span></div>
-      <div className="area rv rv-d1"><b>Measurement &amp; Design</b><span>IOA, single-subject designs, experimental control</span></div>
-      <div className="area rv rv-d2"><b>Behavior Assessment</b><span>FBA, functional analysis, preference and skill assessments</span></div>
-      <div className="area rv rv-d3"><b>Intervention</b><span>Selecting, implementing, and evaluating behavior change</span></div>
-      <div className="area rv"><b>Ethics</b><span>The Ethics Code applied to scenarios</span></div>
-      <div className="area rv rv-d1"><b>Supervision</b><span>BST, performance management, supervision practices</span></div>
+      <div className="area rv"><span className="area-ic">&#9670;</span><div><b>Foundations &amp; Principles</b><span>Behaviorism, reinforcement, punishment, stimulus control</span></div></div>
+      <div className="area rv rv-d1"><span className="area-ic">&#9719;</span><div><b>Measurement &amp; Design</b><span>IOA, single-subject designs, experimental control</span></div></div>
+      <div className="area rv rv-d2"><span className="area-ic">&#9673;</span><div><b>Behavior Assessment</b><span>FBA, functional analysis, preference and skill assessments</span></div></div>
+      <div className="area rv rv-d3"><span className="area-ic">&#9650;</span><div><b>Intervention</b><span>Selecting, implementing, and evaluating behavior change</span></div></div>
+      <div className="area rv"><span className="area-ic">&#167;</span><div><b>Ethics</b><span>The Ethics Code applied to scenarios</span></div></div>
+      <div className="area rv rv-d1"><span className="area-ic">&#9998;</span><div><b>Supervision</b><span>BST, performance management, supervision practices</span></div></div>
     </div>
   </div>
 </section>

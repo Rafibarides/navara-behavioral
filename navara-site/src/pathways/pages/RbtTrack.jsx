@@ -51,19 +51,19 @@ export default function RbtTrack() {
   { text: "Progress by topic, so weak spots have nowhere to hide" },
   { text: "Guided: one 45-minute 1:1 session each month with a Navara Certified Behavior Specialist (NCBS)", glow: true },
 ]} />}
-<section className={"section" + (preview ? "" : " dark")}>
+<section className="section dark">
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the task list</span>
       <h2>The whole exam, mapped.</h2>
       <p>Practice sets are organized by the current BACB RBT content outline, so weak spots have nowhere to hide.</p>
     </div>
     <div className="areas">
-      <div className="area rv"><b>Measurement</b><span>Frequency, duration, latency, IRT, discontinuous methods</span></div>
-      <div className="area rv rv-d1"><b>Assessment</b><span>Preference assessments, assisting with functional assessment</span></div>
-      <div className="area rv rv-d2"><b>Skill Acquisition</b><span>DTT, NET, chaining, shaping, prompt fading</span></div>
-      <div className="area rv rv-d3"><b>Behavior Reduction</b><span>Functions, antecedent and consequence strategies</span></div>
-      <div className="area rv"><b>Documentation &amp; Reporting</b><span>Objective session notes, reporting variables</span></div>
-      <div className="area rv rv-d1"><b>Professional Conduct</b><span>Scope of practice, boundaries, confidentiality</span></div>
+      <div className="area rv"><span className="area-ic">&#9719;</span><div><b>Measurement</b><span>Frequency, duration, latency, IRT, discontinuous methods</span></div></div>
+      <div className="area rv rv-d1"><span className="area-ic">&#9673;</span><div><b>Assessment</b><span>Preference assessments, assisting with functional assessment</span></div></div>
+      <div className="area rv rv-d2"><span className="area-ic">&#9650;</span><div><b>Skill Acquisition</b><span>DTT, NET, chaining, shaping, prompt fading</span></div></div>
+      <div className="area rv rv-d3"><span className="area-ic">&#9660;</span><div><b>Behavior Reduction</b><span>Functions, antecedent and consequence strategies</span></div></div>
+      <div className="area rv"><span className="area-ic">&#9998;</span><div><b>Documentation &amp; Reporting</b><span>Objective session notes, reporting variables</span></div></div>
+      <div className="area rv rv-d1"><span className="area-ic">&#167;</span><div><b>Professional Conduct</b><span>Scope of practice, boundaries, confidentiality</span></div></div>
     </div>
   </div>
 </section>

@@ -44,7 +44,7 @@ export default function Mock() {
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
       <div className="wrap quiz-shell">
         <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Mock exams</span>
-        <h2>Exam conditions, on demand.</h2>
+        <h2>Timed sets, on demand.</h2>
         <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
           {live
             ? 'Timed set from the live bank with pacing feedback against real exam timing.'

@@ -146,11 +146,11 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       {picked !== null && (
         <div className="explain">
           {picked === q.a
-            ? <><b>Correct.</b>{q.opts[q.a].exp}</>
+            ? <><b className="verdict">Correct.</b>{q.opts[q.a].exp}</>
             : <>
-                <b>Not quite.</b>{q.opts[picked].why}
+                <b className="verdict">Not quite.</b>{q.opts[picked].why}
                 {q.opts[picked].tempt ? <> <i>Why it tempts:</i> {q.opts[picked].tempt}</> : null}
-                {q.opts[picked].conf ? <> You may be confusing this with <b>{q.opts[picked].conf.replace(/_/g, ' ')}</b>.</> : null}
+                {q.opts[picked].conf ? <> You may be confusing this with <span className="term">{q.opts[picked].conf.replace(/_/g, ' ')}</span>.</> : null}
                 {' '}The right answer is {q.opts[q.a].t}. {q.opts[q.a].exp}
                 {q.opts[picked].rem ? <><br /><span style={{ fontWeight: 700 }}>Review:</span> {q.opts[picked].rem}</> : null}
               </>}

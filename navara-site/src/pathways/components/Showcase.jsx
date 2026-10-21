@@ -90,9 +90,11 @@ export default function Showcase() {
               <p style={{ fontSize: 16, lineHeight: 1.6 }}>{s.line}</p>
             </div>
             <div className={"showcase-float" + (i % 2 ? " showcase-float-alt" : "")} style={{ flex: '1 1 420px', minWidth: 300 }}>
-              <video src={s.clip} poster={s.poster} autoPlay loop muted playsInline preload="metadata"
-                width="1280" height="720"
-                style={{ width: '100%', height: 'auto', aspectRatio: '16 / 9', objectFit: 'cover', background: '#0d2233', borderRadius: 16, boxShadow: '0 24px 60px rgba(10,30,50,.35)', display: 'block' }} />
+              <div style={{ position: 'relative', aspectRatio: '16 / 9', borderRadius: 16, overflow: 'hidden', background: '#0d2233', boxShadow: '0 24px 60px rgba(10,30,50,.35)' }}>
+                <img src={s.poster} alt="" loading="lazy" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <video src={s.clip} autoPlay loop muted playsInline preload="metadata"
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
             </div>
           </Reveal>
         ))}
