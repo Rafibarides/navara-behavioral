@@ -31,15 +31,15 @@ export default function Landing() {
 
 <div className="section dark" style={{paddingTop:0}}>
   <div className="marquee"><div className="marquee-track">
-    <span>Practice that teaches</span><span>Real explanations</span><span>Timed mock exams</span><span>One-on-one NCBS time</span><span>Progress by topic</span>
-    <span>Practice that teaches</span><span>Real explanations</span><span>Timed mock exams</span><span>One-on-one NCBS time</span><span>Progress by topic</span>
+    <span>Practice that teaches</span><span>Real explanations</span><span>Timed mock exams</span><span>One-on-one NCBS™ time</span><span>Progress by topic</span>
+    <span>Practice that teaches</span><span>Real explanations</span><span>Timed mock exams</span><span>One-on-one NCBS™ time</span><span>Progress by topic</span>
   </div></div>
   <div className="wrap" style={{paddingTop:'80px'}}>
     <div className="stats">
       <div className="stat rv"><div className="num" data-count="1000" data-suffix="">1,000</div><div className="lbl">Original practice questions across both banks</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="2">2</div><div className="lbl">Exam tracks, RBT and BCBA</div></div>
       <div className="stat rv rv-d2"><div className="num" data-count="15">15</div><div className="lbl">Content outline areas covered</div></div>
-      <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with a Navara Certified Behavior Specialist</div></div>
+      <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>
     </div>
   </div>
 </div>
@@ -71,7 +71,7 @@ export default function Landing() {
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Scenario-based practice by content area</li>
           <li><span className="ck">&#10003;</span>Full-length timed mock exams</li>
-          <li><span className="ck">&#10003;</span>1:1 sessions with an NCBS</li>
+          <li><span className="ck">&#10003;</span>1:1 sessions with an NCBS™</li>
         </ul>
         <span className="card-link">See the BCBA track <span className="arr">&rarr;</span></span>
       </a>
@@ -87,7 +87,7 @@ export default function Landing() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Try a free sample quiz</h4><p>Ten questions, no account. Feel how the explanations teach, not just grade.</p></div>
       <div className="step rv"><div className="ic">&#9673;</div><h4>Build your study plan</h4><p>Tell us your track and exam date - get a week-by-week checklist, free. <a href="/pathways/study-plan" style={{ color: 'var(--teal-3)', fontWeight: 700 }}>Build my plan</a></p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>Self-Study unlocks the full bank and mock exams. Guided adds one-on-one sessions with an NCBS.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>Self-Study unlocks the full bank and mock exams. Guided adds one-on-one sessions with an NCBS™.</p></div>
       <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Watch yourself improve</h4><p>Progress tracking by topic shows exactly where to spend your next hour.</p></div>
     </div>
   </div>

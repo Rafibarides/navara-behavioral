@@ -45,7 +45,7 @@ export default function BcbaTrack() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Scenario practice</h4><p>Questions written as clinical vignettes, with explanations that unpack the reasoning.</p></div>
       <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Full-length mocks</h4><p>Timed simulations that mirror the pace and pressure of the real exam.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 NCBS time</h4><p>Guided-plan sessions for test strategy, weak areas, and the judgment calls between two right-sounding answers.</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 NCBS™ time</h4><p>Guided-plan sessions for test strategy, weak areas, and the judgment calls between two right-sounding answers.</p></div>
     </div>
   </div>
 </section>
