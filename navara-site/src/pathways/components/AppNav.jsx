@@ -6,7 +6,8 @@ const ITEMS = [
   ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['mock', 'Mock exams'],
   ['book', 'Book a 1:1'], ['account', 'Account'],
 ];
-export default function AppNav({ active }) {
+export default function AppNav({ active, role }) {
+  const items = role === 'admin' ? [...ITEMS, ['admin', 'Admin']] : ITEMS;
   return (
     <nav className="nav app-nav" style={{ position: 'sticky' }}>
       <div className="wrap nav-inner">
@@ -15,7 +16,7 @@ export default function AppNav({ active }) {
           <span className="brand-name">Navara<small>Pathways</small></span>
         </a>
         <div className="nav-links">
-          {ITEMS.map(([id, label]) => (
+          {items.map(([id, label]) => (
             <a key={id} href={'/pathways/app/' + id}
                style={id === active ? { color: '#fff', borderBottom: '2px solid var(--sage)' } : undefined}>{label}</a>
           ))}

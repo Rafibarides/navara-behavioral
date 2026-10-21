@@ -22,6 +22,7 @@ import Mock from './pages/app/Mock';
 import Book from './pages/app/Book';
 import Account from './pages/app/Account';
 import Specialist from './pages/app/Specialist';
+import Admin from './pages/app/Admin';
 
 export default function PathwaysApp() {
   return (
@@ -42,6 +43,7 @@ export default function PathwaysApp() {
       <Route path="app/book" element={<Book />} />
       <Route path="app/account" element={<Account />} />
       <Route path="app/specialist" element={<Specialist />} />
+      <Route path="app/admin" element={<Admin />} />
       <Route path="*" element={<Navigate to="/pathways" replace />} />
     </Routes>
   );
