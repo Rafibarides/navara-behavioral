@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { recordAttempt } from '../lib/db';
 import { signIn } from '../lib/auth';
 import { DEMO } from '../config';
+import { usePreview } from './Showcase';
 
 // Interactive quiz engine with real-time, choice-specific feedback:
 // wrong picks show why that option was tempting + what rules it out;
@@ -35,7 +36,8 @@ function downloadScoreCard({ title, score, total }) {
   a.click();
 }
 
-export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample' }) {
+export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample', onAnswer = null }) {
+  const v2 = usePreview();
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState(null);
@@ -116,6 +118,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
     const correct = k === q.a;
     if (correct) setScore(s => s + 1);
     setAnswers(a => [...a, { area: q.area, correct }]);
+    if (onAnswer) onAnswer();
     recordAttempt({
       questionId: q.id || null, chosenOption: k, correct, kind,
       misconception: correct ? null : (q.opts[k].misc || null),
@@ -129,7 +132,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
     else { setI(i + 1); setPicked(null); }
   };
   return (
-    <div className="qcard" key={i + '-' + round}>
+    <div className={'qcard' + (v2 ? ' qv2' : '')} key={i + '-' + round}>
       <div className="q-meta"><span>Question {i + 1} of {questions.length}</span><span>{q.area}</span></div>
       <div className="q-bar"><i style={{ width: (i / questions.length) * 100 + '%' }}></i></div>
       <div className="q-text">{q.q}</div>
@@ -140,10 +143,28 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
             if (k === q.a) cls += ' correct';
             else if (k === picked) cls += ' wrong';
           }
-          return <button key={k} className={cls} disabled={picked !== null} onClick={() => pick(k)}>{String.fromCharCode(65 + k)}. {o.t}</button>;
+          return (
+            <button key={k} className={cls} disabled={picked !== null} onClick={() => pick(k)}>
+              <span>{String.fromCharCode(65 + k)}. {o.t}</span>
+              {v2 && picked !== null && k === q.a ? <span className="chip chip-ok">Correct</span> : null}
+              {v2 && picked !== null && k === picked && picked !== q.a ? <span className="chip chip-tempt">Tempting</span> : null}
+            </button>
+          );
         })}
       </div>
-      {picked !== null && (
+      {picked !== null && v2 && (
+        <div className="explain explain-v2">
+          <div className="why-h why-ok">Why {String.fromCharCode(65 + q.a)} is right</div>
+          <p>{q.opts[q.a].exp}</p>
+          {picked !== q.a && (<>
+            <div className="why-h why-tempt">Why {String.fromCharCode(65 + picked)} tempted you</div>
+            <p>{q.opts[picked].why}{q.opts[picked].tempt ? ' ' + q.opts[picked].tempt : ''}</p>
+            {q.opts[picked].conf ? <p className="why-conf">You may be confusing this with <span className="term">{q.opts[picked].conf.replace(/_/g, ' ')}</span>.</p> : null}
+            {q.opts[picked].rem ? <p className="why-rem"><b>Review:</b> {q.opts[picked].rem}</p> : null}
+          </>)}
+        </div>
+      )}
+      {picked !== null && !v2 && (
         <div className="explain">
           {picked === q.a
             ? <><b className="verdict">Correct.</b>{q.opts[q.a].exp}</>
