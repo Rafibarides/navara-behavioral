@@ -252,7 +252,9 @@ footer a:hover{color:var(--sage)}
 @keyframes floaty{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-12px) rotate(.5deg)}}
 .showcase-float{animation:floaty 8s ease-in-out infinite;will-change:transform}
 .showcase-float-alt{animation-delay:-4s}
-h1 .grad{background-size:220% 100%;animation:gradShift 7s ease-in-out infinite alternate}
+h1 .grad{background-size:220% 100%}
+h1 .grad:not(.rise){animation:gradShift 7s ease-in-out infinite alternate}
+h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s ease-in-out infinite alternate}
 @keyframes gradShift{from{background-position:0% 50%}to{background-position:100% 50%}}
 .step{transition:transform .45s cubic-bezier(.2,.9,.3,1.2),box-shadow .45s}
 .step:hover{transform:translateY(-8px)}
