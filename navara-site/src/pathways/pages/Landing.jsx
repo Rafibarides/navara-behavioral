@@ -19,7 +19,7 @@ export default function Landing() {
     <div>
       <span className="eyebrow rv in">Navara Pathways</span>
       <h1 data-rise>Pass the exam. <span className="grad">Own the science.</span></h1>
-      <p className="lead">Exam preparation for future Registered Behavior Technicians and Board Certified Behavior Analysts. Practice questions that teach, mock exams that feel like the real thing, and one-on-one time with a Navara Certified Behavior Specialist (NCBS).</p>
+      <p className="lead">Exam preparation for future Registered Behavior Technicians and Board Certified Behavior Analysts. Practice questions that teach, timed mock exams with pace feedback, and one-on-one time with a Navara Certified Behavior Specialist (NCBS).</p>
       <div className="hero-ctas">
         <a className="btn btn-primary" href="/pathways/rbt">Explore RBT prep</a>
         <a className="btn btn-ghost" href="/pathways/bcba">Explore BCBA prep</a>
@@ -58,7 +58,7 @@ export default function Landing() {
         <p>For behavior technicians getting certified. Foundations, measurement, skill acquisition, behavior reduction, documentation, and professional conduct.</p>
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Practice sets by task-list area</li>
-          <li><span className="ck">&#10003;</span>Timed mock exams under real conditions</li>
+          <li><span className="ck">&#10003;</span>Timed mock exams with pace feedback</li>
           <li><span className="ck">&#10003;</span>An explanation for every answer</li>
         </ul>
         <span className="card-link">See the RBT track <span className="arr">&rarr;</span></span>

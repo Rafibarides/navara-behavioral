@@ -92,7 +92,7 @@ export default function RbtTrack() {
 </>) : (<>
 <section className="section">
   <div className="wrap">
-    <div className="section-head center rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>What is inside</span><h2>Built like the real exam.</h2></div>
+    <div className="section-head center rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>What is inside</span><h2>Written the way the exam asks.</h2></div>
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Practice by topic</h4><p>Untimed sets with instant explanations. Learn why the right answer is right and why the rest are wrong.</p></div>
       <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed mock exams</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
