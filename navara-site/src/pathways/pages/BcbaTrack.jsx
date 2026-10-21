@@ -5,7 +5,7 @@ import Showcase, { usePreview, StickySampleCTA } from '../components/Showcase';
 const LINKS = (preview) => (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
   <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
-  {preview && <a className="btn btn-primary btn-sm" href="/pathways/login">Create account</a>}
+  <a className="btn btn-primary btn-sm" href="/pathways/login">Create account</a>
 </>);
 
 export default function BcbaTrack() {
@@ -23,6 +23,7 @@ export default function BcbaTrack() {
     <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free BCBA quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
   </div>
 </header>
+<Showcase />
 <section className="section dark">
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
@@ -49,7 +50,6 @@ export default function BcbaTrack() {
     </div>
   </div>
 </section>
-{preview && <Showcase track="bcba" />}
 </main>
     {preview && <StickySampleCTA label="Try the free BCBA quiz" href="/pathways/sample-quiz" />}
     <Footer />
