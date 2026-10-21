@@ -47,6 +47,7 @@ export async function getSessionUser() {
     plan: (prof && prof.plan) || 'sample',
     track: (prof && prof.track) || 'rbt',
     role: (prof && prof.role) || 'member',
+    createdAt: (prof && prof.created_at) || null,
   };
 }
 

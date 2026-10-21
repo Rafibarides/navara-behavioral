@@ -1,15 +1,18 @@
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
+import Showcase, { usePreview, StickySampleCTA } from '../components/Showcase';
 
-const LINKS = (<>
+const LINKS = (preview) => (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
   <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
+  {preview && <a className="btn btn-primary btn-sm" href="/pathways/login">Create account</a>}
 </>);
 
 export default function RbtTrack() {
   usePathwaysEffects();
+  const preview = usePreview();
   return (<>
-    <Nav links={LINKS} />
+    <Nav links={LINKS(preview)} />
     <main>
 <header className="track-hero">
   <div className="orb orb-2"></div><div className="orb orb-3"></div>
@@ -46,7 +49,9 @@ export default function RbtTrack() {
     </div>
   </div>
 </section>
+{preview && <Showcase track="rbt" />}
 </main>
+    {preview && <StickySampleCTA label="Try the free RBT quiz" href="/pathways/sample-quiz" />}
     <Footer />
   </>);
 }

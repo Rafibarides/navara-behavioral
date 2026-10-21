@@ -3,6 +3,7 @@ import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
 import { startCheckout } from '../lib/billing';
 import { joinWaitlist } from '../lib/db';
 import { CHECKOUT_TEST_MODE } from '../config';
+import { usePreview } from '../components/Showcase';
 
 const LINKS = (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
@@ -12,7 +13,7 @@ const LINKS = (<>
 const priceNote = { fontSize: 14, fontWeight: 600, color: 'var(--ink-2)' };
 const priceNoteFeatured = { fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.7)' };
 
-function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guidedLine, join, onBack }) {
+function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guidedLine, join, onBack, joinErr, preview }) {
   return (<>
     <div className="plans">
       <div className="plan rv">
@@ -35,7 +36,9 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guided
       </div>
     </div>
     <p style={{ textAlign: 'center', marginTop: 30 }}><a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--teal-3)' }}>&larr; Choose a different exam</a></p>
+    {joinErr && <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#b3452e', fontWeight: 700 }}>{joinErr}</p>}
     <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Cancel anytime from your account - no refund for the current month.</p>
+    {preview && <p style={{ textAlign: 'center', marginTop: 10, fontSize: 13, color: 'var(--ink-2)', fontWeight: 600 }}>Free sample questions on every track &middot; Secure checkout by Stripe &middot; Nothing charged until you subscribe</p>}
   </>);
 }
 
@@ -59,9 +62,16 @@ export default function Plans() {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState('');
+  const [joinErr, setJoinErr] = useState('');
+  const preview = usePreview();
   const join = async (t, plan) => {
-    const res = await startCheckout(t, plan);
-    if (res && res.testMode) { setModal({ track: t, plan }); setSent(false); setEmail(''); setErr(''); }
+    setJoinErr('');
+    try {
+      const res = await startCheckout(t, plan);
+      if (res && res.testMode) { setModal({ track: t, plan }); setSent(false); setEmail(''); setErr(''); }
+    } catch {
+      setJoinErr('Checkout did not start. Check your connection and try again - if it keeps failing, email info@navarabehavioralgroup.com and we will get you enrolled.');
+    }
   };
   const notify = async () => {
     if (!/^\S+@\S+\.\S+$/.test(email)) { setErr('Enter a valid email address.'); return; }
@@ -113,7 +123,7 @@ export default function Plans() {
             <span className="eyebrow rv in">{t.eyebrow}</span>
             <h2 data-rise style={{ marginBottom: 34 }}>{t.heading}</h2>
             <PlanCards track={track} selfPrice={t.selfPrice} guidedPrice={t.guidedPrice}
-              sampleLine={t.sampleLine} bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} onBack={() => setTrack(null)} />
+              sampleLine={t.sampleLine} bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} onBack={() => setTrack(null)} joinErr={joinErr} preview={preview} />
           </div>
         </section>
       )}

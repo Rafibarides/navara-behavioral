@@ -27,7 +27,7 @@ export default function Dashboard() {
       <div className="wrap">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14, marginBottom: 34 }}>
           <div><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{planLabel}</span>
-            <h2 style={{ marginBottom: 0 }}>Welcome back, {user.name}.</h2></div>
+            <h2 style={{ marginBottom: 0 }}>{(user.createdAt && (Date.now() - new Date(user.createdAt).getTime()) < 24*60*60*1000) ? 'Welcome' : 'Welcome back'}, {user.name}.</h2></div>
           <a className="btn btn-primary" href="/pathways/app/practice">Start practicing</a>
         </div>
         <div className="dash-grid">
