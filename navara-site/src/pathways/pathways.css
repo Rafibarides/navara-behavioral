@@ -291,3 +291,17 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 .book-done b{display:inline-block;animation:pop .5s cubic-bezier(.2,.9,.3,1.6) 1.2s both}
 @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
 @media (prefers-reduced-motion: reduce){.book-card,.book-done b{animation:none!important}}
+
+/* Unified header mock (preview-only): main-site nav pill + Pathways sub-nav row */
+.pw-subnav{position:relative;z-index:40;background:rgba(15,31,51,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(177,201,179,.18)}
+.pw-subnav-inner{display:flex;align-items:center;gap:28px;padding-top:96px;padding-bottom:12px}
+.pw-subnav-tag{font-weight:800;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage);white-space:nowrap}
+.pw-subnav-links{display:flex;gap:24px;align-items:center;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.pw-subnav-links::-webkit-scrollbar{display:none}
+.pw-subnav-links a{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;letter-spacing:.02em;white-space:nowrap;padding:4px 0}
+.pw-subnav-links a:hover{color:#fff}
+.pw-subnav-links a.btn{border-color:rgba(177,201,179,.5);color:#B1C9B3}
+@media (max-width:860px){
+  .pw-subnav-inner{padding-top:84px;gap:16px}
+  .pw-subnav-links{gap:16px}
+}

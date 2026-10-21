@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MainSiteFooter from '../../Components/Sections/FooterSection';
+import MainSiteNav from '../../Components/NavBarMenu';
 
 export function Arcs({ className }) {
   return (
@@ -13,12 +14,28 @@ export function Arcs({ className }) {
 
 export function Nav({ links, app }) {
   const ref = useRef(null);
+  const preview = typeof window !== 'undefined' && /[?&]preview=1\b/.test(window.location.search);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   useEffect(() => {
     const onScroll = () => ref.current && ref.current.classList.toggle('scrolled', window.scrollY > 30);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  if (preview && mounted && !app) {
+    return (
+      <div className="pw-unified">
+        <MainSiteNav isDarkMode={false} />
+        <div className="pw-subnav">
+          <div className="wrap pw-subnav-inner">
+            <a className="pw-subnav-tag" href="/pathways">Pathways</a>
+            <div className="pw-subnav-links">{links}</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <nav className={'nav' + (app ? ' app-nav' : '')} ref={ref} style={app ? { position: 'sticky' } : undefined}>
       <div className="wrap nav-inner">
