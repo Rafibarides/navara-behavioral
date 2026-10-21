@@ -98,9 +98,9 @@ export default function Showcase() {
         ))}
         <Reveal text style={{ textAlign: 'center', margin: '80px 0 20px' }}>
           <h3 style={{ fontSize: 32, marginBottom: 10, color: '#fff' }}>Ready when you are.</h3>
-          <p style={{ marginBottom: 26 }}>Create a free account - the sample quiz is waiting inside.</p>
+          <p style={{ marginBottom: 26 }}>Take the free 10-question sample quiz - no account needed.</p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a className="btn btn-primary" href="/pathways/login">Create account</a>
+            <a className="btn btn-primary" href="/pathways/sample-quiz">Try the free quiz</a>
             <a className="btn btn-ghost" href="/pathways/plans">See plans</a>
           </div>
         </Reveal>
