@@ -115,10 +115,8 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 .track-card:hover .arr{transform:translateX(8px)}
 
 /* steps */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;counter-reset:step}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .step{position:relative;padding:38px 32px;border-radius:var(--r);background:#fff;box-shadow:var(--shadow-md);overflow:hidden}
-.step::after{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;right:18px;top:8px;font-size:76px;font-weight:800;color:rgba(95,141,156,.12);letter-spacing:-.04em;transition:color .4s}
-.step:hover::after{color:rgba(95,141,156,.3)}
 .step h4{font-size:19px;font-weight:800;margin-bottom:10px}
 .step p{font-size:14px;color:var(--ink-2)}
 .step .ic{width:52px;height:52px;border-radius:16px;background:var(--grad-cool);display:grid;place-items:center;color:#fff;font-size:20px;margin-bottom:20px;box-shadow:0 10px 24px -8px rgba(27,59,98,.5)}
