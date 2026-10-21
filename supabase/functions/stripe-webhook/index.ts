@@ -17,7 +17,8 @@ async function grant(userId: string, track: string, plan: string, customerId: st
   if (customerId) upd.stripe_customer_id = customerId;
   await db.from('profiles').update(upd).eq('id', userId);
   if (plan === 'guided') {
-    await db.from('session_credits').upsert({ user_id: userId, credits_remaining: 1 }, { onConflict: 'user_id' });
+    const credits = track === 'bcba' ? 2 : 1; // BCBA Guided = two 45-min 1:1s/mo, RBT Guided = one
+    await db.from('session_credits').upsert({ user_id: userId, credits_remaining: credits }, { onConflict: 'user_id' });
   }
 }
 
@@ -50,10 +51,10 @@ Deno.serve(async (req) => {
           Object.assign(subMeta, sub.metadata || {});
           userId = subMeta.user_id;
           if (subMeta.plan === 'guided' && userId) {
-            await db.from('session_credits').upsert({ user_id: userId, credits_remaining: 1 }, { onConflict: 'user_id' });
+            await db.from('session_credits').upsert({ user_id: userId, credits_remaining: subMeta.track === 'bcba' ? 2 : 1 }, { onConflict: 'user_id' });
           }
         } else if (meta.plan === 'guided' && userId) {
-          await db.from('session_credits').upsert({ user_id: userId, credits_remaining: 1 }, { onConflict: 'user_id' });
+          await db.from('session_credits').upsert({ user_id: userId, credits_remaining: meta.track === 'bcba' ? 2 : 1 }, { onConflict: 'user_id' });
         }
       }
     } else if (event.type === 'customer.subscription.updated') {

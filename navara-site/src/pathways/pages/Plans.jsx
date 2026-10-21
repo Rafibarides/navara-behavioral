@@ -12,7 +12,7 @@ const LINKS = (<>
 const priceNote = { fontSize: 14, fontWeight: 600, color: 'var(--ink-2)' };
 const priceNoteFeatured = { fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.7)' };
 
-function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, join, onBack }) {
+function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guidedLine, join, onBack }) {
   return (<>
     <div className="plans">
       <div className="plan rv">
@@ -30,7 +30,7 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, join, 
         <span className="most">Most complete</span>
         <h3>Guided</h3>
         <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
-        <ul><li>Everything in Self-Study</li><li>One 45-minute 1:1 each month with a Navara behavior specialist - you set the agenda</li><li>Session booking inside your account</li><li>Priority support</li></ul>
+        <ul><li>Everything in Self-Study</li><li>{guidedLine}</li><li>Session booking inside your account</li><li>Priority support</li></ul>
         <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
       </div>
     </div>
@@ -43,10 +43,12 @@ const TRACKS = {
   rbt: {
     eyebrow: 'RBT track', heading: 'RBT exam prep.', selfPrice: '$49', guidedPrice: '$249',
     sampleLine: '10-question RBT sample quiz', bankLine: 'Full RBT question bank',
+    guidedLine: 'One 45-minute 1:1 each month with a Navara behavior specialist - you set the agenda',
   },
   bcba: {
     eyebrow: 'BCBA track', heading: 'BCBA exam prep.', selfPrice: '$129', guidedPrice: '$450',
     sampleLine: '10-question BCBA sample quiz', bankLine: 'Full BCBA question bank',
+    guidedLine: 'Two 45-minute 1:1s each month with a Navara behavior specialist - you set the agenda',
   },
 };
 
@@ -111,7 +113,7 @@ export default function Plans() {
             <span className="eyebrow rv in">{t.eyebrow}</span>
             <h2 data-rise style={{ marginBottom: 34 }}>{t.heading}</h2>
             <PlanCards track={track} selfPrice={t.selfPrice} guidedPrice={t.guidedPrice}
-              sampleLine={t.sampleLine} bankLine={t.bankLine} join={join} onBack={() => setTrack(null)} />
+              sampleLine={t.sampleLine} bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} onBack={() => setTrack(null)} />
           </div>
         </section>
       )}
