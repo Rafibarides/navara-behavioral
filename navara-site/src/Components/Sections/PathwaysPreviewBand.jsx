@@ -1,10 +1,10 @@
 import React from 'react';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
-// Preview-only entry point to Navara Pathways. Renders only with ?preview=1.
+// Entry point to Navara Pathways on the main homepage (ungated on Nisan's go, Oct 21 2026).
 // Do not ungate without Nisan's approval.
 const PathwaysPreviewBand = ({ isDarkMode = false }) => {
-  if (typeof window === 'undefined' || !/[?&]preview=1\b/.test(window.location.search)) return null;
+
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   return (

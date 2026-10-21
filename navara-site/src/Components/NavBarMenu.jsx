@@ -410,6 +410,21 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             )}
               </div>
             ))}
+            <a
+              href="/pathways"
+              onClick={(event) => { event.preventDefault(); setIsMobileMenuOpen(false); navigate('/pathways'); }}
+              style={{
+                textDecoration: 'none',
+                display: 'block',
+                padding: '12px 16px',
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: colors.textSecondary,
+                cursor: 'pointer',
+                borderRadius: '8px',
+                textAlign: 'left',
+              }}
+            >Exam Prep</a>
           </div>
         )}
       </div>
@@ -600,6 +615,22 @@ const NavBarMenu = ({ isDarkMode = false }) => {
             )}
           </div>
         ))}
+        <a
+          href="/pathways"
+          onClick={(event) => { event.preventDefault(); navigate('/pathways'); }}
+          style={{
+            textDecoration: 'none',
+            padding: '12px 20px',
+            fontSize: textSizes.base.fontSize,
+            fontFamily: textSizes.base.fontFamily,
+            color: colors.textSecondary,
+            cursor: 'pointer',
+            borderRadius: '50px',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = colors.primary; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = colors.textSecondary; }}
+        >Exam Prep</a>
       </nav>
     </div>
   );
