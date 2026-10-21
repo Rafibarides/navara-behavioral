@@ -4,13 +4,12 @@ import Quiz from '../../components/Quiz';
 import { useRequireUser } from '../../components/useRequireUser';
 import { fetchQuestions, fetchSample } from '../../lib/db';
 import { DEMO } from '../../config';
-import { usePreview } from '../../components/Showcase';
 
 const PACE = { rbt: 63, bcba: 82 }; // seconds/question: RBT 85q/90min, BCBA 175q/4h
 
 export default function Mock() {
   const user = useRequireUser();
-  const v2 = usePreview();
+  const v2 = true;
   const [total, setTotal] = useState(300);
   const [secs, setSecs] = useState(300);
   const [answered, setAnswered] = useState(0);

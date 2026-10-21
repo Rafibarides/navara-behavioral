@@ -306,6 +306,51 @@ const ContactSection = ({ isDarkMode = false, servicePage = false }) => {
                 </a>
               </div>
             </div>
+            {/* Address */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              opacity: isContentVisible ? 1 : 0,
+              transform: isContentVisible ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'all 0.8s ease-out 0.6s',
+            }}>
+              <div style={{
+                backgroundColor: colors.primary + '15',
+                borderRadius: '12px',
+                padding: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <i className="fas fa-location-dot" style={{
+                  fontSize: '18px',
+                  color: colors.primary,
+                }} />
+              </div>
+              <div>
+                <p style={{
+                  fontSize: textSizes.sm.fontSize,
+                  fontFamily: textSizes.sm.fontFamily,
+                  color: colors.textSecondary,
+                  margin: 0,
+                  marginBottom: '4px',
+                  fontWeight: '500',
+                }}>
+                  Address
+                </p>
+                <p style={{
+                  fontSize: textSizes.base.fontSize,
+                  fontFamily: textSizes.base.fontFamily,
+                  color: colors.text,
+                  margin: 0,
+                  fontWeight: '500',
+                }}>
+                  1594 Lakewood Road, Unit 6<br />
+                  Toms River, NJ 08755
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

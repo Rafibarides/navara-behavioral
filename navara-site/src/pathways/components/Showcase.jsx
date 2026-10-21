@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// Preview gate: everything on this page renders only when the URL carries
-// ?preview=1, so production visitors see no change while we review new blocks.
+// Preview content approved by the owner (Oct 21) - now the public default.
 export function usePreview() {
-  const [on] = useState(() => typeof window !== 'undefined' && /[?&]preview=1\b/.test(window.location.search));
-  return on;
+  return true;
 }
 
 function Reveal({ children, style, text }) {

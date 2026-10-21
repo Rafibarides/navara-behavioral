@@ -158,6 +158,30 @@ const FooterSection = ({ isDarkMode = false }) => {
             }}>
               Evidence-based behavior support for families who want real results — no waitlists, no one-size-fits-all.
             </p>
+            {/* Business Address */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '10px',
+              marginBottom: '20px',
+            }}>
+              <i className="fas fa-location-dot" style={{
+                fontSize: '16px',
+                color: colors.accent,
+                marginTop: '2px',
+              }} />
+              <span style={{
+                fontSize: textSizes.base.fontSize,
+                fontFamily: textSizes.base.fontFamily,
+                color: 'rgba(255, 255, 255, 0.8)',
+                fontWeight: '500',
+                lineHeight: '1.5',
+              }}>
+                1594 Lakewood Road, Unit 6<br />
+                Toms River, NJ 08755
+              </span>
+            </div>
+
             {/* Security Badge */}
             <div style={{
               display: 'flex',

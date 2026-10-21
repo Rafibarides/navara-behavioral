@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { recordAttempt } from '../lib/db';
 import { signIn } from '../lib/auth';
 import { DEMO } from '../config';
-import { usePreview } from './Showcase';
 
 // Interactive quiz engine with real-time, choice-specific feedback:
 // wrong picks show why that option was tempting + what rules it out;
@@ -37,7 +36,7 @@ function downloadScoreCard({ title, score, total }) {
 }
 
 export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample', onAnswer = null }) {
-  const v2 = usePreview();
+  const v2 = true;
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState(null);

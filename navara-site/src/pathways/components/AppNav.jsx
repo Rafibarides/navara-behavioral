@@ -1,14 +1,13 @@
 import React from 'react';
 import { Arcs } from './Chrome';
 import { signOut } from '../lib/auth';
-import { usePreview } from './Showcase';
 
 const ITEMS = [
   ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['mock', 'Mock exams'],
   ['book', 'Book a 1:1'], ['account', 'Account'],
 ];
 export default function AppNav({ active, role }) {
-  const v2 = usePreview();
+  const v2 = true;
   const items = role === 'admin' ? [...ITEMS, ['admin', 'Admin']] : ITEMS;
   return (
     <nav className={'nav app-nav' + (v2 ? ' v2' : '')} style={{ position: 'sticky' }}>
