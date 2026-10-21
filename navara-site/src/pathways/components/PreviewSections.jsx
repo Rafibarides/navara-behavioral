@@ -65,8 +65,8 @@ export function OneOnOne({ heading, body, foot }) {
           <div className="section-head rv"><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Guided plans</span>
             <h2>{heading}</h2>
           </div>
-          <p className="rv" style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink-1)' }}>{body}</p>
-          {foot && <p className="rv rv-d1" style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink-0)', marginTop: 14 }}>{foot}</p>}
+          <p className="rv" style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink)' }}>{body}</p>
+          {foot && <p className="rv rv-d1" style={{ fontSize: 16, fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>{foot}</p>}
         </div>
         <div className="rv rv-d2" style={{ flex: '1 1 280px', minWidth: 260 }}>
           <div className="book-card">

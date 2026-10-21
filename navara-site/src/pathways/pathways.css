@@ -118,7 +118,7 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .step{position:relative;padding:38px 32px;border-radius:var(--r);background:#fff;box-shadow:var(--shadow-md);overflow:hidden}
 .step h4{font-size:19px;font-weight:800;margin-bottom:10px}
-.dark .step h4{color:var(--ink-0)}
+.dark .step h4{color:var(--ink)}
 .step p{font-size:14px;color:var(--ink-2)}
 .step .ic{width:52px;height:52px;border-radius:16px;background:var(--grad-cool);display:grid;place-items:center;color:#fff;font-size:20px;margin-bottom:20px;box-shadow:0 10px 24px -8px rgba(27,59,98,.5)}
 
