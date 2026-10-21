@@ -14,7 +14,6 @@ export function Arcs({ className }) {
 
 export function Nav({ links, app }) {
   const ref = useRef(null);
-  const preview = typeof window !== 'undefined' && /[?&]preview=1\b/.test(window.location.search);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   useEffect(() => {
@@ -23,7 +22,7 @@ export function Nav({ links, app }) {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  if (preview && mounted && !app) {
+  if (mounted && !app) {
     return (
       <div className="pw-unified">
         <MainSiteNav isDarkMode={false} />
