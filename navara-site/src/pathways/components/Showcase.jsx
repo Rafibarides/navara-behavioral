@@ -7,7 +7,7 @@ export function usePreview() {
   return on;
 }
 
-function Reveal({ children, style }) {
+function Reveal({ children, style, text }) {
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
   useEffect(() => {
@@ -20,7 +20,9 @@ function Reveal({ children, style }) {
   return (
     <div ref={ref} style={{
       opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(36px)',
-      transition: 'opacity .7s ease, transform .7s ease', ...style,
+      transition: 'opacity .7s ease, transform .7s ease' + (text ? ', color 1s ease .1s' : ''),
+      ...(text ? { color: vis ? 'rgba(255,255,255,.88)' : 'rgba(255,255,255,.55)' } : {}),
+      ...style,
     }}>{children}</div>
   );
 }
@@ -55,13 +57,13 @@ export default function Showcase() {
           <h2>See what studying here feels like.</h2>
         </div>
         {SECTIONS.map((s, i) => (
-          <Reveal key={s.clip} style={{
+          <Reveal key={s.clip} text style={{
             display: 'flex', flexDirection: i % 2 ? 'row-reverse' : 'row', gap: 48,
             alignItems: 'center', margin: '64px 0', flexWrap: 'wrap',
           }}>
             <div style={{ flex: '1 1 320px', minWidth: 280 }}>
-              <h3 style={{ fontSize: 30, marginBottom: 12 }}>{s.headline}</h3>
-              <p style={{ color: 'var(--ink-2)', fontSize: 16, lineHeight: 1.6 }}>{s.line}</p>
+              <h3 style={{ fontSize: 30, marginBottom: 12, color: '#fff' }}>{s.headline}</h3>
+              <p style={{ fontSize: 16, lineHeight: 1.6 }}>{s.line}</p>
             </div>
             <div style={{ flex: '1 1 420px', minWidth: 300 }}>
               <video src={s.clip} poster={s.poster} autoPlay loop muted playsInline preload="metadata"
@@ -69,9 +71,9 @@ export default function Showcase() {
             </div>
           </Reveal>
         ))}
-        <Reveal style={{ textAlign: 'center', margin: '80px 0 20px' }}>
-          <h3 style={{ fontSize: 32, marginBottom: 10 }}>Ready when you are.</h3>
-          <p style={{ color: 'var(--ink-2)', marginBottom: 26 }}>Create a free account - the sample quiz is waiting inside.</p>
+        <Reveal text style={{ textAlign: 'center', margin: '80px 0 20px' }}>
+          <h3 style={{ fontSize: 32, marginBottom: 10, color: '#fff' }}>Ready when you are.</h3>
+          <p style={{ marginBottom: 26 }}>Create a free account - the sample quiz is waiting inside.</p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a className="btn btn-primary" href="/pathways/login">Create account</a>
             <a className="btn btn-ghost" href="/pathways/plans">See plans</a>
