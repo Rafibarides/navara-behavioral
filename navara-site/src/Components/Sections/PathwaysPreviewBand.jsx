@@ -20,16 +20,16 @@ const PathwaysPreviewBand = ({ isDarkMode = false }) => {
         <div style={{ flex: '1 1 320px' }}>
           <p style={{
             fontSize: textSizes.xl.fontSize, fontFamily: textSizes.xl.fontFamily,
-            fontWeight: 700, color: colors.secondary, margin: '0 0 6px',
+            fontWeight: 700, color: '#1B3B62', margin: '0 0 6px',
           }}>Interested in the ABA field?</p>
           <p style={{
             fontSize: textSizes.base.fontSize, fontFamily: textSizes.base.fontFamily,
-            color: colors.text, margin: 0, lineHeight: 1.55,
+            color: '#3d4a5c', margin: 0, lineHeight: 1.55,
           }}>Studying for the RBT or BCBA exam? Explore Navara's resources.</p>
         </div>
         <a href="/pathways" style={{
           display: 'inline-block', padding: '13px 26px', borderRadius: 999,
-          background: colors.secondary, color: '#fff', fontWeight: 700,
+          background: '#1B3B62', color: '#fff', fontWeight: 700,
           fontSize: textSizes.base.fontSize, textDecoration: 'none',
           boxShadow: '0 10px 24px -10px rgba(27,59,98,.5)', whiteSpace: 'nowrap',
         }}>Explore Navara Pathways</a>
