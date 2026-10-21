@@ -75,8 +75,36 @@ export function usePathwaysEffects(deps = []) {
     document.querySelectorAll('.prog .bar i').forEach((el) => po.observe(el));
     document.querySelectorAll('[data-rise]').forEach((h) => {
       if (h.dataset.risen) return; h.dataset.risen = '1';
-      h.innerHTML = h.innerHTML.split(/(<[^>]+>[^<]*<\/[^>]+>|\S+)/g).filter((s) => s && s.trim())
-        .map((s, i) => `<span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span class="rise" style="animation-delay:${i * 0.09}s">${s}</span></span>`).join(' ');
+      let i = 0;
+      const wrapWords = (node, inheritClass) => {
+        if (node.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const outer = document.createElement('span');
+            outer.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom';
+            const inner = document.createElement('span');
+            inner.className = inheritClass ? 'rise ' + inheritClass : 'rise';
+            inner.style.animationDelay = (i++ * 0.09) + 's';
+            inner.textContent = part;
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          });
+          return frag;
+        }
+        if (node.nodeType === 1) {
+          const frag = document.createDocumentFragment();
+          const cls = (inheritClass ? inheritClass + ' ' : '') + (node.className || '');
+          [...node.childNodes].forEach((c) => frag.appendChild(wrapWords(c, cls.trim())));
+          return frag;
+        }
+        return document.createTextNode('');
+      };
+      const frag = document.createDocumentFragment();
+      [...h.childNodes].forEach((n) => frag.appendChild(wrapWords(n, '')));
+      h.innerHTML = '';
+      h.appendChild(frag);
     });
     const t = setTimeout(() => {
       const st = document.createElement('style');
