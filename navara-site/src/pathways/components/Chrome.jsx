@@ -37,7 +37,7 @@ export function Footer() {
       <div className="foot-grid">
         <div>
           <h5>Navara Pathways</h5>
-          <p style={{ maxWidth: '44ch' }}>The education division of Navara Behavioral Group. Exam preparation, training, and professional development for the behavior analysis community.</p>
+          <p style={{ maxWidth: '44ch' }}>Exam preparation, training, and professional development for the behavior analysis community - from Navara Behavioral Group.</p>
         </div>
         <div><h5>Company</h5><a href="https://navarabehavioralgroup.com/#about">About Us</a><a href="https://navarabehavioralgroup.com/#team">Our Team</a><a href="/careers">Careers</a><a href="https://navarabehavioralgroup.com/#contact">Contact</a></div>
         <div><h5>Services</h5><a href="/services/behavior-method">Behavior Method</a><a href="/services/direct-aba">Direct ABA</a><a href="/services/consulting">Behavioral Consulting</a></div>
