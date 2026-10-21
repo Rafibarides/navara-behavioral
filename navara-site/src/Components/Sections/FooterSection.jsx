@@ -358,7 +358,7 @@ const FooterSection = ({ isDarkMode = false }) => {
               fontFamily: textSizes.xs.fontFamily,
               color: 'rgba(255, 255, 255, 0.7)',
             }}>
-              © 2025 Navara Behavioral Group
+              © 2026 Navara Behavioral Group
             </span>
             <span style={{
               fontSize: textSizes.xs.fontSize,
