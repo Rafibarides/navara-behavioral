@@ -44,19 +44,43 @@ const SECTIONS = [
     clip: '/inside/clip3.mp4',
     poster: '/inside/poster3.jpg',
     headline: 'Walk in ready.',
-    line: 'Timed mocks under exam conditions. Guided plans add 1:1 time with an NCBS™.',
+    line: 'Timed mocks under exam conditions. Guided plans add 1:1 time with an NCBS\u2122.',
+  },
+];
+
+const SECTIONS_PREVIEW = [
+  {
+    clip: '/inside/clip1.mp4',
+    poster: '/inside/poster1.jpg',
+    headline: 'Your readiness at a glance.',
+    line: 'Know what\u2019s solid. See what needs work. Choose your next study hour with purpose.',
+  },
+  {
+    clip: '/inside/clip2.mp4',
+    poster: '/inside/poster2.jpg',
+    headline: 'One question. Full reasoning.',
+    line: 'Every option explained - why the right answer is right, and why the tempting ones tempt.',
+  },
+  {
+    clip: '/inside/clip3.mp4',
+    poster: '/inside/poster3.jpg',
+    headline: 'Exam pace, zero surprises.',
+    line: 'Timed mocks with pace feedback. Guided plans add 1:1 time with an NCBS\u2122.',
   },
 ];
 
 export default function Showcase() {
+  const preview = usePreview();
+  const sections = preview ? SECTIONS_PREVIEW : SECTIONS;
   return (<>
     <section className="section dark" style={{ paddingTop: 90 }}>
       <div className="wrap">
         <div className="section-head center rv in">
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Inside the member area</span>
-          <h2>See what studying here feels like.</h2>
+          <h2>{preview ? 'Step inside your study space.' : 'See what studying here feels like.'}</h2>
+          {preview && <p style={{ color: 'rgba(255,255,255,.75)', fontSize: 17, marginTop: 8 }}>See exactly what you'll use every day, before you join.</p>}
         </div>
-        {SECTIONS.map((s, i) => (
+        {sections.map((s, i) => (
           <Reveal key={s.clip} text style={{
             display: 'flex', flexDirection: i % 2 ? 'row-reverse' : 'row', gap: 48,
             alignItems: 'center', margin: '64px 0', flexWrap: 'wrap',

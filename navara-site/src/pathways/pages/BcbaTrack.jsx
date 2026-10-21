@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
 import Showcase, { usePreview, StickySampleCTA } from '../components/Showcase';
+import { Explainer, WhatYouGet, GuidedBlock, OneOnOne, ClosingCTA } from '../components/PreviewSections';
 
 const LINKS = (preview) => (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
@@ -18,8 +19,14 @@ export default function BcbaTrack() {
   <div className="orb orb-1"></div><div className="orb orb-3"></div>
   <div className="wrap">
     <span className="eyebrow rv in">BCBA track</span>
-    <h1 data-rise>Think like an analyst, <span className="grad">answer like one.</span></h1>
-    <p className="lead">Preparation for the BCBA certification exam for candidates who want more than flashcards. Scenario-driven practice that trains clinical judgment, not just recall.</p>
+    {preview ? (<>
+      <h1 data-rise>Depth, not decks. <span className="grad">Preparation that makes you think.</span></h1>
+      <p className="lead">The BCBA exam rewards clinical judgment. So do we.</p>
+      <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>500 original scenario questions. Explanations for every option. Timed mocks with pace feedback.</p>
+    </>) : (<>
+      <h1 data-rise>Think like an analyst, <span className="grad">answer like one.</span></h1>
+      <p className="lead">Preparation for the BCBA certification exam for candidates who want more than flashcards. Scenario-driven practice that trains clinical judgment, not just recall.</p>
+    </>)}
     <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free BCBA quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
@@ -29,7 +36,23 @@ export default function BcbaTrack() {
   </div>
 </header>
 <Showcase />
-<section className="section dark">
+{preview && <Explainer
+  title="Depth, not decks."
+  lines={[
+    "Most prep teaches you to recognize terms.",
+    "The exam asks you to make decisions.",
+    "Every Navara question puts you inside a case: a learner, a dataset, a supervisee, an ethical gray area. You choose what a competent BCBA would do next.",
+    "Then you see why, in plain language, with every wrong option explained too - because that's where the learning is.",
+  ]}
+/>}
+{preview && <WhatYouGet checks={[
+  { text: "500 original BCBA scenario questions across every area of the current test content outline" },
+  { text: "Timed mock exams with pace feedback" },
+  { text: "Explanations for every answer choice - including why the wrong ones tempt" },
+  { text: "Progress by topic, so your next study hour has a target" },
+  { text: "Guided: two 45-minute 1:1 sessions each month with a Navara Certified Behavior Specialist (NCBS)", glow: true },
+]} />}
+<section className={"section" + (preview ? "" : " dark")}>
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>From philosophy to supervision.</h2>
@@ -45,16 +68,41 @@ export default function BcbaTrack() {
     </div>
   </div>
 </section>
+{preview ? (<>
+  <GuidedBlock
+    eyebrow="Guided"
+    heading="Some questions deserve more than another attempt."
+    intro="You can reread an explanation. You can reconsider an answer. But sometimes what you want is to talk through your reasoning with someone who understands behavior analysis. Guided adds two 45-minute one-to-one sessions every month with an NCBS™ - dedicated time for the material you find hardest."
+    bullets={[
+      { h: "Ninety minutes a month, on your questions", p: "Talk through concepts you haven't fully understood, examine questions where two options seem equally convincing, and review the topics you want to strengthen." },
+      { h: "Practice between sessions", p: "Your sessions complement the independent work inside the platform. Bring the questions you want to discuss, then keep moving with the bank and mocks." },
+      { h: "An option, not an obligation", p: "Prefer to work independently? Self-Study gives you the full practice toolkit. Guided adds the dedicated one-to-one time." },
+    ]}
+  />
+  <OneOnOne
+    heading="Your 1:1 with an NCBS™"
+    body="This is the part no question bank can give you. You talk through the questions that tripped you up and the patterns behind them, and you leave with a clear plan. Warm, direct, and focused on getting you ready."
+    foot="Two sessions every month on the Guided plan."
+  />
+  <ClosingCTA
+    heading="Make every question count for more."
+    body="Start with 500 original scenario-based questions, detailed explanations, timed practice, and progress tracking. Add two monthly one-to-one sessions if you want dedicated time with an NCBS™. Depth, not decks. Start with a question."
+    primary={{ label: "Try the free BCBA quiz", href: "/pathways/sample-quiz" }}
+    secondary={{ label: "Compare plans", href: "/pathways/plans" }}
+    micro="Explore the approach before you choose your plan."
+  />
+</>) : (<>
 <section className="section">
   <div className="wrap">
     <div className="section-head center rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>What is inside</span><h2>Depth, not decks.</h2></div>
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Scenario practice</h4><p>Questions written as clinical vignettes, with explanations that unpack the reasoning.</p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Full-length mocks</h4><p>Timed simulations that mirror the pace and pressure of the real exam.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed mock exams</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
       <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 NCBS™ time</h4><p>Guided-plan sessions for test strategy, weak areas, and the judgment calls between two right-sounding answers.</p></div>
     </div>
   </div>
 </section>
+</>)}
 </main>
     {preview && <StickySampleCTA label="Try the free BCBA quiz" href="/pathways/sample-quiz" />}
     <Footer />
