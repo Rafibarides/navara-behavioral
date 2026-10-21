@@ -28,16 +28,19 @@ function Reveal({ children, style }) {
 const SECTIONS = [
   {
     clip: '/inside/clip1.mp4',
+    poster: '/inside/poster1.jpg',
     headline: 'Know exactly where you stand.',
     line: 'Your dashboard tracks progress by topic, so the next hour of studying goes where it counts.',
   },
   {
     clip: '/inside/clip2.mp4',
+    poster: '/inside/poster2.jpg',
     headline: 'Every answer teaches.',
     line: 'Untimed practice with instant explanations - why the right answer is right, and why the tempting one tempted you.',
   },
   {
     clip: '/inside/clip3.mp4',
+    poster: '/inside/poster3.jpg',
     headline: 'Walk in ready.',
     line: 'Timed mocks under exam conditions. Guided plans add 1:1 time with a Navara behavior specialist.',
   },
@@ -61,7 +64,7 @@ export default function Showcase() {
               <p style={{ color: 'var(--ink-2)', fontSize: 16, lineHeight: 1.6 }}>{s.line}</p>
             </div>
             <div style={{ flex: '1 1 420px', minWidth: 300 }}>
-              <video src={s.clip} autoPlay loop muted playsInline
+              <video src={s.clip} poster={s.poster} autoPlay loop muted playsInline preload="metadata"
                 style={{ width: '100%', borderRadius: 16, boxShadow: '0 24px 60px rgba(10,30,50,.35)', display: 'block' }} />
             </div>
           </Reveal>
