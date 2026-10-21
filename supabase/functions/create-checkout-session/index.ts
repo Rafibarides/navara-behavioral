@@ -43,6 +43,9 @@ Deno.serve(async (req) => {
     subscription_data: { metadata: { user_id: user.id, track, plan } },
     success_url: origin + '/pathways/app/dashboard?welcome=1',
     cancel_url: origin + '/pathways/plans',
+    custom_text: {
+      submit: { message: 'Cancel anytime from your account - no refund for the current month. Full terms: navarabehavioralgroup.com/pathways/terms' },
+    },
   });
   return new Response(JSON.stringify({ url: session.url }), {
     status: 200, headers: { 'content-type': 'application/json' },

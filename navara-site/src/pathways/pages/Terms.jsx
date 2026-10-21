@@ -27,7 +27,7 @@ export default function Terms() {
           <h3 style={{ marginTop: 28 }}>Your account</h3>
           <p>Accounts are personal. Sign-in links are sent to the email address you provide. Keep them to yourself.</p>
           <h3 style={{ marginTop: 28 }}>Billing and cancellation</h3>
-          <p>Paid plans renew monthly. You can cancel at any time from your account page, and cancellation stops future billing. The refund policy in effect appears at checkout.</p>
+          <p>Paid plans renew monthly. You can cancel at any time from your account page, and cancellation stops future billing at the end of the current month. Refund policy: cancel anytime - no refund for the current month.</p>
           <h3 style={{ marginTop: 28 }}>Our content</h3>
           <p>All practice questions and explanations are original works of Navara Behavioral Group. Please do not copy, redistribute, or resell them.</p>
           <h3 style={{ marginTop: 28 }}>Contact</h3>

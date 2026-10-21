@@ -30,12 +30,12 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, join, 
         <span className="most">Most complete</span>
         <h3>Guided</h3>
         <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
-        <ul><li>Everything in Self-Study</li><li>One 45-minute 1:1 each month with a Navara behavior specialist - you set the agenda</li><li>Add a second monthly session at a discount</li><li>Session booking inside your account</li><li>Priority support</li></ul>
+        <ul><li>Everything in Self-Study</li><li>One 45-minute 1:1 each month with a Navara behavior specialist - you set the agenda</li><li>Session booking inside your account</li><li>Priority support</li></ul>
         <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
       </div>
     </div>
     <p style={{ textAlign: 'center', marginTop: 30 }}><a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--teal-3)' }}>&larr; Choose a different exam</a></p>
-    <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Cancel anytime from your account. The full refund policy appears at checkout.</p>
+    <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Cancel anytime from your account - no refund for the current month.</p>
   </>);
 }
 
