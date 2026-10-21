@@ -1,6 +1,6 @@
-// Stripe Checkout. TEST MODE ONLY until the NJ prepaid-services review clears and Nisan says go.
-// The secret key and price IDs never ship to the browser: checkout sessions are created
-// by the create-checkout-session Supabase Edge Function (supabase/functions/).
+// Stripe Checkout (LIVE). The secret key and price IDs never ship to the browser:
+// checkout and billing-portal sessions are created by Supabase Edge Functions
+// (supabase/functions/). The stripe-webhook function grants the plan on payment.
 import { CFG, CHECKOUT_TEST_MODE } from '../config';
 import { getClient } from './db';
 
@@ -10,15 +10,39 @@ export async function startCheckout(track, plan) {
   }
   const sb = await getClient();
   const { data: { session } } = await sb.auth.getSession();
+  if (!session) { // checkout needs an account so the plan can be granted
+    window.location.href = '/pathways/login';
+    return;
+  }
   const res = await fetch(CFG.supabaseUrl + '/functions/v1/create-checkout-session', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       apikey: CFG.supabaseAnonKey,
-      ...(session ? { Authorization: 'Bearer ' + session.access_token } : {}),
+      Authorization: 'Bearer ' + session.access_token,
     },
     body: JSON.stringify({ track, plan }),
   });
-  const { url } = await res.json();
-  window.location.href = url;
+  const data = await res.json();
+  if (!data.url) throw new Error(data.error || 'checkout failed');
+  window.location.href = data.url;
+}
+
+// Stripe customer portal: card, invoices, cancellation.
+export async function startPortal() {
+  const sb = await getClient();
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/pathways/login'; return; }
+  const res = await fetch(CFG.supabaseUrl + '/functions/v1/create-portal-session', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: CFG.supabaseAnonKey,
+      Authorization: 'Bearer ' + session.access_token,
+    },
+    body: '{}',
+  });
+  const data = await res.json();
+  if (!data.url) throw new Error(data.error || 'portal failed');
+  window.location.href = data.url;
 }

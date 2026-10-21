@@ -1,6 +1,8 @@
 // Navara Pathways config. The Supabase anon key is public-by-design (safe to
-// ship in the bundle; row-level security protects all data). Stripe stays
-// TEST MODE until the NJ prepaid-services review clears and Nisan says go.
+// ship in the bundle; row-level security protects all data). Stripe checkout
+// is LIVE (Nisan's go, Oct 20 2026); sessions are created server-side by the
+// create-checkout-session edge function, plans granted by the stripe-webhook
+// edge function.
 // Calendly event URLs are NEVER client-side: they live only in the
 // get_booking_url RPC's secrets table, behind a server-side credit spend.
 export const CFG = {
@@ -9,4 +11,4 @@ export const CFG = {
   stripePk: '',
 };
 export const DEMO = !CFG.supabaseUrl || !CFG.supabaseAnonKey;
-export const CHECKOUT_TEST_MODE = true; // flip to live only after NJ review + Nisan's go
+export const CHECKOUT_TEST_MODE = false; // live since Oct 20 2026
