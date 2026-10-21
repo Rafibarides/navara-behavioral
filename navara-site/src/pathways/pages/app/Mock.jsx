@@ -48,7 +48,7 @@ export default function Mock() {
         <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
           {live
             ? 'Timed set from the live bank with pacing feedback against real exam timing.'
-            : 'The full-length mocks open when the bank clears clinical review. This demo runs a short set with a countdown and live pacing feedback, so you can feel the pressure dial.'}
+            : 'This demo runs a short set with a countdown and live pacing feedback, so you can feel the pressure dial.'}
         </p>
         <div className="panel" style={{ marginBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
           <div><b style={{ fontSize: 15 }}>{live ? 'Timed mock' : 'Demo mock'}, {track === 'bcba' ? 'BCBA' : 'RBT'} track</b><br /><span style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600 }}>{qs ? qs.length : '-'} questions, {label} on the clock</span></div>

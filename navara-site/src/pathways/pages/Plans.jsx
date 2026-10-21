@@ -110,7 +110,7 @@ export default function Plans() {
                 <div className="glow" style={{ background: '#87aa99' }}></div>
                 <span className="track-tag tag-navy">BCBA track</span>
                 <h3>BCBA exam prep</h3>
-                <p>For analysts sitting for the board exam. Scenario practice, full-length mocks, and optional 1:1 time with an NCBS™.</p>
+                <p>For analysts sitting for the board exam. Scenario practice, timed mocks with pace feedback, and optional 1:1 time with an NCBS™.</p>
                 <span className="card-link">See BCBA plans <span className="arr">&rarr;</span></span>
               </a>
             </div>

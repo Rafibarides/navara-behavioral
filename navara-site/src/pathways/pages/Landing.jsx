@@ -70,7 +70,7 @@ export default function Landing() {
         <p>For analysts sitting for the board exam. Concepts and principles, experimental design, assessment, intervention, supervision, and ethics.</p>
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Scenario-based practice by content area</li>
-          <li><span className="ck">&#10003;</span>Full-length timed mock exams</li>
+          <li><span className="ck">&#10003;</span>Timed mock exams with pace feedback</li>
           <li><span className="ck">&#10003;</span>1:1 sessions with an NCBS™</li>
         </ul>
         <span className="card-link">See the BCBA track <span className="arr">&rarr;</span></span>
