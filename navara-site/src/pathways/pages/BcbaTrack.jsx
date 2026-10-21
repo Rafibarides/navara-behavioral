@@ -21,7 +21,7 @@ export default function BcbaTrack() {
     <h1 data-rise>Think like an analyst, <span className="grad">answer like one.</span></h1>
     <p className="lead">Preparation for the BCBA certification exam for candidates who want more than flashcards. Scenario-driven practice that trains clinical judgment, not just recall.</p>
     <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free BCBA quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
-    <div className="stats" style={{ marginTop: 54, gridTemplateColumns: 'repeat(3, 1fr)' }}>
+    <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="6">6</div><div className="lbl">Content areas, full outline</div></div>
       <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>

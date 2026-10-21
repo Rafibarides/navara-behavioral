@@ -246,6 +246,9 @@ footer a:hover{color:var(--sage)}
 }
 
 /* ===== motion pack ===== */
+.stats-3{grid-template-columns:repeat(3,1fr)}
+@media (max-width: 900px){.stats-3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width: 520px){.stats-3{grid-template-columns:1fr 1fr}}
 @keyframes floaty{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-12px) rotate(.5deg)}}
 .showcase-float{animation:floaty 8s ease-in-out infinite;will-change:transform}
 .showcase-float-alt{animation-delay:-4s}
