@@ -138,6 +138,12 @@
     "noindex": true
   },
   {
+    "path": "/pathways/app/admin",
+    "title": "Owner Admin | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
     "path": "/pathways/privacy",
     "title": "Privacy Policy | Navara Pathways",
     "description": "How Navara Pathways collects, uses, and protects your information."
