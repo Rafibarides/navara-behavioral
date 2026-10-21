@@ -25,7 +25,7 @@ export function Nav({ links, app }) {
   if (mounted && !app) {
     return (
       <div className="pw-unified">
-        <MainSiteNav isDarkMode={false} />
+        <MainSiteNav isDarkMode={false} forceSolidPill />
         <div className="pw-subnav">
           <div className="wrap pw-subnav-inner">
             <a className="pw-subnav-tag" href="/pathways">Pathways</a>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getColors, getTextSizes } from '../utils/colorsAndText';
 
-const NavBarMenu = ({ isDarkMode = false }) => {
+const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
@@ -33,7 +33,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     
     if (!pagesWithWelcomeSection.includes(location.pathname)) {
       setActiveSection('');
-      setIsNearTopOfPage(false);
+      setIsNearTopOfPage(forceSolidPill);
       return;
     }
 
@@ -75,7 +75,7 @@ const NavBarMenu = ({ isDarkMode = false }) => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, forceSolidPill]);
 
   const navItems = ['home', 'services', 'about', 'contact'];
   const serviceItems = [
