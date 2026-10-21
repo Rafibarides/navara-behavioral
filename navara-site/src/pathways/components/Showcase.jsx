@@ -44,7 +44,7 @@ const SECTIONS = [
     clip: '/inside/clip3.mp4',
     poster: '/inside/poster3.jpg',
     headline: 'Walk in ready.',
-    line: 'Timed mocks under exam conditions. Guided plans add 1:1 time with an NCBS\u2122.',
+    line: 'Timed mocks with pace feedback. Guided plans add monthly 1:1 sessions.',
   },
 ];
 
@@ -65,7 +65,7 @@ const SECTIONS_PREVIEW = [
     clip: '/inside/clip3.mp4',
     poster: '/inside/poster3.jpg',
     headline: 'Exam pace, zero surprises.',
-    line: 'Timed mocks with pace feedback. Guided plans add 1:1 time with an NCBS\u2122.',
+    line: 'Timed mocks with pace feedback. Guided plans add monthly 1:1 sessions.',
   },
 ];
 

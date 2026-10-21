@@ -31,7 +31,7 @@ export default function RbtTrack() {
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="6">6</div><div className="lbl">Content areas, full outline</div></div>
-      <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>
+      <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">1:1 time on Guided</div></div>
     </div>
   </div>
 </header>
@@ -96,7 +96,7 @@ export default function RbtTrack() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Practice by topic</h4><p>Untimed sets with instant explanations. Learn why the right answer is right and why the rest are wrong.</p></div>
       <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed mock exams</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 NCBS™ time</h4><p>On the Guided plan, bring your hardest topics to a Navara Certified Behavior Specialist (NCBS).</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 with a Navara Certified Behavior Specialist (NCBS)</h4><p>On the Guided plan, bring your hardest topics to an NCBS™.</p></div>
     </div>
   </div>
 </section>
