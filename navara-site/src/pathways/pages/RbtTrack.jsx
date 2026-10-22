@@ -53,7 +53,7 @@ export default function RbtTrack() {
 ]} />}
 <section className="section dark">
   <div className="wrap">
-    <div className="section-head rv"><span className="eyebrow">Every area of the task list</span>
+    <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>The whole exam, mapped.</h2>
       <p>Practice sets are organized by the current BACB RBT content outline, so weak spots have nowhere to hide.</p>
     </div>

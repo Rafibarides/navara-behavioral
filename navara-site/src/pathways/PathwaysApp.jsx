@@ -1,8 +1,14 @@
 // Mounted at /pathways/* from App.jsx. Owns all Pathways routes and the stylesheet.
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 
 // Preserve the magic-link token hash across the index redirect so Supabase can read it.
+function PlansByTrack() {
+  const { track } = useParams();
+  if (!['rbt', 'bcba'].includes(track)) return <Navigate to="/pathways/plans" replace />;
+  return <Plans track={track} />;
+}
+
 function AppIndexRedirect() {
   return <Navigate to={'dashboard' + window.location.hash} replace />;
 }
@@ -31,6 +37,7 @@ export default function PathwaysApp() {
       <Route path="rbt" element={<RbtTrack />} />
       <Route path="bcba" element={<BcbaTrack />} />
       <Route path="plans" element={<Plans />} />
+      <Route path="plans/:track" element={<PlansByTrack />} />
       <Route path="login" element={<Login />} />
       <Route path="privacy" element={<Privacy />} />
       <Route path="terms" element={<Terms />} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getColors, getTextSizes } from '../../utils/colorsAndText';
 
-const FooterSection = ({ isDarkMode = false }) => {
+const FooterSection = ({ isDarkMode = false, isPathways = false }) => {
   const colors = getColors(isDarkMode);
   const textSizes = getTextSizes(isDarkMode);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
@@ -35,8 +35,8 @@ const FooterSection = ({ isDarkMode = false }) => {
     resources: [
       { name: 'Exam Prep (RBT & BCBA)', href: '/pathways', type: 'route' },
       { name: 'Client Portal', href: '/client-portal', type: 'route' },
-      { name: 'Privacy Policy', href: '/privacy', type: 'route' },
-      { name: 'Terms of Service', href: '/terms', type: 'route' },
+      { name: 'Privacy Policy', href: isPathways ? '/pathways/privacy' : '/privacy', type: 'route' },
+      { name: 'Terms of Service', href: isPathways ? '/pathways/terms' : '/terms', type: 'route' },
       { name: 'Sitemap', href: '/sitemap', type: 'route' }
     ]
   };

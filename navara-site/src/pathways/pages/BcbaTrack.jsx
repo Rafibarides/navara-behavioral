@@ -56,7 +56,7 @@ export default function BcbaTrack() {
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>From philosophy to supervision.</h2>
-      <p>Practice sets follow the current BACB BCBA test content outline, weighted the way the exam weights them.</p>
+      <p>Practice sets are organized by the current BACB BCBA Test Content Outline.</p>
     </div>
     <div className="areas">
       <div className="area rv"><span className="area-ic">&#9670;</span><div><b>Foundations &amp; Principles</b><span>Behaviorism, reinforcement, punishment, stimulus control</span></div></div>

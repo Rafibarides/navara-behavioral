@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import PathwaysApp from './pathways/PathwaysApp';
 import MainPage from './Components/MainPage';
 import Careers from './Components/Careers';
@@ -21,6 +21,18 @@ function DarkToggleGate(props) {
   const loc = useLocation();
   if (loc.pathname.startsWith('/pathways')) return null;
   return <DarkModeToggle {...props} />;
+}
+
+function ContactRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('/', { replace: true });
+    setTimeout(() => {
+      const el = document.getElementById('contact');
+      if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+    }, 150);
+  }, [navigate]);
+  return null;
 }
 
 function PathwaysGate({ children }) {
@@ -69,6 +81,7 @@ function App() {
           <Route path="/client-portal" element={<ClientPortal isDarkMode={isDarkMode} />} />
           <Route path="/behavioral" element={<Navigate to="/services/behavior-method" replace />} />
           <Route path="/services/parent-training" element={<Navigate to="/services/behavior-method" replace />} />
+          <Route path="/contact" element={<ContactRedirect />} />
           <Route path="/services/behavior-method" element={<ParentTrainingPage isDarkMode={isDarkMode} />} />
           <Route path="/services/direct-aba" element={<DirectAbaPage isDarkMode={isDarkMode} />} />
           <Route path="/services/consulting" element={<ConsultingPage isDarkMode={isDarkMode} />} />

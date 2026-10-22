@@ -68,7 +68,7 @@ export function Nav({ links, app }) {
 
 export function Footer() {
   return (<>
-    <MainSiteFooter isDarkMode={false} />
+    <MainSiteFooter isDarkMode={false} isPathways />
     <div style={{ background: '#1A2A40', color: 'rgba(255,255,255,.55)', fontSize: 12.5, lineHeight: 1.6, padding: '0 40px 34px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', borderTop: '1px solid rgba(255,255,255,.12)', paddingTop: 22 }}>
         Navara Pathways is not affiliated with, endorsed by, or sponsored by the Behavior Analyst Certification Board (BACB). RBT&reg;, BCBA&reg;, and BACB&reg; are registered certification marks of the BACB. This program offers preparation for the RBT and BCBA certification exams; it does not provide BACB supervision or fieldwork hours. All practice questions are original works of Navara Behavioral Group.

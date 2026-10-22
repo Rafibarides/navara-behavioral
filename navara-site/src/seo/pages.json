@@ -80,6 +80,16 @@
     "description": "Free samples, Self-Study, and Guided plans for RBT and BCBA exam prep."
   },
   {
+    "path": "/pathways/plans/rbt",
+    "title": "RBT Plans | Navara Pathways",
+    "description": "RBT exam prep plans: free sample quiz, Self-Study at $49/month, Guided at $249/month with a monthly 1:1. Timed mock exams and progress tracking."
+  },
+  {
+    "path": "/pathways/plans/bcba",
+    "title": "BCBA Plans | Navara Pathways",
+    "description": "BCBA exam prep plans: free sample quiz, Self-Study at $129/month, Guided at $450/month with two monthly 1:1s. Timed mock exams and progress tracking."
+  },
+  {
     "path": "/pathways/sample-quiz",
     "title": "Free Sample Quizzes | Navara Pathways",
     "description": "Try ten free practice questions with explanations for the RBT or BCBA exam. No account needed."

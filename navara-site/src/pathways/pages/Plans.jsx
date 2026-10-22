@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
 import { startCheckout } from '../lib/billing';
 import { joinWaitlist } from '../lib/db';
@@ -56,9 +57,13 @@ const TRACKS = {
   },
 };
 
-export default function Plans() {
+export default function Plans({ track: trackProp = null }) {
   usePathwaysEffects();
-  const [track, setTrack] = useState(null);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initial = trackProp || (['rbt','bcba'].includes(searchParams.get('track')) ? searchParams.get('track') : null);
+  const [track, setTrackState] = useState(initial);
+  const setTrack = (t) => { setTrackState(t); navigate(t ? `/pathways/plans/${t}` : '/pathways/plans', { replace: true }); };
   const [modal, setModal] = useState(null); // {track, plan}
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);

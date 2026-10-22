@@ -19,7 +19,7 @@ export default function Landing() {
   <div className="wrap hero-grid">
     <div>
       <span className="eyebrow rv in">Navara Pathways</span>
-      <h1 data-rise>Pass the exam. <span className="grad">Own the science.</span></h1>
+      <h1 data-rise>Understand the reasoning. <span className="grad">Own the science.</span></h1>
       <p className="lead">Exam preparation for future Registered Behavior Technicians and Board Certified Behavior Analysts. Practice questions that teach, timed mock exams with pace feedback, and one-on-one time with a Navara Certified Behavior Specialist (NCBS).</p>
       <div className="hero-ctas">
         <a className="btn btn-primary" href="/pathways/rbt">Explore RBT prep</a>
