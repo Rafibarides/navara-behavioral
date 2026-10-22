@@ -39,6 +39,20 @@ Deno.serve(async (req) => {
   const price = PRICES[`${track}:${plan}`];
   if (!price) return new Response('{}', { status: 400, headers: { ...CORS, 'content-type': 'application/json' } });
 
+  // Per-user throttle: at most 3 checkout sessions per minute.
+  {
+    const url = Deno.env.get('SUPABASE_URL')!;
+    const sr = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const h = { apikey: sr, Authorization: 'Bearer ' + sr, 'content-type': 'application/json' };
+    const since = new Date(Date.now() - 60_000).toISOString();
+    const r = await fetch(`${url}/rest/v1/checkout_attempts?user_id=eq.${user.id}&created_at=gte.${encodeURIComponent(since)}&select=id`, { headers: h });
+    const recent = r.ok ? await r.json() : [];
+    if (Array.isArray(recent) && recent.length >= 3) {
+      return new Response(JSON.stringify({ error: 'Too many attempts. Please wait a minute and try again.' }), { status: 429, headers: { ...CORS, 'content-type': 'application/json', 'retry-after': '60' } });
+    }
+    await fetch(`${url}/rest/v1/checkout_attempts`, { method: 'POST', headers: { ...h, Prefer: 'return=minimal' }, body: JSON.stringify({ user_id: user.id }) }).catch(() => {});
+  }
+
   const stripe = new Stripe(Deno.env.get('STRIPE_SK')!, { apiVersion: '2024-06-20' });
   const origin = req.headers.get('origin') || 'https://navarabehavioralgroup.com';
   const session = await stripe.checkout.sessions.create({
