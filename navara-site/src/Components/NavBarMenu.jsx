@@ -4,11 +4,13 @@ import { getColors, getTextSizes } from '../utils/colorsAndText';
 
 const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isExamPrepOpen, setIsExamPrepOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const [activeSection, setActiveSection] = useState('home');
   const [isNearTopOfPage, setIsNearTopOfPage] = useState(true);
   const servicesTimeoutRef = useRef(null);
+  const examPrepTimeoutRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -77,7 +79,15 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname, forceSolidPill]);
 
-  const navItems = ['home', 'services', 'about', 'contact'];
+  const navItems = ['home', 'services', 'about', 'contact', 'exam prep'];
+  const examPrepItems = [
+    { name: 'Exam Prep Home', path: '/pathways' },
+    { name: 'RBT Prep', path: '/pathways/rbt' },
+    { name: 'BCBA Prep', path: '/pathways/bcba' },
+    { name: 'Sample Quizzes', path: '/pathways/sample-quiz' },
+    { name: 'Free Study Plan', path: '/pathways/study-plan' },
+    { name: 'Plans & Pricing', path: '/pathways/plans' },
+  ];
   const serviceItems = [
     { name: 'Behavior Method', path: '/services/behavior-method' },
     { name: 'Direct ABA', path: '/services/direct-aba' },
@@ -110,6 +120,10 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
   const handleNavClick = (item) => {
     if (item === 'services') {
       setIsServicesOpen(!isServicesOpen);
+      setIsExamPrepOpen(false);
+    } else if (item === 'exam prep') {
+      setIsExamPrepOpen(!isExamPrepOpen);
+      setIsServicesOpen(false);
     } else {
       let sectionId = '';
       switch(item) {
@@ -145,12 +159,14 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
       }
       setIsMobileMenuOpen(false);
       setIsServicesOpen(false);
+      setIsExamPrepOpen(false);
     }
   };
 
   const handleServiceClick = (path) => {
     navigate(path);
     setIsServicesOpen(false);
+    setIsExamPrepOpen(false);
     setIsMobileMenuOpen(false);
   };
 
@@ -168,12 +184,45 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
     }, 150);
   };
 
+  const handleExamPrepMouseEnter = () => {
+    if (examPrepTimeoutRef.current) {
+      clearTimeout(examPrepTimeoutRef.current);
+      examPrepTimeoutRef.current = null;
+    }
+    setIsExamPrepOpen(true);
+  };
+
+  const handleExamPrepMouseLeave = () => {
+    examPrepTimeoutRef.current = setTimeout(() => {
+      setIsExamPrepOpen(false);
+    }, 150);
+  };
+
+  const handleExamPrepClick = (path) => {
+    navigate(path);
+    setIsExamPrepOpen(false);
+    setIsMobileMenuOpen(false);
+  };
+
+  const isExamPrepItemActive = (path) => {
+    return location.pathname === path || location.pathname === path + '/';
+  };
+
+
+  const ddOpen = (item) => (item === 'services' ? isServicesOpen : item === 'exam prep' ? isExamPrepOpen : false);
+  const ddItems = (item) => (item === 'exam prep' ? examPrepItems : serviceItems);
+  const ddClick = (item, path) => (item === 'exam prep' ? handleExamPrepClick(path) : handleServiceClick(path));
+  const ddActive = (item, path) => (item === 'exam prep' ? isExamPrepItemActive(path) : isServiceActive(path));
+  const ddEnter = (item) => (item === 'services' ? handleServicesMouseEnter : item === 'exam prep' ? handleExamPrepMouseEnter : undefined);
+  const ddLeave = (item) => (item === 'services' ? handleServicesMouseLeave : item === 'exam prep' ? handleExamPrepMouseLeave : undefined);
+
   const isItemActive = (item) => {
     if (item === 'services') {
       return activeSection === 'services'
         || location.pathname.startsWith('/services')
         || location.pathname === '/behavioral';
     }
+    if (item === 'exam prep') return location.pathname.startsWith('/pathways');
     return activeSection === item;
   };
 
@@ -185,6 +234,9 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
     return () => {
       if (servicesTimeoutRef.current) {
         clearTimeout(servicesTimeoutRef.current);
+      }
+      if (examPrepTimeoutRef.current) {
+        clearTimeout(examPrepTimeoutRef.current);
       }
     };
   }, []);
@@ -364,41 +416,41 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
               {item}
             </button>
             
-            {item === 'services' && isServicesOpen && (
+            {ddOpen(item) && (
               <div style={{ marginLeft: '16px', marginTop: '8px' }}>
-                {serviceItems.map(service => (
+                {ddItems(item).map(service => (
                   <a
                     key={service.path}
                     href={service.path}
-                    onClick={(event) => { event.preventDefault(); handleServiceClick(service.path); }}
+                    onClick={(event) => { event.preventDefault(); ddClick(item, service.path); }}
                     style={{
                       textDecoration: 'none',
                       display: 'block',
                       whiteSpace: 'nowrap',
                       boxSizing: 'border-box',
                       width: '100%',
-                      background: isServiceActive(service.path) ? colors.accent + '33' : 'none',
+                      background: ddActive(item, service.path) ? colors.accent + '33' : 'none',
                       border: 'none',
                       padding: '8px 12px',
                       minHeight: '44px',
                       fontSize: textSizes.sm.fontSize,
                       fontFamily: textSizes.sm.fontFamily,
-                      color: isServiceActive(service.path)
+                      color: ddActive(item, service.path)
                         ? colors.primary
                         : colors.textSecondary,
                       cursor: 'pointer',
                       borderRadius: '6px',
                       textAlign: 'left',
                       transition: 'all 0.3s ease',
-                      fontWeight: isServiceActive(service.path) ? '500' : '400',
+                      fontWeight: ddActive(item, service.path) ? '500' : '400',
                     }}
                     onMouseEnter={(e) => {
-                      if (!isServiceActive(service.path)) {
+                      if (!ddActive(item, service.path)) {
                         e.currentTarget.style.backgroundColor = colors.accent + '26';
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!isServiceActive(service.path)) {
+                      if (!ddActive(item, service.path)) {
                         e.currentTarget.style.backgroundColor = 'transparent';
                       }
                     }}
@@ -410,21 +462,6 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
             )}
               </div>
             ))}
-            <a
-              href="/pathways"
-              onClick={(event) => { event.preventDefault(); setIsMobileMenuOpen(false); navigate('/pathways'); }}
-              style={{
-                textDecoration: 'none',
-                display: 'block',
-                padding: '12px 16px',
-                fontSize: textSizes.base.fontSize,
-                fontFamily: textSizes.base.fontFamily,
-                color: colors.textSecondary,
-                cursor: 'pointer',
-                borderRadius: '8px',
-                textAlign: 'left',
-              }}
-            >Exam Prep</a>
           </div>
         )}
       </div>
@@ -465,8 +502,8 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
           <div 
             key={item} 
             style={{ position: 'relative' }}
-            onMouseEnter={item === 'services' ? handleServicesMouseEnter : undefined}
-            onMouseLeave={item === 'services' ? handleServicesMouseLeave : undefined}
+            onMouseEnter={ddEnter(item)}
+            onMouseLeave={ddLeave(item)}
           >
             <button
               onClick={() => handleNavClick(item)}
@@ -520,7 +557,7 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
               {item}
             </button>
 
-            {item === 'services' && isServicesOpen && (
+            {ddOpen(item) && (
               <div
                 style={{
                   position: 'absolute',
@@ -557,41 +594,41 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
                     }
                   `}
                 </style>
-                {serviceItems.map(service => (
+                {ddItems(item).map(service => (
                   <a
                     key={service.path}
                     href={service.path}
-                    onClick={(event) => { event.preventDefault(); handleServiceClick(service.path); }}
+                    onClick={(event) => { event.preventDefault(); ddClick(item, service.path); }}
                     style={{
                       textDecoration: 'none',
                       display: 'block',
                       whiteSpace: 'nowrap',
                       boxSizing: 'border-box',
                       width: '100%',
-                      background: isServiceActive(service.path) 
+                      background: ddActive(item, service.path) 
                         ? `linear-gradient(135deg, 
                             ${colors.accent}66, 
                             ${colors.accent}40
                           )`
                         : 'transparent',
-                      border: isServiceActive(service.path) 
+                      border: ddActive(item, service.path) 
                         ? `1px solid ${colors.accent}66` 
                         : 'none',
                       padding: '10px 16px',
                       fontSize: textSizes.sm.fontSize,
                       fontFamily: textSizes.sm.fontFamily,
-                      color: isServiceActive(service.path)
+                      color: ddActive(item, service.path)
                         ? colors.primary
                         : colors.text,
                       cursor: 'pointer',
                       borderRadius: '8px',
                       textAlign: 'left',
                       transition: 'all 0.3s ease',
-                      fontWeight: isServiceActive(service.path) ? '500' : '400',
-                      backdropFilter: isServiceActive(service.path) ? 'blur(5px)' : 'none',
+                      fontWeight: ddActive(item, service.path) ? '500' : '400',
+                      backdropFilter: ddActive(item, service.path) ? 'blur(5px)' : 'none',
                     }}
                     onMouseEnter={(e) => {
-                      if (!isServiceActive(service.path)) {
+                      if (!ddActive(item, service.path)) {
                         e.currentTarget.style.background = `linear-gradient(135deg, 
                           ${colors.accent}33, 
                           ${colors.accent}1A
@@ -601,7 +638,7 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!isServiceActive(service.path)) {
+                      if (!ddActive(item, service.path)) {
                         e.currentTarget.style.background = 'transparent';
                         e.currentTarget.style.backdropFilter = 'none';
                         e.currentTarget.style.border = 'none';
@@ -615,22 +652,6 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
             )}
           </div>
         ))}
-        <a
-          href="/pathways"
-          onClick={(event) => { event.preventDefault(); navigate('/pathways'); }}
-          style={{
-            textDecoration: 'none',
-            padding: '12px 20px',
-            fontSize: textSizes.base.fontSize,
-            fontFamily: textSizes.base.fontFamily,
-            color: colors.textSecondary,
-            cursor: 'pointer',
-            borderRadius: '50px',
-            transition: 'all 0.3s ease',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = colors.primary; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = colors.textSecondary; }}
-        >Exam Prep</a>
       </nav>
     </div>
   );

@@ -21,6 +21,11 @@ const MEMBER_LINKS = (<>
   <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
 </>);
 
+const GUEST_LINKS = (<>
+  <a href="/pathways/plans">Plans</a>
+  <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
+</>);
+
 // Marketing pages keep the full header for visitors; a signed-in member gets
 // their workspace links instead (no sample-quiz/plans/other-track marketing).
 export function Nav({ links, app }) {
@@ -47,7 +52,7 @@ export function Nav({ links, app }) {
         <div className="pw-subnav">
           <div className="wrap pw-subnav-inner">
             <a className="pw-subnav-tag" href="/pathways">Pathways</a>
-            <div className="pw-subnav-links">{links}</div>
+            <div className="pw-subnav-links">{member ? MEMBER_LINKS : GUEST_LINKS}</div>
           </div>
         </div>
       </div>
