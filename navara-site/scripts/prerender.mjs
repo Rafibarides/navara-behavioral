@@ -28,7 +28,7 @@ try {
       const copy=document.documentElement.cloneNode(true);
       // The app re-mounts and retains its animations. Snapshots start readable with JS off.
       copy.querySelectorAll('#root [style]').forEach(el=>{if(el.style.opacity==='0')el.style.opacity='1';});
-      copy.querySelectorAll('script').forEach(el=>{if(!el.src && el.type!=='application/ld+json')el.remove();});
+      copy.querySelectorAll('script').forEach(el=>{if(!el.src && el.type!=='application/ld+json' && !el.textContent.includes('sign-in safety net'))el.remove();});
       return '<!doctype html>\n'+copy.outerHTML;
     });
     const file=dist+(entry.path==='/'?'/index.html':entry.path+'/index.html');
