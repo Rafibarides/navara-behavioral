@@ -34,7 +34,7 @@ export default function Dashboard() {
       <div className="wrap">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14, marginBottom: 34 }}>
           <div><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{planLabel}</span>
-            <h2 style={{ marginBottom: 4 }}>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, {user.name ? String(user.name).split(' ')[0].replace(/^./, (c) => c.toUpperCase()) : 'there'}.</h2>
+            <h2 style={{ marginBottom: 4 }}>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, {user.name && String(user.name).toLowerCase() !== String(user.email || '').split('@')[0].toLowerCase() ? String(user.name).split(' ')[0].replace(/^./, (c) => c.toUpperCase()) : 'there'}.</h2>
             <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink-2)' }}>Future {user.track === 'bcba' ? 'BCBA' : 'RBT'} - you've got this.</p></div>
           <a className="btn btn-primary" href="/pathways/app/practice">Start practicing</a>
         </div>

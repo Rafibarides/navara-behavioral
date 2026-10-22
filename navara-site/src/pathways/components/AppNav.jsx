@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MainSiteNav from '../../Components/NavBarMenu';
 import { signOut } from '../lib/auth';
 
@@ -13,6 +13,7 @@ const logout = (e) => {
 };
 
 export default function AppNav({ active, role }) {
+  const [open, setOpen] = useState(false);
   const items = role === 'admin' ? [...ITEMS, ['admin', 'Admin']] : ITEMS;
   return (
     <div className="pw-unified pw-app">
@@ -27,7 +28,16 @@ export default function AppNav({ active, role }) {
             ))}
             <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={logout}>Log out</a>
           </div>
+          <button className="pw-mmenu-btn" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
         </div>
+        {open && (
+          <div className="pw-mmenu">
+            {items.map(([id, label]) => (
+              <a key={id} href={'/pathways/app/' + id} style={id === active ? { color: '#fff', fontWeight: 800 } : undefined}>{label}</a>
+            ))}
+            <a href="/pathways/login" onClick={logout}>Log out</a>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -44,6 +44,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
   const [round, setRound] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [sent, setSent] = useState(false);
   const shownAt = useRef(Date.now());
 
@@ -63,6 +64,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
     const save = async (e) => {
       e.preventDefault();
       if (!email) return;
+      try { localStorage.setItem('pw_pending_profile', JSON.stringify({ full_name: firstName.trim() || null, track: /^BCBA/i.test(title) ? 'bcba' : /^RBT/i.test(title) ? 'rbt' : null })); } catch {}
       try { await signIn(email); } catch { /* still show the confirmation */ }
       setSent(true);
     };
@@ -91,6 +93,8 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
           <form onSubmit={save} style={{ marginBottom: 22 }}>
             <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>Save these results and keep practicing free:</p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <input type="text" placeholder="First name" aria-label="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)}
+                     style={{ padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(27,59,98,.25)', minWidth: 160, font: 'inherit' }} />
               <input type="email" required placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)}
                      style={{ padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(27,59,98,.25)', minWidth: 240, font: 'inherit' }} />
               <button className="btn btn-navy" type="submit">{DEMO ? 'Save my results' : 'Email me a sign-in link'}</button>

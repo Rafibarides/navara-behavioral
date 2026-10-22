@@ -346,3 +346,14 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 
 .why-all{margin-top:14px;border-top:1px dashed rgba(27,59,98,.25);padding-top:12px}
 .why-opt{margin:6px 0;font-size:13.5px;color:var(--ink-2);font-weight:600}
+
+.pw-subnav-links a.btn{flex:none;padding:7px 16px;line-height:1.2}
+.pw-subnav-links{padding-right:3px}
+.pw-mmenu-btn{display:none}
+@media (max-width:768px){
+  .pw-app .pw-subnav-links{display:none}
+  .pw-app .pw-mmenu-btn{display:inline-flex;margin-left:auto;background:transparent;border:1px solid rgba(177,201,179,.5);color:#B1C9B3;border-radius:999px;padding:7px 16px;font:700 13px Montserrat,sans-serif;cursor:pointer}
+  .pw-app .pw-mmenu{display:flex;flex-direction:column;background:rgba(15,31,51,.97);padding:6px 16px 14px;border-bottom:1px solid rgba(177,201,179,.18)}
+  .pw-app .pw-mmenu a{color:rgba(255,255,255,.9);font-weight:600;font-size:15px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .pw-app .pw-mmenu a:last-child{border-bottom:0;color:#B1C9B3}
+}
