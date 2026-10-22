@@ -20,6 +20,7 @@ import StudyPlan from './pages/StudyPlan';
 import RbtTrack from './pages/RbtTrack';
 import BcbaTrack from './pages/BcbaTrack';
 import Plans from './pages/Plans';
+import PathwaysNotFound from './pages/NotFound';
 import Login from './pages/Login';
 import SampleQuiz from './pages/SampleQuiz';
 import Dashboard from './pages/app/Dashboard';
@@ -51,7 +52,7 @@ export default function PathwaysApp() {
       <Route path="app/account" element={<Account />} />
       <Route path="app/specialist" element={<Specialist />} />
       <Route path="app/admin" element={<Admin />} />
-      <Route path="*" element={<Navigate to="/pathways" replace />} />
+      <Route path="*" element={<PathwaysNotFound />} />
     </Routes>
   );
 }

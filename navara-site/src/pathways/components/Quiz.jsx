@@ -162,12 +162,12 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
             {q.opts[picked].rem ? <p className="why-rem"><b>Review:</b> {q.opts[picked].rem}</p> : null}
           </>)}
           {q.opts.some((o) => o.exp) && (
-            <div className="why-all">
-              <div className="why-h why-tempt">Every option explained</div>
+            <details className="why-all">
+              <summary className="why-h why-tempt" style={{ cursor: 'pointer' }}>Understand all four choices</summary>
               {q.opts.map((o, k) => o.exp && (
                 <p key={k} className="why-opt"><b>{String.fromCharCode(65 + k)}{k === q.a ? ' (correct)' : ''}:</b> {o.exp}</p>
               ))}
-            </div>
+            </details>
           )}
         </div>
       )}

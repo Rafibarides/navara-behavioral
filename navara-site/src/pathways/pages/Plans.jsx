@@ -109,7 +109,7 @@ export default function Plans({ track: trackProp = null }) {
                 <div className="glow" style={{ background: '#5F8D9C' }}></div>
                 <span className="track-tag tag-teal">RBT track</span>
                 <h3>RBT exam prep</h3>
-                <p>For behavior technicians getting certified. Full question bank, timed mocks, and optional 1:1 time with an NCBS™.</p>
+                <p>For behavior technicians getting certified. Full question bank, timed mocks, and optional 1:1 time with a Navara Certified Behavior Specialist (NCBS).</p>
                 <span className="card-link">See RBT plans <span className="arr">&rarr;</span></span>
               </a>
               <a className="track-card rv rv-d1" href="#bcba" onClick={(e) => { e.preventDefault(); setTrack('bcba'); }}>
