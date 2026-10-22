@@ -11,7 +11,7 @@ const LINKS = (<>
 export default function Login() {
   const resetting = new URLSearchParams(window.location.search).get('reset') === '1';
   const expired = typeof window !== 'undefined' && (new URLSearchParams(window.location.search).get('expired') === '1' || /otp_expired|access_denied/.test(window.location.hash));
-  const [mode, setMode] = useState(resetting ? 'reset' : new URLSearchParams(window.location.search).get('mode') === 'signin' ? 'signin' : 'create'); // 'create' | 'signin' | 'reset'
+  const [mode, setMode] = useState(resetting ? 'reset' : (expired || new URLSearchParams(window.location.search).get('mode') === 'signin') ? 'signin' : 'create'); // 'create' | 'signin' | 'reset'
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [track, setTrack] = useState('rbt');

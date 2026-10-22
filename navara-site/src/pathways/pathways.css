@@ -365,6 +365,6 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 .pw-unified{position:relative}
 .pw-unified > div:first-child{position:absolute!important}
 .pw-subnav-tag{display:inline-flex;align-items:center;gap:10px}
-.pw-arc{width:38px;height:auto;flex:none;display:block}
+.pw-arc{width:48px;height:auto;flex:none;display:block}
 .pw-subnav-inner{padding-top:86px;padding-bottom:10px}
 @media(max-width:900px){.pw-subnav-inner{padding-top:80px}}
