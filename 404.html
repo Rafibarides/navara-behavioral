@@ -47,6 +47,7 @@
 </main>
 <script>
 if (/^\/pathways\/(signup|sign-up|register)\/?$/.test(location.pathname)) { location.replace('/pathways/login'); }
+if (/^\/pathways\/app\/mock\/?$/.test(location.pathname)) { location.replace('/pathways/app/timed-sets'); }
 if (location.pathname.indexOf('/pathways') === 0) {
   var d = document.querySelector('main.navara-404:not(#pw-404)');
   if (d) d.hidden = true;
