@@ -72,7 +72,7 @@ export default function Landing() {
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Scenario-based practice by content area</li>
           <li><span className="ck">&#10003;</span>Timed sets with pace feedback</li>
-          <li><span className="ck">&#10003;</span>1:1 sessions with an NCBS™</li>
+          <li><span className="ck">&#10003;</span>Guided: two 45-minute 1:1s a month with an NCBS™</li>
         </ul>
         <span className="card-link">See the BCBA track <span className="arr">&rarr;</span></span>
       </a>
@@ -88,7 +88,7 @@ export default function Landing() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Try a free sample quiz</h4><p>Ten questions, no account. Feel how the explanations teach, not just grade.</p></div>
       <div className="step rv"><div className="ic">&#9673;</div><h4>Build your study plan</h4><p>Tell us your track and exam date - get a week-by-week checklist, free. <a href="/pathways/study-plan" style={{ color: 'var(--teal-3)', fontWeight: 700 }}>Build my plan</a></p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>Self-Study unlocks the full bank and timed sets. Guided adds one-on-one sessions with an NCBS™.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>Self-Study unlocks the full bank and timed sets. Guided adds monthly one-on-one sessions with an NCBS™: one a month on RBT, two on BCBA.</p></div>
       <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Watch yourself improve</h4><p>Progress tracking by topic shows exactly where to spend your next hour.</p></div>
     </div>
   </div>

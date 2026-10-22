@@ -82,6 +82,7 @@ export function OneOnOne({ heading, body, foot }) {
             <div className="book-slot dim"><span>Mon 6:15 PM</span></div>
             <div className="book-done">Booked <b>&#10003;</b></div>
           </div>
+          <p style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--ink-2)', marginTop: 10, textAlign: 'center' }}>Illustration only. Real times appear in your account once you are on Guided.</p>
         </div>
       </div>
     </section>
