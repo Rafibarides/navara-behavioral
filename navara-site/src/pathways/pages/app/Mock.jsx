@@ -44,7 +44,7 @@ export default function Mock() {
       <AppNav active="mock" />
       <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
         <div className="wrap quiz-shell">
-          <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Mock exams</span>
+          <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Timed sets</span>
           <h2>Timed sets, on demand.</h2>
           <div className="panel" style={{ maxWidth: 560, margin: '26px auto 0', textAlign: 'center', padding: 34 }}>
             <h3 style={{ marginBottom: 10 }}>{track === 'bcba' ? 'BCBA' : 'RBT'} timed set</h3>
@@ -78,7 +78,7 @@ export default function Mock() {
     <AppNav active="mock" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
       <div className="wrap quiz-shell">
-        <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Mock exams</span>
+        <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Timed sets</span>
         <h2>Timed sets, on demand.</h2>
         <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
           {live

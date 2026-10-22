@@ -22,7 +22,7 @@ export default function Terms() {
       <section className="section" style={{ paddingTop: 30 }}>
         <div className="wrap" style={{ maxWidth: 760 }}>
           <h3>The service</h3>
-          <p>Navara Pathways, from Navara Behavioral Group, provides exam preparation for the RBT and BCBA certification exams: practice questions, mock exams, progress tracking, and optional one-on-one sessions with a Navara Certified Behavior Specialist (NCBS).</p>
+          <p>Navara Pathways, from Navara Behavioral Group, provides exam preparation for the RBT and BCBA certification exams: practice questions, timed sets, progress tracking, and optional one-on-one sessions with a Navara Certified Behavior Specialist (NCBS).</p>
           <h3 style={{ marginTop: 28 }}>No affiliation or guarantee</h3>
           <p>Navara Pathways is not affiliated with, endorsed by, or sponsored by the Behavior Analyst Certification Board (BACB). We prepare you for the exam; we cannot guarantee a score or a pass, and we do not provide BACB supervision or fieldwork hours.</p>
           <h3 style={{ marginTop: 28 }}>Your account</h3>

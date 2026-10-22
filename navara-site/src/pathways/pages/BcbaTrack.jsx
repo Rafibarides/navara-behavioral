@@ -47,7 +47,7 @@ export default function BcbaTrack() {
 />}
 {preview && <WhatYouGet checks={[
   { text: "500 original BCBA scenario questions across every area of the current test content outline" },
-  { text: "Timed mock exams with pace feedback" },
+  { text: "Timed sets with pace feedback" },
   { text: "Explanations for every answer choice - including why the wrong ones tempt" },
   { text: "Progress by topic, so your next study hour has a target" },
   { text: "Guided: two 45-minute 1:1 sessions each month with a Navara Certified Behavior Specialist (NCBS)", glow: true },
@@ -97,7 +97,7 @@ export default function BcbaTrack() {
     <div className="section-head center rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>What is inside</span><h2>Depth, not decks.</h2></div>
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Scenario practice</h4><p>Questions written as clinical vignettes, with explanations that unpack the reasoning.</p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed mock exams</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed sets</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
       <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 with a Navara Certified Behavior Specialist (NCBS)</h4><p>Guided-plan sessions for test strategy, weak areas, and the judgment calls between two right-sounding answers.</p></div>
     </div>
   </div>
