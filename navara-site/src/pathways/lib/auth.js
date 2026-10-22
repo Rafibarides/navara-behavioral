@@ -92,6 +92,7 @@ export async function getSessionUser() {
     name: (prof && prof.full_name) || null,
     plan: (prof && prof.plan) || 'sample',
     track: (prof && prof.track) || 'rbt',
+    trackSet: !!(prof && prof.track),
     role: (prof && prof.role) || 'member',
     createdAt: (prof && prof.created_at) || null,
   };

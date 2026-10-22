@@ -6,6 +6,12 @@ import { currentUser, signInDemo, getSessionUser } from '../lib/auth';
 export function useRequireUser() {
   const [user, setUser] = useState(currentUser());
   useEffect(() => {
+    // Back-button / bfcache: a restored page must re-prove its session.
+    const onShow = (e) => {
+      if (!e.persisted) return;
+      getSessionUser().then((u) => { if (!u) window.location.replace('/pathways/login'); }).catch(() => window.location.replace('/pathways/login'));
+    };
+    window.addEventListener('pageshow', onShow);
     if (user) return;
     if (new URLSearchParams(window.location.search).get('demo') === '1') {
       setUser(signInDemo());
@@ -17,7 +23,7 @@ export function useRequireUser() {
       if (u) setUser(u);
       else window.location.href = '/pathways/login';
     }).catch(() => { if (live) window.location.href = '/pathways/login'; });
-    return () => { live = false; };
+    return () => { live = false; window.removeEventListener('pageshow', onShow); };
   }, []);
   return user;
 }

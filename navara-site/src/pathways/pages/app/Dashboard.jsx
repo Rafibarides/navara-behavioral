@@ -6,7 +6,7 @@ import { sessionCredits, fetchAreaProgress } from '../../lib/db';
 import { hasPassword, setPassword } from '../../lib/auth';
 import { DEMO } from '../../config';
 
-const DEMO_PROGRESS = [['Measurement', 82], ['Assessment', 64], ['Skill Acquisition', 71], ['Behavior Reduction', 48], ['Documentation & Reporting', 77], ['Professional Conduct', 90]];
+const DEMO_PROGRESS = [['Data Collection and Graphing', 82], ['Behavior Assessment', 64], ['Behavior Acquisition', 71], ['Behavior Reduction', 48], ['Documentation & Reporting', 77], ['Professional Conduct', 90]];
 
 export default function Dashboard() {
   usePathwaysEffects();
@@ -38,6 +38,24 @@ export default function Dashboard() {
             <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink-2)' }}>Future {user.track === 'bcba' ? 'BCBA' : 'RBT'} - you've got this.</p></div>
           <a className="btn btn-primary" href="/pathways/app/practice">Start practicing</a>
         </div>
+        {!user.demo && user.trackSet === false && (
+          <div className="panel rv in" style={{ marginBottom: 22, borderLeft: '4px solid var(--sage)' }}>
+            <b style={{ fontSize: 15 }}>Which exam are you preparing for?</b>
+            <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>One question so your practice, timed sets, and study plan match your exam.</p>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              {['rbt', 'bcba'].map((t) => (
+                <button key={t} className="btn btn-navy btn-sm" onClick={async () => {
+                  try {
+                    const { getClient } = await import('../../lib/db');
+                    const sb = await getClient();
+                    await sb.from('profiles').upsert({ id: user.id, track: t }, { onConflict: 'id' });
+                  } catch { /* account page can set it too */ }
+                  window.location.reload();
+                }}>{t === 'rbt' ? 'RBT exam' : 'BCBA exam'}</button>
+              ))}
+            </div>
+          </div>
+        )}
         {needsPw && (
           <div className="panel rv in" style={{ marginBottom: 22, display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap', borderLeft: '4px solid var(--teal-3)' }}>
             <div style={{ flex: '1 1 260px' }}>
@@ -68,7 +86,9 @@ export default function Dashboard() {
             <h3>1:1 sessions</h3>
             <div className="credit-bubble"><div><div className="n">{credits === null ? '-' : credits}</div><div className="t">left</div></div></div>
             <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 18 }}>Guided sessions remaining this month.</p>
-            <a className="btn btn-navy btn-sm" href="/pathways/app/book" style={{ width: '100%', justifyContent: 'center' }}>Book a session</a>
+            {user.plan === 'guided'
+              ? <a className="btn btn-navy btn-sm" href="/pathways/app/book" style={{ width: '100%', justifyContent: 'center' }}>Book a session</a>
+              : <a className="btn btn-primary btn-sm" href={`/pathways/plans/${user.track === 'bcba' ? 'bcba' : 'rbt'}`} style={{ width: '100%', justifyContent: 'center' }}>See Guided plans</a>}
           </div>
           <div className="panel span-12 rv in">
             <h3>Test-taking tips</h3>

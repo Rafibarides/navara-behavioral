@@ -18,7 +18,7 @@ const MEMBER_LINKS = (<>
   <a href="/pathways/app/mock">Timed sets</a>
   <a href="/pathways/study-plan">Study Plan</a>
   <a href="/pathways/app/account">Account</a>
-  <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.href = '/pathways/login'; }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
+  <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
 </>);
 
 // Marketing pages keep the full header for visitors; a signed-in member gets

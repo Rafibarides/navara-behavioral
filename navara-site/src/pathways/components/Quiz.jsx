@@ -153,8 +153,6 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       </div>
       {picked !== null && v2 && (
         <div className="explain explain-v2">
-          <div className="why-h why-ok">Why {String.fromCharCode(65 + q.a)} is right</div>
-          <p>{q.opts[q.a].exp}</p>
           {picked !== q.a && (<>
             <div className="why-h why-tempt">Why {String.fromCharCode(65 + picked)} tempted you</div>
             <p>{q.opts[picked].why}{q.opts[picked].tempt ? ' ' + q.opts[picked].tempt : ''}</p>

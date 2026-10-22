@@ -58,12 +58,12 @@ export default function RbtTrack() {
       <p>Practice sets are organized by the current BACB RBT Test Content Outline (3rd ed., in effect since 2026), so weak spots have nowhere to hide.</p>
     </div>
     <div className="areas">
-      <div className="area rv"><span className="area-ic">&#9719;</span><div><b>Measurement</b><span>Frequency, duration, latency, IRT, discontinuous methods</span></div></div>
-      <div className="area rv rv-d1"><span className="area-ic">&#9673;</span><div><b>Assessment</b><span>Preference assessments, assisting with functional assessment</span></div></div>
-      <div className="area rv rv-d2"><span className="area-ic">&#9650;</span><div><b>Skill Acquisition</b><span>DTT, NET, chaining, shaping, prompt fading</span></div></div>
+      <div className="area rv"><span className="area-ic">&#9719;</span><div><b>Data Collection and Graphing</b><span>Frequency, duration, latency, IRT, discontinuous methods</span></div></div>
+      <div className="area rv rv-d1"><span className="area-ic">&#9673;</span><div><b>Behavior Assessment</b><span>Preference assessments, assisting with functional assessment</span></div></div>
+      <div className="area rv rv-d2"><span className="area-ic">&#9650;</span><div><b>Behavior Acquisition</b><span>DTT, NET, chaining, shaping, prompt fading</span></div></div>
       <div className="area rv rv-d3"><span className="area-ic">&#9660;</span><div><b>Behavior Reduction</b><span>Functions, antecedent and consequence strategies</span></div></div>
-      <div className="area rv"><span className="area-ic">&#9998;</span><div><b>Documentation &amp; Reporting</b><span>Objective session notes, reporting variables</span></div></div>
-      <div className="area rv rv-d1"><span className="area-ic">&#167;</span><div><b>Professional Conduct</b><span>Scope of practice, boundaries, confidentiality</span></div></div>
+      <div className="area rv"><span className="area-ic">&#9998;</span><div><b>Documentation and Reporting</b><span>Objective session notes, reporting variables</span></div></div>
+      <div className="area rv rv-d1"><span className="area-ic">&#167;</span><div><b>Ethics</b><span>Scope of practice, boundaries, confidentiality</span></div></div>
     </div>
   </div>
 </section>

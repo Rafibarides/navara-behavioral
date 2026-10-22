@@ -108,9 +108,9 @@ export async function fetchAreaProgress() {
 }
 
 const DEMO_PATTERNS = [
-  { tag: 'intervention_before_assessment', plain: 'Picks the intervention before the assessment', n: 6, trend: 'improving', areas: 'Behavior Reduction, Skill Acquisition', pressure: false },
-  { tag: 'confuses_latency_with_duration', plain: 'Confuses latency with duration', n: 4, trend: 'steady', areas: 'Measurement', pressure: true },
-  { tag: 'rapport_over_ethics', plain: 'Lets rapport override an ethics boundary', n: 2, trend: 'new', areas: 'Professional Conduct', pressure: false },
+  { tag: 'intervention_before_assessment', plain: 'Picks the intervention before the assessment', n: 6, trend: 'improving', areas: 'Behavior Reduction, Behavior Acquisition', pressure: false },
+  { tag: 'confuses_latency_with_duration', plain: 'Confuses latency with duration', n: 4, trend: 'steady', areas: 'Data Collection and Graphing', pressure: true },
+  { tag: 'rapport_over_ethics', plain: 'Lets rapport override an ethics boundary', n: 2, trend: 'new', areas: 'Ethics', pressure: false },
 ];
 
 // Specialist view: internal only. Live mode is gated on profiles.role = 'staff'.

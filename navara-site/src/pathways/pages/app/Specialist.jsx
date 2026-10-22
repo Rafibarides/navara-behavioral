@@ -7,8 +7,8 @@ import { useRequireUser } from '../../components/useRequireUser';
 // The member never sees this page: error patterns are reviewed together in the 1:1.
 const DEMO_PATTERNS = [
   { tag: 'intervention_before_assessment', plain: 'Picks the intervention before the assessment', n: 6, trend: 'improving', areas: 'Behavior Reduction, Skill Acquisition', pressure: false },
-  { tag: 'confuses_latency_with_duration', plain: 'Confuses latency with duration', n: 4, trend: 'steady', areas: 'Measurement', pressure: true },
-  { tag: 'rapport_over_ethics', plain: 'Lets rapport override an ethics boundary', n: 2, trend: 'new', areas: 'Professional Conduct', pressure: false },
+  { tag: 'confuses_latency_with_duration', plain: 'Confuses latency with duration', n: 4, trend: 'steady', areas: 'Data Collection and Graphing', pressure: true },
+  { tag: 'rapport_over_ethics', plain: 'Lets rapport override an ethics boundary', n: 2, trend: 'new', areas: 'Ethics', pressure: false },
 ];
 const DEMO_MEMBER = { name: 'Demo Member', track: 'RBT', plan: 'Guided' };
 
@@ -40,7 +40,7 @@ export default function Specialist() {
         <div className="panel">
           <h3>Suggested session moves</h3>
           <div className="score-row"><span>Drill stem reading for FIRST/BEST before any content review - two of the three patterns are stem-discipline, not knowledge gaps.</span><span className="pill pill-teal">strategy</span></div>
-          <div className="score-row"><span>Run a short timed Measurement set together and narrate the latency/duration split out loud.</span><span className="pill pill-teal">drill</span></div>
+          <div className="score-row"><span>Run a short timed Data Collection and Graphing set together and narrate the latency/duration split out loud.</span><span className="pill pill-teal">drill</span></div>
           <div className="score-row"><span>Revisit the gift-policy scenario: reframe rapport vs boundary with one of your own supervision cases.</span><span className="pill pill-teal">ethics</span></div>
         </div>
       </div>

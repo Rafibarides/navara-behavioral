@@ -25,20 +25,22 @@ export default function Book() {
     <AppNav active="book" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
       <div className="wrap" style={{ maxWidth: 640 }}>
-        <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Guided plan</span>
+        <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{user.plan === 'guided' ? 'Guided plan' : '1:1 sessions'}</span>
         <h2>Book a 1:1 session.</h2>
         <div className="panel" style={{ textAlign: 'center', marginTop: 26 }}>
           <div className="credit-bubble"><div><div className="n">{credits === null ? '-' : credits}</div><div className="t">left</div></div></div>
           <h3 style={{ marginBottom: 8 }}>Sessions remaining this month</h3>
           <p style={{ fontSize: 14, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>Sessions are 45 minutes with a Navara Certified Behavior Specialist (NCBS). Bring a topic, a mock result, or just your stuck points.</p>
-          <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={pickTime} disabled={busy}>{busy ? 'Checking...' : 'Pick a time'}</button>
+          {user.plan === 'guided'
+            ? <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={pickTime} disabled={busy}>{busy ? 'Checking...' : 'Pick a time'}</button>
+            : <a className="btn btn-primary" style={{ justifyContent: 'center' }} href={`/pathways/plans/${user.track === 'bcba' ? 'bcba' : 'rbt'}`}>See Guided plans</a>}
           {(DEMO || (user && user.demo)) && <p style={{ fontSize: 12, color: 'var(--ink-2)', fontWeight: 600, marginTop: 18 }}>Demo: booking connects to a private Calendly event type after the live credit check.</p>}
         </div>
       </div>
     </section>
     <Modal open={open} onClose={() => setOpen(false)} title="No session credits available">
       Booking needs a Guided plan with a session credit remaining this month. If you are on the Guided plan and believe this is an error, email info@navarabehavioralgroup.com and we will fix it.
-      <div style={{ marginTop: 16 }}><a className="btn btn-primary" style={{ justifyContent: 'center' }} href="/pathways/plans">See Guided plans</a></div>
+      <div style={{ marginTop: 16 }}><a className="btn btn-primary" style={{ justifyContent: 'center' }} href={`/pathways/plans/${user.track === 'bcba' ? 'bcba' : 'rbt'}`}>See Guided plans</a></div>
     </Modal>
   </>);
 }

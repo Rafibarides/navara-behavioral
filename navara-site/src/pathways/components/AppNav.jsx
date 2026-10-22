@@ -8,7 +8,7 @@ const ITEMS = [
 ];
 const logout = (e) => {
   e.preventDefault();
-  signOut().then(() => { window.location.href = '/pathways/login'; })
+  signOut().then(() => { window.location.replace('/pathways/login'); })
     .catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); });
 };
 
