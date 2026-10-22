@@ -95,7 +95,7 @@ export default function Plans({ track: trackProp = null }) {
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
           <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
-          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.</p>
+          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>{track ? 'Checkout is online - join in a couple of minutes and start practicing today.' : 'Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.'}</p>
         </div>
       </header>
       {!track && (
