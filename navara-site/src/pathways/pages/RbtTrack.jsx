@@ -21,13 +21,13 @@ export default function RbtTrack() {
     <span className="eyebrow rv in">RBT track</span>
     {preview ? (<>
       <h1 data-rise>Walk into the RBT exam, <span className="grad">and your first day, ready.</span></h1>
-      <p className="lead">500 original scenario questions built from real session situations, timed mocks with pace feedback, and explanations for every answer choice.</p>
+      <p className="lead">500 original scenario questions built from real session situations, timed sets with pace feedback, and explanations for every answer choice.</p>
       <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>Understand why an answer fits. See why another one doesn't. Know where to focus next.</p>
     </>) : (<>
       <h1 data-rise>Become the technician <span className="grad">families remember.</span></h1>
       <p className="lead">Preparation for the RBT certification exam, built by clinicians who run sessions every day. Learn the content outline the way it is actually used: measured, observed, and reinforced.</p>
     </>)}
-    <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free RBT quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
+    <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free RBT quiz</a><a className="btn btn-ghost" href="/pathways/plans/rbt">See plans</a></div>
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="6">6</div><div className="lbl">Content areas, full outline</div></div>

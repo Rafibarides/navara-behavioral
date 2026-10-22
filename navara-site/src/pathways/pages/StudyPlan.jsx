@@ -41,7 +41,7 @@ export default function StudyPlan() {
       } else if (w === weeks) {
         rows.push({ w, focus: 'Light review only', note: 'Re-read your flagged questions. Rest well the two days before the exam.' });
       } else if (w === weeks - 1) {
-        rows.push({ w, focus: 'Timed mock set + weak-area review', note: 'One timed 10-question mock set. Spend the rest of the week on the areas that cost you points.' });
+        rows.push({ w, focus: 'Timed set + weak-area review', note: 'One timed 10-question set. Spend the rest of the week on the areas that cost you points.' });
       } else {
         rows.push({ w, focus: 'Mixed practice across all areas', note: 'Timed sets. Keep a list of every question that fools you and re-read why.' });
       }

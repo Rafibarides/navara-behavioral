@@ -15,7 +15,7 @@ const LINKS = (<>
 const priceNote = { fontSize: 14, fontWeight: 600, color: 'var(--ink-2)' };
 const priceNoteFeatured = { fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.7)' };
 
-function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guidedLine, join, onBack, joinErr, preview }) {
+function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guidedLine, join, joinErr, preview }) {
   return (<>
     <div className="plans">
       <div className="plan rv">
@@ -37,7 +37,7 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guided
         <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
       </div>
     </div>
-    <p style={{ textAlign: 'center', marginTop: 30 }}><a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--teal-3)' }}>&larr; Choose a different exam</a></p>
+    <p style={{ textAlign: 'center', marginTop: 30, fontSize: 13.5, fontWeight: 600, color: 'var(--ink-2)' }}>Sitting for the {track === 'rbt' ? 'BCBA' : 'RBT'} exam? <a href={track === 'rbt' ? '/pathways/plans/bcba' : '/pathways/plans/rbt'} style={{ fontWeight: 700, color: 'var(--teal-3)' }}>See {track === 'rbt' ? 'BCBA' : 'RBT'} plans instead &rarr;</a></p>
     {joinErr && <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#b3452e', fontWeight: 700 }}>{joinErr}</p>}
     <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Cancel anytime from your account - no refund for the current month.</p>
     {preview && <p style={{ textAlign: 'center', marginTop: 10, fontSize: 13, color: 'var(--ink-2)', fontWeight: 600 }}>Free sample questions on every track &middot; Secure checkout by Stripe &middot; Nothing charged until you subscribe</p>}
@@ -53,7 +53,7 @@ const TRACKS = {
   bcba: {
     eyebrow: 'BCBA track', heading: 'BCBA exam prep.', selfPrice: '$129', guidedPrice: '$450',
     sampleLine: '10-question BCBA sample quiz', bankLine: 'Full BCBA question bank',
-    guidedLine: 'Two 45-minute 1:1s each month with an NCBS™ - you set the agenda',
+    guidedLine: 'Two 45-minute 1:1s each month with a Navara Certified Behavior Specialist (NCBS) - you set the agenda',
   },
 };
 
@@ -109,14 +109,14 @@ export default function Plans({ track: trackProp = null }) {
                 <div className="glow" style={{ background: '#5F8D9C' }}></div>
                 <span className="track-tag tag-teal">RBT track</span>
                 <h3>RBT exam prep</h3>
-                <p>For behavior technicians getting certified. Full question bank, timed mocks, and optional 1:1 time with a Navara Certified Behavior Specialist (NCBS).</p>
+                <p>For behavior technicians getting certified. Full question bank, timed sets, and optional 1:1 time with a Navara Certified Behavior Specialist (NCBS).</p>
                 <span className="card-link">See RBT plans <span className="arr">&rarr;</span></span>
               </a>
               <a className="track-card rv rv-d1" href="#bcba" onClick={(e) => { e.preventDefault(); setTrack('bcba'); }}>
                 <div className="glow" style={{ background: '#87aa99' }}></div>
                 <span className="track-tag tag-navy">BCBA track</span>
                 <h3>BCBA exam prep</h3>
-                <p>For analysts sitting for the board exam. Scenario practice, timed mocks with pace feedback, and optional 1:1 time with an NCBS™.</p>
+                <p>For analysts sitting for the board exam. Scenario practice, timed sets with pace feedback, and optional 1:1 time with an NCBS™.</p>
                 <span className="card-link">See BCBA plans <span className="arr">&rarr;</span></span>
               </a>
             </div>
@@ -129,7 +129,7 @@ export default function Plans({ track: trackProp = null }) {
             <span className="eyebrow rv in">{t.eyebrow}</span>
             <h2 data-rise style={{ marginBottom: 34 }}>{t.heading}</h2>
             <PlanCards track={track} selfPrice={t.selfPrice} guidedPrice={t.guidedPrice}
-              sampleLine={t.sampleLine} bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} onBack={() => setTrack(null)} joinErr={joinErr} preview={preview} />
+              sampleLine={t.sampleLine} bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} joinErr={joinErr} preview={preview} />
           </div>
         </section>
       )}

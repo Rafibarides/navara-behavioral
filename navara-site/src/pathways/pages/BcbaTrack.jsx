@@ -22,12 +22,12 @@ export default function BcbaTrack() {
     {preview ? (<>
       <h1 data-rise>Depth, not decks. <span className="grad">Preparation that makes you think.</span></h1>
       <p className="lead">The BCBA exam rewards clinical judgment. So do we.</p>
-      <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>500 original scenario questions. Explanations for every option. Timed mocks with pace feedback.</p>
+      <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>500 original scenario questions. Explanations for every option. Timed sets with pace feedback.</p>
     </>) : (<>
       <h1 data-rise>Think like an analyst, <span className="grad">answer like one.</span></h1>
       <p className="lead">Preparation for the BCBA certification exam for candidates who want more than flashcards. Scenario-driven practice that trains clinical judgment, not just recall.</p>
     </>)}
-    <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free BCBA quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
+    <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free BCBA quiz</a><a className="btn btn-ghost" href="/pathways/plans/bcba">See plans</a></div>
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="9">9</div><div className="lbl">Test Content Outline domains, full outline</div></div>
@@ -75,7 +75,7 @@ export default function BcbaTrack() {
     intro="You can reread an explanation. You can reconsider an answer. But sometimes what you want is to talk through your reasoning with someone who understands behavior analysis. Guided adds two 45-minute one-to-one sessions every month with an NCBS™ - dedicated time for the material you find hardest."
     bullets={[
       { h: "Ninety minutes a month, on your questions", p: "Talk through concepts you haven't fully understood, examine questions where two options seem equally convincing, and review the topics you want to strengthen." },
-      { h: "Practice between sessions", p: "Your sessions complement the independent work inside the platform. Bring the questions you want to discuss, then keep moving with the bank and mocks." },
+      { h: "Practice between sessions", p: "Your sessions complement the independent work inside the platform. Bring the questions you want to discuss, then keep moving with the bank and timed sets." },
       { h: "An option, not an obligation", p: "Prefer to work independently? Self-Study gives you the full practice toolkit. Guided adds the dedicated one-to-one time." },
     ]}
   />
@@ -88,7 +88,7 @@ export default function BcbaTrack() {
     heading="Make every question count for more."
     body="Start with 500 original scenario-based questions, detailed explanations, timed practice, and progress tracking. Add two monthly one-to-one sessions if you want dedicated time with an NCBS™. Depth, not decks. Start with a question."
     primary={{ label: "Try the free BCBA quiz", href: "/pathways/sample-quiz" }}
-    secondary={{ label: "Compare plans", href: "/pathways/plans" }}
+    secondary={{ label: "Compare plans", href: "/pathways/plans/bcba" }}
     micro="Explore the approach before you choose your plan."
   />
 </>) : (<>

@@ -82,7 +82,7 @@ export default function Mock() {
         <h2>Timed sets, on demand.</h2>
         <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
           {live
-            ? 'Timed set from the live bank with pacing feedback against real exam timing.'
+            ? 'Timed set from the live bank, with pace feedback as you go.'
             : 'This demo runs a short set with a countdown and live pacing feedback, so you can feel the pressure dial.'}
         </p>
         {v2 && (
@@ -111,14 +111,14 @@ export default function Mock() {
         )}
         {!v2 && (
         <div className="panel" style={{ marginBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
-          <div><b style={{ fontSize: 15 }}>{live ? 'Timed mock' : 'Demo mock'}, {track === 'bcba' ? 'BCBA' : 'RBT'} track</b><br /><span style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600 }}>{qs ? qs.length : '-'} questions, {label} on the clock</span></div>
+          <div><b style={{ fontSize: 15 }}>{live ? 'Timed set' : 'Demo set'}, {track === 'bcba' ? 'BCBA' : 'RBT'} track</b><br /><span style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600 }}>{qs ? qs.length : '-'} questions, {label} on the clock</span></div>
           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-2)', maxWidth: '34ch' }}>{paceNote}</div>
           <div className="timer" style={secs < 60 ? { color: '#a33b41' } : undefined}>{label}</div>
         </div>
         )}
         <div {...(v2 ? {} : { onClickCapture: () => setTimeout(() => setAnswered((n) => n + 1), 0) })}>
           {qs
-            ? <Quiz questions={qs} title={live ? 'Timed mock' : 'Demo mock'} kind="mock" cta="Review on dashboard" ctaHref="/pathways/app/dashboard" onAnswer={v2 ? () => setAnswered((n) => n + 1) : null} />
+            ? <Quiz questions={qs} title={live ? 'Timed set' : 'Demo set'} kind="mock" cta="Review on dashboard" ctaHref="/pathways/app/dashboard" onAnswer={v2 ? () => setAnswered((n) => n + 1) : null} />
             : <p style={{ fontWeight: 600, color: 'var(--ink-2)' }}>Loading your mock...</p>}
         </div>
       </div>

@@ -42,7 +42,7 @@ const SECTIONS = [
     clip: '/inside/clip3.mp4',
     poster: '/inside/poster3.jpg',
     headline: 'Walk in ready.',
-    line: 'Timed mocks with pace feedback. Guided plans add monthly 1:1 sessions.',
+    line: 'Timed sets with pace feedback. Guided plans add monthly 1:1 sessions.',
   },
 ];
 
@@ -63,7 +63,7 @@ const SECTIONS_PREVIEW = [
     clip: '/inside/clip3.mp4',
     poster: '/inside/poster3.jpg',
     headline: 'Exam pace, zero surprises.',
-    line: 'Timed mocks with pace feedback. Guided plans add monthly 1:1 sessions.',
+    line: 'Timed sets with pace feedback. Guided plans add monthly 1:1 sessions.',
   },
 ];
 

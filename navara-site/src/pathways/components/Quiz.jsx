@@ -56,7 +56,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       if (correct) areas[area].c += 1;
     });
     const readiness = pct >= 80
-      ? 'Strong sample performance. The full banks go deeper - timed mocks will tell you if it holds under pressure.'
+      ? 'Strong sample performance. The full banks go deeper - timed sets will tell you if it holds under pressure.'
       : pct >= 60
         ? 'A workable foundation with real gaps. Targeted practice on your weak areas is the fastest way up from here.'
         : 'This is exactly where guided practice pays off: every wrong answer in the full program tells you why it tempted you.';
