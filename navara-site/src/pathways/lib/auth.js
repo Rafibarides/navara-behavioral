@@ -74,6 +74,8 @@ export async function getSessionUser() {
     const { data } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
     prof = data;
   } catch { prof = null; }
+  const local = (session.user.email || '').split('@')[0];
+  const hasName = !!(prof && prof.full_name && prof.full_name !== local);
   // First visit after a magic-link signup: save the name/track they entered, but never
   // overwrite details the server profile already has. The stash is cleared once read.
   try {
@@ -81,7 +83,7 @@ export async function getSessionUser() {
     localStorage.removeItem('pw_pending_profile');
     if (pending) {
       const row = { id: session.user.id };
-      if (pending.full_name && !(prof && prof.full_name)) row.full_name = pending.full_name;
+      if (pending.full_name && !hasName) row.full_name = pending.full_name;
       if (pending.track && !(prof && prof.track)) row.track = pending.track;
       if (row.full_name || row.track) {
         await sb.from('profiles').upsert(row, { onConflict: 'id' });
@@ -93,7 +95,7 @@ export async function getSessionUser() {
   try {
     const md = session.user.user_metadata || {};
     const row = { id: session.user.id };
-    if (!(prof && prof.full_name) && md.full_name) row.full_name = md.full_name;
+    if (!hasName && md.full_name) row.full_name = md.full_name;
     if (!(prof && prof.track) && ['rbt', 'bcba'].includes(md.track)) row.track = md.track;
     if (row.full_name || row.track) {
       await sb.from('profiles').upsert(row, { onConflict: 'id' });

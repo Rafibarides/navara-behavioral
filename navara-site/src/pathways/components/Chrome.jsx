@@ -18,6 +18,7 @@ const MEMBER_LINKS = (<>
   <a href="/pathways/app/practice">Practice</a>
   <a href="/pathways/app/timed-sets">Timed sets</a>
   <a href="/pathways/study-plan">Study Plan</a>
+  <a href="/pathways/app/book">Book a 1:1</a>
   <a href="/pathways/app/account">Account</a>
   <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
 </>);
@@ -31,6 +32,7 @@ const GUEST_LINKS = (<>
 // their workspace links instead (no sample-quiz/plans/other-track marketing).
 export function Nav({ links, app }) {
   const ref = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [member, setMember] = useState(null);
   useEffect(() => {
@@ -48,13 +50,25 @@ export function Nav({ links, app }) {
   }, []);
   if (mounted && !app) {
     return (
-      <div className="pw-unified">
+      <div className={'pw-unified' + (member ? ' pw-app' : '')}>
         <MainSiteNav isDarkMode={false} forceSolidPill />
         <div className="pw-subnav">
           <div className="wrap pw-subnav-inner">
             <a className="pw-subnav-tag" href="/pathways"><ArcMark />Pathways</a>
             <div className="pw-subnav-links">{member ? MEMBER_LINKS : GUEST_LINKS}</div>
+            {member && <button className="pw-mmenu-btn" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Close' : 'Menu'}</button>}
           </div>
+          {member && menuOpen && (
+            <div className="pw-mmenu">
+              <a href="/pathways/app/dashboard">Dashboard</a>
+              <a href="/pathways/app/practice">Practice</a>
+              <a href="/pathways/app/timed-sets">Timed sets</a>
+              <a href="/pathways/study-plan">Study Plan</a>
+              <a href="/pathways/app/book">Book a 1:1</a>
+              <a href="/pathways/app/account">Account</a>
+              <a href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Nav, Footer } from '../components/Chrome';
 import { signIn, signInWithPassword, setPassword, sendPasswordReset } from '../lib/auth';
 import { DEMO } from '../config';
@@ -21,6 +21,13 @@ export default function Login() {
   const [sent, setSent] = useState(false);
   const [done, setDone] = useState(false);
   const [err, setErr] = useState(null);
+  useEffect(() => {
+    // Already signed in: go straight to the dashboard (not while setting a new password or showing an expired link).
+    if (DEMO || resetting || expired || /type=recovery/.test(window.location.hash)) return;
+    let on = true;
+    import('../lib/auth').then((m) => m.getSessionUser()).then((u) => { if (on && u && !u.demo) window.location.replace('/pathways/app/dashboard'); }).catch(() => {});
+    return () => { on = false; };
+  }, []);
   const go = async (e) => {
     e && e.preventDefault();
     setBusy(true);
@@ -47,7 +54,7 @@ export default function Login() {
           return;
         }
       }
-      const user = await signIn(email);
+      const user = await signIn(email, creating ? { full_name: firstName.trim() || undefined, track } : null);
       if (DEMO && user) window.location.href = '/pathways/app/dashboard';
       else setSent(true); // magic link sent (live mode); first-time emails create the account
     } catch (ex) {
