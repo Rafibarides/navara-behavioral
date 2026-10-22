@@ -4,6 +4,7 @@ import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
 const LINKS = (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
   <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
+  <a className="btn btn-primary btn-sm" href="/pathways/login">Create account</a>
 </>);
 
 export default function Landing() {
@@ -38,7 +39,7 @@ export default function Landing() {
     <div className="stats">
       <div className="stat rv"><div className="num" data-count="1000" data-suffix="">1,000</div><div className="lbl">Original practice questions across both banks</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="2">2</div><div className="lbl">Exam tracks, RBT and BCBA</div></div>
-      <div className="stat rv rv-d2"><div className="num" data-count="15">15</div><div className="lbl">Content outline areas covered</div></div>
+      <div className="stat rv rv-d2"><div className="num" data-count="12">12</div><div className="lbl">Content outline areas covered</div></div>
       <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>
     </div>
   </div>

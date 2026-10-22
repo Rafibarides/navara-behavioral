@@ -62,32 +62,27 @@
   {
     "path": "/pathways",
     "title": "Navara Pathways | RBT and BCBA Exam Prep",
-    "description": "Exam preparation, training, and professional development from Navara Behavioral Group. RBT and BCBA tracks with practice banks, mock exams, and 1:1 coaching.",
-    "noindex": true
+    "description": "Exam preparation, training, and professional development from Navara Behavioral Group. RBT and BCBA tracks with practice banks, mock exams, and 1:1 coaching."
   },
   {
     "path": "/pathways/rbt",
     "title": "RBT Exam Prep | Navara Pathways",
-    "description": "Practice banks with explanations, timed mock exams, and 1:1 coaching for the RBT certification exam.",
-    "noindex": true
+    "description": "Practice banks with explanations, timed mock exams, and 1:1 coaching for the RBT certification exam."
   },
   {
     "path": "/pathways/bcba",
     "title": "BCBA Exam Prep | Navara Pathways",
-    "description": "Practice banks with explanations, timed mock exams, and 1:1 coaching for the BCBA certification exam.",
-    "noindex": true
+    "description": "Practice banks with explanations, timed mock exams, and 1:1 coaching for the BCBA certification exam."
   },
   {
     "path": "/pathways/plans",
     "title": "Plans | Navara Pathways",
-    "description": "Free samples, Self-Study, and Guided plans for RBT and BCBA exam prep.",
-    "noindex": true
+    "description": "Free samples, Self-Study, and Guided plans for RBT and BCBA exam prep."
   },
   {
     "path": "/pathways/sample-quiz",
     "title": "Free Sample Quizzes | Navara Pathways",
-    "description": "Try ten free practice questions with explanations for the RBT or BCBA exam. No account needed.",
-    "noindex": true
+    "description": "Try ten free practice questions with explanations for the RBT or BCBA exam. No account needed."
   },
   {
     "path": "/pathways/login",

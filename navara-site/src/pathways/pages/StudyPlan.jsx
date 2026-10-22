@@ -5,6 +5,7 @@ import { joinWaitlist } from '../lib/db';
 const LINKS = (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
   <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
+  <a className="btn btn-primary btn-sm" href="/pathways/login">Create account</a>
 </>);
 
 const AREAS = {

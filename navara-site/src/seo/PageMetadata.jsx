@@ -37,6 +37,13 @@ export function applyMetadata(path) {
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
   set('meta[property="og:url"]', url);
   set('meta[property="twitter:url"]', url);
+  if (path.startsWith('/pathways')) {
+    const card = origin + '/pathways-share.png';
+    set('meta[name="keywords"]', 'RBT exam prep, BCBA exam prep, RBT practice questions, BCBA practice questions, RBT mock exam, BCBA mock exam, RBT study plan, BACB exam practice, Navara Pathways');
+    for (const selector of ['meta[property="og:image"]', 'meta[property="og:image:secure_url"]', 'meta[property="twitter:image"]']) set(selector, card);
+    set('meta[property="og:image:type"]', 'image/png');
+    for (const selector of ['meta[property="og:image:alt"]', 'meta[property="twitter:image:alt"]']) set(selector, 'Navara Pathways - RBT and BCBA exam prep');
+  }
   const robots = !page || page.noindex ? 'noindex, follow' : 'index, follow';
   set('meta[name="robots"]', robots);
   set('meta[name="googlebot"]', robots);
