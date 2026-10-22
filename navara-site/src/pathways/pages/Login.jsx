@@ -73,7 +73,7 @@ export default function Login() {
   return (<>
     <Nav links={LINKS} />
     <main>
-      <section className="section" style={{ paddingTop: 180, minHeight: '100vh' }}>
+      <section className="section" style={{ paddingTop: 56, minHeight: '100vh' }}>
         <div className="wrap">
           <div className="auth-card rv in">
             <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Members</span>

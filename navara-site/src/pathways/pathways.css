@@ -175,7 +175,7 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 .q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
 .q-score{text-align:center;padding:20px 0}
 .q-score .big{font-size:64px;font-weight:800;background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sample-flag{display:inline-flex;align-items:center;gap:8px;background:rgba(95,141,156,.12);color:#3d6f74;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.sample-flag{display:inline-flex;align-items:center;gap:8px;background:rgba(95,141,156,.12);color:#3d6f74;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 14px;border-radius:16px;line-height:1.5;letter-spacing:.12em;text-align:center;margin-bottom:22px}
 
 /* forms */
 .auth-card{max-width:440px;margin:0 auto;background:#fff;border-radius:26px;box-shadow:var(--shadow-lg);padding:48px 42px}
@@ -220,7 +220,7 @@ footer a:hover{color:var(--sage)}
 .disclaimer{border-top:1px solid rgba(255,255,255,.14);padding-top:28px;font-size:12px;line-height:1.8;color:rgba(255,255,255,.5)}
 
 /* track hero */
-.track-hero{position:relative;padding:190px 0 110px;color:#fff;overflow:hidden;background:linear-gradient(160deg,#10233c 0%,#1B3B62 55%,#173038 100%)}
+.track-hero{position:relative;padding:120px 0 90px;color:#fff;overflow:hidden;background:linear-gradient(160deg,#10233c 0%,#1B3B62 55%,#173038 100%)}
 .track-hero.bcba{background:linear-gradient(160deg,#14262e 0%,#1e4a4d 55%,#1B3B62 120%)}
 .track-hero h1{font-size:clamp(36px,5vw,60px)}
 .track-hero .lead{color:rgba(255,255,255,.78);max-width:62ch;font-size:17px;margin-bottom:34px}
@@ -357,3 +357,6 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
   .pw-app .pw-mmenu a{color:rgba(255,255,255,.9);font-weight:600;font-size:15px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
   .pw-app .pw-mmenu a:last-child{border-bottom:0;color:#B1C9B3}
 }
+
+/* form selects match text inputs */
+.field select,select.pw-select{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231B3B62' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;padding-right:38px!important;cursor:pointer}

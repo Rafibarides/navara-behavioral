@@ -90,7 +90,7 @@ export default function Plans({ track: trackProp = null }) {
   return (<>
     <Nav links={LINKS} />
     <main>
-      <header className="track-hero" style={{ padding: '170px 0 90px', textAlign: 'center' }}>
+      <header className="track-hero" style={{ padding: '104px 0 90px', textAlign: 'center' }}>
         <div className="orb orb-2"></div><div className="orb orb-3"></div>
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
