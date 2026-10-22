@@ -160,15 +160,15 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
             <p>{q.opts[picked].why}{q.opts[picked].tempt ? ' ' + q.opts[picked].tempt : ''}</p>
             {q.opts[picked].conf ? <p className="why-conf">You may be confusing this with <span className="term">{q.opts[picked].conf.replace(/_/g, ' ')}</span>.</p> : null}
             {q.opts[picked].rem ? <p className="why-rem"><b>Review:</b> {q.opts[picked].rem}</p> : null}
-            {q.opts.some((o) => o.exp) && (
-              <div className="why-all">
-                <div className="why-h why-tempt">Every option</div>
-                {q.opts.map((o, k) => o.exp && (
-                  <p key={k} className="why-opt"><b>{String.fromCharCode(65 + k)}{k === q.a ? ' (correct)' : ''}:</b> {o.exp}</p>
-                ))}
-              </div>
-            )}
           </>)}
+          {q.opts.some((o) => o.exp) && (
+            <div className="why-all">
+              <div className="why-h why-tempt">Every option explained</div>
+              {q.opts.map((o, k) => o.exp && (
+                <p key={k} className="why-opt"><b>{String.fromCharCode(65 + k)}{k === q.a ? ' (correct)' : ''}:</b> {o.exp}</p>
+              ))}
+            </div>
+          )}
         </div>
       )}
       {picked !== null && !v2 && (

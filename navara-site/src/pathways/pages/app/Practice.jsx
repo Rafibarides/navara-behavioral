@@ -30,7 +30,7 @@ export default function Practice() {
         <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
           {live
             ? 'Untimed sets with instant, option-specific feedback from the full bank.'
-            : 'Untimed sets with instant explanations. These are the labeled sample questions; members practice from the full 1,000-question bank.'}
+            : 'Untimed sets with instant explanations. These are the labeled sample questions; members practice from the full 500-question bank on their track (1,000 across both).'}
         </p>
         {!live && <div style={{ textAlign: 'left', marginBottom: 20 }}><SampleFlag /></div>}
         {qs

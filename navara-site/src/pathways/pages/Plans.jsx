@@ -26,7 +26,7 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guided
       <div className="plan rv rv-d1">
         <h3>Self-Study</h3>
         <div className="p-price">{selfPrice}<span style={priceNote}> /month</span></div>
-        <ul><li>{bankLine}</li><li>Timed mock exams</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
+        <ul><li>{bankLine}</li><li>Timed sets with pace feedback</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
         <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Self-Study'}</button>
       </div>
       <div className="plan featured rv rv-d2">

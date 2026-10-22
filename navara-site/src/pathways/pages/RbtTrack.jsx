@@ -25,7 +25,7 @@ export default function RbtTrack() {
       <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>Understand why an answer fits. See why another one doesn't. Know where to focus next.</p>
     </>) : (<>
       <h1 data-rise>Become the technician <span className="grad">families remember.</span></h1>
-      <p className="lead">Preparation for the RBT certification exam, built by clinicians who run sessions every day. Learn the task list the way it is actually used: measured, observed, and reinforced.</p>
+      <p className="lead">Preparation for the RBT certification exam, built by clinicians who run sessions every day. Learn the content outline the way it is actually used: measured, observed, and reinforced.</p>
     </>)}
     <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free RBT quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
     <div className="stats stats-3" style={{ marginTop: 54 }}>
@@ -55,7 +55,7 @@ export default function RbtTrack() {
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>The whole exam, mapped.</h2>
-      <p>Practice sets are organized by the current BACB RBT Task List (2nd ed., in effect since 2026), so weak spots have nowhere to hide.</p>
+      <p>Practice sets are organized by the current BACB RBT Test Content Outline (3rd ed., in effect since 2026), so weak spots have nowhere to hide.</p>
     </div>
     <div className="areas">
       <div className="area rv"><span className="area-ic">&#9719;</span><div><b>Measurement</b><span>Frequency, duration, latency, IRT, discontinuous methods</span></div></div>
