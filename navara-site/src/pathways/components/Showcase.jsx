@@ -67,7 +67,7 @@ const SECTIONS_PREVIEW = [
   },
 ];
 
-export default function Showcase() {
+export default function Showcase({ track = null }) {
   const preview = usePreview();
   const sections = preview ? SECTIONS_PREVIEW : SECTIONS;
   return (<>
@@ -101,7 +101,7 @@ export default function Showcase() {
           <p style={{ marginBottom: 26 }}>Take the free 10-question sample quiz - no account needed.</p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a className="btn btn-primary" href="/pathways/sample-quiz">Try the free quiz</a>
-            <a className="btn btn-ghost" href="/pathways/plans">See plans</a>
+            <a className="btn btn-ghost" href={track ? `/pathways/plans/${track}` : '/pathways/plans'}>See plans</a>
           </div>
         </Reveal>
       </div>

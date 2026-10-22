@@ -35,7 +35,7 @@ export default function RbtTrack() {
     </div>
   </div>
 </header>
-<Showcase />
+<Showcase track="rbt" />
 {preview && <Explainer
   title="Depth, not decks."
   lines={[
