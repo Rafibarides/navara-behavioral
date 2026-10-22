@@ -30,8 +30,8 @@ export default function Mock() {
     fetchQuestions({ track, limit: 10 }).then((rows) => {
       if (!on) return;
       if (!DEMO && rows && rows.length >= 10) { setQs(rows); setLive(true); setSecs(10 * PACE[track]); setTotal(10 * PACE[track]); }
-      else return fetchSample({ track, limit: 6, skip: 4 }).then((s) => { if (on) { setQs(s); setSecs(6 * PACE[track]); setTotal(6 * PACE[track]); } });
-    }).catch(() => fetchSample({ track, limit: 6, skip: 4 }).then((s) => { if (on) { setQs(s); setSecs(6 * PACE[track]); setTotal(6 * PACE[track]); } }));
+      else return fetchSample({ track, limit: 10, skip: 0 }).then((s) => { if (on) { setQs(s); setSecs(10 * PACE[track]); setTotal(10 * PACE[track]); } });
+    }).catch(() => fetchSample({ track, limit: 10, skip: 0 }).then((s) => { if (on) { setQs(s); setSecs(10 * PACE[track]); setTotal(10 * PACE[track]); } }));
     return () => { on = false; };
   }, [user]);
   if (!user) return null;

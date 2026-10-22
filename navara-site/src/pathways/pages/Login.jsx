@@ -12,6 +12,8 @@ export default function Login() {
   const resetting = new URLSearchParams(window.location.search).get('reset') === '1';
   const [mode, setMode] = useState(resetting ? 'reset' : 'create'); // 'create' | 'signin' | 'reset'
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [track, setTrack] = useState('rbt');
   const [pw, setPw] = useState('');
   const [useLink, setUseLink] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -30,6 +32,9 @@ export default function Login() {
         return;
       }
       if (!email) return;
+      if (creating) {
+        try { localStorage.setItem('pw_pending_profile', JSON.stringify({ full_name: firstName.trim() || null, track })); } catch {}
+      }
       if (mode === 'signin' && !useLink && !DEMO) {
         if (!pw) return;
         try {
@@ -76,7 +81,7 @@ export default function Login() {
               {tabBtn('create', 'Create account')}
               {tabBtn('signin', 'Sign in')}
             </div>
-            <h2 style={{ fontSize: 30, marginBottom: 10 }}>{mode === 'reset' ? 'Choose a new password.' : creating ? 'Create your account.' : 'Welcome back.'}</h2>
+            <h1 style={{ fontSize: 30, marginBottom: 10, lineHeight: 1.15 }}>{mode === 'reset' ? 'Choose a new password.' : creating ? 'Create your account.' : 'Welcome back.'}</h1>
             <p style={{ fontSize: 14, color: 'var(--ink-2)', marginBottom: 28 }}>
               {DEMO
                 ? 'Sign in to your practice dashboard. This preview uses a demo account.'
@@ -93,7 +98,15 @@ export default function Login() {
             ) : sent ? (
               <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox for the sign-in link.{creating ? ' It creates your account when you click it.' : ''}</p>
             ) : (<form onSubmit={go}>
-              {mode !== 'reset' && <div className="field"><label>Email</label><input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>}
+              {creating && (<>
+                <div className="field"><label htmlFor="pw-first-name">First name</label><input id="pw-first-name" type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} /></div>
+                <div className="field"><label htmlFor="pw-track">Which exam are you preparing for?</label>
+                  <select id="pw-track" value={track} onChange={(e) => setTrack(e.target.value)}>
+                    <option value="rbt">RBT exam</option>
+                    <option value="bcba">BCBA exam</option>
+                  </select></div>
+              </>)}
+              {mode !== 'reset' && <div className="field"><label htmlFor="pw-email">Email</label><input id="pw-email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>}
               {mode === 'reset'
                 ? <div className="field"><label>New password</label><input type="password" placeholder="At least 6 characters" value={pw} onChange={(e) => setPw(e.target.value)} /></div>
                 : (mode === 'signin' && !useLink && !DEMO) && <div className="field"><label>Password</label><input type="password" placeholder="Your password" value={pw} onChange={(e) => setPw(e.target.value)} /></div>}

@@ -1,7 +1,7 @@
 /* Navara Pathways prototype - Navara brand tokens */
 :root{
   --navy:#1B3B62; --navy-deep:#1E324A; --navy-ink:#0F1F33;
-  --teal:#5F8D9C; --teal-2:#6e9e9d; --teal-3:#56898C;
+  --teal:#5F8D9C; --teal-2:#6e9e9d; --teal-3:#3D6A6E;
   --sage:#B1C9B3; --sage-2:#A7BDA9; --sage-3:#87aa99; --sage-4:#a7baa2;
   --light:#f3f7f4; --ink:#22303e; --ink-2:#595959; --white:#fff;
   --grad-brand:linear-gradient(120deg,#5F8D9C 0%,#87aa99 50%,#B1C9B3 100%);
@@ -181,8 +181,8 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 .auth-card{max-width:440px;margin:0 auto;background:#fff;border-radius:26px;box-shadow:var(--shadow-lg);padding:48px 42px}
 .field{margin-bottom:20px}
 .field label{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
-.field input{width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(27,59,98,.2);font-family:inherit;font-size:14.5px;transition:border-color .3s,box-shadow .3s}
-.field input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(95,141,156,.15)}
+.field input,.field select{width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(27,59,98,.2);font-family:inherit;font-size:14.5px;transition:border-color .3s,box-shadow .3s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(95,141,156,.15)}
 
 /* member area */
 .app-nav{background:var(--navy-ink)}
@@ -338,3 +338,11 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
   .app-nav.v2 .nav-links::-webkit-scrollbar{display:none}
   .app-nav.v2 .nav-links a{font-size:12.5px;white-space:nowrap;flex:none}
 }
+
+.pw-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:10px;background:none;border:1px solid rgba(255,255,255,.35);border-radius:10px;cursor:pointer}
+.pw-burger span{display:block;height:2px;background:#fff;border-radius:2px}
+.pw-app-menu{position:absolute;top:100%;left:0;right:0;background:var(--navy-ink);border-top:1px solid rgba(255,255,255,.12);padding:10px 24px 18px;display:flex;flex-direction:column;z-index:60}
+.pw-app-menu a{color:rgba(255,255,255,.9);font-size:16px;font-weight:600;padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.08);text-decoration:none}
+
+.why-all{margin-top:14px;border-top:1px dashed rgba(27,59,98,.25);padding-top:12px}
+.why-opt{margin:6px 0;font-size:13.5px;color:var(--ink-2);font-weight:600}

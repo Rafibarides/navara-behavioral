@@ -41,7 +41,7 @@ export default function StudyPlan() {
       } else if (w === weeks) {
         rows.push({ w, focus: 'Light review only', note: 'Re-read your flagged questions. Rest well the two days before the exam.' });
       } else if (w === weeks - 1) {
-        rows.push({ w, focus: 'Full timed mock + weak-area review', note: 'One full mock under real timing. Spend the rest of the week on the areas that cost you points.' });
+        rows.push({ w, focus: 'Timed mock set + weak-area review', note: 'One timed 10-question mock set. Spend the rest of the week on the areas that cost you points.' });
       } else {
         rows.push({ w, focus: 'Mixed practice across all areas', note: 'Timed sets. Keep a list of every question that fools you and re-read why.' });
       }
@@ -71,19 +71,19 @@ export default function StudyPlan() {
           <div className="panel rv in" style={{ padding: 30 }}>
             <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'flex-end' }}>
               <div className="field" style={{ minWidth: 150 }}>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 700, marginBottom: 6 }}>Track</label>
-                <select value={track} onChange={(e) => setTrack(e.target.value)} style={{ padding: '12px 14px', borderRadius: 12, border: '1.5px solid rgba(27,59,98,.2)', font: 'inherit', width: '100%' }}>
+                <label htmlFor="sp-track" style={{ display: 'block', fontSize: 13, fontWeight: 700, marginBottom: 6 }}>Track</label>
+                <select id="sp-track" value={track} onChange={(e) => setTrack(e.target.value)} style={{ padding: '12px 14px', borderRadius: 12, border: '1.5px solid rgba(27,59,98,.2)', font: 'inherit', width: '100%' }}>
                   <option value="rbt">RBT</option>
                   <option value="bcba">BCBA</option>
                 </select>
               </div>
               <div className="field" style={{ minWidth: 180 }}>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 700, marginBottom: 6 }}>Target exam date (optional)</label>
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} style={{ padding: '11px 14px', borderRadius: 12, border: '1.5px solid rgba(27,59,98,.2)', font: 'inherit', width: '100%' }} />
+                <label htmlFor="sp-date" style={{ display: 'block', fontSize: 13, fontWeight: 700, marginBottom: 6 }}>Target exam date (optional)</label>
+                <input id="sp-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} style={{ padding: '11px 14px', borderRadius: 12, border: '1.5px solid rgba(27,59,98,.2)', font: 'inherit', width: '100%' }} />
               </div>
               <div className="field" style={{ minWidth: 130 }}>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 700, marginBottom: 6 }}>Hours per week</label>
-                <input type="number" min="1" max="30" value={hours} onChange={(e) => setHours(Math.max(1, Math.min(30, +e.target.value || 1)))} style={{ padding: '11px 14px', borderRadius: 12, border: '1.5px solid rgba(27,59,98,.2)', font: 'inherit', width: '100%' }} />
+                <label htmlFor="sp-hours" style={{ display: 'block', fontSize: 13, fontWeight: 700, marginBottom: 6 }}>Hours per week</label>
+                <input id="sp-hours" type="number" min="1" max="30" value={hours} onChange={(e) => setHours(Math.max(1, Math.min(30, +e.target.value || 1)))} style={{ padding: '11px 14px', borderRadius: 12, border: '1.5px solid rgba(27,59,98,.2)', font: 'inherit', width: '100%' }} />
               </div>
               <button className="btn btn-primary" onClick={build}>Build my plan</button>
             </div>

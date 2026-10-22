@@ -37,7 +37,8 @@ export default function Book() {
       </div>
     </section>
     <Modal open={open} onClose={() => setOpen(false)} title="No session credits available">
-      Booking needs a Guided plan with a session credit remaining this month. If you are on the Guided plan and believe this is an error, reply to any Navara email and we will fix it.
+      Booking needs a Guided plan with a session credit remaining this month. If you are on the Guided plan and believe this is an error, email info@navarabehavioralgroup.com and we will fix it.
+      <div style={{ marginTop: 16 }}><a className="btn btn-primary" style={{ justifyContent: 'center' }} href="/pathways/plans">See Guided plans</a></div>
     </Modal>
   </>);
 }

@@ -18,7 +18,7 @@ const MEMBER_LINKS = (<>
   <a href="/pathways/app/mock">Timed sets</a>
   <a href="/pathways/study-plan">Study Plan</a>
   <a href="/pathways/app/account">Account</a>
-  <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.href = '/pathways/login'; }); }}>Log out</a>
+  <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.href = '/pathways/login'; }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
 </>);
 
 // Marketing pages keep the full header for visitors; a signed-in member gets
@@ -141,7 +141,7 @@ export function usePathwaysEffects(deps = []) {
 }
 
 export function SampleFlag() {
-  return <span className="sample-flag">Sample questions - members unlock the full 1,000-question banks</span>;
+  return <span className="sample-flag">Sample questions - members unlock 500 original questions on their track (1,000 across both)</span>;
 }
 
 export function Modal({ id, open, onClose, title, children }) {

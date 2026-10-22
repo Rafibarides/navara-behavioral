@@ -55,7 +55,7 @@ export default function RbtTrack() {
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>The whole exam, mapped.</h2>
-      <p>Practice sets are organized by the current BACB RBT content outline, so weak spots have nowhere to hide.</p>
+      <p>Practice sets are organized by the current BACB RBT Task List (2nd ed., in effect since 2026), so weak spots have nowhere to hide.</p>
     </div>
     <div className="areas">
       <div className="area rv"><span className="area-ic">&#9719;</span><div><b>Measurement</b><span>Frequency, duration, latency, IRT, discontinuous methods</span></div></div>

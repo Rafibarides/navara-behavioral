@@ -16,6 +16,7 @@ export default function Specialist() {
   usePathwaysEffects();
   const user = useRequireUser();
   if (!user) return null;
+  if (user.role !== 'staff' && user.role !== 'admin') { window.location.replace('/pathways/app/dashboard'); return null; }
   return (<>
     <AppNav active="" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>

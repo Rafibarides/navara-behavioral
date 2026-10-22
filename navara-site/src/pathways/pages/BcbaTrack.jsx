@@ -30,7 +30,7 @@ export default function BcbaTrack() {
     <div className="hero-ctas"><a className="btn btn-primary" href="/pathways/sample-quiz">Try the free BCBA quiz</a><a className="btn btn-ghost" href="/pathways/plans">See plans</a></div>
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
-      <div className="stat rv rv-d1"><div className="num" data-count="6">6</div><div className="lbl">Content areas, full outline</div></div>
+      <div className="stat rv rv-d1"><div className="num" data-count="9">9</div><div className="lbl">Test Content Outline domains, full outline</div></div>
       <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">1:1 time on Guided</div></div>
     </div>
   </div>
@@ -56,7 +56,7 @@ export default function BcbaTrack() {
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow">Every area of the content outline</span>
       <h2>From philosophy to supervision.</h2>
-      <p>Practice sets are organized by the current BACB BCBA Test Content Outline.</p>
+      <p>Practice sets are organized by the current BACB BCBA Test Content Outline (6th ed., in effect since 2025).</p>
     </div>
     <div className="areas">
       <div className="area rv"><span className="area-ic">&#9670;</span><div><b>Foundations &amp; Principles</b><span>Behaviorism, reinforcement, punishment, stimulus control</span></div></div>

@@ -39,7 +39,7 @@ export default function Landing() {
     <div className="stats">
       <div className="stat rv"><div className="num" data-count="1000" data-suffix="">1,000</div><div className="lbl">Original practice questions across both banks</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="2">2</div><div className="lbl">Exam tracks, RBT and BCBA</div></div>
-      <div className="stat rv rv-d2"><div className="num" data-count="12">12</div><div className="lbl">Content outline areas covered</div></div>
+      <div className="stat rv rv-d2"><div className="num" data-count="15">15</div><div className="lbl">BACB content-outline domains covered</div></div>
       <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>
     </div>
   </div>

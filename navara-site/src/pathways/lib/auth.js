@@ -74,10 +74,22 @@ export async function getSessionUser() {
     const { data } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
     prof = data;
   } catch { prof = null; }
+  // First visit after a magic-link signup: save the name/track they entered.
+  try {
+    const pending = JSON.parse(localStorage.getItem('pw_pending_profile') || 'null');
+    if (pending && (pending.full_name || pending.track)) {
+      const row = { id: session.user.id };
+      if (pending.full_name) row.full_name = pending.full_name;
+      if (pending.track) row.track = pending.track;
+      await sb.from('profiles').upsert(row, { onConflict: 'id' });
+      prof = { ...(prof || {}), ...row };
+      localStorage.removeItem('pw_pending_profile');
+    }
+  } catch { /* profile save can be retried from Account */ }
   return {
     id: session.user.id,
     email: session.user.email,
-    name: (prof && prof.full_name) || (session.user.email || '').split('@')[0],
+    name: (prof && prof.full_name) || null,
     plan: (prof && prof.plan) || 'sample',
     track: (prof && prof.track) || 'rbt',
     role: (prof && prof.role) || 'member',
@@ -89,5 +101,7 @@ export async function signOut() {
   localStorage.removeItem(KEY);
   if (DEMO) return;
   const { getClient } = await import('./db');
-  await getClient().auth.signOut();
+  const sb = await getClient();
+  const { error } = await sb.auth.signOut();
+  if (error) throw error;
 }
