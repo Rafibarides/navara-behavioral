@@ -23,7 +23,7 @@ const MEMBER_LINKS = (<>
 
 const GUEST_LINKS = (<>
   <a href="/pathways/plans">Plans</a>
-  <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
+  <a className="btn btn-ghost btn-sm" href="/pathways/login?mode=signin">Log in</a>
 </>);
 
 // Marketing pages keep the full header for visitors; a signed-in member gets

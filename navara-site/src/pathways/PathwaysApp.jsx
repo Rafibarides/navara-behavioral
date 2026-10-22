@@ -40,6 +40,7 @@ export default function PathwaysApp() {
       <Route path="plans" element={<Plans />} />
       <Route path="plans/:track" element={<PlansByTrack />} />
       <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Navigate to="/pathways/login" replace />} />
       <Route path="privacy" element={<Privacy />} />
       <Route path="terms" element={<Terms />} />
       <Route path="study-plan" element={<StudyPlan />} />

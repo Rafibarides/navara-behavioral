@@ -311,7 +311,7 @@ const BehavioralPage = ({ isDarkMode = false }) => {
             margin: '0 auto 16px auto',
             fontStyle: 'italic',
           }}>
-            Navara Behavior Support offers flexible, evidence-based services for families who want real results —
+            Navara Behavior Support offers flexible, evidence-based services for families who want real results,
             without the waitlists or the one-size-fits-all approach.
           </motion.p>
 

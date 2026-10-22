@@ -5,12 +5,12 @@ import { DEMO } from '../config';
 
 const LINKS = (<>
   <a href="/pathways/rbt">RBT Prep</a><a href="/pathways/bcba">BCBA Prep</a><a href="/pathways/sample-quiz">Sample Quizzes</a><a href="/pathways/plans">Plans</a>
-  <a className="btn btn-ghost btn-sm" href="/pathways/login">Log in</a>
+  <a className="btn btn-ghost btn-sm" href="/pathways/login?mode=signin">Log in</a>
 </>);
 
 export default function Login() {
   const resetting = new URLSearchParams(window.location.search).get('reset') === '1';
-  const [mode, setMode] = useState(resetting ? 'reset' : 'create'); // 'create' | 'signin' | 'reset'
+  const [mode, setMode] = useState(resetting ? 'reset' : new URLSearchParams(window.location.search).get('mode') === 'signin' ? 'signin' : 'create'); // 'create' | 'signin' | 'reset'
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [track, setTrack] = useState('rbt');

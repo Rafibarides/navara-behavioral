@@ -65,7 +65,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       e.preventDefault();
       if (!email) return;
       try { localStorage.setItem('pw_pending_profile', JSON.stringify({ full_name: firstName.trim() || null, track: /^BCBA/i.test(title) ? 'bcba' : /^RBT/i.test(title) ? 'rbt' : null })); } catch {}
-      try { await signIn(email); } catch { /* still show the confirmation */ }
+      try { await signIn(email, { full_name: firstName.trim() || undefined, track: /^BCBA/i.test(title) ? 'bcba' : /^RBT/i.test(title) ? 'rbt' : undefined }); } catch { /* still show the confirmation */ }
       setSent(true);
     };
     return (
@@ -91,7 +91,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
         )}
         {emailCta && !sent && (
           <form onSubmit={save} style={{ marginBottom: 22 }}>
-            <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>Save these results and keep practicing free:</p>
+            <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>Create a free account to keep practicing:</p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
               <input type="text" placeholder="First name" aria-label="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)}
                      style={{ padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(27,59,98,.25)', minWidth: 160, font: 'inherit' }} />

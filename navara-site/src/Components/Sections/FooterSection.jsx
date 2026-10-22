@@ -156,7 +156,7 @@ const FooterSection = ({ isDarkMode = false, isPathways = false }) => {
               marginBottom: '24px',
               maxWidth: '400px',
             }}>
-              Evidence-based behavior support for families who want real results — no waitlists, no one-size-fits-all.
+              Evidence-based behavior support for families who want real results, no waitlists, no one-size-fits-all.
             </p>
             {/* Business Address */}
             <div style={{

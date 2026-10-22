@@ -14,11 +14,11 @@ export function signInDemo() {
 }
 
 // Send a magic link (live) or sign into the demo account (demo mode).
-export async function signIn(email) {
+export async function signIn(email, meta = null) {
   if (DEMO) return signInDemo();
   const { getClient } = await import('./db');
   const sb = await getClient();
-  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + '/pathways/app/dashboard' } });
+  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + '/pathways/app/dashboard', ...(meta ? { data: meta } : {}) } });
   if (error) throw error;
   return null; // user arrives via email link
 }
@@ -86,6 +86,17 @@ export async function getSessionUser() {
       localStorage.removeItem('pw_pending_profile');
     }
   } catch { /* profile save can be retried from Account */ }
+  // Same details travel with the sign-in link itself, so opening it on another device still works.
+  try {
+    const md = session.user.user_metadata || {};
+    const row = { id: session.user.id };
+    if (!(prof && prof.full_name) && md.full_name) row.full_name = md.full_name;
+    if (!(prof && prof.track) && ['rbt', 'bcba'].includes(md.track)) row.track = md.track;
+    if (row.full_name || row.track) {
+      await sb.from('profiles').upsert(row, { onConflict: 'id' });
+      prof = { ...(prof || {}), ...row };
+    }
+  } catch { /* retry from Account */ }
   return {
     id: session.user.id,
     email: session.user.email,
