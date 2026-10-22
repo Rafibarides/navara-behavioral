@@ -12,9 +12,26 @@ export function Arcs({ className }) {
   );
 }
 
+const MEMBER_LINKS = (<>
+  <a href="/pathways/app/dashboard">Dashboard</a>
+  <a href="/pathways/app/practice">Practice</a>
+  <a href="/pathways/app/mock">Timed sets</a>
+  <a href="/pathways/study-plan">Study Plan</a>
+  <a href="/pathways/app/account">Account</a>
+</>);
+
+// Marketing pages keep the full header for visitors; a signed-in member gets
+// their workspace links instead (no sample-quiz/plans/other-track marketing).
 export function Nav({ links, app }) {
   const ref = useRef(null);
   const [mounted, setMounted] = useState(false);
+  const [member, setMember] = useState(null);
+  useEffect(() => {
+    let on = true;
+    import('../lib/auth').then((m) => m.getSessionUser()).then((u) => { if (on && u && !u.demo) setMember(u); }).catch(() => {});
+    return () => { on = false; };
+  }, []);
+  if (member) links = MEMBER_LINKS;
   useEffect(() => setMounted(true), []);
   useEffect(() => {
     const onScroll = () => ref.current && ref.current.classList.toggle('scrolled', window.scrollY > 30);

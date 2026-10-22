@@ -23,6 +23,40 @@ export async function signIn(email) {
   return null; // user arrives via email link
 }
 
+// Password sign-in for returning members who set a password.
+export async function signInWithPassword(email, password) {
+  const { getClient } = await import('./db');
+  const sb = await getClient();
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) throw error;
+}
+
+// Set (or change) the signed-in member's password; marks the account so the
+// dashboard stops prompting.
+export async function setPassword(password) {
+  const { getClient } = await import('./db');
+  const sb = await getClient();
+  const { error } = await sb.auth.updateUser({ password, data: { has_password: true } });
+  if (error) throw error;
+}
+
+// True when the live account already has a password set.
+export async function hasPassword() {
+  if (DEMO) return true;
+  const { getClient } = await import('./db');
+  const sb = await getClient();
+  const { data: { session } } = await sb.auth.getSession();
+  return !!(session && session.user && session.user.user_metadata && session.user.user_metadata.has_password);
+}
+
+// Send a password-reset link; lands on /pathways/login?reset=1 with a session.
+export async function sendPasswordReset(email) {
+  const { getClient } = await import('./db');
+  const sb = await getClient();
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/pathways/login?reset=1' });
+  if (error) throw error;
+}
+
 // Synchronous read: demo account only. Live sessions resolve via getSessionUser().
 export function currentUser() {
   return demoUser();

@@ -3,7 +3,7 @@ import { Arcs } from './Chrome';
 import { signOut } from '../lib/auth';
 
 const ITEMS = [
-  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['mock', 'Mock exams'],
+  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['mock', 'Timed sets'],
   ['book', 'Book a 1:1'], ['account', 'Account'],
 ];
 export default function AppNav({ active, role }) {

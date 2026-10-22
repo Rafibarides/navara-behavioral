@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Nav, Footer } from '../components/Chrome';
-import { signIn } from '../lib/auth';
+import { signIn, signInWithPassword, setPassword, sendPasswordReset } from '../lib/auth';
 import { DEMO } from '../config';
 
 const LINKS = (<>
@@ -9,23 +9,52 @@ const LINKS = (<>
 </>);
 
 export default function Login() {
-  const [mode, setMode] = useState('create'); // 'create' | 'signin'
+  const resetting = new URLSearchParams(window.location.search).get('reset') === '1';
+  const [mode, setMode] = useState(resetting ? 'reset' : 'create'); // 'create' | 'signin' | 'reset'
   const [email, setEmail] = useState('');
+  const [pw, setPw] = useState('');
+  const [useLink, setUseLink] = useState(false);
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
+  const [done, setDone] = useState(false);
   const [err, setErr] = useState(null);
   const go = async (e) => {
     e && e.preventDefault();
-    if (!email) return;
     setBusy(true);
     setErr(null);
     try {
+      if (mode === 'reset') {
+        if (pw.length < 6) { setErr('Password needs at least 6 characters.'); return; }
+        await setPassword(pw);
+        window.location.href = '/pathways/app/dashboard';
+        return;
+      }
+      if (!email) return;
+      if (mode === 'signin' && !useLink && !DEMO) {
+        if (!pw) return;
+        try {
+          await signInWithPassword(email, pw);
+          window.location.href = '/pathways/app/dashboard';
+          return;
+        } catch {
+          setErr('Email or password did not match. Try again, or use a sign-in link below.');
+          return;
+        }
+      }
       const user = await signIn(email);
       if (DEMO && user) window.location.href = '/pathways/app/dashboard';
       else setSent(true); // magic link sent (live mode); first-time emails create the account
     } catch (ex) {
-      setErr('Something went wrong sending your sign-in link. Try again in a moment.');
+      setErr('Something went wrong. Try again in a moment.');
     } finally { setBusy(false); }
+  };
+  const forgot = async () => {
+    if (!email) { setErr('Enter your email above first, then tap reset.'); return; }
+    setBusy(true);
+    setErr(null);
+    try { await sendPasswordReset(email); setDone(true); }
+    catch { setErr('Could not send the reset email. Try again in a moment.'); }
+    finally { setBusy(false); }
   };
   const creating = mode === 'create';
   const tabBtn = (m, label) => (
@@ -47,22 +76,39 @@ export default function Login() {
               {tabBtn('create', 'Create account')}
               {tabBtn('signin', 'Sign in')}
             </div>
-            <h2 style={{ fontSize: 30, marginBottom: 10 }}>{creating ? 'Create your account.' : 'Welcome back.'}</h2>
+            <h2 style={{ fontSize: 30, marginBottom: 10 }}>{mode === 'reset' ? 'Choose a new password.' : creating ? 'Create your account.' : 'Welcome back.'}</h2>
             <p style={{ fontSize: 14, color: 'var(--ink-2)', marginBottom: 28 }}>
               {DEMO
                 ? 'Sign in to your practice dashboard. This preview uses a demo account.'
-                : creating
-                  ? 'Enter your email and we will send you a secure sign-in link. Clicking it creates your account - no password needed. You pick your plan inside.'
-                  : 'Enter your email and we will send you a sign-in link. No password needed.'}
+                : mode === 'reset'
+                  ? 'Pick a password you will remember. After this you can sign in with your email and password any time.'
+                  : creating
+                    ? 'Enter your email and we will send you a secure sign-in link. Clicking it creates your account. You pick your plan inside, and you can set a password on your first visit.'
+                    : useLink
+                      ? 'Enter your email and we will send you a sign-in link. No password needed.'
+                      : 'Sign in with your email and password. First time here, or never set a password? Use the sign-in link option below.'}
             </p>
-            {sent ? (
+            {done ? (
+              <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox - the reset link is on its way.</p>
+            ) : sent ? (
               <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox for the sign-in link.{creating ? ' It creates your account when you click it.' : ''}</p>
             ) : (<form onSubmit={go}>
-              <div className="field"><label>Email</label><input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+              {mode !== 'reset' && <div className="field"><label>Email</label><input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>}
+              {mode === 'reset'
+                ? <div className="field"><label>New password</label><input type="password" placeholder="At least 6 characters" value={pw} onChange={(e) => setPw(e.target.value)} /></div>
+                : (mode === 'signin' && !useLink && !DEMO) && <div className="field"><label>Password</label><input type="password" placeholder="Your password" value={pw} onChange={(e) => setPw(e.target.value)} /></div>}
               {err && <p style={{ color: '#a33b41', fontSize: 13, fontWeight: 600 }}>{err}</p>}
-              <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} disabled={busy || !email} type="submit">
-                {busy ? 'Sending...' : creating ? 'Create my account' : 'Email me a sign-in link'}
+              <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} disabled={busy || (mode !== 'reset' && !email)} type="submit">
+                {busy ? 'One moment...' : mode === 'reset' ? 'Save my password' : creating ? 'Create my account' : useLink ? 'Email me a sign-in link' : 'Sign in'}
               </button>
+              {!creating && mode !== 'reset' && !DEMO && (
+                <p style={{ textAlign: 'center', marginTop: 16, fontSize: 13.5, fontWeight: 600 }}>
+                  <a href="#" onClick={(e) => { e.preventDefault(); setUseLink(!useLink); setErr(null); }} style={{ color: 'var(--teal-3)' }}>
+                    {useLink ? 'Sign in with a password instead' : 'Email me a sign-in link instead'}
+                  </a>
+                  {!useLink && <> &nbsp;|&nbsp; <a href="#" onClick={(e) => { e.preventDefault(); forgot(); }} style={{ color: 'var(--teal-3)' }}>Forgot password</a></>}
+                </p>
+              )}
             </form>)}
           </div>
         </div>

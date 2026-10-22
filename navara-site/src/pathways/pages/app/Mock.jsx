@@ -15,11 +15,14 @@ export default function Mock() {
   const [answered, setAnswered] = useState(0);
   const [qs, setQs] = useState(null);
   const [live, setLive] = useState(false);
+  const [started, setStarted] = useState(false);
   const start = useRef(Date.now());
   useEffect(() => {
+    if (!started) return;
+    start.current = Date.now();
     const iv = setInterval(() => setSecs((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(iv);
-  }, []);
+  }, [started]);
   useEffect(() => {
     if (!user) return;
     let on = true;
@@ -34,6 +37,36 @@ export default function Mock() {
   if (!user) return null;
   const track = user.track === 'bcba' ? 'bcba' : 'rbt';
   const target = PACE[track];
+  if (!started) {
+    const n = qs ? qs.length : null;
+    const mins = n ? Math.round((n * target) / 60) : null;
+    return (<>
+      <AppNav active="mock" />
+      <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
+        <div className="wrap quiz-shell">
+          <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Mock exams</span>
+          <h2>Timed sets, on demand.</h2>
+          <div className="panel" style={{ maxWidth: 560, margin: '26px auto 0', textAlign: 'center', padding: 34 }}>
+            <h3 style={{ marginBottom: 10 }}>{track === 'bcba' ? 'BCBA' : 'RBT'} timed set</h3>
+            <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, lineHeight: 1.7, marginBottom: 8 }}>
+              {n ? n + ' questions' : '...'} · {mins ? 'about ' + mins + (mins === 1 ? ' minute' : ' minutes') : '...'} on the clock · pace feedback as you go.
+            </p>
+            <p style={{ fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 22 }}>
+              The timer starts when you tap Start. Answer every question - you can flag the hard ones mentally and keep moving.
+            </p>
+            {!live && qs && (
+              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 18, background: 'var(--light)', borderRadius: 10, padding: '10px 14px' }}>
+                You're on the free Sample plan, so this set uses sample questions. Members get timed sets from the full bank.
+              </p>
+            )}
+            <button className="btn btn-primary" style={{ justifyContent: 'center', minWidth: 200 }} disabled={!qs} onClick={() => setStarted(true)}>
+              {qs ? 'Start the timer' : 'Preparing your set...'}
+            </button>
+          </div>
+        </div>
+      </section>
+    </>);
+  }
   const label = Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0');
   const elapsed = (Date.now() - start.current) / 1000;
   const pace = answered > 0 ? Math.max(1, Math.round(elapsed / answered)) : null;

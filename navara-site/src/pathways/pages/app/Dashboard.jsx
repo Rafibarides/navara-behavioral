@@ -3,6 +3,7 @@ import AppNav from '../../components/AppNav';
 import { usePathwaysEffects } from '../../components/Chrome';
 import { useRequireUser } from '../../components/useRequireUser';
 import { sessionCredits, fetchAreaProgress } from '../../lib/db';
+import { hasPassword, setPassword } from '../../lib/auth';
 import { DEMO } from '../../config';
 
 const DEMO_PROGRESS = [['Measurement', 82], ['Assessment', 64], ['Skill Acquisition', 71], ['Behavior Reduction', 48], ['Documentation & Reporting', 77], ['Professional Conduct', 90]];
@@ -12,10 +13,16 @@ export default function Dashboard() {
   const user = useRequireUser();
   const [credits, setCredits] = useState(null);
   const [progress, setProgress] = useState(null);
+  const [needsPw, setNeedsPw] = useState(false);
+  const [pw, setPw] = useState('');
+  const [pwMsg, setPwMsg] = useState(null);
   useEffect(() => {
     if (!user) return;
     sessionCredits().then(setCredits);
     fetchAreaProgress().then((rows) => setProgress(rows && rows.length ? rows : null));
+    if (!DEMO && !user.demo && !localStorage.getItem('pw_skip_setpw')) {
+      hasPassword().then((h) => setNeedsPw(!h)).catch(() => {});
+    }
   }, [user]);
   if (!user) return null;
   const planLabel = (user.plan === 'guided' ? 'Guided' : user.plan === 'self-study' ? 'Self-Study' : 'Sample') + ' plan, ' + (user.track === 'bcba' ? 'BCBA' : 'RBT') + ' track' + (user.demo || DEMO ? ' (demo)' : '');
@@ -27,9 +34,26 @@ export default function Dashboard() {
       <div className="wrap">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14, marginBottom: 34 }}>
           <div><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{planLabel}</span>
-            <h2 style={{ marginBottom: 0 }}>{(user.createdAt && (Date.now() - new Date(user.createdAt).getTime()) < 24*60*60*1000) ? 'Welcome' : 'Welcome back'}, {user.name}.</h2></div>
+            <h2 style={{ marginBottom: 4 }}>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, {String(user.name || '').split(' ')[0].replace(/^./, (c) => c.toUpperCase())}.</h2>
+            <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink-2)' }}>Future {user.track === 'bcba' ? 'BCBA' : 'RBT'} - you've got this.</p></div>
           <a className="btn btn-primary" href="/pathways/app/practice">Start practicing</a>
         </div>
+        {needsPw && (
+          <div className="panel rv in" style={{ marginBottom: 22, display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap', borderLeft: '4px solid var(--teal-3)' }}>
+            <div style={{ flex: '1 1 260px' }}>
+              <b style={{ fontSize: 15 }}>Set a password for faster sign-ins</b>
+              <p style={{ margin: '4px 0 0', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>You signed in with an email link. Add a password so you can get back in from any device without waiting for email.</p>
+            </div>
+            <input type="password" placeholder="New password (6+ characters)" value={pw} onChange={(e) => setPw(e.target.value)}
+              style={{ flex: '0 1 240px', padding: '10px 14px', borderRadius: 10, border: '1px solid rgba(15,31,51,.18)', fontFamily: 'inherit', fontSize: 14 }} />
+            <button className="btn btn-primary btn-sm" onClick={async () => {
+              if (pw.length < 6) { setPwMsg('At least 6 characters.'); return; }
+              try { await setPassword(pw); setNeedsPw(false); } catch { setPwMsg('Could not save it. Try again.'); }
+            }}>Save password</button>
+            <button className="btn btn-ghost btn-sm" onClick={() => { localStorage.setItem('pw_skip_setpw', '1'); setNeedsPw(false); }}>Not now</button>
+            {pwMsg && <p style={{ width: '100%', margin: 0, fontSize: 13, color: '#a33b41', fontWeight: 600 }}>{pwMsg}</p>}
+          </div>
+        )}
         <div className="dash-grid">
           <div className="panel span-8 rv in">
             <h3>Progress by topic</h3>
