@@ -48,7 +48,8 @@ export default function PathwaysApp() {
       <Route path="app" element={<AppIndexRedirect />} />
       <Route path="app/dashboard" element={<Dashboard />} />
       <Route path="app/practice" element={<Practice />} />
-      <Route path="app/mock" element={<Mock />} />
+      <Route path="app/timed-sets" element={<Mock />} />
+      <Route path="app/mock" element={<Navigate to="/pathways/app/timed-sets" replace />} />
       <Route path="app/book" element={<Book />} />
       <Route path="app/account" element={<Account />} />
       <Route path="app/specialist" element={<Specialist />} />

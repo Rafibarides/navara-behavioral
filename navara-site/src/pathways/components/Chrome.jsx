@@ -1,3 +1,4 @@
+import ArcMark from './ArcMark';
 import React, { useEffect, useRef, useState } from 'react';
 import MainSiteFooter from '../../Components/Sections/FooterSection';
 import MainSiteNav from '../../Components/NavBarMenu';
@@ -15,7 +16,7 @@ export function Arcs({ className }) {
 const MEMBER_LINKS = (<>
   <a href="/pathways/app/dashboard">Dashboard</a>
   <a href="/pathways/app/practice">Practice</a>
-  <a href="/pathways/app/mock">Timed sets</a>
+  <a href="/pathways/app/timed-sets">Timed sets</a>
   <a href="/pathways/study-plan">Study Plan</a>
   <a href="/pathways/app/account">Account</a>
   <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
@@ -51,7 +52,7 @@ export function Nav({ links, app }) {
         <MainSiteNav isDarkMode={false} forceSolidPill />
         <div className="pw-subnav">
           <div className="wrap pw-subnav-inner">
-            <a className="pw-subnav-tag" href="/pathways">Pathways</a>
+            <a className="pw-subnav-tag" href="/pathways"><ArcMark />Pathways</a>
             <div className="pw-subnav-links">{member ? MEMBER_LINKS : GUEST_LINKS}</div>
           </div>
         </div>
@@ -83,6 +84,7 @@ export function Footer() {
 }
 
 // Wires scroll reveals, counters, progress bars, and rising headlines for any page.
+
 export function usePathwaysEffects(deps = []) {
   useEffect(() => {
     const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -98,7 +100,6 @@ export function usePathwaysEffects(deps = []) {
         el.textContent = Math.round(end * ease).toLocaleString() + suf;
         if (p < 1) requestAnimationFrame(tick); })(t0);
     }), { threshold: 0.4 });
-    document.querySelectorAll('[data-count]').forEach((el) => co.observe(el));
     const po = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) { e.target.style.width = e.target.dataset.w + '%'; po.unobserve(e.target); }
     }), { threshold: 0.3 });

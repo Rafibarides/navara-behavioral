@@ -42,10 +42,22 @@ export async function fetchQuestions({ track, area, limit }) {
   const sb = await getClient();
   let q = sb.from('questions').select('*').eq('track', track).eq('published', true);
   if (area) q = q.eq('area', area);
-  if (limit) q = q.limit(limit);
+  if (limit) {
+    // Vary which questions come first: start from a random point in the bank, then shuffle the page.
+    let offset = 0;
+    try {
+      let c = sb.from('questions').select('id', { count: 'exact', head: true }).eq('track', track).eq('published', true);
+      if (area) c = c.eq('area', area);
+      const { count } = await c;
+      if (count && count > limit) offset = Math.floor(Math.random() * (count - limit + 1));
+    } catch { /* fall back to the first page */ }
+    q = q.order('id', { ascending: true }).range(offset, offset + limit - 1);
+  }
   const { data, error } = await q;
   if (error) throw error;
-  return (data || []).map(toQuiz);
+  const rows = (data || []).slice();
+  if (limit) for (let i = rows.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [rows[i], rows[j]] = [rows[j], rows[i]]; }
+  return rows.map(toQuiz);
 }
 
 // Sample bank (bundled, clearly labeled) - used as fallback before the live

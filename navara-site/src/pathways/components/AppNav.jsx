@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import MainSiteNav from '../../Components/NavBarMenu';
 import { signOut } from '../lib/auth';
+import ArcMark from './ArcMark';
 
 const ITEMS = [
-  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['mock', 'Timed sets'],
+  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['timed-sets', 'Timed sets'],
   ['book', 'Book a 1:1'], ['account', 'Account'],
 ];
 const logout = (e) => {
@@ -20,7 +21,7 @@ export default function AppNav({ active, role }) {
       <MainSiteNav isDarkMode={false} forceSolidPill />
       <div className="pw-subnav">
         <div className="wrap pw-subnav-inner">
-          <a className="pw-subnav-tag" href="/pathways/app/dashboard">Pathways</a>
+          <a className="pw-subnav-tag" href="/pathways/app/dashboard"><ArcMark />Pathways</a>
           <div className="pw-subnav-links">
             {items.map(([id, label]) => (
               <a key={id} href={'/pathways/app/' + id}

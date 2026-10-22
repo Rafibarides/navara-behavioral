@@ -26,3 +26,5 @@ drop trigger if exists guard_profile_privileged on public.profiles;
 create trigger guard_profile_privileged before insert or update on public.profiles for each row execute function public.guard_profile_privileged();
 commit;
 -- plus: grant update (id, full_name, track) on public.profiles to authenticated;
+-- attempts sanity checks
+alter table attempts add constraint attempts_ms_range check (ms is null or (ms>=0 and ms<=3600000)), add constraint attempts_choice_range check (chosen_option is null or chosen_option between 0 and 3), add constraint attempts_kind_valid check (kind in ('practice','timed','mock','sample'));

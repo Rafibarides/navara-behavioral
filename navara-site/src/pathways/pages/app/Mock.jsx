@@ -41,7 +41,7 @@ export default function Mock() {
     const n = qs ? qs.length : null;
     const mins = n ? Math.round((n * target) / 60) : null;
     return (<>
-      <AppNav active="mock" />
+      <AppNav active="timed-sets" />
       <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
         <div className="wrap quiz-shell">
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Timed sets</span>
@@ -52,7 +52,7 @@ export default function Mock() {
               {n ? n + ' questions' : '...'} · {mins ? 'about ' + mins + (mins === 1 ? ' minute' : ' minutes') : '...'} on the clock · pace feedback as you go.
             </p>
             <p style={{ fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 22 }}>
-              The timer starts when you tap Start. Answer every question - you can flag the hard ones mentally and keep moving.
+              The timer starts when you press Start. Answer every question - you can flag the hard ones mentally and keep moving.
             </p>
             {!live && qs && (
               <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 18, background: 'var(--light)', borderRadius: 10, padding: '10px 14px' }}>
@@ -75,7 +75,7 @@ export default function Mock() {
       ? `Your pace: ${pace}s per question - at or under exam pace (${target}s). Good position.`
       : `Your pace: ${pace}s per question - over exam pace (${target}s). Flag the hard ones and keep moving; come back after a first pass.`;
   return (<>
-    <AppNav active="mock" />
+    <AppNav active="timed-sets" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
       <div className="wrap quiz-shell">
         <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Timed sets</span>

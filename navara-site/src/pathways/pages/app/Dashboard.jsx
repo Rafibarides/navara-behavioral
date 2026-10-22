@@ -84,7 +84,7 @@ export default function Dashboard() {
           </div>
           <div className="panel span-4 rv in">
             <h3>1:1 sessions</h3>
-            <div className="credit-bubble"><div><div className="n">{credits === null ? '-' : credits}</div><div className="t">left</div></div></div>
+            <div className="credit-bubble"><div><div className="n">{user.plan !== 'guided' ? 0 : credits === null ? '-' : credits}</div><div className="t">left</div></div></div>
             <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginBottom: 18 }}>Guided sessions remaining this month.</p>
             {user.plan === 'guided'
               ? <a className="btn btn-navy btn-sm" href="/pathways/app/book" style={{ width: '100%', justifyContent: 'center' }}>Book a session</a>
