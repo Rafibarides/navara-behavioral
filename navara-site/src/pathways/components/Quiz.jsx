@@ -47,6 +47,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
   const [firstName, setFirstName] = useState('');
   const [sent, setSent] = useState(false);
   const shownAt = useRef(Date.now());
+  const locked = useRef(false);
 
   if (done) {
     const pct = Math.round((score / questions.length) * 100);
@@ -108,7 +109,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
         )}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={ctaHref}>{cta}</a>
-          <button className="btn btn-navy" onClick={() => { setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setRound(r => r + 1); }}>Try again</button>
+          <button className="btn btn-navy" onClick={() => { locked.current = false; setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setRound(r => r + 1); }}>Try again</button>
           <button className="btn btn-ghost" onClick={() => downloadScoreCard({ title, score, total: questions.length })}>Share my score card</button>
         </div>
       </div>
@@ -116,6 +117,8 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
   }
   const q = questions[i];
   const pick = (k) => {
+    if (locked.current || picked !== null) return;
+    locked.current = true;
     const ms = Date.now() - shownAt.current;
     setPicked(k);
     const correct = k === q.a;
@@ -130,6 +133,8 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
     }).catch(() => {});
   };
   const next = () => {
+    if (!locked.current) return;
+    locked.current = false;
     shownAt.current = Date.now();
     if (i === questions.length - 1) setDone(true);
     else { setI(i + 1); setPicked(null); }
@@ -187,7 +192,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
         </div>
       )}
       <div className="q-nav">
-        <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-2)' }}>Score: {score}/{picked !== null ? i + 1 : i}</span>
+        <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-2)' }}>Score: {score} of {picked !== null ? i + 1 : i} answered</span>
         <button className="btn btn-navy btn-sm" style={{ visibility: picked !== null ? 'visible' : 'hidden' }} onClick={next}>
           {i === questions.length - 1 ? 'See results' : 'Next question'} &rarr;
         </button>

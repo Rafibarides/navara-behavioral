@@ -74,18 +74,21 @@ export async function getSessionUser() {
     const { data } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
     prof = data;
   } catch { prof = null; }
-  // First visit after a magic-link signup: save the name/track they entered.
+  // First visit after a magic-link signup: save the name/track they entered, but never
+  // overwrite details the server profile already has. The stash is cleared once read.
   try {
     const pending = JSON.parse(localStorage.getItem('pw_pending_profile') || 'null');
-    if (pending && (pending.full_name || pending.track)) {
+    localStorage.removeItem('pw_pending_profile');
+    if (pending) {
       const row = { id: session.user.id };
-      if (pending.full_name) row.full_name = pending.full_name;
-      if (pending.track) row.track = pending.track;
-      await sb.from('profiles').upsert(row, { onConflict: 'id' });
-      prof = { ...(prof || {}), ...row };
-      localStorage.removeItem('pw_pending_profile');
+      if (pending.full_name && !(prof && prof.full_name)) row.full_name = pending.full_name;
+      if (pending.track && !(prof && prof.track)) row.track = pending.track;
+      if (row.full_name || row.track) {
+        await sb.from('profiles').upsert(row, { onConflict: 'id' });
+        prof = { ...(prof || {}), ...row };
+      }
     }
-  } catch { /* profile save can be retried from Account */ }
+  } catch { localStorage.removeItem('pw_pending_profile'); }
   // Same details travel with the sign-in link itself, so opening it on another device still works.
   try {
     const md = session.user.user_metadata || {};

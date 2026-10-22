@@ -88,7 +88,7 @@ export default function Login() {
                 : mode === 'reset'
                   ? 'Pick a password you will remember. After this you can sign in with your email and password any time.'
                   : creating
-                    ? 'Enter your email and we will send you a secure sign-in link. Clicking it creates your account. You pick your plan inside, and you can set a password on your first visit.'
+                    ? 'Tell us your first name and exam, add your email, and we will send you a secure sign-in link. Clicking it creates your account. You pick your plan inside, and you can set a password on your first visit.'
                     : useLink
                       ? 'Enter your email and we will send you a sign-in link. No password needed.'
                       : 'Sign in with your email and password. First time here, or never set a password? Use the sign-in link option below.'}
