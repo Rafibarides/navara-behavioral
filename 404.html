@@ -28,4 +28,28 @@
   </svg>
   <h1>We couldn't find that page, but we can find the right support for your child.</h1>
   <div class="actions"><a class="action primary" href="https://calendly.com/navarabehavioralgroup-info/free-15-minute-consultation">Book a free 15-minute call</a><a class="action" href="/">Back to home</a></div>
-</main></body></html>
+</main>
+<main class="navara-404" id="pw-404" hidden>
+  <a class="brand" href="/pathways"><img src="/assets/logo-white.png" alt="Navara Behavioral Group"></a>
+  <svg class="error-art" viewBox="0 60 380 130" role="img" aria-label="404, page not found">
+    <path class="arc arc-one" d="M40 150 C110 100 270 100 340 150"/>
+    <path class="arc arc-two" d="M40 165 C110 118 270 118 340 165"/>
+    <path class="arc arc-three" d="M40 180 C110 136 270 136 340 180"/>
+    <text class="error-code" x="195" y="174" text-anchor="middle">404</text>
+  </svg>
+  <h1>That page moved or never existed. Everything for RBT and BCBA exam prep lives here.</h1>
+  <div class="actions">
+    <a class="action primary" href="/pathways">Pathways home</a>
+    <a class="action" href="/pathways/plans">See plans</a>
+    <a class="action" href="/pathways/login">Member login</a>
+  </div>
+</main>
+<script>
+if (location.pathname.indexOf('/pathways') === 0) {
+  var d = document.querySelector('main.navara-404:not(#pw-404)');
+  if (d) d.hidden = true;
+  document.getElementById('pw-404').hidden = false;
+  document.title = 'Page Not Found | Navara Pathways';
+}
+</script>
+</body></html>
