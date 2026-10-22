@@ -22,7 +22,7 @@ export default function Privacy() {
       <section className="section" style={{ paddingTop: 30 }}>
         <div className="wrap" style={{ maxWidth: 760 }}>
           <h3>What we collect</h3>
-          <p>When you create an account we store your email address and the plan you choose. As you practice, we store your answers, timing, and progress so the program can show you what to work on next. If you book a 1:1 session, we store the booking details needed to run it.</p>
+          <p>When you create an account we store your email address, first name, exam track (RBT or BCBA), and the plan you choose. As you practice, we store your answers, timing, and progress so the program can show you what to work on next. If you book a 1:1 session, we store the booking details needed to run it.</p>
           <h3 style={{ marginTop: 28 }}>How we use it</h3>
           <p>We use your information to run your account, send sign-in links, track your progress, and deliver the sessions you book. We do not sell your information, and we do not share it with advertisers.</p>
           <h3 style={{ marginTop: 28 }}>Payments</h3>

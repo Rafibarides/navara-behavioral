@@ -22,7 +22,8 @@ export default function Landing() {
       <h1 data-rise>Understand the reasoning. <span className="grad">Own the science.</span></h1>
       <p className="lead">Exam preparation for future Registered Behavior Technicians and Board Certified Behavior Analysts. Practice questions that teach, timed sets with pace feedback, and one-on-one time with a Navara Certified Behavior Specialist (NCBS).</p>
       <div className="hero-ctas">
-        <a className="btn btn-primary" href="/pathways/rbt">Explore RBT prep</a>
+        <a className="btn btn-primary" href="/pathways/sample-quiz">Take the free sample quiz</a>
+        <a className="btn btn-ghost" href="/pathways/rbt">Explore RBT prep</a>
         <a className="btn btn-ghost" href="/pathways/bcba">Explore BCBA prep</a>
       </div>
       <div className="hero-badge"><span className="dot"></span> Free sample quizzes, no account needed</div>
