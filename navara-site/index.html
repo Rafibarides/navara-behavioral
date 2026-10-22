@@ -98,6 +98,17 @@
   <body>
     <div id="root"></div>
     <script>
+      // Pathways sign-in safety net: if an auth link lands on the wrong page, forward it.
+      (function() {
+        var h = location.hash || '', p = location.pathname;
+        if (h.indexOf('access_token=') > -1 && p.indexOf('/pathways/app') !== 0 && p.indexOf('/pathways/login') !== 0) {
+          location.replace((h.indexOf('type=recovery') > -1 ? '/pathways/login' : '/pathways/app/dashboard') + h);
+        } else if (/[#&]error=/.test(h) && /otp_expired|access_denied/.test(h) && p.indexOf('/pathways/login') !== 0) {
+          location.replace('/pathways/login?mode=signin&expired=1');
+        }
+      })();
+    </script>
+    <script>
       // GitHub Pages SPA redirect handler
       // Check if we have a redirected path from 404.html
       (function() {

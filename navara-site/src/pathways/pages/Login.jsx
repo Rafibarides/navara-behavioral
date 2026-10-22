@@ -10,12 +10,13 @@ const LINKS = (<>
 
 export default function Login() {
   const resetting = new URLSearchParams(window.location.search).get('reset') === '1';
+  const expired = typeof window !== 'undefined' && (new URLSearchParams(window.location.search).get('expired') === '1' || /otp_expired|access_denied/.test(window.location.hash));
   const [mode, setMode] = useState(resetting ? 'reset' : new URLSearchParams(window.location.search).get('mode') === 'signin' ? 'signin' : 'create'); // 'create' | 'signin' | 'reset'
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [track, setTrack] = useState('rbt');
   const [pw, setPw] = useState('');
-  const [useLink, setUseLink] = useState(false);
+  const [useLink, setUseLink] = useState(expired);
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
   const [done, setDone] = useState(false);
@@ -93,10 +94,13 @@ export default function Login() {
                       ? 'Enter your email and we will send you a sign-in link. No password needed.'
                       : 'Sign in with your email and password. First time here, or never set a password? Use the sign-in link option below.'}
             </p>
+            {expired && !sent && !done && (
+              <p role="alert" style={{ background: 'var(--light)', border: '1px solid rgba(27,59,98,.15)', borderRadius: 12, padding: '12px 14px', fontSize: 14, fontWeight: 600, color: 'var(--ink-2)', margin: '-8px 0 20px' }}>That sign-in link has expired or was already used. Each link works once. Enter your email below and we will send a new one, then use the most recent email.</p>
+            )}
             {done ? (
               <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox - the reset link is on its way.</p>
             ) : sent ? (
-              <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox for the sign-in link.{creating ? ' It creates your account when you click it.' : ''}</p>
+              <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox for the sign-in link.{creating ? ' It creates your account when you click it.' : ''} <span style={{ display: 'block', fontWeight: 600, fontSize: 13.5, color: 'var(--ink-2)', marginTop: 8 }}>If you request more than one, use the most recent email. Older links stop working.</span></p>
             ) : (<form onSubmit={go}>
               {creating && (<>
                 <div className="field"><label htmlFor="pw-first-name">First name</label><input id="pw-first-name" type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} /></div>
