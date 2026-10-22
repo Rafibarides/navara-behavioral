@@ -41,6 +41,9 @@ try {
   await writeFile(dist+'/robots.txt','User-agent: *\nAllow: /\n\nSitemap: '+origin+'/sitemap.xml\n');
   // Keep legacy inbound links as non-indexable redirects to the current service URL.
   const legacy='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><link rel="canonical" href="'+origin+'/services/behavior-method"><meta http-equiv="refresh" content="0;url=/services/behavior-method"><title>Navara Behavior Method</title></head><body><a href="/services/behavior-method">Navara Behavior Method</a></body></html>';
+  // /contact serves a real page (was 404): bounce to the main-page contact section.
+  const contact='<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="canonical" href="'+origin+'/#contact"><meta http-equiv="refresh" content="0;url=/#contact"><title>Contact | Navara Behavioral Group</title></head><body><a href="/#contact">Contact Navara Behavioral Group</a></body></html>';
+  await mkdir(dist+'/contact',{recursive:true});await writeFile(dist+'/contact/index.html',contact);
   for (const path of ['/behavioral', '/services/parent-training']) {
     await mkdir(dist+path,{recursive:true});await writeFile(dist+path+'/index.html',legacy);
   }
