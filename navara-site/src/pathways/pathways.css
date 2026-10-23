@@ -368,3 +368,6 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 .pw-arc{width:48px;height:auto;flex:none;display:block}
 .pw-subnav-inner{padding-top:86px;padding-bottom:10px}
 @media(max-width:900px){.pw-subnav-inner{padding-top:80px}}
+
+.pw-app .pw-subnav-inner{padding-top:20px;padding-bottom:14px}
+.opt.selected{border-color:var(--teal-3);box-shadow:0 0 0 2px rgba(31,138,138,.25)}

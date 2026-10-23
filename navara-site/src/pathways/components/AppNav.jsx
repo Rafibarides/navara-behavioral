@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import MainSiteNav from '../../Components/NavBarMenu';
 import { signOut } from '../lib/auth';
 import ArcMark from './ArcMark';
 
@@ -18,7 +17,6 @@ export default function AppNav({ active, role }) {
   const items = role === 'admin' ? [...ITEMS, ['admin', 'Admin']] : ITEMS;
   return (
     <div className="pw-unified pw-app">
-      <MainSiteNav isDarkMode={false} forceSolidPill />
       <div className="pw-subnav">
         <div className="wrap pw-subnav-inner">
           <a className="pw-subnav-tag" href="/pathways/app/dashboard"><ArcMark />Pathways</a>

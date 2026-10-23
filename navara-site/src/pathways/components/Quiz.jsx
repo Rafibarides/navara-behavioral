@@ -40,6 +40,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState(null);
+  const [sel, setSel] = useState(null);
   const [done, setDone] = useState(false);
   const [round, setRound] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -58,10 +59,10 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       if (correct) areas[area].c += 1;
     });
     const readiness = pct >= 80
-      ? 'Strong sample performance. The full banks go deeper - timed sets will tell you if it holds under pressure.'
+      ? 'Strong result on this sample. The full banks go deeper.'
       : pct >= 60
-        ? 'A workable foundation with real gaps. Targeted practice on your weak areas is the fastest way up from here.'
-        : 'This is exactly where guided practice pays off: every wrong answer in the full program tells you why it tempted you.';
+        ? 'A solid start. The topic breakdown below shows where to focus.'
+        : 'A tough set. The topic breakdown below shows where to focus, and the explanations are there to review.';
     const save = async (e) => {
       e.preventDefault();
       if (!email) return;
@@ -109,7 +110,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
         )}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={ctaHref}>{cta}</a>
-          <button className="btn btn-navy" onClick={() => { locked.current = false; setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setRound(r => r + 1); }}>Try again</button>
+          <button className="btn btn-navy" onClick={() => { locked.current = false; setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setSel(null); setRound(r => r + 1); }}>Try again</button>
           <button className="btn btn-ghost" onClick={() => downloadScoreCard({ title, score, total: questions.length })}>Share my score card</button>
         </div>
       </div>
@@ -137,7 +138,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
     locked.current = false;
     shownAt.current = Date.now();
     if (i === questions.length - 1) setDone(true);
-    else { setI(i + 1); setPicked(null); }
+    else { setI(i + 1); setPicked(null); setSel(null); }
   };
   return (
     <div className={'qcard' + (v2 ? ' qv2' : '')} key={i + '-' + round}>
@@ -147,15 +148,15 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       <div className="opts">
         {q.opts.map((o, k) => {
           let cls = 'opt';
+          if (picked === null && sel === k) cls += ' selected';
           if (picked !== null) {
             if (k === q.a) cls += ' correct';
             else if (k === picked) cls += ' wrong';
           }
           return (
-            <button key={k} className={cls} disabled={picked !== null} onClick={() => pick(k)}>
+            <button key={k} className={cls} disabled={picked !== null} aria-pressed={picked === null && sel === k} onClick={() => setSel(k)}>
               <span>{String.fromCharCode(65 + k)}. {o.t}</span>
               {v2 && picked !== null && k === q.a ? <span className="chip chip-ok">Correct</span> : null}
-              {v2 && picked !== null && k === picked && picked !== q.a ? <span className="chip chip-tempt">Tempting</span> : null}
             </button>
           );
         })}
@@ -163,7 +164,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       {picked !== null && v2 && (
         <div className="explain explain-v2">
           {picked !== q.a && (<>
-            <div className="why-h why-tempt">Why {String.fromCharCode(65 + picked)} tempted you</div>
+            <div className="why-h why-tempt">Why {String.fromCharCode(65 + picked)} is not the answer</div>
             <p>{q.opts[picked].why}{q.opts[picked].tempt ? ' ' + q.opts[picked].tempt : ''}</p>
             {q.opts[picked].conf ? <p className="why-conf">You may be confusing this with <span className="term">{q.opts[picked].conf.replace(/_/g, ' ')}</span>.</p> : null}
             {q.opts[picked].rem ? <p className="why-rem"><b>Review:</b> {q.opts[picked].rem}</p> : null}
@@ -193,9 +194,11 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       )}
       <div className="q-nav">
         <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-2)' }}>Score: {score} of {picked !== null ? i + 1 : i} answered</span>
-        <button className="btn btn-navy btn-sm" style={{ visibility: picked !== null ? 'visible' : 'hidden' }} onClick={next}>
-          {i === questions.length - 1 ? 'See results' : 'Next question'} &rarr;
-        </button>
+        {picked === null
+          ? <button className="btn btn-navy btn-sm" disabled={sel === null} style={sel === null ? { opacity: .45, cursor: 'not-allowed' } : undefined} onClick={() => sel !== null && pick(sel)}>Check answer</button>
+          : <button className="btn btn-navy btn-sm" onClick={next}>
+              {i === questions.length - 1 ? 'See results' : 'Next question'} &rarr;
+            </button>}
       </div>
     </div>
   );
