@@ -46,7 +46,7 @@ img{max-width:100%}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;background:radial-gradient(1200px 800px at 80% -10%,#2a5a8a 0%,transparent 55%),radial-gradient(900px 700px at -10% 110%,#3d6f74 0%,transparent 50%),linear-gradient(160deg,#10233c 0%,#1B3B62 48%,#173038 100%);overflow:hidden;color:#fff}
-.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 14s ease-in-out infinite alternate}
+.orb{pointer-events:none;position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 14s ease-in-out infinite alternate}
 .orb-1{width:420px;height:420px;background:#5F8D9C;top:-120px;right:-80px}
 .orb-2{width:340px;height:340px;background:#87aa99;bottom:-100px;left:-60px;animation-delay:-6s}
 .orb-3{width:220px;height:220px;background:#B1C9B3;top:38%;left:56%;opacity:.28;animation-delay:-3s}
@@ -124,7 +124,7 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 
 /* CTA band */
 .cta-band{position:relative;border-radius:30px;padding:70px 8%;background:var(--grad-cool);color:#fff;overflow:hidden;text-align:center}
-.cta-band .orb-4{position:absolute;width:340px;height:340px;background:#87aa99;border-radius:50%;filter:blur(80px);opacity:.4;top:-140px;left:-80px;animation:drift 12s ease-in-out infinite alternate}
+.cta-band .orb-4{pointer-events:none;position:absolute;width:340px;height:340px;background:#87aa99;border-radius:50%;filter:blur(80px);opacity:.4;top:-140px;left:-80px;animation:drift 12s ease-in-out infinite alternate}
 .cta-band h2{position:relative}
 .cta-band p{position:relative;color:rgba(255,255,255,.78);max-width:60ch;margin:0 auto 34px}
 
