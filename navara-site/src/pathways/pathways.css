@@ -371,5 +371,4 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 
 .pw-app .pw-subnav-inner{padding-top:20px;padding-bottom:14px}
 .opt.selected{border-color:var(--teal-3);box-shadow:0 0 0 2px rgba(31,138,138,.25)}
-.pw-unified.pw-app{width:100%;display:block}
-.pw-app .pw-subnav{width:100%;box-sizing:border-box}
+.pw-unified.pw-app > div:first-child{position:relative!important}
