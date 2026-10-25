@@ -50,10 +50,10 @@ export default function Practice() {
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
       <div className="wrap quiz-shell">
         {target ? (<>
-          <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Targeted set - built from your recent misses</span>
+          <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Targeted set - built from your recorded misses</span>
           <h2>{cardTitle(target)}.</h2>
           <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
-            Picked because your answers suggest this distinction may be worth more practice. Your last 30 days: missed {target.misses} times across {target.items} different questions.
+            Your recorded misses carried this tag {target.misses} times across {target.items} different questions in the last 30 days. This set is more questions with the same tag. Tags are author-assigned and not yet expert-reviewed - a pointer for your review, not a diagnosis.
           </p>
         </>) : (<>
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{live ? 'Practice - live bank' : 'Practice (sample bank)'}</span>
@@ -65,8 +65,8 @@ export default function Practice() {
           </p>
           {evidence.length > 0 && (
             <div className="panel" style={{ marginBottom: 22, borderLeft: '4px solid var(--teal-3)' }}>
-              <b style={{ fontSize: 15 }}>Targeted sets from your recent misses</b>
-              <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Your answers suggest these distinctions may be worth more practice.</p>
+              <b style={{ fontSize: 15 }}>Sets built from your recorded misses</b>
+              <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>More questions carrying the tags on your recent misses. Tags are pointers for review, not a diagnosis.</p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {evidence.slice(0, 3).map((p) => (
                   <a key={p.tag} className="btn btn-navy btn-sm" href={'/pathways/app/practice?tag=' + encodeURIComponent(p.tag)}>{pretty(p.tag)}</a>

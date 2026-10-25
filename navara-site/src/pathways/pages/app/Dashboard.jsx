@@ -97,21 +97,21 @@ export default function Dashboard() {
               : <a className="btn btn-primary btn-sm" href={`/pathways/plans/${user.track === 'bcba' ? 'bcba' : 'rbt'}`} style={{ width: '100%', justifyContent: 'center' }}>See Guided plans</a>}
           </div>
           <div className="panel span-12 rv in">
-            <h3>Your patterns</h3>
+            <h3>Repeated misses by tag</h3>
             {cards ? (<>
-              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>Built only from your own answers over the last 30 days - one wrong answer never creates a pattern.</p>
+              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>From your own answers over the last 30 days: a tag appears here only after you miss it on at least 2 different questions. "Recurring" means 3 or more misses across multiple days. Tags are author-assigned and not yet expert-reviewed - they point at what to review, not a diagnosis of why you missed.</p>
               {cards.slice(0, 4).map((c) => (
                 <div className="score-row" key={c.tag}>
-                  <span><b>{pretty(c.tag)}{c.label && pretty(c.label).toLowerCase() !== pretty(c.tag).toLowerCase() ? ' vs ' + pretty(c.label).toLowerCase() : ''}</b><br />
+                  <span><b>{pretty(c.tag)}</b><br />
                     <span style={{ fontSize: 12.5, color: 'var(--ink-2)', fontWeight: 600 }}>
-                      Missed {c.misses} times across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
-                    <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag)} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Practice this distinction &rarr;</a></span>
+                      Tagged on {c.misses} of your recorded misses across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
+                    <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag)} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Practice more questions with this tag &rarr;</a></span>
                   <span className={'pill ' + (c.status === 'recurring' ? 'pill-teal' : 'pill-sage')}>{c.status === 'recurring' ? 'Recurring' : 'Worth reviewing'}</span>
                 </div>
               ))}
-              {showDemo && !evidence && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo patterns shown. Real patterns build from your first practice sets.</p>}
+              {showDemo && !evidence && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo entries shown. Real entries build from your first practice sets.</p>}
             </>) : (
-              <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, margin: '10px 0 4px' }}>No patterns yet. After a few practice sets, distinctions you keep missing will appear here - never from a single wrong answer.</p>
+              <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, margin: '10px 0 4px' }}>Nothing to review yet. After a few practice sets, tags you miss on more than one question will appear here - never from a single wrong answer.</p>
             )}
           </div>
           <div className="panel span-12 rv in">
