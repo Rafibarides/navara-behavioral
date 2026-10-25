@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import AppNav from '../../components/AppNav';
 import { usePathwaysEffects } from '../../components/Chrome';
 import { useRequireUser } from '../../components/useRequireUser';
-import { sessionCredits, fetchAreaProgress } from '../../lib/db';
+import { sessionCredits, fetchAreaProgress, fetchMemberEvidence, DEMO_EVIDENCE } from '../../lib/db';
 import { hasPassword, setPassword } from '../../lib/auth';
 import { DEMO } from '../../config';
+
+const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
 
 const DEMO_PROGRESS = [['Data Collection and Graphing', 82], ['Behavior Assessment', 64], ['Behavior Acquisition', 71], ['Behavior Reduction', 48], ['Documentation & Reporting', 77], ['Professional Conduct', 90]];
 
@@ -13,6 +15,7 @@ export default function Dashboard() {
   const user = useRequireUser();
   const [credits, setCredits] = useState(null);
   const [progress, setProgress] = useState(null);
+  const [evidence, setEvidence] = useState(null);
   const [needsPw, setNeedsPw] = useState(false);
   const [pw, setPw] = useState('');
   const [pwMsg, setPwMsg] = useState(null);
@@ -20,6 +23,8 @@ export default function Dashboard() {
     if (!user) return;
     sessionCredits().then(setCredits);
     fetchAreaProgress().then((rows) => setProgress(rows && rows.length ? rows : null));
+    if (DEMO || user.demo) setEvidence(null);
+    else fetchMemberEvidence().then((rows) => setEvidence(rows && rows.length ? rows : null));
     if (!DEMO && !user.demo && !localStorage.getItem('pw_skip_setpw')) {
       hasPassword().then((h) => setNeedsPw(!h)).catch(() => {});
     }
@@ -28,6 +33,7 @@ export default function Dashboard() {
   const planLabel = (user.plan === 'guided' ? 'Guided' : user.plan === 'self-study' ? 'Self-Study' : 'Sample') + ' plan, ' + (user.track === 'bcba' ? 'BCBA' : 'RBT') + ' track' + (user.demo || DEMO ? ' (demo)' : '');
   const showDemo = DEMO || user.demo;
   const bars = progress ? progress.map((r) => [r.area, r.pct]) : (showDemo ? DEMO_PROGRESS : null);
+  const cards = evidence || (showDemo ? DEMO_EVIDENCE : null);
   return (<>
     <AppNav active="dashboard" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
@@ -89,6 +95,24 @@ export default function Dashboard() {
             {user.plan === 'guided'
               ? <a className="btn btn-navy btn-sm" href="/pathways/app/book" style={{ width: '100%', justifyContent: 'center' }}>Book a session</a>
               : <a className="btn btn-primary btn-sm" href={`/pathways/plans/${user.track === 'bcba' ? 'bcba' : 'rbt'}`} style={{ width: '100%', justifyContent: 'center' }}>See Guided plans</a>}
+          </div>
+          <div className="panel span-12 rv in">
+            <h3>Your patterns</h3>
+            {cards ? (<>
+              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>Built only from your own answers over the last 30 days - one wrong answer never creates a pattern.</p>
+              {cards.slice(0, 4).map((c) => (
+                <div className="score-row" key={c.tag}>
+                  <span><b>{pretty(c.tag)}{c.label && pretty(c.label).toLowerCase() !== pretty(c.tag).toLowerCase() ? ' vs ' + pretty(c.label).toLowerCase() : ''}</b><br />
+                    <span style={{ fontSize: 12.5, color: 'var(--ink-2)', fontWeight: 600 }}>
+                      Missed {c.misses} times across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
+                    <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag)} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Practice this distinction &rarr;</a></span>
+                  <span className={'pill ' + (c.status === 'recurring' ? 'pill-teal' : 'pill-sage')}>{c.status === 'recurring' ? 'Recurring' : 'Worth reviewing'}</span>
+                </div>
+              ))}
+              {showDemo && !evidence && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo patterns shown. Real patterns build from your first practice sets.</p>}
+            </>) : (
+              <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, margin: '10px 0 4px' }}>No patterns yet. After a few practice sets, distinctions you keep missing will appear here - never from a single wrong answer.</p>
+            )}
           </div>
           <div className="panel span-12 rv in">
             <h3>Test-taking tips</h3>

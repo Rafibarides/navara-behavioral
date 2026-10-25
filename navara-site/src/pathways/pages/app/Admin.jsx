@@ -16,6 +16,7 @@ export default function Admin() {
   const [ov, setOv] = useState(null);
   const [members, setMembers] = useState(null);
   const [qstats, setQstats] = useState(null);
+  const [coverage, setCoverage] = useState(null);
   const [stripe, setStripe] = useState(null);
   const [err, setErr] = useState(null);
 
@@ -24,13 +25,14 @@ export default function Admin() {
     (async () => {
       try {
         const sb = await getClient();
-        const [o, m, q] = await Promise.all([
+        const [o, m, q, c] = await Promise.all([
           sb.rpc('admin_overview'),
           sb.rpc('admin_members', { p_limit: 25 }),
           sb.rpc('admin_question_stats', { p_min_attempts: 3, p_limit: 30 }),
+          sb.rpc('admin_tag_coverage'),
         ]);
-        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error;
-        setOv(o.data); setMembers(m.data); setQstats(q.data);
+        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error;
+        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data);
         const { data: { session } } = await sb.auth.getSession();
         const res = await fetch(CFG.supabaseUrl + '/functions/v1/admin-stripe-stats', {
           method: 'POST',
@@ -110,6 +112,35 @@ export default function Admin() {
               <tr key={q.question_id}><td style={td}>{q.question_id}</td><td style={td}>{q.track.toUpperCase()}</td><td style={td}>{q.body}…</td><td style={td}>{q.attempts}</td><td style={{ ...td, color: q.correct_rate < 50 ? '#b3261e' : 'inherit', fontWeight: q.correct_rate < 50 ? 700 : 400 }}>{q.correct_rate}%</td><td style={td}>{q.avg_ms ? Math.round(q.avg_ms / 1000) : '-'}</td><td style={td}>{q.top_misconception || '-'}</td></tr>
             ))}</tbody>
           </table></div>
+        </div>
+        <div style={card}>
+          <h3 style={h3s}>Misconception coverage (content audit)</h3>
+          <p style={{ fontSize: 13, color: 'var(--ink-2)', marginTop: -6 }}>
+            Review order for the expert content pass: most-missed tags first, then thinnest coverage. Counts are inventory, not validation - every tag is still pending expert review. A tag with under 3 items is thin: a member can rarely face that trap on enough distinct questions for a pattern to form honestly. No variant items exist yet.
+          </p>
+          {coverage && (
+            <p style={{ fontSize: 13, color: 'var(--ink-2)' }}>
+              {['rbt', 'bcba'].map((t) => {
+                const rows = coverage.filter((r) => r.track === t);
+                const thin = rows.filter((r) => r.items < 3).length;
+                return t.toUpperCase() + ': ' + rows.length + ' tags (' + thin + ' thin)';
+              }).join(' | ')}
+            </p>
+          )}
+          <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead><tr><th style={th}>Track</th><th style={th}>Misconception</th><th style={th}>Items</th><th style={th}>Areas</th><th style={th}>Misses 30d</th><th style={th}>Members 30d</th></tr></thead>
+            <tbody>{(coverage || []).slice(0, 50).map((r) => (
+              <tr key={r.track + r.tag}>
+                <td style={td}>{r.track.toUpperCase()}</td>
+                <td style={td}>{r.tag.replace(/_/g, ' ')}</td>
+                <td style={{ ...td, fontWeight: r.items < 3 ? 700 : 400, color: r.items < 3 ? '#b3261e' : 'inherit' }}>{r.items}{r.items < 3 ? ' (thin)' : ''}</td>
+                <td style={td}>{(r.areas || []).slice(0, 2).join(', ')}{(r.areas || []).length > 2 ? ' +' + (r.areas.length - 2) : ''}</td>
+                <td style={td}>{r.misses_30d}</td>
+                <td style={td}>{r.members_missed_30d}</td>
+              </tr>
+            ))}</tbody>
+          </table></div>
+          {coverage && coverage.length > 50 && <p style={{ fontSize: 12, color: 'var(--ink-2)', marginTop: 8 }}>Showing 50 of {coverage.length} tags, most-missed first.</p>}
         </div>
       </div>
     </section></>);

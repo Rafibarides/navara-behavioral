@@ -134,6 +134,35 @@ export async function fetchPatterns(userId) {
   return data;
 }
 
+// Member pattern evidence: rolling 30 days, first responses only, fail-closed
+// server-side (nothing returns until a tag has 2+ misses on 2+ distinct questions).
+const DEMO_EVIDENCE = [
+  { tag: 'intervention_before_assessment', label: 'functional assessment', misses: 4, items: 3, days: 2, opportunities: 5, miss_rate: 80, areas: ['Behavior Assessment'], last_seen: null, status: 'emerging' },
+  { tag: 'confuses_latency_with_duration', label: 'duration', misses: 3, items: 2, days: 2, opportunities: 4, miss_rate: 75, areas: ['Data Collection and Graphing'], last_seen: null, status: 'emerging' },
+];
+export { DEMO_EVIDENCE };
+
+export async function fetchMemberEvidence() {
+  if (DEMO) return DEMO_EVIDENCE;
+  try {
+    const sb = await getClient();
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return [];
+    const { data, error } = await sb.rpc('member_evidence');
+    if (error) throw error;
+    return data || [];
+  } catch { return []; }
+}
+
+// Owner console: per-track misconception coverage for the content audit.
+export async function fetchTagCoverage() {
+  if (DEMO) return [];
+  const sb = await getClient();
+  const { data, error } = await sb.rpc('admin_tag_coverage');
+  if (error) throw error;
+  return data || [];
+}
+
 // Adaptive practice: next set targets the member's active misconceptions.
 export async function fetchAdaptiveSet({ track, misconceptions, limit = 10 }) {
   const { RBT_QUESTIONS, BCBA_QUESTIONS } = await import('../data/questions.js');
