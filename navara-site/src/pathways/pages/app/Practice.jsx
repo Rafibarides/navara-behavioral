@@ -29,7 +29,7 @@ export default function Practice() {
       const hit = tag && ev.find((p) => p.tag === tag);
       if (hit) {
         try {
-          const rows = await fetchAdaptiveSet({ track, tags: [hit.tag], limit: 10 });
+          const rows = await fetchAdaptiveSet({ track, misconceptions: [hit.tag], limit: 10 });
           if (on && rows && rows.length) { setTarget(hit); setQs(rows); setLive(true); return; }
         } catch { /* fall through to the general set */ }
       }
