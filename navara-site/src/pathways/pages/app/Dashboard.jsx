@@ -99,7 +99,7 @@ export default function Dashboard() {
           <div className="panel span-12 rv in">
             <h3>Repeated misses by tag</h3>
             {cards ? (<>
-              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>From your own answers over the last 30 days: a tag appears here only after you miss it on at least 2 different questions. "Recurring" means 3 or more misses across multiple days. Tags are author-assigned and not yet expert-reviewed - they point at what to review, not a diagnosis of why you missed.</p>
+              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>From your own answers over the last 30 days: a tag appears here only after you miss it on at least 2 different questions. "Recurring" means the pattern is stronger: 3 or more misses across multiple days, with at least 6 questions answered carrying the tag and misses on at least 40% of them. Tags are author-assigned and not yet expert-reviewed - they point at what to review, not a diagnosis of why you missed.</p>
               {cards.slice(0, 4).map((c) => (
                 <div className="score-row" key={c.tag}>
                   <span><b>{pretty(c.tag)}</b><br />
