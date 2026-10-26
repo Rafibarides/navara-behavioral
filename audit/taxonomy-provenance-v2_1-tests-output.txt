@@ -79,27 +79,27 @@ INSERT 0 5
 ALTER TABLE
       taxonomy_capture_baseline       
 --------------------------------------
- 1d5cca96-5e77-4be8-9f33-8e5a696f16e3
+ 681ffeee-47a2-4439-813b-406f95b090f2
 (1 row)
 
       taxonomy_capture_baseline       
 --------------------------------------
- 2201dd65-0ad0-4742-8d90-ae9342ea172f
+ 5d0e90f0-3196-42ad-91d8-ca786ceed211
 (1 row)
 
       taxonomy_capture_baseline       
 --------------------------------------
- 96888a76-8f01-4c5d-9b64-501b4eb1d311
+ 7777314e-c20b-4b49-a0e7-abf813366704
 (1 row)
 
       taxonomy_capture_baseline       
 --------------------------------------
- b1e0d804-06b2-4e80-a23d-67583012228b
+ 419bf7b0-5e2f-466c-b9c3-40fe1c207d53
 (1 row)
 
       taxonomy_capture_baseline       
 --------------------------------------
- 91d53603-a798-4569-8337-315f60dc0990
+ 8b6bae55-de58-4212-8c97-a90c3509cfcf
 (1 row)
 
 UPDATE 1
@@ -121,10 +121,11 @@ INSERT 0 1
 DO
       taxonomy_capture_baseline       
 --------------------------------------
- a7723296-00bc-4c5d-9536-c7ead78ca4a3
+ b1f66f74-9c91-47af-8681-84267d668743
 (1 row)
 
 INSERT 0 1
+DO
 INSERT 0 1
 INSERT 0 1
 INSERT 0 1
@@ -137,7 +138,7 @@ INSERT 0 1
 INSERT 0 2
       taxonomy_capture_baseline       
 --------------------------------------
- 7225a537-88ac-4da0-9626-34e7abdb2952
+ c9259080-f659-4e82-887d-851ef3daaf16
 (1 row)
 
 INSERT 0 1
@@ -150,7 +151,7 @@ INSERT 0 1
 INSERT 0 1
       taxonomy_capture_baseline       
 --------------------------------------
- 3eb48c07-e9fb-4ed3-9a0e-a21f6b9b78cc
+ fc17f549-f2df-4913-909b-b17b86b2193e
 (1 row)
 
 ALTER TABLE
@@ -158,7 +159,7 @@ UPDATE 1
 ALTER TABLE
       taxonomy_capture_baseline       
 --------------------------------------
- 58c3dc7e-fdfe-49fe-b5c6-6428f1ce3c51
+ 212524fd-e389-4401-8891-a5f6b2e2e6f4
 (1 row)
 
 INSERT 0 1
@@ -172,12 +173,12 @@ INSERT 0 1
 INSERT 0 2
       taxonomy_capture_baseline       
 --------------------------------------
- 8208faf4-f1a7-4df0-b9a4-4ac4f81e3249
+ 670a655f-f3e5-4a68-8e03-7c97c9dc9040
 (1 row)
 
       taxonomy_capture_baseline       
 --------------------------------------
- 8c3b62db-50f4-4784-89c6-cd4ec157ea3b
+ 14677840-3aa3-44c4-9ac9-87baf9682a7c
 (1 row)
 
 INSERT 0 2
@@ -193,13 +194,24 @@ ALTER TABLE
 INSERT 0 1
       taxonomy_capture_baseline       
 --------------------------------------
- e3549008-4510-451a-9b45-c201e9a64f81
+ 350a5ff3-b406-4ce3-9f83-f22a43ca2bbd
 (1 row)
 
 INSERT 0 1
 INSERT 0 1
 SELECT 1
 INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 2
+ALTER TABLE
+SELECT 1
+SELECT 1
+ALTER TABLE
+INSERT 0 2
+ALTER TABLE
+INSERT 0 2
+ALTER TABLE
 INSERT 0 1
 INSERT 0 1
  n  |                        test                        |                        actual                        |                       expected                       | pass 
@@ -215,25 +227,29 @@ INSERT 0 1
   9 | T5c unknown reviewer                               | refused 42501                                        | refused                                              | t
  10 | T5e non-tip supersession                           | refused 42501                                        | refused                                              | t
  11 | T5d supersession marks failure, no laundering      | 2 baselines, audit=verified, superseded_failure=true | 2 baselines, audit=verified, superseded_failure=true | t
- 12 | T6 row-level chain gap                             | chain_gap                                            | chain_gap                                            | t
- 13 | T7 partner chain_gap downgrades first_known        | unknown_exposure_history/taxonomy_unverified         | unknown_exposure_history/taxonomy_unverified         | t
- 14 | T8 live item 100 unattested                        | unattested                                           | unattested                                           | t
- 15 | T9a baseline keeps both versions                   | tag_m@v1+tag_m@v2                                    | tag_m@v1+tag_m@v2                                    | t
- 16 | T9b logged v1 update verified                      | verified                                             | verified                                             | t
- 17 | T9c unlogged v2 update drift                       | drift                                                | drift                                                | t
- 18 | T10 same-tx tip is deterministic                   | 1 captured_at values, audit=verified, failure=true   | 1 captured_at values, audit=verified, failure=true   | t
- 19 | T11a rolled-back mutation invisible                | verified                                             | verified                                             | t
- 20 | T11b logged update after rollback verified         | verified                                             | verified                                             | t
- 21 | T12a certified pair: old encounter first_known     | first_known_exposure                                 | first_known_exposure                                 | t
- 22 | T12b unlogged split fails closed                   | unknown_exposure_history/taxonomy_unverified         | unknown_exposure_history/taxonomy_unverified         | t
- 23 | T12c recert marks failure + verifies prospectively | verified/true                                        | verified/true                                        | t
- 24 | T12d old encounter NOT laundered by recert         | unknown_exposure_history                             | unknown_exposure_history                             | t
- 25 | T12e new encounter certifies prospectively         | first_known_exposure                                 | first_known_exposure                                 | t
-(25 rows)
+ 12 | T13a NULL-supersession after drift                 | refused 42501                                        | refused                                              | t
+ 13 | T13b no parallel chain inserted                    | 1 baselines, audit=drift                             | 1 baselines, audit=drift                             | t
+ 14 | T6 row-level chain gap                             | chain_gap                                            | chain_gap                                            | t
+ 15 | T7 partner chain_gap downgrades first_known        | unknown_exposure_history/taxonomy_unverified         | unknown_exposure_history/taxonomy_unverified         | t
+ 16 | T8 live item 100 unattested                        | unattested                                           | unattested                                           | t
+ 17 | T9a baseline keeps both versions                   | tag_m@v1+tag_m@v2                                    | tag_m@v1+tag_m@v2                                    | t
+ 18 | T9b logged v1 update verified                      | verified                                             | verified                                             | t
+ 19 | T9c unlogged v2 update drift                       | drift                                                | drift                                                | t
+ 20 | T10 same-tx tip is deterministic                   | 1 captured_at values, audit=verified, failure=true   | 1 captured_at values, audit=verified, failure=true   | t
+ 21 | T11a rolled-back mutation invisible                | verified                                             | verified                                             | t
+ 22 | T11b logged update after rollback verified         | verified                                             | verified                                             | t
+ 23 | T12a certified pair: old encounter first_known     | first_known_exposure                                 | first_known_exposure                                 | t
+ 24 | T12b unlogged split fails closed                   | unknown_exposure_history/taxonomy_unverified         | unknown_exposure_history/taxonomy_unverified         | t
+ 25 | T12c recert marks failure + verifies prospectively | verified/true                                        | verified/true                                        | t
+ 26 | T12d old encounter NOT laundered by recert         | unknown_exposure_history                             | unknown_exposure_history                             | t
+ 27 | T12e new encounter certifies prospectively         | first_known_exposure                                 | first_known_exposure                                 | t
+ 28 | T14a encounter tied with recert fails closed       | unknown_exposure_history                             | unknown_exposure_history                             | t
+ 29 | T14b encounter 1s after recert certifies           | first_known_exposure                                 | first_known_exposure                                 | t
+(29 rows)
 
    summary    
 --------------
- 25/25 passed
+ 29/29 passed
 (1 row)
 
 DO

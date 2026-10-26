@@ -68,6 +68,8 @@ DECLARE v_horizon bigint; v_mapping jsonb; v_id uuid; v_prior record; v_failed b
 BEGIN
   LOCK TABLE taxc.item_tag_review IN SHARE ROW EXCLUSIVE MODE;
   LOCK TABLE taxc.review_event IN SHARE MODE;
+  IF p_supersedes IS NULL AND EXISTS (SELECT 1 FROM taxc.taxonomy_baseline WHERE track=p_track AND item_id=p_item) THEN
+    RAISE EXCEPTION 'item % already has a baseline; recapture must name the CURRENT chain tip', p_item; END IF;
   IF p_supersedes IS NOT NULL THEN
     SELECT * INTO v_prior FROM taxc.taxonomy_baseline WHERE track=p_track AND item_id=p_item ORDER BY baseline_seq DESC LIMIT 1;
     IF NOT FOUND OR v_prior.baseline_id <> p_supersedes THEN

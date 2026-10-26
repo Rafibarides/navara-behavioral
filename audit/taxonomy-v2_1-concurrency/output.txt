@@ -2,14 +2,14 @@
 psql:setup.sql:4: NOTICE:  schema "taxc" does not exist, skipping
            initial_baseline           
 --------------------------------------
- 20ef887c-ef68-48f7-b88d-b9d16775bf33
+ 6b3286ad-a360-484b-a432-8b6f096497d3
 (1 row)
 
 == CASE 1: capture holds SHARE ROW EXCLUSIVE; concurrent logged mutation blocks, then replays ==
 
-real	0m3.280s
-user	0m0.064s
-sys	0m0.016s
+real	0m3.233s
+user	0m0.053s
+sys	0m0.019s
 -- session A (capture):
 -- session B (blocked writer) done; now asserting
 C1 audit after concurrent mutation|verified

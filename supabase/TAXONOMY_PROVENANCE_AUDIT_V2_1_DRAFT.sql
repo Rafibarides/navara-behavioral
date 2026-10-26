@@ -20,6 +20,13 @@
 --     captured_at ties (same-transaction captures share one now()). Supersession must
 --     name the CURRENT latest baseline: concurrent supersessions cannot fork the chain;
 --     the loser fails loudly.
+--  v2.1.1 (2026-10-26): two bounded fixes from the v2.1 exact-source critique
+--   (received as critique): (a) NULL-supersession bypass closed - an item with any
+--   existing baseline refuses a p_supersedes IS NULL capture, so sticky failure
+--   cannot be sidestepped by starting a parallel chain; (b) the failure-marked
+--   baseline boundary now fails CLOSED on a timestamp tie (captured_at >=
+--   encounter): an encounter concurrent with a failure-marked recertification is
+--   ambiguous and never qualifies as post-certification.
 --  C4 PROSPECTIVE A3 PROOF is on the test side (taxonomy-provenance-v2_1-tests.sql T12):
 --     certified relationship -> bound encounter -> unlogged split -> first_known fails
 --     closed -> failure-marked supersession -> the OLD encounter STILL fails closed,
@@ -77,6 +84,13 @@ BEGIN
   -- in-flight supersession commits, then re-reads the tip (READ COMMITTED) and fails
   -- loudly instead of forking the chain. The same locks bound the snapshot below.
   -- C1/C3: supersession must extend the CURRENT chain tip, and launders nothing.
+  -- v2.1.1: initial capture is allowed ONLY when no baseline exists for the item;
+  -- a NULL supersedes can never start a parallel chain (would bypass sticky failure).
+  IF p_supersedes IS NULL AND EXISTS (SELECT 1 FROM pathways_evidence.taxonomy_baseline
+      WHERE track = p_track AND item_id = p_item) THEN
+    RAISE EXCEPTION 'taxonomy_capture_baseline: item % already has a baseline; recapture must name the CURRENT chain tip', p_item
+      USING ERRCODE = '42501';
+  END IF;
   IF p_supersedes IS NOT NULL THEN
     SELECT * INTO v_prior FROM pathways_evidence.taxonomy_baseline
       WHERE track = p_track AND item_id = p_item ORDER BY baseline_seq DESC LIMIT 1;
@@ -156,7 +170,7 @@ RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $f$
                        AND pathways_evidence.taxonomy_audit(p.track, p.item_id) <> 'verified')
      AND NOT EXISTS (SELECT 1 FROM pathways_evidence.taxonomy_baseline f
                      WHERE f.track = p_track AND f.superseded_failure
-                       AND f.captured_at > p_encounter_at          -- certifies only the future
+                       AND f.captured_at >= p_encounter_at         -- certifies only the future; a tie is ambiguous -> fails closed (v2.1.1)
                        AND (f.item_id = p_item
                             OR EXISTS (SELECT 1 FROM pathways_evidence.item_dependence_key a
                                        JOIN pathways_evidence.item_dependence_key p ON p.track = a.track AND p.k = a.k

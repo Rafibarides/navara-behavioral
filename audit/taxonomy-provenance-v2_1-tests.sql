@@ -83,6 +83,21 @@ INSERT INTO _r(test,actual,expected,pass) SELECT 'T5d supersession marks failure
   (SELECT count(*) FROM pathways_evidence.taxonomy_baseline WHERE item_id='6')=2 AND pathways_evidence.taxonomy_audit('rbt','6')='verified'
   AND EXISTS (SELECT 1 FROM pathways_evidence.taxonomy_baseline WHERE item_id='6' AND supersedes IS NOT NULL AND superseded_failure);
 
+-- T13 NULL-supersession bypass (v2.1.1): drifted item 4 has a baseline; a recapture
+-- with p_supersedes IS NULL must be refused and insert nothing (would otherwise
+-- launder the drift into a fresh unmarked chain tip)
+DO $$ DECLARE n0 int; BEGIN
+  SELECT count(*) INTO n0 FROM pathways_evidence.taxonomy_baseline WHERE item_id='4';
+  BEGIN PERFORM pathways_evidence.taxonomy_capture_baseline('rbt','4','bbbbbbbb-0000-4000-8000-000000000001');
+    INSERT INTO _r VALUES (DEFAULT,'T13a NULL-supersession after drift','ACCEPTED (BAD)','refused',false);
+  EXCEPTION WHEN OTHERS THEN INSERT INTO _r VALUES (DEFAULT,'T13a NULL-supersession after drift','refused '||SQLSTATE,'refused',true); END;
+  INSERT INTO _r(test,actual,expected,pass)
+    SELECT 'T13b no parallel chain inserted', count(*)::text || ' baselines, audit=' || pathways_evidence.taxonomy_audit('rbt','4'),
+           n0::text || ' baselines, audit=drift',
+           count(*)=n0 AND pathways_evidence.taxonomy_audit('rbt','4')='drift'
+    FROM pathways_evidence.taxonomy_baseline WHERE item_id='4';
+END $$;
+
 -- T6 row-level chain continuity: fake UPDATE event with wrong old_row for item 1 -> chain_gap
 INSERT INTO pathways_evidence.review_event (table_name,op,old_row,new_row) VALUES
  ('item_tag_review','UPDATE',
@@ -218,6 +233,53 @@ INSERT INTO _r(test,actual,expected,pass) SELECT 'T12e new encounter certifies p
   (SELECT exposure_class_taxonomy_gated FROM pathways_evidence.member_first_encounters_taxonomy_gated WHERE attempt_id='-7802'),
   'first_known_exposure',
   (SELECT exposure_class_taxonomy_gated='first_known_exposure' FROM pathways_evidence.member_first_encounters_taxonomy_gated WHERE attempt_id='-7802');
+
+-- T14 ambiguous certification/encounter boundary fails closed (v2.1.1):
+-- item 7's failure-marked recert has captured_at X. An encounter bound exactly at X
+-- is ambiguous (concurrent) -> disqualified; one at X+1s is post-certification -> certifies.
+SELECT captured_at AS cap FROM pathways_evidence.taxonomy_baseline WHERE item_id='7' ORDER BY baseline_seq DESC LIMIT 1 \gset
+INSERT INTO auth.users (id,aud,role,email,created_at) VALUES
+ ('eeeeeeee-0000-4000-8000-0000000000ad','authenticated','authenticated','tv21tie@synthetic.invalid','2026-01-10T00:00:00Z'),
+ ('eeeeeeee-0000-4000-8000-0000000000ae','authenticated','authenticated','tv21plus@synthetic.invalid','2026-01-10T00:00:00Z');
+SELECT set_config('pathways_evidence.serve_writer','on',true) \g /dev/null
+ALTER TABLE pathways_evidence.item_presentation_event DISABLE TRIGGER ehc_v2_b_stamp;
+CREATE TEMP TABLE _d_tie AS
+WITH ins AS (
+INSERT INTO pathways_evidence.item_presentation_event
+  (member_id, track, item_id, content_version, presentation_context, event_type, logged_by,
+   item_delivery_id, serve_request_key, server_recorded_at, dependence_keys_at_delivery, content_hash_at_delivery)
+SELECT 'eeeeeeee-0000-4000-8000-0000000000ad','rbt','8','current','practice','served_exposure','server',
+       gen_random_uuid(),'A3-TIE', :'cap'::timestamptz - interval '1 second', ARRAY['C_A3_SPLIT','C_A3','ITEM:8'],
+       pathways_evidence.content_hash(q.body,q.options,q.answer,q.explanation,q.citation)
+FROM public.questions q WHERE q.id=8 RETURNING item_delivery_id
+) SELECT * FROM ins;
+CREATE TEMP TABLE _d_plus AS
+WITH ins AS (
+INSERT INTO pathways_evidence.item_presentation_event
+  (member_id, track, item_id, content_version, presentation_context, event_type, logged_by,
+   item_delivery_id, serve_request_key, server_recorded_at, dependence_keys_at_delivery, content_hash_at_delivery)
+SELECT 'eeeeeeee-0000-4000-8000-0000000000ae','rbt','8','current','practice','served_exposure','server',
+       gen_random_uuid(),'A3-PLUS', :'cap'::timestamptz - interval '1 second', ARRAY['C_A3_SPLIT','C_A3','ITEM:8'],
+       pathways_evidence.content_hash(q.body,q.options,q.answer,q.explanation,q.citation)
+FROM public.questions q WHERE q.id=8 RETURNING item_delivery_id
+) SELECT * FROM ins;
+ALTER TABLE pathways_evidence.item_presentation_event ENABLE TRIGGER ehc_v2_b_stamp;
+INSERT INTO public.attempts (id,user_id,question_id,correct,kind,created_at,chosen_option,ms) OVERRIDING SYSTEM VALUE VALUES
+ (-7811,'eeeeeeee-0000-4000-8000-0000000000ad',8,true,'practice',:'cap'::timestamptz,2,5000),
+ (-7812,'eeeeeeee-0000-4000-8000-0000000000ae',8,true,'practice',:'cap'::timestamptz + interval '1 second',2,5000);
+ALTER TABLE pathways_evidence.attempt_delivery_binding DISABLE TRIGGER ehc_v2_a_stamp;
+INSERT INTO pathways_evidence.attempt_delivery_binding (attempt_id,item_delivery_id,bound_at) VALUES
+ (-7811,(SELECT item_delivery_id FROM _d_tie), :'cap'::timestamptz),
+ (-7812,(SELECT item_delivery_id FROM _d_plus), :'cap'::timestamptz + interval '1 second');
+ALTER TABLE pathways_evidence.attempt_delivery_binding ENABLE TRIGGER ehc_v2_a_stamp;
+INSERT INTO _r(test,actual,expected,pass) SELECT 'T14a encounter tied with recert fails closed',
+  (SELECT exposure_class_taxonomy_gated FROM pathways_evidence.member_first_encounters_taxonomy_gated WHERE attempt_id='-7811'),
+  'unknown_exposure_history',
+  (SELECT exposure_class_taxonomy_gated='unknown_exposure_history' FROM pathways_evidence.member_first_encounters_taxonomy_gated WHERE attempt_id='-7811');
+INSERT INTO _r(test,actual,expected,pass) SELECT 'T14b encounter 1s after recert certifies',
+  (SELECT exposure_class_taxonomy_gated FROM pathways_evidence.member_first_encounters_taxonomy_gated WHERE attempt_id='-7812'),
+  'first_known_exposure',
+  (SELECT exposure_class_taxonomy_gated='first_known_exposure' FROM pathways_evidence.member_first_encounters_taxonomy_gated WHERE attempt_id='-7812');
 
 TABLE _r;
 SELECT count(*) FILTER (WHERE pass) || '/' || count(*) || ' passed' AS summary FROM _r;
