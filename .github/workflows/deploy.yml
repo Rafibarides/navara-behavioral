@@ -20,6 +20,8 @@ jobs:
           cache-dependency-path: navara-site/package-lock.json
       - name: Build
         working-directory: navara-site
+        env:
+          VITE_GUIDED_BOOKING_PRODUCTION: 'true'
         run: |
           npm ci
           npx playwright install --with-deps chromium
