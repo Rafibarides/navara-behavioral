@@ -20,3 +20,13 @@ ALTER TABLE pathways_evidence.item_presentation_event
 
 COMMENT ON COLUMN pathways_evidence.item_presentation_event.delivery_id IS
   'Session identifier stamped at display time; joins display events to the attempts they produced. NULL until the logging route ships; NULL is unknown, not absent.';
+
+-- event_type taxonomy column (staged 2026-10-26, inert): values defined by
+-- the RPC draft - practice_display, timed_display, adaptive_display,
+-- review_display. Nullable; pre-instrumentation rows stay NULL (unknown, not
+-- 'practice'). No CHECK constraint yet: the taxonomy may evolve in review.
+ALTER TABLE pathways_evidence.item_presentation_event
+  ADD COLUMN IF NOT EXISTS event_type text;
+
+COMMENT ON COLUMN pathways_evidence.item_presentation_event.event_type IS
+  'Which serving route displayed the item (practice_display, timed_display, adaptive_display, review_display). NULL until instrumentation ships; NULL is unknown.';
