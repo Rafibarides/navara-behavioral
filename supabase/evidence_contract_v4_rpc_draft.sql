@@ -21,7 +21,13 @@
 --           ON pathways_evidence.item_presentation_event (member_id, item_id, delivery_id)
 --           WHERE delivery_id IS NOT NULL;
 --       RPC insert uses ON CONFLICT (member_id, item_id, delivery_id)
---       WHERE delivery_id IS NOT NULL DO NOTHING. One display = one event.
+--       WHERE delivery_id IS NOT NULL DO NOTHING.
+--       UNRESOLVED EVENT SEMANTICS: per-round/item dedupe collapses any
+--       INTENTIONAL re-display of the same item inside one delivery (e.g. a
+--       quiz that shows an item twice). Do not read this design as
+--       exactly-once exposure truth; whether re-displays within a delivery
+--       must be distinct events is an open question for consolidated review
+--       (options: occurrence ordinal, event seq, or per-display event ids).
 --     - returns void; failures must never block the quiz client-side
 --   Sample-bank items (bundled fallback) are not in public.questions and are
 --   no-ops by construction - they can never be logged as live-bank exposure.

@@ -6,8 +6,11 @@
 --
 -- Principle: attempts.delivery_id tells us which displays SHOULD exist
 -- (every answered item was displayed). Comparing expected vs logged displays
--- yields a measurable gap rate. History is never repaired by inference:
--- gaps stay gaps; they only block freshness claims and epoch declaration.
+-- yields a measurable gap rate FOR ANSWERED ITEMS ONLY. This report is NOT an
+-- authoritative measure of all display loss: unlogged displays of unanswered
+-- items (abandoned sets, skipped items) are structurally invisible to it.
+-- History is never repaired by inference: gaps stay gaps; they only block
+-- freshness claims and epoch declaration.
 
 BEGIN;
 
