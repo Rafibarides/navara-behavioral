@@ -153,11 +153,11 @@ export default function Admin() {
         <div style={card}>
           <h3 style={h3s}>Content review queue (unreviewed candidates)</h3>
           <p style={{ fontSize: 13, color: 'var(--ink-2)', marginTop: -6 }}>
-            Machine-generated audit candidates from the pilot content pass and mechanical checks. Every row is a candidate, not a finding: "verified" means only that quoted text was byte-checked against the live bank, not that the concern is valid. Nothing here changes content, keys, tags, or member evidence on its own - a human reviewer confirms or rejects each row. Known noise: numeric checks can miss word-form numerals ("Three" vs "3"); citation and contrast-word checks over-flagged in v1 and their v1 rows are retired.
+            Machine-generated audit candidates from a model pilot pass and mechanical checks. Every row is a candidate, not a finding: "verified" means only that quoted text was byte-checked against the live bank, not that the concern is valid. Nothing here changes content, keys, tags, or member evidence on its own - a human reviewer confirms or rejects each row. Known noise: numeric checks can miss word-form numerals ("Three" vs "3"); citation and contrast-word checks over-flagged in v1 and their v1 rows are retired.
           </p>
           {queue && (
             <p style={{ fontSize: 13, color: 'var(--ink-2)' }}>
-              {queueTotal === null ? queue.length : queueTotal} open candidates. Severity mix in the first {queue.length} (most urgent first): {['blocker','high','medium','low'].map((sv) => sv + ' ' + queue.filter((r) => r.severity === sv).length).join(', ')}. Expert-pass rows are quote byte-checked; mechanical rows are unverified.
+              {queueTotal === null ? queue.length : queueTotal} open candidates. Severity mix in the first {queue.length} (most urgent first): {['blocker','high','medium','low'].map((sv) => sv + ' ' + queue.filter((r) => r.severity === sv).length).join(', ')}. Model pilot rows are quote byte-checked; mechanical rows are unverified.
             </p>
           )}
           <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -167,9 +167,9 @@ export default function Admin() {
                 <td style={td}>{r.track.toUpperCase()} #{r.item_id}{r.option_id !== null && r.option_id !== undefined ? ' opt ' + (Number(r.option_id) + 1) : ''}</td>
                 <td style={td}>{r.flag.replace(/_/g, ' ')}</td>
                 <td style={{ ...td, fontWeight: (r.severity === 'blocker' || r.severity === 'high') ? 700 : 400, color: r.severity === 'blocker' ? '#b3261e' : r.severity === 'high' ? '#9a6a00' : 'inherit' }}>{r.severity}</td>
-                <td style={td}>{r.detector === 'model' ? 'expert pass' : 'mechanical'}</td>
+                <td style={td}>{r.detector === 'model' ? 'model pilot' : 'mechanical'}</td>
                 <td style={td}>{r.detector === 'model' ? (r.verification_status === 'source_verified' ? 'byte-checked' : r.verification_status.replace(/_/g, ' ')) : 'n/a'}</td>
-                <td style={td}>{(r.route || '-').replace(/_/g, ' ')}</td>
+                <td style={td}>{r.route ? 'suggestion: ' + r.route.replace(/_/g, ' ') : '-'}</td>
                 <td style={{ ...td, maxWidth: 380 }}>{r.rationale && r.rationale.length > 220 ? r.rationale.slice(0, 220) + '…' : r.rationale}</td>
               </tr>
             ))}</tbody>
