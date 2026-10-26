@@ -1,0 +1,118 @@
+psql:/tmp/ehc_body.sql:11: NOTICE:  column "logged_by" of relation "item_presentation_event" already exists, skipping
+psql:/tmp/ehc_body.sql:16: NOTICE:  relation "ipe_member_track_presented" already exists, skipping
+psql:/tmp/ehc_body.sql:20: NOTICE:  column "history_start_rule" of relation "exposure_logging_policy" already exists, skipping
+psql:/tmp/ehc_body.sql:30: NOTICE:  relation "review_event_itr_idx" already exists, skipping
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1|PASS|I5|control: post-epoch member, server serve, answer|first_known_exposure/complete_history|first_known_exposure/complete_history
+2|PASS|I4|answer before the epoch|unknown_exposure_history/answer_before_epoch|unknown_exposure_history/answer_before_epoch
+3|PASS|I5|client-only display never makes first_known|unknown_exposure_history/no_server_serve|unknown_exposure_history/no_server_serve
+4|PASS|I4|account created pre-epoch, rule account_created (default)|unknown_exposure_history/member_history_predates_epoch|unknown_exposure_history/member_history_predates_epoch
+5|PASS|I4|pre-epoch activity stays unknown under the default rule|unknown_exposure_history/member_history_predates_epoch|unknown_exposure_history/member_history_predates_epoch
+6|PASS|I4|pre-epoch member, fresh-variant key set created after epoch|first_known_exposure/complete_history|first_known_exposure/complete_history
+7|PASS|I4|pre-epoch member, new item sharing a key with old items|unknown_exposure_history/member_history_predates_epoch|unknown_exposure_history/member_history_predates_epoch
+8|PASS|I5|legacy logged_by=unknown never makes first_known|unknown_exposure_history/no_server_serve|unknown_exposure_history/no_server_serve
+9|PASS|I5|ghost: answer with no presentation row|unknown_exposure_history/no_server_serve|unknown_exposure_history/no_server_serve
+10|PASS|I2|sibling served earlier in the same set|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+11|PASS|I2|decisive case (ChatGPT 05:01Z): served-only sibling, never answered or acked, is in the one history|1|1
+12|PASS|I2|same item served two weeks earlier|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+13|PASS|I2|tie between cluster siblings: zero first_known|0|0
+14|PASS|I3|split never restores independence (sticky)|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+15|PASS|I3|merge: old-snapshot exposure of merged item disqualifies|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+16|PASS|I3|multi-tag item: every tag row excluded, deterministic|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+17|PASS|I6|clock-skewed client display: earliest clock (received_at) disqualifies|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+18|PASS|I6|late-flushed client display: earliest clock (presented_at) disqualifies|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+19|PASS|I6|context-blind: reassessment-context sibling disqualifies|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+20|PASS|I6|unpublished sibling exposure still counts|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+21|PASS|I2|display after the own serve refines, does not disqualify|first_known_exposure/complete_history|first_known_exposure/complete_history
+22|PASS|I2|same-item display before the latest serve disqualifies|excluded_prior_exposure/prior_exposure|excluded_prior_exposure/prior_exposure
+23|PASS|I5|serve logged only after the answer|unknown_exposure_history/no_server_serve|unknown_exposure_history/no_server_serve
+24|PASS|I2|retake: second attempt excluded by the first|excluded_prior_exposure|excluded_prior_exposure
+25|PASS|I2|unrelated unclustered item does not disqualify (no over-reach)|first_known_exposure/complete_history|first_known_exposure/complete_history
+26|PASS|I4|no auth.users row: history start unknown|unknown_exposure_history/member_history_predates_epoch|unknown_exposure_history/member_history_predates_epoch
+27|PASS|I7|eligibility never NULL|0|0
+28|PASS|I7|eligible => first_known|0|0
+29|PASS|I7|eligible_aware = shipped eligible_opportunity AND complete_history, every row|0|0
+30|PASS|UPSTREAM|[finding, not EHC] shipped eligible_opportunity is false on every row: adapter item_content_version_at_answer is NULL|0|0
+31|PASS|OD2|[option first_activity] pre-epoch account, no pre-epoch activity|first_known_exposure/complete_history|first_known_exposure/complete_history
+32|PASS|OD2|[option first_activity] pre-epoch activity still unknown|unknown_exposure_history/member_history_predates_epoch|unknown_exposure_history/member_history_predates_epoch
+33|PASS|OD2|[default account_created] restored after rollback|unknown_exposure_history/member_history_predates_epoch|unknown_exposure_history/member_history_predates_epoch
+34|PASS|I4|no epoch declared (today): nothing is first_known|0|0
+35|PASS|I4|no epoch declared: control row says why|unknown_exposure_history/no_epoch_declared|unknown_exposure_history/no_epoch_declared
+36|PASS|OD1|[serve manifests adopted] first_known rows reachable|true|true
+37|PASS|OD1|[not adopted: client logs only] zero first_known (exclusion-only mode)|0|0
+38|PASS|OD1|[not adopted] exclusions do not shrink without server rows|true|true
+39|PASS|I8|classification identical under UTC and UTC+14|true|true
+40|PASS|I1|consumer depends on member_item_exposure|true|true
+41|PASS|I1|consumer never reads item_presentation_event or attempts directly|0|0
+42|PASS|I9|every new view has security_invoker=true|item_dependence_key=security_invoker=true ; member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true|item_dependence_key=security_invoker=true ; member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true
+43|PASS|I9|anon/authenticated hold no privilege on the new views|0|0
+44|PASS|I9|only server/client/unknown provenance accepted|CHECK ((logged_by = ANY (ARRAY['server'::text, 'client'::text, 'unknown'::text])))|CHECK ((logged_by = ANY (ARRAY['server'::text, 'client'::text, 'unknown'::text])))
+45|PASS|I9|presentation events stay append-only (UPDATE refused)|refused|refused
+46|PASS|I10|shipped views unchanged|0|0
+47|PASS|I10|shipped view count unchanged (11)|11|11
+47/47 passed

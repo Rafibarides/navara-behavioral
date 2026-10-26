@@ -1,0 +1,20 @@
+1|PASS|A1 [demo 4] member active pre-epoch; in-epoch first answer must stay unknown|unknown_exposure_history|unknown_exposure_history
+2|PASS|A2 [demo 3] exposure snapshot C_OLD, C_OLD merged into C_TEST|excluded_prior_exposure|excluded_prior_exposure
+3|FAIL|A3 [demo 3, POLICY] exposure snapshot C_TEST, answered item later split to C_SPLIT|unknown_exposure_history|excluded_prior_exposure
+4|PASS|A4 [demo 3] prior answer on a multi-tag item that shares C_TEST|excluded_prior_exposure|excluded_prior_exposure
+5|PASS|A5 [demo 1] sibling shown earlier in the same delivery (set)|excluded_prior_exposure|excluded_prior_exposure
+6|PASS|A6 [demo 1] same item shown 2 weeks earlier under the same delivery id|excluded_prior_exposure|excluded_prior_exposure
+7|PASS|A7 [demo 1] timestamp tie between cluster siblings: not both first_known|at_most_one|at_most_one
+8|PASS|A8 [demo 4] bound to a delivery with no presentation row (logging gap)|unknown_exposure_history|unknown_exposure_history
+9|PASS|A9 [demo 2] control: post-epoch member, own bound presentation only|first_known_exposure|first_known_exposure
+10|PASS|S1 new views carry security_invoker=true|member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true|member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true
+1|PASS|A1 [demo 4] member active pre-epoch; in-epoch first answer must stay unknown|unknown_exposure_history|unknown_exposure_history
+2|PASS|A2 [demo 3] exposure snapshot C_OLD, C_OLD merged into C_TEST|excluded_prior_exposure|excluded_prior_exposure
+3|PASS|A3 [demo 3, POLICY] exposure snapshot C_TEST, answered item later split to C_SPLIT|excluded_prior_exposure|excluded_prior_exposure
+4|PASS|A4 [demo 3] prior answer on a multi-tag item that shares C_TEST|excluded_prior_exposure|excluded_prior_exposure
+5|PASS|A5 [demo 1] sibling shown earlier in the same delivery (set)|excluded_prior_exposure|excluded_prior_exposure
+6|PASS|A6 [demo 1] same item shown 2 weeks earlier under the same delivery id|excluded_prior_exposure|excluded_prior_exposure
+7|PASS|A7 [demo 1] timestamp tie between cluster siblings: not both first_known|at_most_one|at_most_one
+8|PASS|A8 [demo 4] bound to a delivery with no presentation row (logging gap)|unknown_exposure_history|unknown_exposure_history
+9|PASS|A9 [demo 2] control: post-epoch member, own bound presentation only|first_known_exposure|first_known_exposure
+10|PASS|S1 new views carry security_invoker=true|member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true|member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true
