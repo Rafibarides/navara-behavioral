@@ -18,6 +18,7 @@ export default function Admin() {
   const [qstats, setQstats] = useState(null);
   const [coverage, setCoverage] = useState(null);
   const [areas, setAreas] = useState(null);
+  const [queue, setQueue] = useState(null);
   const [stripe, setStripe] = useState(null);
   const [err, setErr] = useState(null);
 
@@ -26,15 +27,16 @@ export default function Admin() {
     (async () => {
       try {
         const sb = await getClient();
-        const [o, m, q, c, a] = await Promise.all([
+        const [o, m, q, c, a, rq] = await Promise.all([
           sb.rpc('admin_overview'),
           sb.rpc('admin_members', { p_limit: 25 }),
           sb.rpc('admin_question_stats', { p_min_attempts: 3, p_limit: 30 }),
           sb.rpc('admin_content_quality'),
           sb.rpc('admin_area_coverage'),
+          sb.rpc('admin_review_queue', { p_status: 'open' }),
         ]);
-        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error; if (a.error) throw a.error;
-        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data); setAreas(a.data);
+        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error; if (a.error) throw a.error; if (rq.error) throw rq.error;
+        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data); setAreas(a.data); setQueue(rq.data);
         const { data: { session } } = await sb.auth.getSession();
         const res = await fetch(CFG.supabaseUrl + '/functions/v1/admin-stripe-stats', {
           method: 'POST',
@@ -145,6 +147,34 @@ export default function Admin() {
             ))}</tbody>
           </table></div>
           {coverage && coverage.length > 50 && <p style={{ fontSize: 12, color: 'var(--ink-2)', marginTop: 8 }}>Showing 50 of {coverage.length} tags, most-missed first.</p>}
+        </div>
+
+        <div style={card}>
+          <h3 style={h3s}>Content review queue (unreviewed candidates)</h3>
+          <p style={{ fontSize: 13, color: 'var(--ink-2)', marginTop: -6 }}>
+            Machine-generated audit candidates from the pilot content pass and mechanical checks. Every row is a candidate, not a finding: "verified" means only that quoted text was byte-checked against the live bank, not that the concern is valid. Nothing here changes content, keys, tags, or member evidence on its own - a human reviewer confirms or rejects each row. Known noise: numeric checks can miss word-form numerals ("Three" vs "3"); citation and contrast-word checks over-flagged in v1 and their v1 rows are retired.
+          </p>
+          {queue && (
+            <p style={{ fontSize: 13, color: 'var(--ink-2)' }}>
+              {queue.length} open: {queue.filter((r) => r.detector === 'model').length} expert-pass candidates, {queue.filter((r) => r.detector === 'script').length} mechanical candidates
+              {' | '}by severity: {['blocker','high','medium','low'].map((sv) => sv + ' ' + queue.filter((r) => r.severity === sv).length).join(', ')}
+            </p>
+          )}
+          <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead><tr><th style={th}>Item</th><th style={th}>Flag</th><th style={th}>Severity</th><th style={th}>Source</th><th style={th}>Quote check</th><th style={th}>Suggested route</th><th style={th}>Rationale</th></tr></thead>
+            <tbody>{(queue || []).slice(0, 40).map((r) => (
+              <tr key={r.flag_id}>
+                <td style={td}>{r.track.toUpperCase()} #{r.item_id}{r.option_id !== null && r.option_id !== undefined ? ' opt ' + (Number(r.option_id) + 1) : ''}</td>
+                <td style={td}>{r.flag.replace(/_/g, ' ')}</td>
+                <td style={{ ...td, fontWeight: (r.severity === 'blocker' || r.severity === 'high') ? 700 : 400, color: r.severity === 'blocker' ? '#b3261e' : r.severity === 'high' ? '#9a6a00' : 'inherit' }}>{r.severity}</td>
+                <td style={td}>{r.detector === 'model' ? 'expert pass' : 'mechanical'}</td>
+                <td style={td}>{r.detector === 'model' ? (r.verification_status === 'source_verified' ? 'byte-checked' : r.verification_status.replace(/_/g, ' ')) : 'n/a'}</td>
+                <td style={td}>{(r.route || '-').replace(/_/g, ' ')}</td>
+                <td style={{ ...td, maxWidth: 380 }}>{r.rationale && r.rationale.length > 220 ? r.rationale.slice(0, 220) + '…' : r.rationale}</td>
+              </tr>
+            ))}</tbody>
+          </table></div>
+          {queue && queue.length > 40 && <p style={{ fontSize: 12, color: 'var(--ink-2)', marginTop: 8 }}>Showing 40 of {queue.length} open candidates, blockers and expert-pass rows first.</p>}
         </div>
 
         <div style={card}>
