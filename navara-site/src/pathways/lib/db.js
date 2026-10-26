@@ -106,10 +106,16 @@ export async function fetchAreaProgress() {
     const sb = await getClient();
     const { data: { session } } = await sb.auth.getSession();
     if (!session) return [];
-    const { data, error } = await sb.from('attempts').select('correct, questions(area)').eq('user_id', session.user.id);
+    const { data, error } = await sb.from('attempts').select('question_id, correct, created_at, questions(area)').eq('user_id', session.user.id).order('created_at', { ascending: true });
     if (error) throw error;
     const agg = {};
+    const seen = new Set();
     (data || []).forEach((r) => {
+      // First response per bank question only - retakes are practice, not fresh
+      // evidence (same rule as member_evidence). Sample-bank answers carry no
+      // question id and are excluded: placeholders, not exam-bank items.
+      if (r.question_id == null || seen.has(r.question_id)) return;
+      seen.add(r.question_id);
       const area = (r.questions && r.questions.area) || 'General';
       agg[area] = agg[area] || { n: 0, c: 0 };
       agg[area].n += 1;
