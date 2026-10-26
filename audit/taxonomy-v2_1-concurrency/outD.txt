@@ -1,0 +1,2 @@
+psql:sessD.sql:2: ERROR:  supersedes must name the CURRENT latest baseline of this item
+CONTEXT:  PL/pgSQL function taxc.capture(text,text,uuid) line 9 at RAISE

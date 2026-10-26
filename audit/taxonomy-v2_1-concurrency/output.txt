@@ -1,0 +1,33 @@
+== setup ==
+psql:setup.sql:4: NOTICE:  schema "taxc" does not exist, skipping
+           initial_baseline           
+--------------------------------------
+ 20ef887c-ef68-48f7-b88d-b9d16775bf33
+(1 row)
+
+== CASE 1: capture holds SHARE ROW EXCLUSIVE; concurrent logged mutation blocks, then replays ==
+
+real	0m3.280s
+user	0m0.064s
+sys	0m0.016s
+-- session A (capture):
+-- session B (blocked writer) done; now asserting
+C1 audit after concurrent mutation|verified
+C1 boundary: horizon < event, snapshot kept old cluster|t
+== CASE 2: rolled-back concurrent mutation leaves no event and no drift ==
+C2 audit after rollback|verified
+== CASE 3: competing supersessions cannot fork the chain ==
+-- C output:
+-- D output:
+psql:sessD.sql:2: ERROR:  supersedes must name the CURRENT latest baseline of this item
+C3 baselines_before=2 baselines_after=3 (expect exactly +1)
+C3 deterministic tip audit|verified
+== cleanup ==
+NOTICE:  drop cascades to 6 other objects
+DETAIL:  drop cascades to table taxc.item_tag_review
+drop cascades to table taxc.review_event
+drop cascades to function taxc.log_review_event()
+drop cascades to table taxc.taxonomy_baseline
+drop cascades to function taxc.audit(text,text)
+drop cascades to function taxc.capture(text,text,uuid)
+residue|0
