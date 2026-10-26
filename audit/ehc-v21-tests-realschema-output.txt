@@ -1,0 +1,272 @@
+BEGIN
+SET
+SELECT 11
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc21_body.sql:124: NOTICE:  view "member_first_encounters_exposure_aware" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:125: NOTICE:  view "member_history_coverage" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:126: NOTICE:  view "member_item_exposure" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:127: NOTICE:  view "item_dependence_key" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+psql:/tmp/ehc21_body.sql:19: NOTICE:  column "logged_by" of relation "item_presentation_event" already exists, skipping
+ALTER TABLE
+DO
+psql:/tmp/ehc21_body.sql:25: NOTICE:  column "history_start_rule" of relation "exposure_logging_policy" already exists, skipping
+ALTER TABLE
+DO
+psql:/tmp/ehc21_body.sql:40: NOTICE:  column "item_delivery_id" of relation "item_presentation_event" already exists, skipping
+psql:/tmp/ehc21_body.sql:40: NOTICE:  column "server_recorded_at" of relation "item_presentation_event" already exists, skipping
+psql:/tmp/ehc21_body.sql:40: NOTICE:  column "serve_request_key" of relation "item_presentation_event" already exists, skipping
+psql:/tmp/ehc21_body.sql:40: NOTICE:  column "dependence_keys_at_delivery" of relation "item_presentation_event" already exists, skipping
+psql:/tmp/ehc21_body.sql:40: NOTICE:  column "content_hash_at_delivery" of relation "item_presentation_event" already exists, skipping
+ALTER TABLE
+DO
+psql:/tmp/ehc21_body.sql:47: NOTICE:  relation "ipe_item_delivery_uq" already exists, skipping
+CREATE INDEX
+psql:/tmp/ehc21_body.sql:48: NOTICE:  relation "ipe_serve_idem_uq" already exists, skipping
+CREATE INDEX
+psql:/tmp/ehc21_body.sql:49: NOTICE:  relation "ipe_ack_delivery_idx" already exists, skipping
+CREATE INDEX
+psql:/tmp/ehc21_body.sql:54: NOTICE:  column "inventory_attested_at" of relation "exposure_logging_policy" already exists, skipping
+psql:/tmp/ehc21_body.sql:54: NOTICE:  column "inventory_attested_by" of relation "exposure_logging_policy" already exists, skipping
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc21_body.sql:90: NOTICE:  relation "attempt_delivery_binding" already exists, skipping
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+DROP VIEW
+DROP VIEW
+DROP VIEW
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+CREATE TABLE
+INSERT 0 12
+INSERT 0 1
+INSERT 0 12
+INSERT 0 13
+INSERT 0 13
+UPDATE 1
+UPDATE 1
+INSERT 0 1
+INSERT 0 40
+SELECT 40
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+SELECT 45
+ att 
+-----
+ 
+(1 row)
+
+ att 
+-----
+ 
+(1 row)
+
+INSERT 0 7
+INSERT 0 6
+INSERT 0 32
+INSERT 0 5
+INSERT 0 6
+ALTER TABLE
+ALTER TABLE
+SELECT 2
+SELECT 2
+SELECT 1
+SELECT 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 12
+ set_config 
+------------
+ off
+(1 row)
+
+UPDATE 1
+INSERT 0 3
+UPDATE 1
+INSERT 0 1
+UPDATE 1
+INSERT 0 3
+UPDATE 1
+INSERT 0 1
+UPDATE 1
+DELETE 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+SELECT 1
+SET
+INSERT 0 1
+SET
+INSERT 0 11
+RESET
+UPDATE 90
+ n  | result | gate  |                                                     test                                                     |                         actual                         |                        expected                        
+----+--------+-------+--------------------------------------------------------------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------
+  1 | PASS   | G3    | ghost: binding to a delivery id that does not exist is refused                                               | 23503                                                  | 23503
+  2 | PASS   | G3    | NULL delivery id is refused (guard or NOT NULL)                                                              | refused                                                | refused
+  3 | PASS   | G3    | answer bound to ANOTHER member's delivery is refused                                                         | 23514                                                  | 23514
+  4 | PASS   | G3    | answer bound to ANOTHER item's delivery is refused                                                           | 23514                                                  | 23514
+  5 | PASS   | G3    | setup: a legitimate late answer binds to m10's unanswered sibling delivery (allowed)                         | no error                                               | no error
+  6 | PASS   | G3    | binding to a client row's delivery id is refused                                                             | 23503                                                  | 23503
+  7 | PASS   | G3    | a binding cannot precede its delivery                                                                        | 23514                                                  | 23514
+  8 | PASS   | G3    | the same delivery cannot be bound twice                                                                      | 23505                                                  | 23505
+  9 | PASS   | G3    | an attempt cannot be bound twice                                                                             | 23505                                                  | 23505
+ 10 | PASS   | G3    | bindings are append-only (UPDATE refused)                                                                    | 42501                                                  | 42501
+ 11 | PASS   | G3    | bindings are append-only (DELETE refused)                                                                    | 42501                                                  | 42501
+ 12 | PASS   | G3    | ghost answer stays unknown (no bound delivery)                                                               | unknown_exposure_history/no_bound_delivery             | unknown_exposure_history/no_bound_delivery
+ 13 | PASS   | G3    | client-only display never certifies                                                                          | unknown_exposure_history/no_bound_delivery             | unknown_exposure_history/no_bound_delivery
+ 14 | PASS   | G5    | control: post-epoch member, served, bound, answered                                                          | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 15 | PASS   | G5    | control is an eligible opportunity (legitimate eligibility stays possible)                                   | true                                                   | true
+ 16 | PASS   | G5    | pre-epoch delivery                                                                                           | unknown_exposure_history/delivery_before_epoch         | unknown_exposure_history/delivery_before_epoch
+ 17 | PASS   | G5    | account created pre-epoch (default rule account_created)                                                     | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 18 | PASS   | G5    | pre-epoch activity on an unrelated item                                                                      | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 19 | PASS   | G5    | pre-epoch member, fresh-variant key set (all created after the epoch)                                        | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 20 | PASS   | G5    | pre-epoch member, new item sharing a key with old items                                                      | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 21 | PASS   | G5    | no auth.users row: history start unknown                                                                     | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 22 | PASS   | G5    | missing: legacy sibling row with no server time                                                              | unknown_exposure_history/unordered_history             | unknown_exposure_history/unordered_history
+ 23 | PASS   | G4    | sibling served earlier                                                                                       | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 24 | PASS   | G5    | abandoned: sibling delivered, never answered or acknowledged                                                 | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 25 | PASS   | G5    | duplicate: same item delivered earlier and abandoned, then re-served                                         | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 26 | PASS   | G4    | ambiguous: siblings served in one call (same instant): zero first_known                                      | 0                                                      | 0
+ 27 | PASS   | G4    | tie: sibling delivered at exactly the answer instant                                                         | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 28 | PASS   | G4    | split after an earlier exposure never restores independence (sticky)                                         | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 29 | PASS   | G4    | split AFTER exposure: old exposure still disqualifies                                                        | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 30 | PASS   | G4    | delivery snapshot carries the key set in force at serve time                                                 | C_TEST,ITEM:8                                          | C_TEST,ITEM:8
+ 31 | PASS   | G4    | merge: exposure of the merged-in item disqualifies                                                           | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 32 | PASS   | G4    | multi-tag item: every tag row excluded, one deterministic answer                                             | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 33 | PASS   | G4    | client clock ignored: own ack claiming year 2000 changes nothing                                             | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 34 | PASS   | G4    | out-of-order: sibling served after the answer does not invalidate it, even with an ack claiming year 2000    | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 35 | PASS   | G4    | later sibling answer: earlier answer stays first_known                                                       | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 36 | PASS   | G4    | later sibling answer itself is excluded                                                                      | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 37 | PASS   | G4    | unreferenced client display ingested before the answer disqualifies                                          | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 38 | PASS   | G4    | out-of-order: client display ingested after the answer (client claims before) is uncertain, never fresh      | unknown_exposure_history/unordered_history             | unknown_exposure_history/unordered_history
+ 39 | PASS   | G4    | unbound sibling attempt (client clock says 2027) is uncertain, never fresh                                   | unknown_exposure_history/unordered_history             | unknown_exposure_history/unordered_history
+ 40 | PASS   | G4    | presented_at in 2030 on an earlier sibling delivery cannot hide it                                           | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 41 | PASS   | G4    | bound sibling answer earlier disqualifies                                                                    | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 42 | PASS   | G4    | content edited after delivery: version mismatch                                                              | unknown_exposure_history/content_changed               | unknown_exposure_history/content_changed
+ 43 | PASS   | G5    | unrelated unclustered item does not disqualify (no over-reach)                                               | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 44 | PASS   | G5    | retake: first answer first_known                                                                             | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 45 | PASS   | G5    | retake: second answer excluded                                                                               | excluded_prior_exposure/prior_exposure                 | excluded_prior_exposure/prior_exposure
+ 46 | PASS   | G5    | sweep: every first_known row has a server delivery and a binding to it, at/after the effective epoch         | 0                                                      | 0
+ 47 | PASS   | G5    | sweep: no first_known row has another exposure of a key-sharing item not provably after the answer           | 0                                                      | 0
+ 48 | PASS   | G5    | eligibility never NULL                                                                                       | 0                                                      | 0
+ 49 | PASS   | G5    | eligible implies first_known                                                                                 | 0                                                      | 0
+ 50 | PASS   | G5    | consumer row count equals the shipped view (no rows dropped or duplicated)                                   | true                                                   | true
+ 51 | PASS   | AGREE | abandoned sibling delivery consumes reserve freshness of the cluster                                         | exposed                                                | exposed
+ 52 | PASS   | AGREE | every attempt the consumer excluded as prior: its item reads exposed                                         | 0                                                      | 0
+ 53 | PASS   | AGREE | an unbound attempt alone makes the cluster exposed                                                           | exposed                                                | exposed
+ 54 | PASS   | AGREE | untouched fresh variant for a post-epoch member is fresh                                                     | fresh                                                  | fresh
+ 55 | PASS   | AGREE | pre-epoch member, old cluster never touched: unknown, not fresh                                              | fresh|unknown                                          | fresh|unknown
+ 56 | PASS   | AGREE | retired (unpublished) item: its delivery still counts                                                        | exposed|false                                          | exposed|false
+ 57 | PASS   | G2    | serve_items records one served_exposure row per item and returns the content with its id                     | 2/2/true                                               | 2/2/true
+ 58 | PASS   | G2    | rows are visible before content is returned (same call, same transaction)                                    | 0                                                      | 0
+ 59 | PASS   | G5    | duplicate: a retried request returns the same ids and writes nothing new                                     | true/2                                                 | true/2
+ 60 | PASS   | G2    | same item served twice in one round (two requests): two distinct identities                                  | true                                                   | true
+ 61 | PASS   | G2    | a batch from one call shares one server instant (simultaneous, so no independence between siblings)          | 1                                                      | 1
+ 62 | PASS   | G4    | server time is stamped: the supplied binding time (year 2000) was overwritten                                | true                                                   | true
+ 63 | PASS   | G5    | live end-to-end: served, answered, bound => first_known and eligible                                         | first_known_exposure/true                              | first_known_exposure/true
+ 64 | PASS   | G2    | serve_items refuses an unknown item                                                                          | 23503                                                  | 23503
+ 65 | PASS   | G2    | serve_items refuses an unknown member                                                                        | 23503                                                  | 23503
+ 66 | PASS   | G2    | a served_exposure row written outside serve_items is refused                                                 | 42501                                                  | 42501
+ 67 | PASS   | G2    | an incomplete server row is refused even on the serve path                                                   | 23514                                                  | 23514
+ 68 | PASS   | G4    | server time is stamped: a client row's supplied server_recorded_at (year 2000) is overwritten                | no error                                               | no error
+ 69 | PASS   | OD2   | [option first_activity] pre-epoch account, only server-ordered activity after the epoch                      | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 70 | PASS   | OD2   | [option first_activity] a legacy row with no server time keeps it unknown                                    | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 71 | PASS   | OD2   | [option first_activity] pre-epoch activity still unknown                                                     | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 72 | PASS   | OD2   | [default account_created] restored                                                                           | unknown_exposure_history/member_history_predates_epoch | unknown_exposure_history/member_history_predates_epoch
+ 73 | PASS   | G1    | inventory not attested: nothing is first_known                                                               | 0                                                      | 0
+ 74 | PASS   | G1    | inventory not attested: control says why                                                                     | unknown_exposure_history/no_epoch_declared             | unknown_exposure_history/no_epoch_declared
+ 75 | PASS   | G1    | inventory not attested: reserve freshness is unknown, never fresh                                            | unknown                                                | unknown
+ 76 | PASS   | G1    | epoch = later of logging start and attestation: a delivery between them is pre-epoch                         | unknown_exposure_history/delivery_before_epoch         | unknown_exposure_history/delivery_before_epoch
+ 77 | PASS   | G5    | no epoch declared (today): nothing is first_known                                                            | 0                                                      | 0
+ 78 | PASS   | G5    | policy restored: control first_known again                                                                   | first_known_exposure/complete_history                  | first_known_exposure/complete_history
+ 79 | PASS   | G4    | classification identical under UTC and UTC+14                                                                | true                                                   | true
+ 80 | PASS   | I1    | consumer and reserve freshness both read member_item_exposure                                                | true                                                   | true
+ 81 | PASS   | I1    | consumer never reads item_presentation_event, attempts or bindings directly                                  | 0                                                      | 0
+ 82 | PASS   | SEC   | every EHC view has security_invoker=true                                                                     | 4                                                      | 4
+ 83 | PASS   | SEC   | anon/authenticated: no privilege on EHC views or the binding table                                           | 0                                                      | 0
+ 84 | PASS   | SEC   | anon/authenticated cannot execute serve_items or member_item_freshness; service_role can execute serve_items | 0/true                                                 | 0/true
+ 85 | PASS   | SEC   | serve_items is SECURITY DEFINER with a pinned empty search_path                                              | true/search_path=""                                    | true/search_path=""
+ 86 | PASS   | SEC   | binding table has row level security on                                                                      | true                                                   | true
+ 87 | PASS   | SEC   | authenticated calling serve_items is refused                                                                 | 42501                                                  | 42501
+ 88 | PASS   | G4    | review log (dependence version history) cannot be truncated                                                  | 42501                                                  | 42501
+ 89 | PASS   | ADD   | shipped views unchanged (definition and options)                                                             | 0                                                      | 0
+ 90 | PASS   | ADD   | shipped view count unchanged (11)                                                                            | 11                                                     | 11
+(90 rows)
+
+   summary    
+--------------
+ 90/90 passed
+(1 row)
+
+DO
+ROLLBACK

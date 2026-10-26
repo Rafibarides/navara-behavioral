@@ -1,0 +1,103 @@
+BEGIN
+SET
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc21_body.sql:124: NOTICE:  view "member_first_encounters_exposure_aware" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:125: NOTICE:  view "member_history_coverage" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:126: NOTICE:  view "member_item_exposure" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:127: NOTICE:  view "item_dependence_key" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+INSERT 0 14
+INSERT 0 1
+INSERT 0 14
+INSERT 0 15
+INSERT 0 15
+UPDATE 1
+UPDATE 1
+INSERT 0 1
+INSERT 0 40
+SELECT 40
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+UPDATE 1
+UPDATE 1
+CREATE TABLE
+INSERT 0 13
+CREATE VIEW
+INSERT 0 5
+UPDATE 14
+ n  | defect | verdict |    invariant    |                                                   test                                                    |                         actual                         
+----+--------+---------+-----------------+-----------------------------------------------------------------------------------------------------------+--------------------------------------------------------
+  1 | a      | safe    | real            | A1 two distinct deliveries of the same item tied at the same server time                                  | excluded_prior_exposure/prior_exposure
+  2 | a      | safe    | real            | A2 a later client display that names no delivery (after the served anchor)                                | excluded_prior_exposure/prior_exposure
+  3 | a      | safe    | real            | A3 a legacy presentation tied at the anchor, no server time                                               | unknown_exposure_history/unordered_history
+  4 | a      | safe    | real            | A4 a second delivery tied exactly with the answer's bind time                                             | excluded_prior_exposure/prior_exposure
+  5 | a      | safe    | real            | A5 client row ingested after the answer claiming an earlier display (client clock ignored)                | unknown_exposure_history/unordered_history
+  6 | a      | safe    | real            | E1 delivery server-stamped exactly at the effective epoch                                                 | unknown_exposure_history/delivery_before_epoch
+  7 | a      | safe    | real            | E2 pre-epoch member; variant key set created exactly at the effective epoch                               | unknown_exposure_history/member_history_predates_epoch
+  8 | a      | safe    | real            | E3 freshness: member whose account (history start) was created exactly at the epoch, old item never shown | unknown
+  9 | ctl    | info    | real            | C3 control: freshness for a post-epoch member, old item never shown                                       | fresh
+ 10 | b      | safe    | real            | B1 freshness: pre-epoch member, old item 9 (has its ITEM: key)                                            | unknown
+ 11 | b      | safe    | real            | B4 freshness: pre-epoch member, item id that is not in the bank                                           | unknown
+ 12 | ctl    | info    | real            | C1 control: display ack of the SAME delivery stays one encounter                                          | first_known_exposure/complete_history
+ 13 | ctl    | info    | real            | C2 control: legitimate first_known still reachable                                                        | first_known_exposure/complete_history
+ 14 | b      | info    | SIMULATED BREAK | B0 item 9 key records                                                                                     | 0 key rows
+ 15 | b      | safe    | SIMULATED BREAK | B2 freshness: pre-epoch member, item 9 with ZERO key records                                              | unknown
+ 16 | b      | safe    | SIMULATED BREAK | B3 freshness: post-epoch member who ALREADY ANSWERED item 9 (zero key records)                            | unknown
+ 17 | b      | safe    | SIMULATED BREAK | B5 serving item 9 with zero key records                                                                   | 23514
+ 18 | b      | safe    | SIMULATED BREAK | B6 C5 view: member 32's answer on item 9                                                                  | row absent from C5 (member_first_encounters drops it)
+(18 rows)
+
+                                                              summary                                                              
+-----------------------------------------------------------------------------------------------------------------------------------
+ 0 unsafe of 14 adversarial cases; controls: fresh | first_known_exposure/complete_history | first_known_exposure/complete_history
+(1 row)
+
+DO
+ROLLBACK

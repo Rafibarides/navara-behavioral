@@ -1,0 +1,56 @@
+BEGIN
+SET
+ALTER TABLE
+DO
+CREATE INDEX
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+REVOKE
+COMMENT
+CREATE TABLE
+INSERT 0 12
+INSERT 0 1
+INSERT 0 11
+INSERT 0 12
+INSERT 0 12
+UPDATE 1
+UPDATE 1
+INSERT 0 1
+INSERT 0 40
+SELECT 40
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+UPDATE 1
+INSERT 0 1
+CREATE FUNCTION
+INSERT 0 6
+CREATE VIEW
+INSERT 0 3
+INSERT 0 1
+UPDATE 6
+UPDATE 1
+ n  | defect |   verdict    |    invariant    |                                               test                                               |                         actual                         
+----+--------+--------------+-----------------+--------------------------------------------------------------------------------------------------+--------------------------------------------------------
+  1 | a      | DEFECT FIRES | real            | A1 two distinct server serves of the same item tied at the anchor timestamp                      | first_known_exposure/complete_history
+  2 | a      | DEFECT FIRES | real            | A2 a second presentation (client) after the selected server anchor                               | first_known_exposure/complete_history
+  3 | a      | DEFECT FIRES | real            | A3 a legacy presentation tied at the anchor timestamp                                            | first_known_exposure/complete_history
+  4 | a      | safe         | real            | A4 control: earlier serve then a later re-serve (expected caught)                                | excluded_prior_exposure/prior_exposure
+  5 | b      | safe         | real            | B1 pre-epoch member, old item, real pathways_source_items (every question has an ITEM: key)      | unknown_exposure_history/member_history_predates_epoch
+  6 | b      | info         | real            | B0 item 9 has a key record                                                                       | 1 key rows
+  7 | b      | info         | SIMULATED BREAK | B0 item 9 has a key record                                                                       | 0 key rows
+  8 | b      | DEFECT FIRES | SIMULATED BREAK | B2 v1 fresh-keyset exception (keyset_postdates_epoch) evaluated for item 9 with ZERO key records | true
+  9 | b      | safe         | SIMULATED BREAK | B1 the same pre-epoch answer end-to-end (does the row reach C5 at all?)                          | row absent from C5 (member_first_encounters drops it)
+ 10 | ctl    | info         | real (re-read)  | A5 control: legitimate first_known still reachable                                               | first_known_exposure/complete_history
+(10 rows)
+
+             summary             
+---------------------------------
+ 4 unsafe of 7 adversarial cases
+(1 row)
+
+ROLLBACK
