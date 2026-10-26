@@ -28,11 +28,11 @@ export default function Dashboard() {
       hasPassword().then((h) => setNeedsPw(!h)).catch(() => {});
     }
   }, [user]);
+  usePathwaysEffects([progress]);
   if (!user) return null;
   const planLabel = (user.plan === 'guided' ? 'Guided' : user.plan === 'self-study' ? 'Self-Study' : 'Sample') + ' plan, ' + (user.track === 'bcba' ? 'BCBA' : 'RBT') + ' track' + (user.demo || DEMO ? ' (demo)' : '');
   const showDemo = DEMO || user.demo;
   const bars = progress ? progress.map((r) => [r.area, r.pct]) : (showDemo ? DEMO_PROGRESS : null);
-  usePathwaysEffects([bars]);
   const cards = evidence || (showDemo ? DEMO_EVIDENCE : null);
   return (<>
     <AppNav active="dashboard" />
