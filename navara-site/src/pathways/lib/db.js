@@ -154,6 +154,21 @@ export async function fetchMemberEvidence() {
   } catch { return []; }
 }
 
+// Review mode: the exact first-response questions the member missed on a tag (rolling 30d),
+// most recent first. Observed history only - same evidence class as member_evidence.
+export async function fetchMissedQuestions(tag) {
+  if (DEMO) return [];
+  const sb = await getClient();
+  const { data, error } = await sb.rpc('member_missed_questions', { p_tag: tag });
+  if (error) throw error;
+  const ids = (data || []).map((r) => r.question_id);
+  if (!ids.length) return [];
+  const { data: qs, error: qErr } = await sb.from('questions').select('*').in('id', ids).eq('published', true);
+  if (qErr) throw qErr;
+  const byId = Object.fromEntries((qs || []).map((q) => [q.id, q]));
+  return ids.map((id) => byId[id]).filter(Boolean).map(toQuiz);
+}
+
 // Owner console: per-track misconception coverage for the content audit.
 export async function fetchTagCoverage() {
   if (DEMO) return [];

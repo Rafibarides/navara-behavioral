@@ -3,7 +3,7 @@ import AppNav from '../../components/AppNav';
 import { SampleFlag } from '../../components/Chrome';
 import Quiz from '../../components/Quiz';
 import { useRequireUser } from '../../components/useRequireUser';
-import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidence, DEMO_EVIDENCE } from '../../lib/db';
+import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidence, fetchMissedQuestions, DEMO_EVIDENCE } from '../../lib/db';
 import { DEMO } from '../../config';
 
 const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
@@ -22,7 +22,9 @@ export default function Practice() {
     if (!user) return;
     let on = true;
     const track = user.track || 'rbt';
-    const tag = new URLSearchParams(window.location.search).get('tag');
+    const params = new URLSearchParams(window.location.search);
+    const tag = params.get('tag');
+    const review = params.get('review') === '1';
     (async () => {
       let ev = [];
       if (user.demo) ev = DEMO_EVIDENCE;
@@ -30,6 +32,12 @@ export default function Practice() {
       if (!on) return;
       setEvidence(ev);
       const hit = tag && ev.find((p) => p.tag === tag);
+      if (hit && review) {
+        try {
+          const rows = await fetchMissedQuestions(hit.tag);
+          if (on && rows && rows.length) { setTarget({ ...hit, review: true }); setQs(rows); setLive(true); return; }
+        } catch { /* fall through to the targeted set */ }
+      }
       if (hit) {
         try {
           const rows = await fetchAdaptiveSet({ track, misconceptions: [hit.tag], limit: 10 });
@@ -52,7 +60,13 @@ export default function Practice() {
     <AppNav active="practice" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>
       <div className="wrap quiz-shell">
-        {target ? (<>
+        {target && target.review ? (<>
+          <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Review - the exact questions you missed</span>
+          <h2>{cardTitle(target)}.</h2>
+          <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
+            These are the {qs ? qs.length : ''} questions you missed with this tag in the last 30 days, most recent first. Retake them and read the explanations. Tags are author-assigned and not yet expert-reviewed - a pointer for your review, not a diagnosis.
+          </p>
+        </>) : target ? (<>
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Targeted set - built from your recorded misses</span>
           <h2>{cardTitle(target)}.</h2>
           <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
@@ -80,7 +94,7 @@ export default function Practice() {
         </>)}
         {!live && !target && <div style={{ textAlign: 'left', marginBottom: 20 }}><SampleFlag /></div>}
         {qs
-          ? <Quiz key={(target ? target.tag : String(user.track)) + live} questions={qs} title={target ? 'Targeted set' : live ? 'Practice set' : 'Sample practice set'} kind={target ? 'targeted' : 'practice'} cta={target ? 'Back to practice' : 'Back to dashboard'} ctaHref={target ? '/pathways/app/practice' : '/pathways/app/dashboard'} />
+          ? <Quiz key={(target ? target.tag + (target.review ? '-review' : '') : String(user.track)) + live} questions={qs} title={target ? (target.review ? 'Review set' : 'Targeted set') : live ? 'Practice set' : 'Sample practice set'} kind={target && !target.review ? 'targeted' : 'practice'} cta={target ? 'Back to practice' : 'Back to dashboard'} ctaHref={target ? '/pathways/app/practice' : '/pathways/app/dashboard'} />
           : <p style={{ fontWeight: 600, color: 'var(--ink-2)' }}>Loading your set...</p>}
       </div>
     </section>

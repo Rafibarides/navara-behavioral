@@ -105,7 +105,8 @@ export default function Dashboard() {
                   <span><b>{pretty(c.tag)}</b><br />
                     <span style={{ fontSize: 12.5, color: 'var(--ink-2)', fontWeight: 600 }}>
                       Tagged on {c.misses} of your recorded misses across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
-                    <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag)} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Practice more questions with this tag &rarr;</a></span>
+                    <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag)} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Practice more questions with this tag &rarr;</a><br />
+                    <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag) + '&review=1'} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Review the exact questions you missed &rarr;</a></span>
                   <span className={'pill ' + (c.status === 'recurring' ? 'pill-teal' : 'pill-sage')}>{c.status === 'recurring' ? 'Recurring' : 'Worth reviewing'}</span>
                 </div>
               ))}
