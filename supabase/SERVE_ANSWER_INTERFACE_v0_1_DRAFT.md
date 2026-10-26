@@ -1,4 +1,8 @@
 # Serve/Answer Interface v0.1 - DRAFT (single versioned contract artifact; nothing applied)
+# v0.1.1: folded in the two implementation clarifications from the external v0.1
+# confirmation (received as critique, not authority): answer_key global uniqueness
+# (A5) and content_changed non-graded persistence semantics (A6). The external
+# "freeze" wording is noted; freezing/implementation/cutover remain owner decisions.
 
 Supersedes v0. Incorporates the four bounded amendments from the interface/guard
 exact-source critique (treated as critique, not authority). Coordinates the DB half
@@ -84,6 +88,11 @@ Request: { contract_version, item_delivery_id, chosen_index,
     the route feedback policy). No second attempt is created, nothing is re-graded,
     and the original answer is never presented as though the second choice was
     accepted.
+  - [db-half] answer_key GLOBAL UNIQUENESS (implementation clarification, folded in):
+    one answer_key identifies exactly one submission, ever. An answer_key presented
+    against a DIFFERENT item_delivery_id than its original use is rejected
+    (`answer_key_conflict`), enforced by a database unique constraint on answer_key -
+    not just by replay logic.
 - Answer response (accepted path): { attempt_id, answered_at (server), correct,
   feedback } where feedback releases key + rationales only per the route's learning
   mode.
@@ -95,6 +104,12 @@ Request: { contract_version, item_delivery_id, chosen_index,
   recorded classified content_changed and never counts as fresh evidence. The
   session MAY continue with its other deliveries; only the affected delivery is held.
   [held policy: what the UI displays beyond the hold notice - owner decision]
+  [db-half] PERSISTENCE SEMANTICS (implementation clarification, folded in): if a
+  content_changed submission is persisted at all, the row carries an explicit
+  NON-GRADED status (status = 'content_changed', correct = NULL). Analytics and
+  evidence consumers must never read it as an incorrect answer, a correct answer, or
+  an eligible assessment/freshness opportunity; it is excluded from member_evidence,
+  pattern detection, freshness, and exposure-history consumers by that status.
 
 ## 4. Evidence consumers (DB half, v2.1 lineage)
 
@@ -142,6 +157,11 @@ real-JWT denial tests, whole-contract acceptance.
   A4 answer: delivery answered through a different route/feedback policy is rejected
      (delivery_context_mismatch); unsupported contract_version rejected at serve and
      answer.
+  A5 answer: answer_key reused against a different delivery is rejected by the DB
+     unique constraint (answer_key_conflict), not merely by replay logic.
+  A6 answer: a persisted content_changed submission is provably invisible to
+     analytics: member_evidence, pattern detection, freshness and exposure consumers
+     all exclude it (not incorrect, not correct, not an opportunity).
 - Pre-implementation still owed: fingerprint storage + mismatch rejection (GAP-1
   fix), entitlement/published checks (GAP-2 fix), sanitized projection, atomic answer
   RPC with the v0.1 replay semantics, real-JWT cutover acceptance. All blocked on
