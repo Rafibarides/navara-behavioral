@@ -2,12 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import AppNav from '../../components/AppNav';
 import Quiz from '../../components/Quiz';
 import { useRequireUser } from '../../components/useRequireUser';
-import { fetchQuestions, fetchSample } from '../../lib/db';
+import { fetchQuestions, fetchSample , flushPresentationQueue} from '../../lib/db';
 import { DEMO } from '../../config';
 
 const PACE = { rbt: 63, bcba: 82 }; // seconds/question: RBT 85q/90min, BCBA 175q/4h
 
 export default function Mock() {
+  useEffect(() => {
+    flushPresentationQueue();
+    const onOnline = () => flushPresentationQueue();
+    window.addEventListener('online', onOnline);
+    return () => window.removeEventListener('online', onOnline);
+  }, []);
   const user = useRequireUser();
   const v2 = true;
   const [total, setTotal] = useState(300);

@@ -3,7 +3,7 @@ import AppNav from '../../components/AppNav';
 import { SampleFlag } from '../../components/Chrome';
 import Quiz from '../../components/Quiz';
 import { useRequireUser } from '../../components/useRequireUser';
-import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidence, fetchMissedQuestions, DEMO_EVIDENCE } from '../../lib/db';
+import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidence, fetchMissedQuestions, DEMO_EVIDENCE , flushPresentationQueue} from '../../lib/db';
 import { DEMO } from '../../config';
 
 const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
@@ -13,6 +13,12 @@ const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.c
 const cardTitle = (p) => pretty(p.tag);
 
 export default function Practice() {
+  useEffect(() => {
+    flushPresentationQueue();
+    const onOnline = () => flushPresentationQueue();
+    window.addEventListener('online', onOnline);
+    return () => window.removeEventListener('online', onOnline);
+  }, []);
   const user = useRequireUser();
   const [qs, setQs] = useState(null);
   const [live, setLive] = useState(false);

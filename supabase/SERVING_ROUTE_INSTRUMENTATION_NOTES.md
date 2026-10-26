@@ -68,3 +68,26 @@ Fire-and-forget; failure must never block the quiz.
 - Abandon mid-set: only displayed items logged.
 - Sample-bank path: zero rows.
 - Then v4 T2b real-positive path becomes testable without the OR REPLACE shim.
+
+## Failure handling (added with the reliability draft)
+
+Fire-and-forget logging loses some displays (offline, RPC error, storage
+blocked). The design accepts that and makes loss DETECTABLE instead of
+assuming completeness:
+
+- Client: failed logs go to a localStorage retry queue (cap 500), flushed on
+  next Practice/Mock mount and on the browser 'online' event. Signed-out
+  quizzes are never logged or queued (their attempts are not persisted either).
+- Server: every bound attempt implies its display should exist.
+  delivery_gap_report (draft) compares expected vs logged displays per
+  (member, item, delivery): missing_display rows are residual loss after
+  retries; display_after_answer rows are late queue flushes (>30s skew).
+- Epoch gate: exposure_logging_health (draft) marks a track epoch_eligible
+  only when a 30-day window of bound deliveries shows nonzero volume and zero
+  gaps. No epoch declaration while logging is lossy; until then
+  member_first_encounters_exposure_aware keeps returning
+  unknown_exposure_history - fail-closed by construction, never repaired by
+  inference.
+- Known overlap to resolve in review: item_presentation_event already had a
+  presentation_context column; event_type (staged) duplicates its intent.
+  Coordinator should rule which one the RPC writes.

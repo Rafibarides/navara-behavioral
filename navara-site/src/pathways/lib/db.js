@@ -72,14 +72,50 @@ export async function fetchSample({ track, limit = 10, skip = 0 }) {
 // Fire-and-forget: instrumentation must never block or break the quiz. The
 // log_item_presentation RPC is server-side and definer-owned; until it ships
 // this call is a no-op (caught error). Sample-bank items are never passed in.
+const PRESENTATION_QUEUE_KEY = 'np_presentation_queue';
+
+function readPresentationQueue() {
+  try { return JSON.parse(localStorage.getItem(PRESENTATION_QUEUE_KEY) || '[]'); } catch { return []; }
+}
+
+// Retry on next load / when back online: failed display logs are NOT dropped -
+// silent loss would corrupt exposure history and block epoch declaration
+// (server-side delivery_gap_report detects any residual loss).
+async function queuePresentation(entry) {
+  try {
+    const q = readPresentationQueue();
+    q.push(entry);
+    localStorage.setItem(PRESENTATION_QUEUE_KEY, JSON.stringify(q.slice(-500)));
+  } catch { /* storage full/blocked: gap is detectable server-side */ }
+}
+
+export async function flushPresentationQueue() {
+  if (DEMO) return;
+  const q = readPresentationQueue();
+  if (!q.length) return;
+  const remaining = [];
+  for (const entry of q) {
+    try {
+      const sb = await getClient();
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) { remaining.push(...q.slice(q.indexOf(entry))); break; }
+      const { error } = await sb.rpc('log_item_presentation', { p_item_id: entry.itemId, p_event_type: entry.eventType, p_delivery_id: entry.deliveryId });
+      if (error) remaining.push(entry);
+    } catch { remaining.push(entry); }
+  }
+  try { localStorage.setItem(PRESENTATION_QUEUE_KEY, JSON.stringify(remaining.slice(-500))); } catch { /* ignore */ }
+}
+
 export async function logItemPresentation({ itemId = null, eventType = null, deliveryId = null }) {
   if (DEMO || !itemId || !eventType || !deliveryId) return;
+  const entry = { itemId, eventType, deliveryId, at: new Date().toISOString() };
   try {
     const sb = await getClient();
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) return;
-    await sb.rpc('log_item_presentation', { p_item_id: itemId, p_event_type: eventType, p_delivery_id: deliveryId });
-  } catch { /* no-op until the RPC ships; never block the quiz */ }
+    if (!session) return; // signed-out quizzes are never persisted
+    const { error } = await sb.rpc('log_item_presentation', { p_item_id: itemId, p_event_type: eventType, p_delivery_id: deliveryId });
+    if (error) await queuePresentation(entry);
+  } catch { await queuePresentation(entry); }
 }
 
 export async function recordAttempt({ questionId = null, area = null, chosenOption = null, correct, misconception = null, confusesWith = null, ms = null, kind = 'practice', deliveryId = null }) {
