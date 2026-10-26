@@ -68,7 +68,21 @@ export async function fetchSample({ track, limit = 10, skip = 0 }) {
   return qs.slice(skip, skip + limit);
 }
 
-export async function recordAttempt({ questionId = null, area = null, chosenOption = null, correct, misconception = null, confusesWith = null, ms = null, kind = 'practice' }) {
+// Serving-route instrumentation: log one exposure per question DISPLAYED.
+// Fire-and-forget: instrumentation must never block or break the quiz. The
+// log_item_presentation RPC is server-side and definer-owned; until it ships
+// this call is a no-op (caught error). Sample-bank items are never passed in.
+export async function logItemPresentation({ itemId = null, eventType = null, deliveryId = null }) {
+  if (DEMO || !itemId || !eventType || !deliveryId) return;
+  try {
+    const sb = await getClient();
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    await sb.rpc('log_item_presentation', { p_item_id: itemId, p_event_type: eventType, p_delivery_id: deliveryId });
+  } catch { /* no-op until the RPC ships; never block the quiz */ }
+}
+
+export async function recordAttempt({ questionId = null, area = null, chosenOption = null, correct, misconception = null, confusesWith = null, ms = null, kind = 'practice', deliveryId = null }) {
   if (DEMO) return;
   try {
     const sb = await getClient();
@@ -83,6 +97,7 @@ export async function recordAttempt({ questionId = null, area = null, chosenOpti
       misconception,
       confuses_with: confusesWith,
       ms,
+      delivery_id: deliveryId,
     });
     if (error) throw error;
   } catch { /* telemetry must never break the quiz */ }

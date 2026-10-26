@@ -94,7 +94,7 @@ export default function Practice() {
         </>)}
         {!live && !target && <div style={{ textAlign: 'left', marginBottom: 20 }}><SampleFlag /></div>}
         {qs
-          ? <Quiz key={(target ? target.tag + (target.review ? '-review' : '') : String(user.track)) + live} questions={qs} title={target ? (target.review ? 'Review set' : 'Targeted set') : live ? 'Practice set' : 'Sample practice set'} kind={target && !target.review ? 'targeted' : 'practice'} cta={target ? 'Back to practice' : 'Back to dashboard'} ctaHref={target ? '/pathways/app/practice' : '/pathways/app/dashboard'} />
+          ? <Quiz key={(target ? target.tag + (target.review ? '-review' : '') : String(user.track)) + live} questions={qs} title={target ? (target.review ? 'Review set' : 'Targeted set') : live ? 'Practice set' : 'Sample practice set'} kind={target && !target.review ? 'targeted' : 'practice'} eventType={!live ? null : target ? (target.review ? 'review_display' : 'adaptive_display') : 'practice_display'} cta={target ? 'Back to practice' : 'Back to dashboard'} ctaHref={target ? '/pathways/app/practice' : '/pathways/app/dashboard'} />
           : <p style={{ fontWeight: 600, color: 'var(--ink-2)' }}>Loading your set...</p>}
       </div>
     </section>

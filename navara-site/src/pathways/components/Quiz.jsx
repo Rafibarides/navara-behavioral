@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { recordAttempt } from '../lib/db';
+import React, { useEffect, useRef, useState } from 'react';
+import { recordAttempt, logItemPresentation } from '../lib/db';
 import { signIn } from '../lib/auth';
 import { DEMO } from '../config';
 
@@ -35,7 +35,7 @@ function downloadScoreCard({ title, score, total }) {
   a.click();
 }
 
-export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample', onAnswer = null }) {
+export default function Quiz({ questions, title, cta = 'See the plans', ctaHref = '/pathways/plans', emailCta = false, kind = 'sample', onAnswer = null, eventType = null }) {
   const v2 = true;
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
@@ -49,6 +49,14 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
   const [sent, setSent] = useState(false);
   const shownAt = useRef(Date.now());
   const locked = useRef(false);
+  // Serving-route instrumentation: one delivery id per quiz round; every
+  // display event and every attempt in the round carries it (v4 binding).
+  const deliveryId = useRef(null);
+  if (!deliveryId.current) deliveryId.current = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random());
+  useEffect(() => {
+    const cur = questions[i];
+    if (eventType && cur && cur.id) logItemPresentation({ itemId: cur.id, eventType, deliveryId: deliveryId.current });
+  }, [i, round, questions, eventType]);
 
   if (done) {
     const pct = Math.round((score / questions.length) * 100);
@@ -110,7 +118,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
         )}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={ctaHref}>{cta}</a>
-          <button className="btn btn-navy" onClick={() => { locked.current = false; setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setSel(null); setRound(r => r + 1); }}>Try again</button>
+          <button className="btn btn-navy" onClick={() => { locked.current = false; deliveryId.current = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + '-' + Math.random()); setI(0); setScore(0); setPicked(null); setDone(false); setAnswers([]); setSel(null); setRound(r => r + 1); }}>Try again</button>
           <button className="btn btn-ghost" onClick={() => downloadScoreCard({ title, score, total: questions.length })}>Share my score card</button>
         </div>
       </div>
@@ -130,7 +138,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
       questionId: q.id || null, chosenOption: k, correct, kind,
       misconception: correct ? null : (q.opts[k].misc || null),
       confusesWith: correct ? null : (q.opts[k].conf || null),
-      ms,
+      ms, deliveryId: deliveryId.current,
     }).catch(() => {});
   };
   const next = () => {

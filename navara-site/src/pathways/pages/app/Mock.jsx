@@ -118,7 +118,7 @@ export default function Mock() {
         )}
         <div {...(v2 ? {} : { onClickCapture: () => setTimeout(() => setAnswered((n) => n + 1), 0) })}>
           {qs
-            ? <Quiz questions={qs} title={live ? 'Timed set' : 'Demo set'} kind="mock" cta="Review on dashboard" ctaHref="/pathways/app/dashboard" onAnswer={v2 ? () => setAnswered((n) => n + 1) : null} />
+            ? <Quiz questions={qs} title={live ? 'Timed set' : 'Demo set'} kind="mock" eventType={live ? 'timed_display' : null} cta="Review on dashboard" ctaHref="/pathways/app/dashboard" onAnswer={v2 ? () => setAnswered((n) => n + 1) : null} />
             : <p style={{ fontWeight: 600, color: 'var(--ink-2)' }}>Loading your timed set...</p>}
         </div>
       </div>
