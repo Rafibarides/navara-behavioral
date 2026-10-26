@@ -4,13 +4,24 @@
 -- schema pieces have a known consumer.
 
 -- Contract:
---   log_item_presentation(p_item_id bigint, p_event_type text, p_delivery_id text)
+--   log_item_presentation(p_item_id bigint, p_event_type text, p_delivery_id text,
+--                         p_presented_at timestamptz)
 --     - security definer; logs ONLY for auth.uid() as member_id
 --     - p_event_type in ('practice_display','timed_display','adaptive_display','review_display')
 --     - p_delivery_id NOT NULL, length 8..64, [A-Za-z0-9-] only (client session id)
 --     - p_item_id must exist in public.questions with published=true, else no-op
 --     - writes pathways_evidence.item_presentation_event (member_id=auth.uid(),
---       track/item track from questions, content_version='current', presented_at=now())
+--       track/item track from questions, content_version='current',
+--       presented_at=p_presented_at as client-ASSERTED time; received_at defaults
+--       to now() server-side and is the trustworthy clock)
+--     - IDEMPOTENT: retries and queue flushes can deliver the same
+--       (member, item, delivery) more than once. Requires this draft index,
+--       applied WITH the RPC (not staged - it constrains writes):
+--         CREATE UNIQUE INDEX item_presentation_event_delivery_uniq
+--           ON pathways_evidence.item_presentation_event (member_id, item_id, delivery_id)
+--           WHERE delivery_id IS NOT NULL;
+--       RPC insert uses ON CONFLICT (member_id, item_id, delivery_id)
+--       WHERE delivery_id IS NOT NULL DO NOTHING. One display = one event.
 --     - returns void; failures must never block the quiz client-side
 --   Sample-bank items (bundled fallback) are not in public.questions and are
 --   no-ops by construction - they can never be logged as live-bank exposure.

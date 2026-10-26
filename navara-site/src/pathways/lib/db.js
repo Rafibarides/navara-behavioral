@@ -73,18 +73,33 @@ export async function fetchSample({ track, limit = 10, skip = 0 }) {
 // log_item_presentation RPC is server-side and definer-owned; until it ships
 // this call is a no-op (caught error). Sample-bank items are never passed in.
 const PRESENTATION_QUEUE_KEY = 'np_presentation_queue';
+const PRESENTATION_DROPPED_KEY = 'np_presentation_dropped';
 
 function readPresentationQueue() {
   try { return JSON.parse(localStorage.getItem(PRESENTATION_QUEUE_KEY) || '[]'); } catch { return []; }
 }
 
-// Retry on next load / when back online: failed display logs are NOT dropped -
-// silent loss would corrupt exposure history and block epoch declaration
-// (server-side delivery_gap_report detects any residual loss).
+// Cap/drop visibility: dropped entries are counted, never silently lost
+// client-side. Server-side gap detection remains the authoritative measure.
+function noteDropped(n) {
+  try {
+    const d = JSON.parse(localStorage.getItem(PRESENTATION_DROPPED_KEY) || '{"count":0}');
+    d.count += n;
+    if (!d.firstDroppedAt) d.firstDroppedAt = new Date().toISOString();
+    localStorage.setItem(PRESENTATION_DROPPED_KEY, JSON.stringify(d));
+  } catch { /* storage blocked: gap is detectable server-side */ }
+}
+
+// Queue entries are account-bound: a shared device must never flush one
+// member's queued displays under another member's session.
 async function queuePresentation(entry) {
   try {
     const q = readPresentationQueue();
-    q.push(entry);
+    // Idempotency: one (member, item, delivery) display is one event.
+    if (!q.some((e) => e.userId === entry.userId && e.itemId === entry.itemId && e.deliveryId === entry.deliveryId)) {
+      q.push(entry);
+    }
+    if (q.length > 500) noteDropped(q.length - 500);
     localStorage.setItem(PRESENTATION_QUEUE_KEY, JSON.stringify(q.slice(-500)));
   } catch { /* storage full/blocked: gap is detectable server-side */ }
 }
@@ -93,27 +108,37 @@ export async function flushPresentationQueue() {
   if (DEMO) return;
   const q = readPresentationQueue();
   if (!q.length) return;
+  let session = null;
+  try {
+    const sb = await getClient();
+    ({ data: { session } } = await sb.auth.getSession());
+  } catch { return; }
+  if (!session) return;
   const remaining = [];
   for (const entry of q) {
+    if (entry.userId !== session.user.id) { remaining.push(entry); continue; } // other account's rows stay queued
     try {
       const sb = await getClient();
-      const { data: { session } } = await sb.auth.getSession();
-      if (!session) { remaining.push(...q.slice(q.indexOf(entry))); break; }
-      const { error } = await sb.rpc('log_item_presentation', { p_item_id: entry.itemId, p_event_type: entry.eventType, p_delivery_id: entry.deliveryId });
+      const { error } = await sb.rpc('log_item_presentation', { p_item_id: entry.itemId, p_event_type: entry.eventType, p_delivery_id: entry.deliveryId, p_presented_at: entry.at });
       if (error) remaining.push(entry);
     } catch { remaining.push(entry); }
   }
-  try { localStorage.setItem(PRESENTATION_QUEUE_KEY, JSON.stringify(remaining.slice(-500))); } catch { /* ignore */ }
+  try { localStorage.setItem(PRESENTATION_QUEUE_KEY, JSON.stringify(remaining)); } catch { /* ignore */ }
 }
 
 export async function logItemPresentation({ itemId = null, eventType = null, deliveryId = null }) {
   if (DEMO || !itemId || !eventType || !deliveryId) return;
-  const entry = { itemId, eventType, deliveryId, at: new Date().toISOString() };
+  let session = null;
   try {
     const sb = await getClient();
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return; // signed-out quizzes are never persisted
-    const { error } = await sb.rpc('log_item_presentation', { p_item_id: itemId, p_event_type: eventType, p_delivery_id: deliveryId });
+    ({ data: { session } } = await sb.auth.getSession());
+  } catch { return; }
+  if (!session) return; // signed-out quizzes are never persisted
+  // Client-asserted display time; the server records its own received_at.
+  const entry = { userId: session.user.id, itemId, eventType, deliveryId, at: new Date().toISOString() };
+  try {
+    const sb = await getClient();
+    const { error } = await sb.rpc('log_item_presentation', { p_item_id: itemId, p_event_type: eventType, p_delivery_id: deliveryId, p_presented_at: entry.at });
     if (error) await queuePresentation(entry);
   } catch { await queuePresentation(entry); }
 }
