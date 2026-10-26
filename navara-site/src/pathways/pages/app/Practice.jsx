@@ -7,7 +7,10 @@ import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidence, DEM
 import { DEMO } from '../../config';
 
 const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
-const cardTitle = (p) => pretty(p.tag) + (p.label && pretty(p.label).toLowerCase() !== pretty(p.tag).toLowerCase() ? ' vs ' + pretty(p.label).toLowerCase() : '');
+// Stable neutral display: the humanized tag only. The per-question authored distinctions
+// (confuses_with) stay on their questions; picking one as the tag's heading would drift
+// between visits for tags that carry several, and canonize one variant without review.
+const cardTitle = (p) => pretty(p.tag);
 
 export default function Practice() {
   const user = useRequireUser();

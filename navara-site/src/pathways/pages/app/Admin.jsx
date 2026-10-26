@@ -17,6 +17,7 @@ export default function Admin() {
   const [members, setMembers] = useState(null);
   const [qstats, setQstats] = useState(null);
   const [coverage, setCoverage] = useState(null);
+  const [areas, setAreas] = useState(null);
   const [stripe, setStripe] = useState(null);
   const [err, setErr] = useState(null);
 
@@ -25,14 +26,15 @@ export default function Admin() {
     (async () => {
       try {
         const sb = await getClient();
-        const [o, m, q, c] = await Promise.all([
+        const [o, m, q, c, a] = await Promise.all([
           sb.rpc('admin_overview'),
           sb.rpc('admin_members', { p_limit: 25 }),
           sb.rpc('admin_question_stats', { p_min_attempts: 3, p_limit: 30 }),
-          sb.rpc('admin_tag_coverage'),
+          sb.rpc('admin_content_quality'),
+          sb.rpc('admin_area_coverage'),
         ]);
-        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error;
-        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data);
+        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error; if (a.error) throw a.error;
+        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data); setAreas(a.data);
         const { data: { session } } = await sb.auth.getSession();
         const res = await fetch(CFG.supabaseUrl + '/functions/v1/admin-stripe-stats', {
           method: 'POST',
@@ -116,24 +118,26 @@ export default function Admin() {
         <div style={card}>
           <h3 style={h3s}>Misconception coverage (content audit)</h3>
           <p style={{ fontSize: 13, color: 'var(--ink-2)', marginTop: -6 }}>
-            Review order for the expert content pass: most-missed tags first, then thinnest coverage. Counts are inventory, not validation - every tag is still pending expert review. A tag with under 3 items is thin: a member can rarely face that trap on enough distinct questions for a pattern to form honestly. No variant items exist yet.
+            Review order for the expert content pass: most-missed tags first, then thinnest coverage. Counts are inventory, not validation - every tag is still pending expert review. A tag with under 3 items is thin: a member can rarely face that trap on enough distinct questions for a pattern to form honestly. No variant items exist yet. Labels counts the distinct authored distinctions (confuses_with) a tag carries across questions; more than 1 means the review should confirm one display label for that tag.
           </p>
           {coverage && (
             <p style={{ fontSize: 13, color: 'var(--ink-2)' }}>
               {['rbt', 'bcba'].map((t) => {
                 const rows = coverage.filter((r) => r.track === t);
                 const thin = rows.filter((r) => r.items < 3).length;
-                return t.toUpperCase() + ': ' + rows.length + ' tags (' + thin + ' thin)';
+                const ml = rows.filter((r) => r.label_variants > 1).length;
+                return t.toUpperCase() + ': ' + rows.length + ' tags (' + thin + ' thin, ' + ml + ' multi-label)';
               }).join(' | ')}
             </p>
           )}
           <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead><tr><th style={th}>Track</th><th style={th}>Misconception</th><th style={th}>Items</th><th style={th}>Areas</th><th style={th}>Misses 30d</th><th style={th}>Members 30d</th></tr></thead>
+            <thead><tr><th style={th}>Track</th><th style={th}>Misconception</th><th style={th}>Items</th><th style={th}>Labels</th><th style={th}>Areas</th><th style={th}>Misses 30d</th><th style={th}>Members 30d</th></tr></thead>
             <tbody>{(coverage || []).slice(0, 50).map((r) => (
               <tr key={r.track + r.tag}>
                 <td style={td}>{r.track.toUpperCase()}</td>
                 <td style={td}>{r.tag.replace(/_/g, ' ')}</td>
                 <td style={{ ...td, fontWeight: r.items < 3 ? 700 : 400, color: r.items < 3 ? '#b3261e' : 'inherit' }}>{r.items}{r.items < 3 ? ' (thin)' : ''}</td>
+                <td style={{ ...td, fontWeight: r.label_variants > 1 ? 700 : 400, color: r.label_variants > 1 ? '#b3261e' : 'inherit' }}>{r.label_variants}</td>
                 <td style={td}>{(r.areas || []).slice(0, 2).join(', ')}{(r.areas || []).length > 2 ? ' +' + (r.areas.length - 2) : ''}</td>
                 <td style={td}>{r.misses_30d}</td>
                 <td style={td}>{r.members_missed_30d}</td>
@@ -141,6 +145,25 @@ export default function Admin() {
             ))}</tbody>
           </table></div>
           {coverage && coverage.length > 50 && <p style={{ fontSize: 12, color: 'var(--ink-2)', marginTop: 8 }}>Showing 50 of {coverage.length} tags, most-missed first.</p>}
+        </div>
+
+        <div style={card}>
+          <h3 style={h3s}>Coverage by area</h3>
+          <p style={{ fontSize: 13, color: 'var(--ink-2)', marginTop: -6 }}>
+            Published questions, distinct misconception tags, and thin tags (under 3 items) per exam area. Thin-heavy areas are where new items are most needed before strong patterns can form. Inventory only, pending the expert pass.
+          </p>
+          <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead><tr><th style={th}>Track</th><th style={th}>Area</th><th style={th}>Questions</th><th style={th}>Tags</th><th style={th}>Thin tags</th></tr></thead>
+            <tbody>{(areas || []).map((r) => (
+              <tr key={r.track + r.area}>
+                <td style={td}>{r.track.toUpperCase()}</td>
+                <td style={td}>{r.area}</td>
+                <td style={td}>{r.questions}</td>
+                <td style={td}>{r.tags}</td>
+                <td style={{ ...td, fontWeight: r.thin_tags > 0 ? 700 : 400, color: r.thin_tags > 0 ? '#b3261e' : 'inherit' }}>{r.thin_tags}</td>
+              </tr>
+            ))}</tbody>
+          </table></div>
         </div>
       </div>
     </section></>);
