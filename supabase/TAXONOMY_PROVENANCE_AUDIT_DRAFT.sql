@@ -1,4 +1,5 @@
--- TAXONOMY PROVENANCE AUDIT - DRAFT (nothing applied; for review alongside EHC v2.1)
+-- SUPERSEDED by TAXONOMY_PROVENANCE_AUDIT_V2_DRAFT.sql (source critique: baseline laundering, non-row-level replay, weak chain check, scope). Kept for history.
+-- -- TAXONOMY PROVENANCE AUDIT - DRAFT (nothing applied; for review alongside EHC v2.1)
 -- Builder, 2026-10-26. Bounded answer to the integrity precondition: an attestation
 -- timestamp declares completeness; this audit VERIFIES it per item, from two
 -- independent real sources (the review_event log vs the live item_tag_review table),

@@ -1,0 +1,150 @@
+BEGIN
+SET
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc21_body.sql:124: NOTICE:  view "member_first_encounters_exposure_aware" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:125: NOTICE:  view "member_history_coverage" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:126: NOTICE:  view "member_item_exposure" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:127: NOTICE:  view "item_dependence_key" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+CREATE TABLE
+ALTER TABLE
+REVOKE
+CREATE FUNCTION
+psql:/home/sandbox/pathways-repo/supabase/TAXONOMY_PROVENANCE_AUDIT_V2_DRAFT.sql:36: NOTICE:  trigger "taxonomy_baseline_append_only" for relation "pathways_evidence.taxonomy_baseline" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+psql:/home/sandbox/pathways-repo/supabase/TAXONOMY_PROVENANCE_AUDIT_V2_DRAFT.sql:41: NOTICE:  trigger "taxonomy_baseline_no_truncate" for relation "pathways_evidence.taxonomy_baseline" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+REVOKE
+CREATE FUNCTION
+REVOKE
+CREATE VIEW
+REVOKE
+CREATE TABLE
+INSERT 0 6
+INSERT 0 1
+INSERT 0 1
+ALTER TABLE
+INSERT 0 5
+ALTER TABLE
+      taxonomy_capture_baseline       
+--------------------------------------
+ 68bde447-f6fc-4661-921b-4aa90d8800d1
+(1 row)
+
+      taxonomy_capture_baseline       
+--------------------------------------
+ 2e3b54cb-6c33-4546-ae57-854c2efba983
+(1 row)
+
+      taxonomy_capture_baseline       
+--------------------------------------
+ 465f1203-11c9-47ed-a173-0e10f4e2b627
+(1 row)
+
+      taxonomy_capture_baseline       
+--------------------------------------
+ aed7d44f-b955-43a7-9510-09014af90b04
+(1 row)
+
+      taxonomy_capture_baseline       
+--------------------------------------
+ 3d77b80b-0a66-41fd-bff9-27963882a01d
+(1 row)
+
+UPDATE 1
+INSERT 0 1
+ALTER TABLE
+UPDATE 1
+ALTER TABLE
+INSERT 0 1
+ALTER TABLE
+DELETE 1
+ALTER TABLE
+INSERT 0 1
+ALTER TABLE
+INSERT 0 1
+ALTER TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+DO
+      taxonomy_capture_baseline       
+--------------------------------------
+ 14dd96a0-8dd7-4cd7-b73e-2b2525ea6f64
+(1 row)
+
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ALTER TABLE
+SELECT 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ n  |                    test                     |                    actual                    |                   expected                   | pass 
+----+---------------------------------------------+----------------------------------------------+----------------------------------------------+------
+  1 | T1 logged split verified                    | verified                                     | verified                                     | t
+  2 | T2a unlogged update                         | drift                                        | drift                                        | t
+  3 | T2b unlogged delete                         | drift                                        | drift                                        | t
+  4 | T2c unlogged insert                         | drift                                        | drift                                        | t
+  5 | T3 unrelated verified                       | verified                                     | verified                                     | t
+  6 | T4 no baseline                              | unattested                                   | unattested                                   | t
+  7 | T5a baseline UPDATE                         | refused 42501                                | refused                                      | t
+  8 | T5b baseline DELETE                         | refused 42501                                | refused                                      | t
+  9 | T5c unknown reviewer                        | refused 42501                                | refused                                      | t
+ 10 | T5d supersession preserves chain + verifies | 2 baselines, audit=verified                  | 2 baselines, audit=verified                  | t
+ 11 | T6 row-level chain gap                      | chain_gap                                    | chain_gap                                    | t
+ 12 | T7 partner chain_gap downgrades first_known | unknown_exposure_history/taxonomy_unverified | unknown_exposure_history/taxonomy_unverified | t
+ 13 | T8 live item 100 unattested                 | unattested                                   | unattested                                   | t
+(13 rows)
+
+   summary    
+--------------
+ 13/13 passed
+(1 row)
+
+DO
+ROLLBACK
