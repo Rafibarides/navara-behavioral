@@ -19,6 +19,7 @@ export default function Admin() {
   const [coverage, setCoverage] = useState(null);
   const [areas, setAreas] = useState(null);
   const [queue, setQueue] = useState(null);
+  const [queueTotal, setQueueTotal] = useState(null);
   const [stripe, setStripe] = useState(null);
   const [err, setErr] = useState(null);
 
@@ -33,10 +34,10 @@ export default function Admin() {
           sb.rpc('admin_question_stats', { p_min_attempts: 3, p_limit: 30 }),
           sb.rpc('admin_content_quality'),
           sb.rpc('admin_area_coverage'),
-          sb.rpc('admin_review_queue', { p_status: 'open' }),
+          sb.rpc('admin_review_queue', { p_status: 'open' }, { count: 'exact' }),
         ]);
-        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error; if (a.error) throw a.error; if (rq.error) throw rq.error;
-        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data); setAreas(a.data); setQueue(rq.data);
+        if (o.error) throw o.error; if (m.error) throw m.error; if (q.error) throw q.error; if (c.error) throw c.error; if (a.error) throw a.error; if (rq.error) throw rq.error; rq.countExact = rq.count;
+        setOv(o.data); setMembers(m.data); setQstats(q.data); setCoverage(c.data); setAreas(a.data); setQueue(rq.data); setQueueTotal(rq.count);
         const { data: { session } } = await sb.auth.getSession();
         const res = await fetch(CFG.supabaseUrl + '/functions/v1/admin-stripe-stats', {
           method: 'POST',
@@ -156,8 +157,7 @@ export default function Admin() {
           </p>
           {queue && (
             <p style={{ fontSize: 13, color: 'var(--ink-2)' }}>
-              {queue.length} open: {queue.filter((r) => r.detector === 'model').length} expert-pass candidates, {queue.filter((r) => r.detector === 'script').length} mechanical candidates
-              {' | '}by severity: {['blocker','high','medium','low'].map((sv) => sv + ' ' + queue.filter((r) => r.severity === sv).length).join(', ')}
+              {queueTotal === null ? queue.length : queueTotal} open candidates. Severity mix in the first {queue.length} (most urgent first): {['blocker','high','medium','low'].map((sv) => sv + ' ' + queue.filter((r) => r.severity === sv).length).join(', ')}. Expert-pass rows are quote byte-checked; mechanical rows are unverified.
             </p>
           )}
           <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -174,7 +174,7 @@ export default function Admin() {
               </tr>
             ))}</tbody>
           </table></div>
-          {queue && queue.length > 40 && <p style={{ fontSize: 12, color: 'var(--ink-2)', marginTop: 8 }}>Showing 40 of {queue.length} open candidates, blockers and expert-pass rows first.</p>}
+          {queue && queue.length > 40 && <p style={{ fontSize: 12, color: 'var(--ink-2)', marginTop: 8 }}>Showing 40 of {queueTotal === null ? queue.length : queueTotal} open candidates, blockers and expert-pass rows first.</p>}
         </div>
 
         <div style={card}>
