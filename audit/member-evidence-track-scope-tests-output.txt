@@ -1,0 +1,31 @@
+BEGIN
+SET
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 4
+INSERT 0 3
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ n |                    test                    |    actual    |   expected   | pass 
+---+--------------------------------------------+--------------+--------------+------
+ 1 | T1 current mixes tracks (documentary)      | 3/3          | 3/3          | t
+ 2 | T2 scoped excludes other track             | 0            | 0            | t
+ 3 | T3 scoped missed list is rbt only          | 900101       | 900101       | t
+ 4 | T4 current missed list mixes (documentary) | 3            | 3            | t
+ 5 | T5 scoped reports same-track pattern       | 2/2/emerging | 2/2/emerging | t
+(5 rows)
+
+  summary   
+------------
+ 5/5 passed
+(1 row)
+
+DO
+ROLLBACK
