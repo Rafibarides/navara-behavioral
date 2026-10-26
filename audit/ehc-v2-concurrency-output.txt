@@ -1,0 +1,23 @@
+NOTICE:  table "_conc_binding" does not exist, skipping
+NOTICE:  table "_conc_serve" does not exist, skipping
+--- CC (A COMMIT) ---
+A inserted 2026-10-26 05:56:20.052225+00
+
+A COMMIT 2026-10-26 05:56:23.249539+00
+B start 2026-10-26 05:56:20.919901+00
+B done 2026-10-26 05:56:23.25036+00
+CC rows=1
+--- CR (A ROLLBACK) ---
+A inserted 2026-10-26 05:56:24.356043+00
+
+A ROLLBACK 2026-10-26 05:56:27.551524+00
+B start 2026-10-26 05:56:25.22669+00
+B done 2026-10-26 05:56:27.552857+00
+CR rows=1
+--- binding race ---
+psql:/tmp/conc_C.sql:1: ERROR:  duplicate key value violates unique constraint "_conc_binding_item_delivery_id_key"
+DETAIL:  Key (item_delivery_id)=(f6a0eed4-8c28-4446-a34e-4a9c09dae460) already exists.
+C1 ok
+C2 ok
+bindings for delivery=1
+residue: 0

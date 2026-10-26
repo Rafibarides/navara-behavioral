@@ -1,0 +1,77 @@
+BEGIN
+SET
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc2_body.sql:117: NOTICE:  view "member_first_encounters_exposure_aware" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc2_body.sql:118: NOTICE:  view "member_history_coverage" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc2_body.sql:119: NOTICE:  view "member_item_exposure" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc2_body.sql:120: NOTICE:  view "item_dependence_key" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+CREATE TABLE
+INSERT 0 2
+INSERT 0 1
+SELECT 1
+SELECT 2
+SELECT 2
+INSERT 0 1
+SELECT 3
+INSERT 0 1
+SELECT 1
+INSERT 0 1
+UPDATE 1
+SELECT 1
+INSERT 0 1
+SELECT 1
+INSERT 0 1
+DO
+ n | case_id |                          description                          |                 actual                  |                                                         expected                                                          | pass 
+---+---------+---------------------------------------------------------------+-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------+------
+ 1 | C1      | retry same key+items returns original ids                     | 2 rows, ids_equal=true                  | 2 rows, ids_equal=true                                                                                                    | t
+ 2 | C3      | same key, added item 3: CURRENT behavior                      | item3 served=1, item1 id unchanged=true | POST-FIX: raise fingerprint mismatch (GAP-1)                                                                              | t
+ 3 | C4      | same key K1, bcba item 1709 after rbt items: CURRENT behavior | bcba item served under reused key=1     | POST-FIX: raise fingerprint mismatch (GAP-1); note same-item cross-track confusion is impossible with per-track id ranges | t
+ 4 | C5      | unpublished item: CURRENT behavior                            | served rows=1                           | POST-FIX: raise publication/entitlement error (GAP-2)                                                                     | t
+ 5 | C7      | cross-member binding                                          | refused: 23514                          | refused                                                                                                                   | t
+(5 rows)
+
+                            summary                            
+---------------------------------------------------------------
+ 5/5 passed (C3/C4/C5 document current gap behavior by design)
+(1 row)
+
+ROLLBACK
