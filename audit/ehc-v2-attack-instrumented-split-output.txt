@@ -1,0 +1,120 @@
+BEGIN
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc2_body.sql:117: NOTICE:  view "member_first_encounters_exposure_aware" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc2_body.sql:118: NOTICE:  view "member_history_coverage" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc2_body.sql:119: NOTICE:  view "member_item_exposure" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc2_body.sql:120: NOTICE:  view "item_dependence_key" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+UPDATE 6
+CREATE TABLE
+INSERT 0 1
+INSERT 0 6
+INSERT 0 7
+UPDATE 1
+UPDATE 1
+INSERT 0 1
+UPDATE 1
+INSERT 0 9
+SELECT 9
+INSERT 0 2
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 2
+INSERT 0 2
+INSERT 0 1
+INSERT 0 2
+INSERT 0 1
+INSERT 0 2
+INSERT 0 2
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 6
+UPDATE 6
+INSERT 0 11
+CREATE VIEW
+INSERT 0 12
+UPDATE 12
+ n  | result |                                                                                test                                                                                 |                                                  actual                                                   |                                                 expected                                                  
+----+--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------
+  1 | PASS   | A1 [demo 4] member active pre-epoch; in-epoch first answer must stay unknown                                                                                        | unknown_exposure_history                                                                                  | unknown_exposure_history
+  2 | PASS   | A2 [demo 3] exposure snapshot C_OLD, C_OLD merged into C_TEST                                                                                                       | excluded_prior_exposure                                                                                   | excluded_prior_exposure
+  3 | PASS   | A3 [demo 3, POLICY] exposure snapshot C_TEST, answered item later split to C_SPLIT                                                                                  | excluded_prior_exposure                                                                                   | excluded_prior_exposure
+  4 | PASS   | A4 [demo 3] prior answer on a multi-tag item that shares C_TEST                                                                                                     | excluded_prior_exposure                                                                                   | excluded_prior_exposure
+  5 | PASS   | A5 [demo 1] sibling shown earlier in the same delivery (set)                                                                                                        | excluded_prior_exposure                                                                                   | excluded_prior_exposure
+  6 | PASS   | A6 [demo 1] same item shown 2 weeks earlier under the same delivery id                                                                                              | excluded_prior_exposure                                                                                   | excluded_prior_exposure
+  7 | PASS   | A7 [demo 1] timestamp tie between cluster siblings: not both first_known                                                                                            | at_most_one                                                                                               | at_most_one
+  8 | PASS   | A8 [demo 4] bound to a delivery with no presentation row (logging gap)                                                                                              | unknown_exposure_history                                                                                  | unknown_exposure_history
+  9 | PASS   | A9 [demo 2] control: post-epoch member, own bound presentation only                                                                                                 | first_known_exposure                                                                                      | first_known_exposure
+ 10 | PASS   | S1 new views carry security_invoker=true                                                                                                                            | member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true | member_first_encounters_exposure_aware=security_invoker=true ; member_item_exposure=security_invoker=true
+ 11 | PASS   | V1 [safety] no first_known answer has an earlier or simultaneous exposure of a key-sharing item in the attack's own timeline (presented_at / created_at as written) | 0                                                                                                         | 0
+ 12 | PASS   | V2 [demo 4] binding the ghost answer to a delivery id that does not exist is refused                                                                                | unbound                                                                                                   | unbound
+(12 rows)
+
+ member | item_id |      exposure_class      |        exposure_reason        
+--------+---------+--------------------------+-------------------------------
+     11 | 1       | unknown_exposure_history | member_history_predates_epoch
+     11 | 4       | unknown_exposure_history | delivery_before_epoch
+     12 | 1       | excluded_prior_exposure  | prior_exposure
+     13 | 5       | excluded_prior_exposure  | prior_exposure
+     14 | 1       | excluded_prior_exposure  | prior_exposure
+     14 | 6       | first_known_exposure     | complete_history
+     14 | 6       | first_known_exposure     | complete_history
+     15 | 1       | excluded_prior_exposure  | prior_exposure
+     16 | 1       | excluded_prior_exposure  | prior_exposure
+     17 | 1       | excluded_prior_exposure  | prior_exposure
+     17 | 2       | excluded_prior_exposure  | prior_exposure
+     18 | 1       | unknown_exposure_history | no_bound_delivery
+     19 | 1       | first_known_exposure     | complete_history
+(13 rows)
+
+   summary    
+--------------
+ 12/12 passed
+(1 row)
+
+ROLLBACK
