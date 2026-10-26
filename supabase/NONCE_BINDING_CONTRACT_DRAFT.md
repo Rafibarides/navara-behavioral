@@ -46,9 +46,16 @@ Two confirmed code gaps in v2 are marked [GAP]; everything else is v2 behavior a
   public.profiles for p_member; (b) require published = true for every served item;
   (c) reject empty-after-filtering with a distinct entitlement error, never a silent
   empty set (invoker adaptive_set's silent-zero behavior must not be reproduced).
-- Positive property to keep: serve_items returns body + options only - the answer key
-  and explanation are NOT released at serve time. Post-cutover, key/explanation release
-  belongs to the answer-submission path after the attempt is recorded.
+- [CORRECTED after live inspection] serve_items returns body + options only, but that
+  does NOT withhold the key. The options jsonb identifies the correct answer with 100%
+  reliability across all 1000 published questions: exactly one option per question has
+  why_tempting/misconception_tag/confuses_with all NULL, and it is always the keyed one;
+  every distractor also carries a full per-option explanation. Contract: serve_items must
+  project options down to text + stable index only. Key, per-option explanations,
+  why_tempting, misconception/confuses tags and remediation pointers release only at
+  answer time through the answer-submission path. (Not a NEW live exposure - direct
+  SELECT already returns the answer column today - but withholding top-level columns
+  without projecting options would have achieved nothing.)
 
 ## 4. Answer binding
 
