@@ -63,10 +63,10 @@ SELECT 'T4b no epoch declared (bcba) stays unknown' AS test,
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
          WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e6' AND item_id='1709') AS actual,
        'unknown_exposure_history' AS expected;
-SELECT 'T2c control: in-epoch attempt, no exposures = first_known_exposure' AS test,
+SELECT 'T2c control: unbound presentation disqualifies even in-epoch (motivates binding; T2b shows the bound case)' AS test,
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
          WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e8' AND item_id='1') AS actual,
-       'excluded_prior_exposure (has unbound presentation DLV-T2B) - control for binding next' AS expected;
+       'excluded_prior_exposure' AS expected;
 
 -- REAL staged binding: attempt -9005 carries delivery_id in the real column
 -- (no view shim - the draft now reads attempts.delivery_id directly).
@@ -78,4 +78,34 @@ SELECT 'T2b BOUND immediate presentation: own delivery does not disqualify (real
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
          WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e5' AND item_id='1') AS actual,
        'first_known_exposure' AS expected;
+
+-- Edge cases on the binding/time logic (synthetic members e9, ea, eb)
+INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, created_at, updated_at, confirmation_token, recovery_token, email_change_token_new, email_change) VALUES
+ ('00000000-0000-0000-0000-000000000000','aaaaaaaa-0000-4000-8000-0000000000e9','authenticated','authenticated','test-e9@synthetic.invalid','',now(),now(),now(),'','','',''),
+ ('00000000-0000-0000-0000-000000000000','aaaaaaaa-0000-4000-8000-0000000000ea','authenticated','authenticated','test-ea@synthetic.invalid','',now(),now(),now(),'','','',''),
+ ('00000000-0000-0000-0000-000000000000','aaaaaaaa-0000-4000-8000-0000000000eb','authenticated','authenticated','test-eb@synthetic.invalid','',now(),now(),now(),'','','','');
+INSERT INTO public.attempts (id,user_id,question_id,correct,kind,created_at,chosen_option,ms,delivery_id) OVERRIDING SYSTEM VALUE VALUES
+ (-9009,'aaaaaaaa-0000-4000-8000-0000000000e9',1,true,'practice','2026-02-01T12:00:00Z',2,5000,'DLV-E9'),
+ (-9010,'aaaaaaaa-0000-4000-8000-0000000000ea',1,true,'practice','2026-02-01T12:00:00Z',2,5000,'DLV-E10'),
+ (-9011,'aaaaaaaa-0000-4000-8000-0000000000eb',1,true,'practice','2026-02-01T12:00:00Z',2,5000,'DLV-E11');
+INSERT INTO pathways_evidence.item_presentation_event (member_id,track,item_id,content_version,presented_at,delivery_id) VALUES
+ ('aaaaaaaa-0000-4000-8000-0000000000e9','rbt','1','current','2026-02-01T12:05:00Z','DLV-E9X'),
+ ('aaaaaaaa-0000-4000-8000-0000000000ea','rbt','1','current','2026-02-01T11:58:00Z',NULL),
+ ('aaaaaaaa-0000-4000-8000-0000000000eb','rbt','1','current','2026-02-01T11:58:00Z','DLV-OTHER');
+SELECT 'T5 post-answer presentation (review re-display) does not disqualify the answer' AS test,
+       (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e9' AND item_id='1') AS actual,
+       'first_known_exposure' AS expected;
+SELECT 'T5b post-answer re-display IS recorded in the authoritative exposure history' AS test,
+       (SELECT count(*)::text FROM pathways_evidence.member_item_exposure
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e9' AND item_id='1') AS actual,
+       '2' AS expected;
+SELECT 'T6 NULL-delivery presentation (pre-instrumentation row) with bound attempt: fail-closed disqualify' AS test,
+       (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000ea' AND item_id='1') AS actual,
+       'excluded_prior_exposure' AS expected;
+SELECT 'T7 delivery mismatch (different session): disqualify' AS test,
+       (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000eb' AND item_id='1') AS actual,
+       'excluded_prior_exposure' AS expected;
 ROLLBACK;
