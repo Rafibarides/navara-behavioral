@@ -11,7 +11,6 @@ const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.c
 const DEMO_PROGRESS = [['Data Collection and Graphing', 82], ['Behavior Assessment', 64], ['Behavior Acquisition', 71], ['Behavior Reduction', 48], ['Documentation & Reporting', 77], ['Professional Conduct', 90]];
 
 export default function Dashboard() {
-  usePathwaysEffects();
   const user = useRequireUser();
   const [credits, setCredits] = useState(null);
   const [progress, setProgress] = useState(null);
@@ -33,6 +32,7 @@ export default function Dashboard() {
   const planLabel = (user.plan === 'guided' ? 'Guided' : user.plan === 'self-study' ? 'Self-Study' : 'Sample') + ' plan, ' + (user.track === 'bcba' ? 'BCBA' : 'RBT') + ' track' + (user.demo || DEMO ? ' (demo)' : '');
   const showDemo = DEMO || user.demo;
   const bars = progress ? progress.map((r) => [r.area, r.pct]) : (showDemo ? DEMO_PROGRESS : null);
+  usePathwaysEffects([bars]);
   const cards = evidence || (showDemo ? DEMO_EVIDENCE : null);
   return (<>
     <AppNav active="dashboard" />
