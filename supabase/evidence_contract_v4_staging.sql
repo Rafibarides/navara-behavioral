@@ -30,3 +30,14 @@ ALTER TABLE pathways_evidence.item_presentation_event
 
 COMMENT ON COLUMN pathways_evidence.item_presentation_event.event_type IS
   'Which serving route displayed the item (practice_display, timed_display, adaptive_display, review_display). NULL until instrumentation ships; NULL is unknown.';
+
+-- received_at (staged 2026-10-26, inert): server-side truth timestamp.
+-- presented_at will carry the client-asserted display time (untrusted);
+-- received_at is when the row reached the database. Late-flush and
+-- clock-skew analysis must compare presented_at against received_at, never
+-- trust presented_at alone.
+ALTER TABLE pathways_evidence.item_presentation_event
+  ADD COLUMN IF NOT EXISTS received_at timestamptz NOT NULL DEFAULT now();
+
+COMMENT ON COLUMN pathways_evidence.item_presentation_event.received_at IS
+  'Server-recorded arrival time. presented_at is client-asserted and untrusted; received_at is the trustworthy clock.';
