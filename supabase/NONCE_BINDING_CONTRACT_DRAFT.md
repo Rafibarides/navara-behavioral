@@ -30,11 +30,11 @@ Two confirmed code gaps in v2 are marked [GAP]; everything else is v2 behavior a
   can share a timestamp. Eligibility already treats ties as prior (<=), and own-showing
   exclusion is by delivery identity, so ties cannot manufacture freshness. Verified in
   the attack suite (A7).
-- [SPEC] Retry after entitlement change between original and retry: retry returns the
-  ORIGINAL recorded delivery (evidence integrity) but content re-release on retry must
-  re-check current entitlement and published status; if the item was unpublished or
-  entitlement revoked, the retry returns the delivery ids WITHOUT content and the
-  client must use its cached copy or fail the set. (Policy choice, flagged, not decided.)
+- [SAFE INTERIM - set by Main 2026-10-26] Retry after entitlement/published change:
+  NO fresh content release until authorization is re-checked. The retry returns the
+  original recorded delivery ids (evidence integrity), re-validates current
+  entitlement + published status, and releases content only if still authorized;
+  otherwise ids only, and the client uses its cached copy or fails the set.
 
 ## 3. Entitlement and release (definer boundary)
 
