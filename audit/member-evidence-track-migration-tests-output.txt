@@ -1,0 +1,46 @@
+BEGIN
+SET
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+GRANT
+GRANT
+CREATE FUNCTION
+CREATE FUNCTION
+GRANT
+GRANT
+INSERT 0 3
+INSERT 0 2
+INSERT 0 4
+INSERT 0 7
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+SET
+INSERT 0 1
+INSERT 0 1
+RESET
+SET
+DO
+RESET
+ n |                          test                           |    actual     |   expected   | pass 
+---+---------------------------------------------------------+---------------+--------------+------
+ 1 | M1 replaced evidence excludes other track               | 0             | 0            | t
+ 2 | M1 replaced missed list is own-track only               | 1             | 1            | t
+ 3 | M2 single-track regression: pattern intact              | 2/2/emerging  | 2/2/emerging | t
+ 4 | M2 single-track regression: missed list intact          | 2             | 2            | t
+ 5 | M3 null-track profile fails closed                      | 0             | 0            | t
+ 6 | M4 authenticated role can execute replaced functions    | 2             | 2            | t
+ 7 | M5 RLS: member role sees only own attempts via function | 2             | 2            | t
+ 8 | M6 anon denied                                          | refused 42501 | refused      | t
+(8 rows)
+
+  summary   
+------------
+ 8/8 passed
+(1 row)
+
+DO
+ROLLBACK
