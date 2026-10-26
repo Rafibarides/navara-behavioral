@@ -1,5 +1,7 @@
 -- v4 exposure evaluation cases - ROLLED BACK, nothing persists.
+\set ON_ERROR_STOP on
 BEGIN;
+CREATE TEMP TABLE _r(n serial, test text, actual text, expected text, pass boolean);
 \ir /tmp/v4_body.sql
 
 -- synthetic reviewer + review rows (items 1,2 rbt; 1709 bcba; version 'current')
@@ -39,34 +41,34 @@ INSERT INTO pathways_evidence.item_presentation_event (member_id,track,item_id,c
  ('aaaaaaaa-0000-4000-8000-0000000000e7','rbt','1','current','2026-01-20T12:00:00Z','DLV-T3B','C_TEST'),
  ('aaaaaaaa-0000-4000-8000-0000000000e8','rbt','1','current','2026-02-01T11:58:00Z','DLV-T2B',NULL);
 
-SELECT 'T1 prior unanswered presentation disqualifies later answer' AS test,
+INSERT INTO _r(test,actual,expected) VALUES ('T1 prior unanswered presentation disqualifies later answer',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e1' AND item_id='1') AS actual,
-       'excluded_prior_exposure' AS expected;
-SELECT 'T2 immediate UNBOUND presentation: fail-closed disqualify (association gap documented)' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e1' AND item_id='1'),
+       'excluded_prior_exposure');
+INSERT INTO _r(test,actual,expected) VALUES ('T2 immediate UNBOUND presentation: fail-closed disqualify (association gap documented)',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e2' AND item_id='1') AS actual,
-       'excluded_prior_exposure' AS expected;
-SELECT 'T3 pre-clustering exposure: current cluster of seen item covers merged item' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e2' AND item_id='1'),
+       'excluded_prior_exposure');
+INSERT INTO _r(test,actual,expected) VALUES ('T3 pre-clustering exposure: current cluster of seen item covers merged item',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e3' AND item_id='2') AS actual,
-       'excluded_prior_exposure' AS expected;
-SELECT 'T3b snapshot cluster covers merged item' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e3' AND item_id='2'),
+       'excluded_prior_exposure');
+INSERT INTO _r(test,actual,expected) VALUES ('T3b snapshot cluster covers merged item',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e7' AND item_id='2') AS actual,
-       'excluded_prior_exposure' AS expected;
-SELECT 'T4 pre-epoch attempt stays unknown' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e7' AND item_id='2'),
+       'excluded_prior_exposure');
+INSERT INTO _r(test,actual,expected) VALUES ('T4 pre-epoch attempt stays unknown',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e4' AND item_id='1') AS actual,
-       'unknown_exposure_history' AS expected;
-SELECT 'T4b no epoch declared (bcba) stays unknown' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e4' AND item_id='1'),
+       'unknown_exposure_history');
+INSERT INTO _r(test,actual,expected) VALUES ('T4b no epoch declared (bcba) stays unknown',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e6' AND item_id='1709') AS actual,
-       'unknown_exposure_history' AS expected;
-SELECT 'T2c control: unbound presentation disqualifies even in-epoch (motivates binding; T2b shows the bound case)' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e6' AND item_id='1709'),
+       'unknown_exposure_history');
+INSERT INTO _r(test,actual,expected) VALUES ('T2c control: unbound presentation disqualifies even in-epoch (motivates binding; T2b shows the bound case)',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e8' AND item_id='1') AS actual,
-       'excluded_prior_exposure' AS expected;
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e8' AND item_id='1'),
+       'excluded_prior_exposure');
 
 -- REAL staged binding: attempt -9005 carries delivery_id in the real column
 -- (no view shim - the draft now reads attempts.delivery_id directly).
@@ -74,10 +76,10 @@ INSERT INTO public.attempts (id,user_id,question_id,correct,kind,created_at,chos
  (-9005,'aaaaaaaa-0000-4000-8000-0000000000e5',1,true,'practice','2026-02-01T12:00:00Z',2,5000,'DLV-T2B');
 INSERT INTO pathways_evidence.item_presentation_event (member_id,track,item_id,content_version,presented_at,delivery_id) VALUES
  ('aaaaaaaa-0000-4000-8000-0000000000e5','rbt','1','current','2026-02-01T11:58:00Z','DLV-T2B');
-SELECT 'T2b BOUND immediate presentation: own delivery does not disqualify (real staged delivery_id column)' AS test,
+INSERT INTO _r(test,actual,expected) VALUES ('T2b BOUND immediate presentation: own delivery does not disqualify (real staged delivery_id column)',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e5' AND item_id='1') AS actual,
-       'first_known_exposure' AS expected;
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e5' AND item_id='1'),
+       'first_known_exposure');
 
 -- Edge cases on the binding/time logic (synthetic members e9, ea, eb)
 INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, created_at, updated_at, confirmation_token, recovery_token, email_change_token_new, email_change) VALUES
@@ -92,20 +94,28 @@ INSERT INTO pathways_evidence.item_presentation_event (member_id,track,item_id,c
  ('aaaaaaaa-0000-4000-8000-0000000000e9','rbt','1','current','2026-02-01T12:05:00Z','DLV-E9X'),
  ('aaaaaaaa-0000-4000-8000-0000000000ea','rbt','1','current','2026-02-01T11:58:00Z',NULL),
  ('aaaaaaaa-0000-4000-8000-0000000000eb','rbt','1','current','2026-02-01T11:58:00Z','DLV-OTHER');
-SELECT 'T5 post-answer presentation (review re-display) does not disqualify the answer' AS test,
+INSERT INTO _r(test,actual,expected) VALUES ('T5 post-answer presentation (review re-display) does not disqualify the answer',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e9' AND item_id='1') AS actual,
-       'first_known_exposure' AS expected;
-SELECT 'T5b post-answer re-display IS recorded in the authoritative exposure history' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e9' AND item_id='1'),
+       'first_known_exposure');
+INSERT INTO _r(test,actual,expected) VALUES ('T5b post-answer re-display IS recorded in the authoritative exposure history',
        (SELECT count(*)::text FROM pathways_evidence.member_item_exposure
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e9' AND item_id='1') AS actual,
-       '2' AS expected;
-SELECT 'T6 NULL-delivery presentation (pre-instrumentation row) with bound attempt: fail-closed disqualify' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e9' AND item_id='1'),
+       '2');
+INSERT INTO _r(test,actual,expected) VALUES ('T6 NULL-delivery presentation (pre-instrumentation row) with bound attempt: fail-closed disqualify',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000ea' AND item_id='1') AS actual,
-       'excluded_prior_exposure' AS expected;
-SELECT 'T7 delivery mismatch (different session): disqualify' AS test,
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000ea' AND item_id='1'),
+       'excluded_prior_exposure');
+INSERT INTO _r(test,actual,expected) VALUES ('T7 delivery mismatch (different session): disqualify',
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
-         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000eb' AND item_id='1') AS actual,
-       'excluded_prior_exposure' AS expected;
+         WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000eb' AND item_id='1'),
+       'excluded_prior_exposure');
+UPDATE _r SET pass = (actual IS NOT DISTINCT FROM expected);
+SELECT n, CASE WHEN pass THEN 'PASS' ELSE 'FAIL' END AS result, test, actual, expected FROM _r ORDER BY n;
+DO $$
+DECLARE fails int;
+BEGIN
+  SELECT count(*) INTO fails FROM _r WHERE NOT pass;
+  IF fails > 0 THEN RAISE EXCEPTION '% assertions FAILED', fails; END IF;
+END $$;
 ROLLBACK;
