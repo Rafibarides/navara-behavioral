@@ -5,6 +5,8 @@ import { CFG, CHECKOUT_TEST_MODE } from '../config';
 import { getClient } from './db';
 
 export async function startCheckout(track, plan) {
+  if (CFG.limitedLaunch && plan !== 'self-study') throw new Error('Guided enrollment is not available.');
+  if (CFG.previewOnly) throw new Error('Payments are not available in this test version.');
   if (CHECKOUT_TEST_MODE) {
     return { testMode: true, message: 'Checkout is in test mode. No payment is collected.' };
   }
@@ -30,6 +32,7 @@ export async function startCheckout(track, plan) {
 
 // Stripe customer portal: card, invoices, cancellation.
 export async function startPortal() {
+  if (CFG.previewOnly) throw new Error('Billing is not available in this test version.');
   const sb = await getClient();
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = '/pathways/login'; return; }

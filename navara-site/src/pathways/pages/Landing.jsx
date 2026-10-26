@@ -20,8 +20,8 @@ export default function Landing() {
     <div>
       <span className="eyebrow rv in">Navara Pathways</span>
       <h1 data-rise>Understand the reasoning. <span className="grad">Own the science.</span></h1>
-      <p className="lead">Exam preparation for future Registered Behavior Technicians and Board Certified Behavior Analysts. Practice questions that teach, timed sets with pace feedback, and one-on-one time with a Navara Certified Behavior Specialist (NCBS).</p>
-      <div className="hero-ctas">
+      <p className="lead">Exam preparation for future Registered Behavior Technicians and Board Certified Behavior Analysts. Untimed scenario practice with explanations for every answer choice and a record of your checked answers.</p>
+      <div className="hero-ctas candidate-ctas">
         <a className="btn btn-primary" href="/pathways/sample-quiz">Take the free sample quiz</a>
         <a className="btn btn-ghost" href="/pathways/rbt">Explore RBT prep</a>
         <a className="btn btn-ghost" href="/pathways/bcba">Explore BCBA prep</a>
@@ -33,15 +33,14 @@ export default function Landing() {
 
 <div className="section dark" style={{paddingTop:0}}>
   <div className="marquee"><div className="marquee-track">
-    <span>Practice that teaches</span><span>Real explanations</span><span>Timed sets</span><span>One-on-one NCBS™ time</span><span>Progress by topic</span>
-    <span>Practice that teaches</span><span>Real explanations</span><span>Timed sets</span><span>One-on-one NCBS™ time</span><span>Progress by topic</span>
+    <span>Practice that teaches</span><span>Real explanations</span><span>Set results</span><span>Review your misses</span><span>Progress by topic</span>
+    <span>Practice that teaches</span><span>Real explanations</span><span>Set results</span><span>Review your misses</span><span>Progress by topic</span>
   </div></div>
   <div className="wrap" style={{paddingTop:'80px'}}>
-    <div className="stats">
-      <div className="stat rv"><div className="num" data-count="1000" data-suffix="">1,000</div><div className="lbl">Original practice questions across both banks</div></div>
+    <div className="stats stats-3">
+      <div className="stat rv"><div className="num" data-count="1000" data-suffix="">1,000</div><div className="lbl">Questions stored across both tracks; quality review continues</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="2">2</div><div className="lbl">Exam tracks, RBT and BCBA</div></div>
       <div className="stat rv rv-d2"><div className="num" data-count="15">15</div><div className="lbl">BACB content-outline domains covered</div></div>
-      <div className="stat rv rv-d3"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">Time with an NCBS™</div></div>
     </div>
   </div>
 </div>
@@ -50,7 +49,7 @@ export default function Landing() {
   <div className="wrap">
     <div className="section-head rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>Choose your track</span>
       <h2>Two exams. One standard of preparation.</h2>
-      <p>Same engine, same structure, different science. Each track has its own question bank, its own timed sets, and copy written for where you are in the field.</p>
+      <p>Same engine, same structure, different science. Each track has its own question bank, its own practice sets, and copy written for where you are in the field.</p>
     </div>
     <div className="tracks">
       <a className="track-card rv" href="/pathways/rbt">
@@ -60,7 +59,7 @@ export default function Landing() {
         <p>For behavior technicians getting certified. Foundations, measurement, skill acquisition, behavior reduction, documentation, and professional conduct.</p>
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Practice sets by task-list area</li>
-          <li><span className="ck">&#10003;</span>Timed sets with pace feedback</li>
+          <li><span className="ck">&#10003;</span>Untimed practice with answer explanations</li>
           <li><span className="ck">&#10003;</span>An explanation for every answer</li>
         </ul>
         <span className="card-link">See the RBT track <span className="arr">&rarr;</span></span>
@@ -72,8 +71,8 @@ export default function Landing() {
         <p>For analysts sitting for the board exam. Concepts and principles, experimental design, assessment, intervention, supervision, and ethics.</p>
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Scenario-based practice by content area</li>
-          <li><span className="ck">&#10003;</span>Timed sets with pace feedback</li>
-          <li><span className="ck">&#10003;</span>Guided: two 45-minute 1:1s a month with an NCBS™</li>
+          <li><span className="ck">&#10003;</span>Untimed practice with answer explanations</li>
+          <li><span className="ck">&#10003;</span>Guided sessions are not available at launch</li>
         </ul>
         <span className="card-link">See the BCBA track <span className="arr">&rarr;</span></span>
       </a>
@@ -89,8 +88,8 @@ export default function Landing() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Try a free sample quiz</h4><p>Ten questions, no account. Feel how the explanations teach, not just grade.</p></div>
       <div className="step rv"><div className="ic">&#9673;</div><h4>Build your study plan</h4><p>Tell us your track and exam date - get a week-by-week checklist, free. <a href="/pathways/study-plan" style={{ color: 'var(--teal-3)', fontWeight: 700 }}>Build my plan</a></p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>Self-Study unlocks the full bank and timed sets. Guided adds monthly one-on-one sessions with an NCBS™: one a month on RBT, two on BCBA.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Watch yourself improve</h4><p>Progress tracking by topic shows exactly where to spend your next hour.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>This test version includes practice, explanations and set results. Booking and paid upgrades are not available here.</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Watch yourself improve</h4><p>Progress by topic summarizes your recorded answers. Use it alongside your explanations to plan your next practice.</p></div>
     </div>
   </div>
 </section>

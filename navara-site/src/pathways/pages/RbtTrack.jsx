@@ -1,3 +1,4 @@
+import { CFG } from '../config';
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
 import Showcase, { usePreview, StickySampleCTA } from '../components/Showcase';
@@ -21,7 +22,7 @@ export default function RbtTrack() {
     <span className="eyebrow rv in">RBT track</span>
     {preview ? (<>
       <h1 data-rise>Walk into the RBT exam, <span className="grad">and your first day, ready.</span></h1>
-      <p className="lead">500 original scenario questions built from real session situations, timed sets with pace feedback, and explanations for every answer choice.</p>
+      <p className="lead">Scenario practice questions built from real session situations, untimed practice with answer explanations, and explanations for every answer choice.</p>
       <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>Understand why an answer fits. See why another one doesn't. Know where to focus next.</p>
     </>) : (<>
       <h1 data-rise>Become the technician <span className="grad">families remember.</span></h1>
@@ -31,7 +32,7 @@ export default function RbtTrack() {
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="6">6</div><div className="lbl">Content areas, full outline</div></div>
-      <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">1:1 time on Guided</div></div>
+      <div className="stat rv rv-d2"><div className="num">Review</div><div className="lbl">Read explanations for every answer</div></div>
     </div>
   </div>
 </header>
@@ -45,11 +46,11 @@ export default function RbtTrack() {
   ]}
 />}
 {preview && <WhatYouGet checks={[
-  { text: "500 original RBT scenario questions across every area of the current content outline" },
-  { text: "Timed sets with pace feedback" },
-  { text: "Explanations for every answer choice - including why the wrong ones tempt" },
+  { text: "RBT scenario practice with explanations for every answer choice" },
+  { text: "Untimed practice with answer explanations" },
+  { text: "Set results and review of misses while the completed set stays open" },
   { text: "Progress by topic, so weak spots have nowhere to hide" },
-  { text: "Guided: one 45-minute 1:1 session each month with a Navara Certified Behavior Specialist (NCBS)", glow: true },
+  { text: "Guided sessions and booking are not available at launch", glow: true },
 ]} />}
 <section className="section dark">
   <div className="wrap">
@@ -95,8 +96,8 @@ export default function RbtTrack() {
     <div className="section-head center rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>What is inside</span><h2>Written the way the exam asks.</h2></div>
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Practice by topic</h4><p>Untimed sets with instant explanations. Learn why the right answer is right and why the rest are wrong.</p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed sets</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 with a Navara Certified Behavior Specialist (NCBS)</h4><p>On the Guided plan, bring your hardest topics to an NCBS™.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Untimed practice</h4><p>Untimed practice with answer explanations. Timed sets are not available at launch. Use untimed practice instead.</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Session booking unavailable</h4><p>Guided sessions are not available at launch.</p></div>
     </div>
   </div>
 </section>

@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
 import { startCheckout } from '../lib/billing';
 import { joinWaitlist } from '../lib/db';
-import { CHECKOUT_TEST_MODE } from '../config';
+import { CHECKOUT_TEST_MODE, CFG } from '../config';
 import { usePreview } from '../components/Showcase';
 
 const LINKS = (<>
@@ -26,16 +26,16 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guided
       <div className="plan rv rv-d1">
         <h3>Self-Study</h3>
         <div className="p-price">{selfPrice}<span style={priceNote}> /month</span></div>
-        <ul><li>{bankLine}</li><li>Timed sets with pace feedback</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
+        <ul><li>{bankLine}</li><li>Untimed practice with answer explanations</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
         <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Self-Study'}</button>
       </div>
-      <div className="plan featured rv rv-d2">
+      {!CFG.limitedLaunch && <div className="plan featured rv rv-d2">
         <span className="most">Most complete</span>
         <h3>Guided</h3>
         <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
-        <ul><li>Everything in Self-Study</li><li>{guidedLine}</li><li>Session booking inside your account</li><li>Priority support</li></ul>
-        <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
-      </div>
+        {CFG.previewOnly ? <p>Guided sessions and booking are not available at launch.</p> : <ul><li>Everything in Self-Study</li><li>{guidedLine}</li><li>Session booking inside your account</li><li>Priority support</li></ul>}
+        <button className="btn btn-primary" disabled={CFG.previewOnly} style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
+      </div>}
     </div>
     <p style={{ textAlign: 'center', marginTop: 30, fontSize: 13.5, fontWeight: 600, color: 'var(--ink-2)' }}>Sitting for the {track === 'rbt' ? 'BCBA' : 'RBT'} exam? <a href={track === 'rbt' ? '/pathways/plans/bcba' : '/pathways/plans/rbt'} style={{ fontWeight: 700, color: 'var(--teal-3)' }}>See {track === 'rbt' ? 'BCBA' : 'RBT'} plans instead &rarr;</a></p>
     {joinErr && <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#b3452e', fontWeight: 700 }}>{joinErr}</p>}
@@ -95,7 +95,7 @@ export default function Plans({ track: trackProp = null }) {
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
           <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
-          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>{track ? 'Checkout is online - join in a couple of minutes and start practicing today.' : 'Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.'}</p>
+          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>{CFG.limitedLaunch ? 'Self-Study includes untimed practice, option explanations, set results and recorded progress. Timed sets, tag-specific review, Guided sessions and booking are not available.' : CFG.previewOnly ? 'Payments and enrollment are not available at launch. Use your existing test account to practice.' : track ? 'Checkout is online - join in a couple of minutes and start practicing today.' : 'Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.'}</p>
         </div>
       </header>
       {!track && (
@@ -109,14 +109,14 @@ export default function Plans({ track: trackProp = null }) {
                 <div className="glow" style={{ background: '#5F8D9C' }}></div>
                 <span className="track-tag tag-teal">RBT track</span>
                 <h3>RBT exam prep</h3>
-                <p>For behavior technicians getting certified. Full question bank, timed sets, and optional 1:1 time with a Navara Certified Behavior Specialist (NCBS).</p>
+                <p>For behavior technicians getting certified. Practice questions, explanations and set results. Guided sessions and booking are not available.</p>
                 <span className="card-link">See RBT plans <span className="arr">&rarr;</span></span>
               </a>
               <a className="track-card rv rv-d1" href="#bcba" onClick={(e) => { e.preventDefault(); setTrack('bcba'); }}>
                 <div className="glow" style={{ background: '#87aa99' }}></div>
                 <span className="track-tag tag-navy">BCBA track</span>
                 <h3>BCBA exam prep</h3>
-                <p>For analysts sitting for the board exam. Scenario practice, timed sets with pace feedback, and optional 1:1 time with an NCBS™.</p>
+                <p>For analysts sitting for the board exam. Scenario practice with answer explanations and set results. Guided sessions and booking are not available.</p>
                 <span className="card-link">See BCBA plans <span className="arr">&rarr;</span></span>
               </a>
             </div>

@@ -1,5 +1,7 @@
 // Data layer: demo data now, Supabase live. Schema in /supabase/schema.sql.
 import { CFG, DEMO } from '../config';
+import { evidenceState } from './evidenceState.mjs';
+import { firstAreaProgress } from './firstAreaProgress.mjs';
 
 let client = null;
 export function getClient() {
@@ -100,29 +102,33 @@ export async function sessionCredits() {
 }
 
 // Correct-rate per content area from the member's own attempts.
-export async function fetchAreaProgress() {
-  if (DEMO) return null;
-  try {
+// Candidate loader: one response must contain every counted row or we refuse partial progress.
+// This is NOT a server snapshot/version-provenance or timestamp-authenticity repair.
+export async function fetchAreaProgressState(user) {
+  return evidenceState(user, async () => {
     const sb = await getClient();
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) return [];
-    const { data, error } = await sb.from('attempts').select('question_id, correct, created_at, questions(area)').eq('user_id', session.user.id).order('created_at', { ascending: true });
+    if (!session || session.user.id !== user.id) throw new Error('Session changed');
+    const { data, error, count } = await sb.from('attempts')
+      .select('id,user_id,question_id,correct,created_at,questions(area,track)', { count: 'exact' })
+      .eq('user_id', user.id).order('created_at', { ascending: true }).order('id', { ascending: true });
     if (error) throw error;
-    const agg = {};
-    const seen = new Set();
-    (data || []).forEach((r) => {
-      // First response per bank question only - retakes are practice, not fresh
-      // evidence (same rule as member_evidence). Sample-bank answers carry no
-      // question id and are excluded: placeholders, not exam-bank items.
-      if (r.question_id == null || seen.has(r.question_id)) return;
-      seen.add(r.question_id);
-      const area = (r.questions && r.questions.area) || 'General';
-      agg[area] = agg[area] || { n: 0, c: 0 };
-      agg[area].n += 1;
-      if (r.correct) agg[area].c += 1;
-    });
-    return Object.entries(agg).map(([area, v]) => ({ area, pct: Math.round((v.c / v.n) * 100), n: v.n }));
-  } catch { return []; }
+    if (!Array.isArray(data) || !Number.isSafeInteger(count) || count !== data.length) throw new Error('Complete history unavailable');
+    return firstAreaProgress(data, { memberId: user.id, track: user.track });
+  });
+}
+
+// Legacy callers retain the original contract; Dashboard uses the explicit-state API.
+export async function fetchAreaProgress() {
+  if (DEMO) return null;
+  const sb = await getClient();
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) throw new Error('Sign-in required');
+  const { data, error } = await sb.from('profiles').select('track').eq('id', session.user.id).single();
+  if (error) throw error;
+  const state = await fetchAreaProgressState({ id: session.user.id, track: data?.track });
+  if (state.status === 'unavailable') throw state.error;
+  return state.rows;
 }
 
 const DEMO_PATTERNS = [
@@ -155,14 +161,21 @@ export { DEMO_EVIDENCE };
 
 export async function fetchMemberEvidence() {
   if (DEMO) return DEMO_EVIDENCE;
-  try {
+  const sb = await getClient();
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) throw new Error('Sign-in required');
+  const { data, error } = await sb.rpc('member_evidence');
+  if (error) throw error;
+  if (!Array.isArray(data)) throw new Error('Invalid evidence response');
+  return data;
+}
+export async function fetchMemberEvidenceState(user) {
+  return evidenceState(user, async () => {
     const sb = await getClient();
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) return [];
-    const { data, error } = await sb.rpc('member_evidence');
-    if (error) throw error;
-    return data || [];
-  } catch { return []; }
+    if (!session || session.user.id !== user.id) throw new Error('Session changed');
+    return sb.rpc('member_evidence');
+  });
 }
 
 // Review mode: the exact first-response questions the member missed on a tag (rolling 30d),

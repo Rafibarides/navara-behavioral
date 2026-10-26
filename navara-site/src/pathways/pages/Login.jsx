@@ -39,12 +39,12 @@ export default function Login() {
         window.location.href = '/pathways/app/dashboard';
         return;
       }
-      if (!email) return;
+      if (!email) { setErr('Enter your email to continue.'); return; }
       if (creating) {
         try { localStorage.setItem('pw_pending_profile', JSON.stringify({ full_name: firstName.trim() || null, track })); } catch {}
       }
       if (mode === 'signin' && !useLink && !DEMO) {
-        if (!pw) return;
+        if (!pw) { setErr('Enter your password to sign in.'); return; }
         try {
           await signInWithPassword(email, pw);
           window.location.href = '/pathways/app/dashboard';
@@ -96,11 +96,12 @@ export default function Login() {
                 : mode === 'reset'
                   ? 'Pick a password you will remember. After this you can sign in with your email and password any time.'
                   : creating
-                    ? 'Tell us your first name and exam, add your email, and we will send you a secure sign-in link. Clicking it creates your account. You pick your plan inside, and you can set a password on your first visit.'
+                    ? 'Tell us your first name and exam, add your email, and we will send you a secure sign-in link. Clicking it creates your account. You can manage your password from Account after signing in.'
                     : useLink
                       ? 'Enter your email and we will send you a sign-in link. No password needed.'
                       : 'Sign in with your email and password. First time here, or never set a password? Use the sign-in link option below.'}
             </p>
+            {new URLSearchParams(window.location.search).get('signedout') === '1' && <p className="signed-out-notice" role="status">You're signed out.</p>}
             {expired && !sent && !done && (
               <p role="alert" style={{ background: 'var(--light)', border: '1px solid rgba(27,59,98,.15)', borderRadius: 12, padding: '12px 14px', fontSize: 14, fontWeight: 600, color: 'var(--ink-2)', margin: '-8px 0 20px' }}>That sign-in link has expired or was already used. Each link works once. Enter your email below and we will send a new one, then use the most recent email.</p>
             )}
@@ -110,17 +111,17 @@ export default function Login() {
               <p style={{ fontSize: 15, fontWeight: 700, color: 'var(--teal-3)' }}>Check your inbox for the sign-in link.{creating ? ' It creates your account when you click it.' : ''} <span style={{ display: 'block', fontWeight: 600, fontSize: 13.5, color: 'var(--ink-2)', marginTop: 8 }}>If you request more than one, use the most recent email. Older links stop working.</span></p>
             ) : (<form onSubmit={go}>
               {creating && (<>
-                <div className="field"><label htmlFor="pw-first-name">First name</label><input id="pw-first-name" type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} /></div>
+                <div className="field"><label htmlFor="pw-first-name">First name</label><input id="pw-first-name" autoComplete="given-name" type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} /></div>
                 <div className="field"><label htmlFor="pw-track">Which exam are you preparing for?</label>
                   <select id="pw-track" value={track} onChange={(e) => setTrack(e.target.value)}>
                     <option value="rbt">RBT exam</option>
                     <option value="bcba">BCBA exam</option>
                   </select></div>
               </>)}
-              {mode !== 'reset' && <div className="field"><label htmlFor="pw-email">Email</label><input id="pw-email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>}
+              {mode !== 'reset' && <div className="field"><label htmlFor="pw-email">Email</label><input id="pw-email" required autoComplete="email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>}
               {mode === 'reset'
-                ? <div className="field"><label>New password</label><input type="password" placeholder="At least 6 characters" value={pw} onChange={(e) => setPw(e.target.value)} /></div>
-                : (mode === 'signin' && !useLink && !DEMO) && <div className="field"><label>Password</label><input type="password" placeholder="Your password" value={pw} onChange={(e) => setPw(e.target.value)} /></div>}
+                ? <div className="field"><label>New password</label><input type="password" required minLength={6} autoComplete="new-password" placeholder="At least 6 characters" value={pw} onChange={(e) => setPw(e.target.value)} /></div>
+                : (mode === 'signin' && !useLink && !DEMO) && <div className="field"><label>Password</label><input type="password" required autoComplete="current-password" placeholder="Your password" value={pw} onChange={(e) => setPw(e.target.value)} /></div>}
               {err && <p style={{ color: '#a33b41', fontSize: 13, fontWeight: 600 }}>{err}</p>}
               <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} disabled={busy || (mode !== 'reset' && !email)} type="submit">
                 {busy ? 'One moment...' : mode === 'reset' ? 'Save my password' : creating ? 'Create my account' : useLink ? 'Email me a sign-in link' : 'Sign in'}

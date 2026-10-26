@@ -1,7 +1,8 @@
 import ArcMark from './ArcMark';
+import { CFG } from '../config';
 import React, { useEffect, useRef, useState } from 'react';
 import MainSiteFooter from '../../Components/Sections/FooterSection';
-import MainSiteNav from '../../Components/NavBarMenu';
+
 
 export function Arcs({ className }) {
   return (
@@ -16,11 +17,8 @@ export function Arcs({ className }) {
 const MEMBER_LINKS = (<>
   <a href="/pathways/app/dashboard">Dashboard</a>
   <a href="/pathways/app/practice">Practice</a>
-  <a href="/pathways/app/timed-sets">Timed sets</a>
-  <a href="/pathways/study-plan">Study Plan</a>
-  <a href="/pathways/app/book">Book a 1:1</a>
   <a href="/pathways/app/account">Account</a>
-  <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
+  <a className="btn btn-ghost btn-sm" href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login?mode=signin&signedout=1'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
 </>);
 
 const GUEST_LINKS = (<>
@@ -51,7 +49,7 @@ export function Nav({ links, app }) {
   if (mounted && !app) {
     return (
       <div className={'pw-unified' + (member ? ' pw-app' : '')}>
-        <MainSiteNav isDarkMode={false} forceSolidPill />
+
         <div className="pw-subnav">
           <div className="wrap pw-subnav-inner">
             <a className="pw-subnav-tag" href="/pathways"><ArcMark />Pathways</a>
@@ -62,11 +60,8 @@ export function Nav({ links, app }) {
             <div className="pw-mmenu">
               <a href="/pathways/app/dashboard">Dashboard</a>
               <a href="/pathways/app/practice">Practice</a>
-              <a href="/pathways/app/timed-sets">Timed sets</a>
-              <a href="/pathways/study-plan">Study Plan</a>
-              <a href="/pathways/app/book">Book a 1:1</a>
-              <a href="/pathways/app/account">Account</a>
-              <a href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
+                                                  <a href="/pathways/app/account">Account</a>
+              <a href="/pathways/login" onClick={(e) => { e.preventDefault(); import('../lib/auth').then((m) => m.signOut()).then(() => { window.location.replace('/pathways/login?mode=signin&signedout=1'); }).catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); }); }}>Log out</a>
             </div>
           )}
         </div>
@@ -88,6 +83,7 @@ export function Nav({ links, app }) {
 
 export function Footer() {
   return (<>
+    {CFG.previewOnly && <div className="wrap practice-notice">Test version: untimed practice, answer explanations, results and recorded progress. Timed sets, tag-specific review, booking and payments are not available here. Specialist services and designations are not part of this learner test.</div>}
     <MainSiteFooter isDarkMode={false} isPathways />
     <div style={{ background: '#1A2A40', color: 'rgba(255,255,255,.55)', fontSize: 12.5, lineHeight: 1.6, padding: '0 40px 34px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', borderTop: '1px solid rgba(255,255,255,.12)', paddingTop: 22 }}>

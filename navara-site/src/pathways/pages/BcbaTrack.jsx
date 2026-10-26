@@ -1,3 +1,4 @@
+import { CFG } from '../config';
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
 import Showcase, { usePreview, StickySampleCTA } from '../components/Showcase';
@@ -22,7 +23,7 @@ export default function BcbaTrack() {
     {preview ? (<>
       <h1 data-rise>Depth, not decks. <span className="grad">Preparation that makes you think.</span></h1>
       <p className="lead">The BCBA exam rewards clinical judgment. So do we.</p>
-      <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>500 original scenario questions. Explanations for every option. Timed sets with pace feedback.</p>
+      <p className="lead" style={{ fontSize: 15, opacity: .75, marginTop: -18 }}>Scenario practice questions. Explanations for every option. Untimed practice with answer explanations.</p>
     </>) : (<>
       <h1 data-rise>Think like an analyst, <span className="grad">answer like one.</span></h1>
       <p className="lead">Preparation for the BCBA certification exam for candidates who want more than flashcards. Scenario-driven practice that trains clinical judgment, not just recall.</p>
@@ -31,7 +32,7 @@ export default function BcbaTrack() {
     <div className="stats stats-3" style={{ marginTop: 54 }}>
       <div className="stat rv"><div className="num" data-count="500">500</div><div className="lbl">Practice questions on this track</div></div>
       <div className="stat rv rv-d1"><div className="num" data-count="9">9</div><div className="lbl">Test Content Outline domains, full outline</div></div>
-      <div className="stat rv rv-d2"><div className="num" data-count="1" data-suffix=":1">1:1</div><div className="lbl">1:1 time on Guided</div></div>
+      <div className="stat rv rv-d2"><div className="num">Review</div><div className="lbl">Read explanations for every answer</div></div>
     </div>
   </div>
 </header>
@@ -46,11 +47,11 @@ export default function BcbaTrack() {
   ]}
 />}
 {preview && <WhatYouGet checks={[
-  { text: "500 original BCBA scenario questions across every area of the current test content outline" },
-  { text: "Timed sets with pace feedback" },
+  { text: "BCBA scenario practice with explanations for every answer choice" },
+  { text: "Untimed practice with answer explanations" },
   { text: "Explanations for every answer choice - including why the wrong ones tempt" },
   { text: "Progress by topic, so your next study hour has a target" },
-  { text: "Guided: two 45-minute 1:1 sessions each month with a Navara Certified Behavior Specialist (NCBS)", glow: true },
+  { text: "Guided sessions and booking are not available at launch", glow: true },
 ]} />}
 <section className="section dark">
   <div className="wrap">
@@ -75,7 +76,7 @@ export default function BcbaTrack() {
     intro="You can reread an explanation. You can reconsider an answer. But sometimes what you want is to talk through your reasoning with someone who understands behavior analysis. Guided adds two 45-minute one-to-one sessions every month with an NCBS™ - dedicated time for the material you find hardest."
     bullets={[
       { h: "Ninety minutes a month, on your questions", p: "Talk through concepts you haven't fully understood, examine questions where two options seem equally convincing, and review the topics you want to strengthen." },
-      { h: "Practice between sessions", p: "Your sessions complement the independent work inside the platform. Bring the questions you want to discuss, then keep moving with the bank and timed sets." },
+      { h: "Practice between sessions", p: "Your sessions complement the independent work inside the platform. Bring the questions you want to discuss, then keep moving with the practice bank." },
       { h: "An option, not an obligation", p: "Prefer to work independently? Self-Study gives you the full practice toolkit. Guided adds the dedicated one-to-one time." },
     ]}
   />
@@ -86,7 +87,7 @@ export default function BcbaTrack() {
   />
   <ClosingCTA
     heading="Make every question count for more."
-    body="Start with 500 original scenario-based questions, detailed explanations, timed practice, and progress tracking. Add two monthly one-to-one sessions if you want dedicated time with an NCBS™. Depth, not decks. Start with a question."
+    body="Start with scenario practice questions, detailed explanations, untimed practice, and progress tracking. Add two monthly one-to-one sessions if you want dedicated time with an NCBS™. Depth, not decks. Start with a question."
     primary={{ label: "Try the free BCBA quiz", href: "/pathways/sample-quiz" }}
     secondary={{ label: "Compare plans", href: "/pathways/plans/bcba" }}
     micro="Explore the approach before you choose your plan."
@@ -97,8 +98,8 @@ export default function BcbaTrack() {
     <div className="section-head center rv"><span className="eyebrow" style={{color:'var(--teal-3)'}}>What is inside</span><h2>Depth, not decks.</h2></div>
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Scenario practice</h4><p>Questions written as clinical vignettes, with explanations that unpack the reasoning.</p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Timed sets</h4><p>Timed sets with pace feedback. Practice keeping a steady pace with the clock running.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>1:1 with a Navara Certified Behavior Specialist (NCBS)</h4><p>Guided-plan sessions for test strategy, weak areas, and the judgment calls between two right-sounding answers.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Untimed practice</h4><p>Untimed practice with answer explanations. Timed sets are not available at launch. Use untimed practice instead.</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Session booking unavailable</h4><p>Guided sessions are not available at launch.</p></div>
     </div>
   </div>
 </section>

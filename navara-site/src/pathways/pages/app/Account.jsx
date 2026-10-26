@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import AppNav from '../../components/AppNav';
 import { useRequireUser } from '../../components/useRequireUser';
-import { DEMO } from '../../config';
+import { DEMO, CFG } from '../../config';
+import { setPassword } from '../../lib/auth';
 import { startPortal } from '../../lib/billing';
 
 export default function Account() {
   const user = useRequireUser();
+  const [pw, setPw] = useState(''), [pwMsg, setPwMsg] = useState(''), [pwBusy, setPwBusy] = useState(false);
   const [name, setName] = useState(null);
   const [track, setTrack] = useState(null);
   const [saved, setSaved] = useState(false);
@@ -13,16 +15,20 @@ export default function Account() {
   const [billErr, setBillErr] = useState('');
   const [billBusy, setBillBusy] = useState(false);
   if (!user) return null;
-  const curName = name === null ? (user.name || '') : name;
+  const profileName = user.name && user.name.toLowerCase() !== (user.email || '').split('@')[0].toLowerCase() ? user.name : '';
+  const curName = name === null ? profileName : name;
   const curTrack = track === null ? (user.track || 'rbt') : track;
-  const dirty = (name !== null && name !== (user.name || '')) || (track !== null && track !== (user.track || 'rbt'));
+  const dirty = (name !== null && name !== profileName) || (track !== null && track !== (user.track || 'rbt'));
   const save = async () => {
     setErr(''); setSaved(false);
     try {
       if (!user.demo) {
         const { getClient } = await import('../../lib/db');
         const sb = await getClient();
-        const { error } = await sb.from('profiles').upsert({ id: user.id, full_name: curName.trim() || null, track: curTrack }, { onConflict: 'id' });
+        const { error } = await sb.from('profiles').update({ full_name: curName.trim() || null }).eq('id', user.id);
+        if (error) throw error;
+        const { error: trackError } = await sb.rpc('learner_set_track', { p_track: curTrack });
+        if (trackError) throw trackError;
         if (error) throw error;
       }
       setSaved(true);
@@ -41,9 +47,9 @@ export default function Account() {
           <div className="score-row"><span>Plan</span><span className="pill pill-teal">{plan}{user.demo || DEMO ? ' (demo)' : ''}</span></div>
           <div className="score-row"><span>Track</span><span className="pill pill-sage">{user.track === 'bcba' ? 'BCBA' : 'RBT'}</span></div>
           <div className="score-row"><span>Status</span><span className="pill pill-teal">Active</span></div>
-          {user.plan !== 'sample' && !user.demo && !DEMO
+          {!CFG.previewOnly && user.plan !== 'sample' && !user.demo && !DEMO
             ? <button className="btn btn-navy" style={{ marginTop: 18, justifyContent: 'center' }} disabled={billBusy} onClick={async () => { setBillErr(''); setBillBusy(true); try { await startPortal(); } catch { setBillErr('We could not open billing just now. Please try again in a moment, or email support through the Contact page.'); setBillBusy(false); } }}>{billBusy ? 'Opening billing...' : 'Manage billing (card, plan, cancellation)'}</button>
-            : <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 18 }}>Paid plans manage their card, plan changes and cancellation right here.</p>}
+            : <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 18 }}>Choose a Self-Study plan to start practicing.</p>}
           {billErr && <p role="alert" style={{ fontSize: 13.5, color: '#9b2c2c', fontWeight: 700, marginTop: 12 }}>{billErr}</p>}
         </div>
         <div className="panel" style={{ marginTop: 22 }}>
@@ -63,6 +69,13 @@ export default function Account() {
           {dirty && <button className="btn btn-primary" style={{ marginTop: 16, justifyContent: 'center' }} onClick={save}>Save changes</button>}
           {saved && <p style={{ fontSize: 13, color: 'var(--teal-3)', fontWeight: 700, marginTop: 10 }}>Saved.</p>}
           {err && <p style={{ fontSize: 13, color: '#a33b41', fontWeight: 600, marginTop: 10 }}>{err}</p>}
+        </div>
+        <div className="panel" style={{ marginTop: 22 }}>
+          <h3>Manage your password</h3><p>Set or update the password you use to sign in.</p>
+          <form onSubmit={async e => { e.preventDefault(); if(pw.length<6 || pwBusy) return; setPwBusy(true); setPwMsg(''); try { await setPassword(pw); setPw(''); setPwMsg('Password updated.'); } catch { setPwMsg('Could not update your password. Please try again.'); } finally { setPwBusy(false); } }}>
+            <p className="password-hint" id="password-hint">Use at least 6 characters.</p><div className="field" style={{marginTop:16}}><label htmlFor="account-password">New password</label><input id="account-password" aria-describedby="password-hint" type="password" autoComplete="new-password" minLength={6} required value={pw} onChange={e=>setPw(e.target.value)} /></div>
+            <button className="btn btn-navy" type="submit" disabled={pw.length<6 || pwBusy} style={{ marginTop: 16 }}>{pwBusy ? 'Updating...' : 'Update password'}</button><p role="status">{pwMsg}</p>
+          </form>
         </div>
         <div className="panel" style={{ marginTop: 22 }}>
           <h3>Support</h3>

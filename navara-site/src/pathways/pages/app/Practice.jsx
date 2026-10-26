@@ -3,7 +3,7 @@ import AppNav from '../../components/AppNav';
 import { SampleFlag } from '../../components/Chrome';
 import Quiz from '../../components/Quiz';
 import { useRequireUser } from '../../components/useRequireUser';
-import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidence, fetchMissedQuestions, DEMO_EVIDENCE } from '../../lib/db';
+import { fetchQuestions, fetchSample, fetchAdaptiveSet, fetchMemberEvidenceState, fetchMissedQuestions, DEMO_EVIDENCE } from '../../lib/db';
 import { DEMO } from '../../config';
 
 const pretty = (s) => { const t = String(s || '').replace(/_/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
@@ -18,44 +18,43 @@ export default function Practice() {
   const [live, setLive] = useState(false);
   const [evidence, setEvidence] = useState([]);
   const [target, setTarget] = useState(null);
+  const [setStatus, setSetStatus] = useState('loading');
   useEffect(() => {
     if (!user) return;
     let on = true;
-    const track = user.track || 'rbt';
+    setQs(null); setTarget(null); setEvidence([]); setLive(false); setSetStatus('loading');
+    const track = user.track;
     const params = new URLSearchParams(window.location.search);
     const tag = params.get('tag');
     const review = params.get('review') === '1';
     (async () => {
-      let ev = [];
-      if (user.demo) ev = DEMO_EVIDENCE;
-      else { try { ev = (await fetchMemberEvidence()) || []; } catch { ev = []; } }
-      if (!on) return;
-      setEvidence(ev);
-      const hit = tag && ev.find((p) => p.tag === tag);
-      if (hit && review) {
-        try {
-          const rows = await fetchMissedQuestions(hit.tag);
-          if (on && rows && rows.length) { setTarget({ ...hit, review: true }); setQs(rows); setLive(true); return; }
-        } catch { /* fall through to the targeted set */ }
-      }
-      if (hit) {
-        try {
-          const rows = await fetchAdaptiveSet({ track, misconceptions: [hit.tag], limit: 10 });
-          if (on && rows && rows.length) { setTarget(hit); setQs(rows); setLive(true); return; }
-        } catch { /* fall through to the general set */ }
-      }
       try {
-        const rows = await fetchQuestions({ track, limit: 12 });
+        if (user.trackSet === false || !['rbt','bcba'].includes(track)) { if (on) setSetStatus('track_required'); return; }
+        const demo = DEMO || user.demo;
+        const state = demo ? { status: 'ready', rows: DEMO_EVIDENCE } : await fetchMemberEvidenceState(user);
         if (!on) return;
-        if (!DEMO && rows && rows.length > 0) { setQs(rows); setLive(true); }
-        else { const s = await fetchSample({ track, limit: 10 }); if (on) setQs(s); }
-      } catch {
-        const s = await fetchSample({ track: 'rbt', limit: 10 }); if (on) setQs(s);
-      }
+        if (state.status === 'track_required') { setSetStatus('track_required'); return; }
+        if (state.status === 'unavailable') throw state.error;
+        const ev = state.rows;
+        setEvidence(ev);
+        const hit = tag && ev.find((p) => p.tag === tag);
+        // An explicit review/target is never silently exchanged for another quiz.
+        if (tag && !hit) { setSetStatus('empty'); return; }
+        let rows;
+        if (hit) {
+          rows = review ? await fetchMissedQuestions(hit.tag) : await fetchAdaptiveSet({ track, misconceptions: [hit.tag], limit: 10 });
+        } else rows = demo ? await fetchSample({ track, limit: 10 }) : await fetchQuestions({ track, limit: 12 });
+        if (!on) return;
+        if (!Array.isArray(rows)) throw new Error('Invalid question response');
+        if (!rows.length) { setSetStatus('empty'); return; }
+        setTarget(hit ? { ...hit, review } : null); setQs(rows); setLive(!demo); setSetStatus('ready');
+      } catch { if (on) { setQs(null); setTarget(null); setSetStatus('unavailable'); } }
     })();
     return () => { on = false; };
-  }, [user]);
+  }, [user?.id, user?.track, user?.trackSet, user?.demo]);
   if (!user) return null;
+  if (setStatus !== 'ready') return <><AppNav active="practice" /><section className="section" style={{paddingTop:60,minHeight:'100vh'}}><div className="wrap quiz-shell"><h2>Practice</h2><p role={setStatus === 'unavailable' ? 'alert' : 'status'} style={{fontWeight:600}}>{setStatus === 'loading' ? 'Loading your set...' : setStatus === 'track_required' ? 'Select your exam track before practicing.' : setStatus === 'empty' ? 'No questions are available for this request. No other set has been substituted.' : 'This practice set is unavailable. No other set has been substituted. Please try again later.'}</p><a href="/pathways/app/dashboard">Back to dashboard</a></div></section></>;
+
   return (<>
     <AppNav active="practice" />
     <section className="section" style={{ paddingTop: 60, minHeight: '100vh' }}>

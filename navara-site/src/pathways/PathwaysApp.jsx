@@ -13,6 +13,7 @@ function AppIndexRedirect() {
   return <Navigate to={'dashboard' + window.location.hash} replace />;
 }
 import './pathways.css';
+import { CFG } from './config';
 import Landing from './pages/Landing';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -24,8 +25,9 @@ import PathwaysNotFound from './pages/NotFound';
 import Login from './pages/Login';
 import SampleQuiz from './pages/SampleQuiz';
 import Dashboard from './pages/app/Dashboard';
-import Practice from './pages/app/Practice';
-import Mock from './pages/app/Mock';
+import Practice from './pages/app/SafePractice';
+import UnavailableCandidate from './components/UnavailableCandidate';
+
 import Book from './pages/app/Book';
 import Account from './pages/app/Account';
 import Specialist from './pages/app/Specialist';
@@ -33,6 +35,9 @@ import Admin from './pages/app/Admin';
 
 export default function PathwaysApp() {
   return (
+    <>
+    {CFG.limitedLaunch && <aside className="candidate-notice">Self-Study: untimed practice, answer explanations, set results and recorded progress. Timed sets, tag-specific review, Guided sessions and booking are not available.</aside>}
+    {CFG.previewOnly && <aside className="candidate-notice">Test version: untimed practice, explanations, set results and recorded progress. Timed sets, tag-specific review, booking and payments are not available. No purchase is needed to use your test account.</aside>}
     <Routes>
       <Route index element={<Landing />} />
       <Route path="rbt" element={<RbtTrack />} />
@@ -48,13 +53,14 @@ export default function PathwaysApp() {
       <Route path="app" element={<AppIndexRedirect />} />
       <Route path="app/dashboard" element={<Dashboard />} />
       <Route path="app/practice" element={<Practice />} />
-      <Route path="app/timed-sets" element={<Mock />} />
+      <Route path="app/timed-sets" element={<UnavailableCandidate />} />
       <Route path="app/mock" element={<Navigate to="/pathways/app/timed-sets" replace />} />
-      <Route path="app/book" element={<Book />} />
+      <Route path="app/book" element={<UnavailableCandidate kind="booking" />} />
       <Route path="app/account" element={<Account />} />
       <Route path="app/specialist" element={<Specialist />} />
       <Route path="app/admin" element={<Admin />} />
       <Route path="*" element={<PathwaysNotFound />} />
     </Routes>
+    </>
   );
 }

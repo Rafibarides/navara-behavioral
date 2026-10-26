@@ -86,7 +86,8 @@ export async function getSessionUser() {
       if (pending.full_name && !hasName) row.full_name = pending.full_name;
       if (pending.track && !(prof && prof.track)) row.track = pending.track;
       if (row.full_name || row.track) {
-        await sb.from('profiles').upsert(row, { onConflict: 'id' });
+        if (row.full_name) { const {error}=await sb.from('profiles').update({full_name:row.full_name}).eq('id',session.user.id); if(error)throw error; }
+        if (row.track) { const {error}=await sb.rpc('learner_set_track',{p_track:row.track}); if(error)throw error; }
         prof = { ...(prof || {}), ...row };
       }
     }
@@ -98,7 +99,8 @@ export async function getSessionUser() {
     if (!hasName && md.full_name) row.full_name = md.full_name;
     if (!(prof && prof.track) && ['rbt', 'bcba'].includes(md.track)) row.track = md.track;
     if (row.full_name || row.track) {
-      await sb.from('profiles').upsert(row, { onConflict: 'id' });
+      if (row.full_name) { const {error}=await sb.from('profiles').update({full_name:row.full_name}).eq('id',session.user.id); if(error)throw error; }
+        if (row.track) { const {error}=await sb.rpc('learner_set_track',{p_track:row.track}); if(error)throw error; }
       prof = { ...(prof || {}), ...row };
     }
   } catch { /* retry from Account */ }

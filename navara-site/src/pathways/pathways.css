@@ -372,3 +372,47 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 .pw-app .pw-subnav-inner{padding-top:20px;padding-bottom:14px}
 .opt.selected{border-color:var(--teal-3);box-shadow:0 0 0 2px rgba(31,138,138,.25)}
 .pw-unified.pw-app > div:first-child{position:relative!important}
+
+/* Learner feedback: text and shape convey state as well as color. */
+.opt.selected{border:2px solid #185d59;background:#e0f0ed;box-shadow:0 0 0 1px #185d59}
+.opt.answer-right{border:2px solid #256044;background:#e7f4ec;color:#173e2c;opacity:1}
+.opt.answer-wrong{border:2px solid #a23e36;background:#fff0ed;color:#702b25;opacity:1}
+.answer-label{display:block;margin-top:8px;font-size:13px}
+.learner-feedback{opacity:1!important;color:var(--ink)!important;margin-top:20px}
+.learner-feedback.feedback-right{background:#e7f4ec;border-left:4px solid #256044}
+.learner-feedback.feedback-wrong{background:#fff0ed;border-left:4px solid #a23e36}
+.learner-feedback h4{font-size:18px;margin:0 0 12px}
+.q-nav button:disabled{opacity:.45;cursor:not-allowed}
+.save-error{margin:16px 0;padding:12px 14px;background:#fff0ed;border-left:4px solid #a23e36;color:#702b25;line-height:1.6}
+.save-status{margin-top:16px}
+.result-score{font-size:42px;font-weight:800;line-height:1.2;margin:20px 0 12px}
+.result-score span{font-size:18px;font-weight:600}
+.miss-review{border:1px solid #cdd8d5;border-radius:10px;padding:16px;margin:12px 0;overflow-wrap:anywhere}
+.miss-review summary{cursor:pointer;font-weight:700;line-height:1.6}
+.result-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.practice-notice{font-size:14px;line-height:1.6;color:var(--ink-2);background:#f0f5f3;padding:14px 18px;border-radius:10px;margin:18px 0}
+@media(max-width:420px){.set-results .result-actions>*{width:100%;justify-content:center}.result-score{font-size:36px}}
+
+.opt:disabled:hover{transform:none}
+.opt.answer-right,.opt.answer-right:hover{border-color:#256044;background:#e7f4ec;color:#173e2c;box-shadow:none}
+.opt.answer-wrong,.opt.answer-wrong:hover{border-color:#a23e36;background:#fff0ed;color:#702b25;box-shadow:none}
+.result-actions .btn-outline{border:1.5px solid var(--navy);color:var(--navy);background:#fff}
+.pw-unified:not(.pw-app) .pw-subnav-inner{padding-top:20px;padding-bottom:14px}
+.candidate-notice{background:#eaf2ef;color:#22303e;font-size:13px;line-height:1.6;padding:12px max(16px,calc((100vw - 1200px)/2));border-bottom:1px solid #cedbd5}
+/* Pathways now owns its only header; remove the obsolete absolute pill slot. */
+.pw-unified > .pw-subnav:first-child{position:relative!important;width:100%;box-sizing:border-box}
+.pw-subnav-inner{min-width:0}
+@media(max-width:420px){.pw-unified:not(.pw-app) .pw-subnav-inner{gap:10px}.pw-unified:not(.pw-app) .pw-subnav-links{gap:10px;min-width:0}.pw-unified:not(.pw-app) .pw-subnav-tag{letter-spacing:.16em;gap:6px}.pw-unified:not(.pw-app) .pw-arc{width:32px}.pw-unified:not(.pw-app) .pw-subnav-links a.btn{padding:7px 10px}}
+.set-results{scroll-margin-top:20px;outline:none}
+.option-explanation{margin:12px 0;line-height:1.65}
+.results-topics{font-size:14px;line-height:1.65;margin:12px 0;color:var(--ink-2)}
+.password-hint{font-size:13px;color:var(--ink-2);margin-top:10px}
+button:disabled{cursor:not-allowed}
+.panel form button:disabled{opacity:.45}
+@media(min-width:1000px){.candidate-ctas{max-width:100%;gap:10px}.candidate-ctas .btn{padding-left:16px;padding-right:16px;font-size:13px}}
+
+/* Final copy/readability pass, no learner-state changes. */
+.opt{line-height:1.6}
+.set-results .miss-review-heading{margin-top:24px;margin-bottom:16px}
+.signed-out-notice{background:#edf4f1;color:#274b43;padding:12px 16px;border-radius:10px;margin:16px 0 28px;font-size:14px;line-height:1.6}
+.progress-count-note{font-size:13px;line-height:1.6;color:var(--ink-2);margin:10px 0 20px}

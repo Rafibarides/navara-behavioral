@@ -3,12 +3,12 @@ import { signOut } from '../lib/auth';
 import ArcMark from './ArcMark';
 
 const ITEMS = [
-  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['timed-sets', 'Timed sets'],
-  ['book', 'Book a 1:1'], ['account', 'Account'],
+  ['dashboard', 'Dashboard'], ['practice', 'Practice'],
+  ['account', 'Account'],
 ];
 const logout = (e) => {
   e.preventDefault();
-  signOut().then(() => { window.location.replace('/pathways/login'); })
+  signOut().then(() => { window.location.replace('/pathways/login?mode=signin&signedout=1'); })
     .catch(() => { alert('Sign-out did not complete. Check your connection and try again.'); });
 };
 

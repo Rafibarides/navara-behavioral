@@ -1,4 +1,5 @@
 import React from 'react';
+import { CFG } from '../config';
 
 // Preview-only marketing sections for the track pages, from the ChatGPT/Tab copy option sets.
 // Rendered only under ?preview=1; public pages are unchanged.
@@ -40,6 +41,7 @@ export function WhatYouGet({ checks }) {
 }
 
 export function GuidedBlock({ eyebrow, heading, intro, bullets }) {
+  if (CFG.previewOnly || CFG.limitedLaunch) return <section className="section"><div className="wrap practice-notice">Guided sessions and booking are not available. Practice and review your answer explanations instead.</div></section>;
   return (
     <section className="section dark">
       <div className="wrap" style={{ maxWidth: 860 }}>
@@ -58,6 +60,7 @@ export function GuidedBlock({ eyebrow, heading, intro, bullets }) {
 }
 
 export function OneOnOne({ heading, body, foot }) {
+  if (CFG.previewOnly || CFG.limitedLaunch) return null;
   return (
     <section className="section">
       <div className="wrap" style={{ maxWidth: 900, display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -94,7 +97,7 @@ export function ClosingCTA({ heading, body, primary, secondary, micro }) {
     <section className="section dark" style={{ textAlign: 'center' }}>
       <div className="wrap" style={{ maxWidth: 760 }}>
         <h2 className="rv" style={{ marginBottom: 16 }}>{heading}</h2>
-        <p className="rv rv-d1" style={{ fontSize: 18, lineHeight: 1.7, color: 'rgba(255,255,255,.82)', margin: '0 auto 30px', maxWidth: 620 }}>{body}</p>
+        <p className="rv rv-d1" style={{ fontSize: 18, lineHeight: 1.7, color: 'rgba(255,255,255,.82)', margin: '0 auto 30px', maxWidth: 620 }}>{CFG.previewOnly || CFG.limitedLaunch ? 'Explore untimed practice, answer explanations, results and recorded progress. Booking and paid upgrades are not available at launch.' : body}</p>
         <div className="rv rv-d2" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={primary.href}>{primary.label}</a>
           <a className="btn btn-ghost" href={secondary.href}>{secondary.label}</a>

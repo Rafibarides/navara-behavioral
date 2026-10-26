@@ -1,0 +1,2 @@
+import React from 'react';import AppNav from './AppNav';
+export default function UnavailableCandidate({kind}){return <><AppNav/><section className="section" style={{paddingTop:60,minHeight:'100vh'}}><div className="wrap"><h2>{kind === 'booking' ? 'Session booking is not available at launch' : 'Timed practice is not available at launch'}</h2><p>You can practice without a timer and read explanations for every answer choice.</p><a className="btn btn-navy" href="/pathways/app/practice">Go to practice</a></div></section></>;}
