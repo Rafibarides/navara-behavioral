@@ -1,0 +1,123 @@
+BEGIN
+SET
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+ALTER TABLE
+DO
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+psql:/tmp/ehc21_body.sql:124: NOTICE:  view "member_first_encounters_exposure_aware" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:125: NOTICE:  view "member_history_coverage" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:126: NOTICE:  view "member_item_exposure" does not exist, skipping
+DROP VIEW
+psql:/tmp/ehc21_body.sql:127: NOTICE:  view "item_dependence_key" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+COMMENT
+CREATE TABLE
+ALTER TABLE
+REVOKE
+CREATE FUNCTION
+REVOKE
+CREATE FUNCTION
+REVOKE
+CREATE VIEW
+REVOKE
+CREATE TABLE
+INSERT 0 6
+INSERT 0 1
+INSERT 0 3
+ALTER TABLE
+INSERT 0 1
+ALTER TABLE
+INSERT 0 1
+ taxonomy_capture_baseline 
+---------------------------
+ 
+(1 row)
+
+ taxonomy_capture_baseline 
+---------------------------
+ 
+(1 row)
+
+ taxonomy_capture_baseline 
+---------------------------
+ 
+(1 row)
+
+ taxonomy_capture_baseline 
+---------------------------
+ 
+(1 row)
+
+UPDATE 1
+INSERT 0 1
+ALTER TABLE
+UPDATE 1
+ALTER TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+DO
+INSERT 0 1
+ALTER TABLE
+SELECT 1
+SELECT 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+SELECT 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ n |                                     test                                      |                    actual                    |                   expected                   | pass 
+---+-------------------------------------------------------------------------------+----------------------------------------------+----------------------------------------------+------
+ 1 | T1 logged split stays verified                                                | verified                                     | verified                                     | t
+ 2 | T2 unlogged change detected as drift                                          | drift                                        | drift                                        | t
+ 3 | T3 unrelated item stays verified                                              | verified                                     | verified                                     | t
+ 4 | T4 no baseline = unattested                                                   | unattested                                   | unattested                                   | t
+ 5 | T5a review_event UPDATE tamper                                                | refused 42501                                | refused                                      | t
+ 6 | T5b review_event DELETE                                                       | refused 42501                                | refused                                      | t
+ 7 | T6 drifted item 6 answer gated to unknown                                     | unknown_exposure_history/taxonomy_unverified | unknown_exposure_history/taxonomy_unverified | t
+ 8 | T6b verified item 5: prior C_TEST exposure excludes (sticky via logged split) | excluded_prior_exposure                      | excluded_prior_exposure                      | t
+ 9 | T7 live item 100 has no baseline                                              | unattested                                   | unattested                                   | t
+(9 rows)
+
+  summary   
+------------
+ 9/9 passed
+(1 row)
+
+DO
+ROLLBACK
