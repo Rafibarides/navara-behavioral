@@ -3,9 +3,10 @@
 // (supabase/functions/). The stripe-webhook function grants the plan on payment.
 import { CFG, CHECKOUT_TEST_MODE } from '../config';
 import { getClient } from './db';
+import { GUIDED_PRODUCTION } from './guidedBooking';
 
 export async function startCheckout(track, plan) {
-  if (CFG.limitedLaunch && plan !== 'self-study') throw new Error('Guided enrollment is not available.');
+  if (CFG.limitedLaunch && plan !== 'self-study' && !(GUIDED_PRODUCTION && plan === 'guided')) throw new Error('Guided enrollment is not available.');
   if (CFG.previewOnly) throw new Error('Payments are not available in this test version.');
   if (CHECKOUT_TEST_MODE) {
     return { testMode: true, message: 'Checkout is in test mode. No payment is collected.' };
@@ -16,7 +17,7 @@ export async function startCheckout(track, plan) {
     window.location.href = '/pathways/login';
     return;
   }
-  const res = await fetch(CFG.supabaseUrl + '/functions/v1/create-checkout-session', {
+  const res = await fetch(CFG.supabaseUrl + (GUIDED_PRODUCTION && plan === 'guided' ? '/functions/v1/guided-enrollment' : '/functions/v1/create-checkout-session'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -28,7 +28,9 @@ import Dashboard from './pages/app/Dashboard';
 import Practice from './pages/app/SafePractice';
 import UnavailableCandidate from './components/UnavailableCandidate';
 
-import Book from './pages/app/Book';
+import GuidedBook from './pages/app/GuidedBook';
+import GuidedStaff from './pages/app/GuidedStaff';
+import { GUIDED_PRODUCTION } from './lib/guidedBooking';
 import Account from './pages/app/Account';
 import Specialist from './pages/app/Specialist';
 import Admin from './pages/app/Admin';
@@ -36,7 +38,7 @@ import Admin from './pages/app/Admin';
 export default function PathwaysApp() {
   return (
     <>
-    {CFG.limitedLaunch && <aside className="candidate-notice">Self-Study: untimed practice, answer explanations, set results and recorded progress. Timed sets, tag-specific review, Guided sessions and booking are not available.</aside>}
+    {CFG.limitedLaunch && <aside className="candidate-notice">Self-Study: untimed practice, answer explanations, set results and recorded progress. Timed sets and tag-specific review are not available. {GUIDED_PRODUCTION ? "Guided includes one 45-minute session per paid monthly renewal period. No rollover." : "Guided sessions and booking are not available."}</aside>}
     {CFG.previewOnly && <aside className="candidate-notice">Test version: untimed practice, explanations, set results and recorded progress. Timed sets, tag-specific review, booking and payments are not available. No purchase is needed to use your test account.</aside>}
     <Routes>
       <Route index element={<Landing />} />
@@ -55,7 +57,8 @@ export default function PathwaysApp() {
       <Route path="app/practice" element={<Practice />} />
       <Route path="app/timed-sets" element={<UnavailableCandidate />} />
       <Route path="app/mock" element={<Navigate to="/pathways/app/timed-sets" replace />} />
-      <Route path="app/book" element={<UnavailableCandidate kind="booking" />} />
+      <Route path="app/book" element={GUIDED_PRODUCTION ? <GuidedBook/> : <UnavailableCandidate kind="booking" />} />
+      {GUIDED_PRODUCTION && <Route path="app/coaching-staff" element={<GuidedStaff/>} />}
       <Route path="app/account" element={<Account />} />
       <Route path="app/specialist" element={<Specialist />} />
       <Route path="app/admin" element={<Admin />} />

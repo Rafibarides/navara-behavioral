@@ -1,4 +1,5 @@
 import { CFG } from '../config';
+import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
 import Showcase, { usePreview, StickySampleCTA } from '../components/Showcase';
@@ -50,7 +51,7 @@ export default function RbtTrack() {
   { text: "Untimed practice with answer explanations" },
   { text: "Set results and review of misses while the completed set stays open" },
   { text: "Progress by topic, so weak spots have nowhere to hide" },
-  { text: "Guided sessions and booking are not available at launch", glow: true },
+  { text: GUIDED_PRODUCTION ? "Guided: one included 45-minute session per paid monthly renewal period, no rollover" : "Guided sessions and booking are not available at launch", glow: true },
 ]} />}
 <section className="section dark">
   <div className="wrap">
@@ -97,7 +98,7 @@ export default function RbtTrack() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Practice by topic</h4><p>Untimed sets with instant explanations. Learn why the right answer is right and why the rest are wrong.</p></div>
       <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Untimed practice</h4><p>Untimed practice with answer explanations. Timed sets are not available at launch. Use untimed practice instead.</p></div>
-      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Session booking unavailable</h4><p>Guided sessions are not available at launch.</p></div>
+      <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>{GUIDED_PRODUCTION ? "Guided coaching" : "Session booking unavailable"}</h4><p>{GUIDED_PRODUCTION ? "One included 45-minute session per paid monthly renewal period. Bring a study question and your reasoning; leave with a next-practice focus. No rollover." : "Guided sessions are not available at launch."}</p></div>
     </div>
   </div>
 </section>

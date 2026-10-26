@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signOut } from '../lib/auth';
 import ArcMark from './ArcMark';
+import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 
 const ITEMS = [
   ['dashboard', 'Dashboard'], ['practice', 'Practice'],
@@ -14,7 +15,8 @@ const logout = (e) => {
 
 export default function AppNav({ active, role }) {
   const [open, setOpen] = useState(false);
-  const items = role === 'admin' ? [...ITEMS, ['admin', 'Admin']] : ITEMS;
+  const baseItems=GUIDED_PRODUCTION?[...ITEMS,['book','Coaching']]:ITEMS;
+  const items = role === 'admin' ? [...baseItems, ['admin', 'Admin'], ...(GUIDED_PRODUCTION?[['coaching-staff','Coaching staff']]:[])] : baseItems;
   return (
     <div className="pw-unified pw-app">
       <div className="pw-subnav">

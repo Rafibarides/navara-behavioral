@@ -1,3 +1,4 @@
+import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
 
@@ -72,7 +73,7 @@ export default function Landing() {
         <ul className="track-feats">
           <li><span className="ck">&#10003;</span>Scenario-based practice by content area</li>
           <li><span className="ck">&#10003;</span>Untimed practice with answer explanations</li>
-          <li><span className="ck">&#10003;</span>Guided sessions are not available at launch</li>
+          <li><span className="ck">&#10003;</span>{GUIDED_PRODUCTION ? "Guided: one included 45-minute session per paid monthly renewal period, no rollover" : "Guided sessions are not available at launch"}</li>
         </ul>
         <span className="card-link">See the BCBA track <span className="arr">&rarr;</span></span>
       </a>

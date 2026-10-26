@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
 import { startCheckout } from '../lib/billing';
+import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 import { joinWaitlist } from '../lib/db';
 import { CHECKOUT_TEST_MODE, CFG } from '../config';
 import { usePreview } from '../components/Showcase';
@@ -29,11 +30,11 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guided
         <ul><li>{bankLine}</li><li>Untimed practice with answer explanations</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
         <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Self-Study'}</button>
       </div>
-      {!CFG.limitedLaunch && <div className="plan featured rv rv-d2">
+      {(!CFG.limitedLaunch || GUIDED_PRODUCTION) && <div className="plan featured rv rv-d2">
         <span className="most">Most complete</span>
         <h3>Guided</h3>
         <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
-        {CFG.previewOnly ? <p>Guided sessions and booking are not available at launch.</p> : <ul><li>Everything in Self-Study</li><li>{guidedLine}</li><li>Session booking inside your account</li><li>Priority support</li></ul>}
+        {CFG.previewOnly ? <p>Guided sessions and booking are not available at launch.</p> : <ul><li>Everything in Self-Study</li><li>{guidedLine}</li><li>Session booking inside your account</li><li>Bring a study question and your reasoning; leave with a next-practice focus</li></ul>}
         <button className="btn btn-primary" disabled={CFG.previewOnly} style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
       </div>}
     </div>
@@ -48,12 +49,12 @@ const TRACKS = {
   rbt: {
     eyebrow: 'RBT track', heading: 'RBT exam prep.', selfPrice: '$49', guidedPrice: '$249',
     sampleLine: '10-question RBT sample quiz', bankLine: 'Full RBT question bank',
-    guidedLine: 'One 45-minute 1:1 each month with a Navara Certified Behavior Specialist (NCBS) - you set the agenda',
+    guidedLine: 'One included 45-minute 1:1 per paid monthly renewal period. No rollover',
   },
   bcba: {
     eyebrow: 'BCBA track', heading: 'BCBA exam prep.', selfPrice: '$129', guidedPrice: '$450',
     sampleLine: '10-question BCBA sample quiz', bankLine: 'Full BCBA question bank',
-    guidedLine: 'Two 45-minute 1:1s each month with a Navara Certified Behavior Specialist (NCBS) - you set the agenda',
+    guidedLine: 'One included 45-minute 1:1 per paid monthly renewal period. No rollover',
   },
 };
 
@@ -95,7 +96,7 @@ export default function Plans({ track: trackProp = null }) {
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
           <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
-          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>{CFG.limitedLaunch ? 'Self-Study includes untimed practice, option explanations, set results and recorded progress. Timed sets, tag-specific review, Guided sessions and booking are not available.' : CFG.previewOnly ? 'Payments and enrollment are not available at launch. Use your existing test account to practice.' : track ? 'Checkout is online - join in a couple of minutes and start practicing today.' : 'Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.'}</p>
+          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>{CFG.limitedLaunch ? 'Self-Study includes untimed practice, option explanations, set results and recorded progress. Timed sets and tag-specific review are not available.' + (GUIDED_PRODUCTION ? ' Guided includes one 45-minute session per paid monthly renewal period, with no rollover.' : ' Guided sessions and booking are not available.') : CFG.previewOnly ? 'Payments and enrollment are not available at launch. Use your existing test account to practice.' : track ? 'Checkout is online - join in a couple of minutes and start practicing today.' : 'Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.'}</p>
         </div>
       </header>
       {!track && (
@@ -109,14 +110,14 @@ export default function Plans({ track: trackProp = null }) {
                 <div className="glow" style={{ background: '#5F8D9C' }}></div>
                 <span className="track-tag tag-teal">RBT track</span>
                 <h3>RBT exam prep</h3>
-                <p>For behavior technicians getting certified. Practice questions, explanations and set results. Guided sessions and booking are not available.</p>
+                <p>For behavior technicians getting certified. Practice questions, explanations and set results. {GUIDED_PRODUCTION ? 'Guided adds one included 45-minute session per paid monthly renewal period.' : 'Guided sessions and booking are not available.'}</p>
                 <span className="card-link">See RBT plans <span className="arr">&rarr;</span></span>
               </a>
               <a className="track-card rv rv-d1" href="#bcba" onClick={(e) => { e.preventDefault(); setTrack('bcba'); }}>
                 <div className="glow" style={{ background: '#87aa99' }}></div>
                 <span className="track-tag tag-navy">BCBA track</span>
                 <h3>BCBA exam prep</h3>
-                <p>For analysts sitting for the board exam. Scenario practice with answer explanations and set results. Guided sessions and booking are not available.</p>
+                <p>For analysts sitting for the board exam. Scenario practice with answer explanations and set results. {GUIDED_PRODUCTION ? 'Guided adds one included 45-minute session per paid monthly renewal period.' : 'Guided sessions and booking are not available.'}</p>
                 <span className="card-link">See BCBA plans <span className="arr">&rarr;</span></span>
               </a>
             </div>

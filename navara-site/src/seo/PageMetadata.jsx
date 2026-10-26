@@ -23,7 +23,7 @@ const videos = {
   }
 };
 export function applyMetadata(path) {
-  const page = pages.find(p => p.path === path.replace(/\/$/, '') || p.path === path);
+  const page = import.meta.env.VITE_GUIDED_BOOKING_PRODUCTION === 'true' && path.replace(/\/$/, '') === '/pathways/app/coaching-staff' ? {path:'/pathways/app/coaching-staff',title:'Coaching Preparation | Navara Pathways',description:'Private coaching preparation.',noindex:true} : pages.find(p => p.path === path.replace(/\/$/, '') || p.path === path);
   const title = page?.title || 'Page Not Found | Navara Behavioral Group';
   const description = page?.description || 'The page you requested could not be found.';
   document.title = title;
