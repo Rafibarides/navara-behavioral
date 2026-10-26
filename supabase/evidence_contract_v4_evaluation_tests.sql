@@ -68,20 +68,13 @@ SELECT 'T2c control: in-epoch attempt, no exposures = first_known_exposure' AS t
          WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e8' AND item_id='1') AS actual,
        'excluded_prior_exposure (has unbound presentation DLV-T2B) - control for binding next' AS expected;
 
--- SIMULATED instrumentation: attempt -9005 bound to delivery DLV-T2B-pos.
-INSERT INTO public.attempts (id,user_id,question_id,correct,kind,created_at,chosen_option,ms) OVERRIDING SYSTEM VALUE VALUES
- (-9005,'aaaaaaaa-0000-4000-8000-0000000000e5',1,true,'practice','2026-02-01T12:00:00Z',2,5000);
-CREATE OR REPLACE VIEW pathways_evidence.pathways_source_attempts AS
-SELECT a.id::text AS attempt_id, a.user_id AS member_id, a.question_id::text AS item_id, q.track,
-       a.chosen_option::text AS chosen_option_id,
-       a.created_at AS answered_at, a.correct AS is_correct,
-       CASE WHEN a.kind IN ('practice','mock') THEN 'unaided' ELSE 'unknown' END AS answer_context,
-       a.ms AS response_time_ms, NULL::text AS item_content_version_at_answer,
-       CASE WHEN a.id=-9005 THEN 'DLV-T2B' ELSE NULL::text END AS answer_delivery_id
-FROM public.attempts a JOIN public.questions q ON q.id=a.question_id WHERE a.question_id IS NOT NULL;
+-- REAL staged binding: attempt -9005 carries delivery_id in the real column
+-- (no view shim - the draft now reads attempts.delivery_id directly).
+INSERT INTO public.attempts (id,user_id,question_id,correct,kind,created_at,chosen_option,ms,delivery_id) OVERRIDING SYSTEM VALUE VALUES
+ (-9005,'aaaaaaaa-0000-4000-8000-0000000000e5',1,true,'practice','2026-02-01T12:00:00Z',2,5000,'DLV-T2B');
 INSERT INTO pathways_evidence.item_presentation_event (member_id,track,item_id,content_version,presented_at,delivery_id) VALUES
  ('aaaaaaaa-0000-4000-8000-0000000000e5','rbt','1','current','2026-02-01T11:58:00Z','DLV-T2B');
-SELECT 'T2b BOUND immediate presentation: own delivery does not disqualify (simulated instrumentation)' AS test,
+SELECT 'T2b BOUND immediate presentation: own delivery does not disqualify (real staged delivery_id column)' AS test,
        (SELECT exposure_class FROM pathways_evidence.member_first_encounters_exposure_aware
          WHERE member_id='aaaaaaaa-0000-4000-8000-0000000000e5' AND item_id='1') AS actual,
        'first_known_exposure' AS expected;

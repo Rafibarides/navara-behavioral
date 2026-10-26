@@ -1,0 +1,23 @@
+-- DRAFT ONLY - NOT APPLIED. Member-facing logging RPC for serving-route
+-- instrumentation. Held pending trust-boundary verification (member RPC
+-- restriction). This file documents the intended contract so the staged
+-- schema pieces have a known consumer.
+
+-- Contract:
+--   log_item_presentation(p_item_id bigint, p_event_type text, p_delivery_id text)
+--     - security definer; logs ONLY for auth.uid() as member_id
+--     - p_event_type in ('practice_display','timed_display','adaptive_display','review_display')
+--     - p_delivery_id NOT NULL, length 8..64, [A-Za-z0-9-] only (client session id)
+--     - p_item_id must exist in public.questions with published=true, else no-op
+--     - writes pathways_evidence.item_presentation_event (member_id=auth.uid(),
+--       track/item track from questions, content_version='current', presented_at=now())
+--     - returns void; failures must never block the quiz client-side
+--   Sample-bank items (bundled fallback) are not in public.questions and are
+--   no-ops by construction - they can never be logged as live-bank exposure.
+--
+-- Deliberate properties:
+--   * member can only write their own rows (auth.uid() binding)
+--   * append-only: v3 guards on item_presentation_event already block UPDATE/DELETE
+--   * no read path: members get nothing back (log-only endpoint)
+--   * abuse ceiling: a member can fabricate their own exposure history; that
+--     degrades only their own freshness claims and is bounded by published item ids

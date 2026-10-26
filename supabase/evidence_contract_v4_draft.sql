@@ -24,14 +24,16 @@ BEGIN;
 -- must never back a freshness claim. No logging epoch may be declared in
 -- exposure_logging_policy until every display route writes these rows
 -- server-side (see TESTING_NOTES.md for authority limits).
-ALTER TABLE pathways_evidence.item_presentation_event
-  ADD COLUMN delivery_id text;
+-- Columns are staged and applied (text) by evidence_contract_v4_staging.sql:
+--   public.attempts.delivery_id, item_presentation_event.delivery_id.
+-- Nothing writes them yet; NULL remains unknown (fail-closed).
 
 -- 1b. Adapter placeholder for the future attempt-side delivery binding ------
--- The serving system will record WHICH delivery produced each attempt. NULL
--- today; a NULL never matches, so until instrumentation lands an immediate
--- unbound presentation conservatively disqualifies the answer (fail-closed:
--- evidence can be lost, never invented). See TESTING_NOTES.md.
+-- attempts.delivery_id records WHICH delivery produced each attempt (staged,
+-- applied, unwritten until instrumentation lands). A NULL never matches, so
+-- until then an immediate unbound presentation conservatively disqualifies the
+-- answer (fail-closed: evidence can be lost, never invented). See
+-- TESTING_NOTES.md.
 CREATE OR REPLACE VIEW pathways_evidence.pathways_source_attempts AS
 SELECT a.id::text AS attempt_id,
        a.user_id AS member_id,
@@ -43,7 +45,7 @@ SELECT a.id::text AS attempt_id,
        CASE WHEN a.kind IN ('practice','mock') THEN 'unaided' ELSE 'unknown' END AS answer_context,
        a.ms AS response_time_ms,
        NULL::text AS item_content_version_at_answer,
-       NULL::text AS answer_delivery_id  -- placeholder; see 1b comment
+       a.delivery_id AS answer_delivery_id  -- real staged column; NULL until instrumentation lands
 FROM public.attempts a
 JOIN public.questions q ON q.id = a.question_id
 WHERE a.question_id IS NOT NULL;
