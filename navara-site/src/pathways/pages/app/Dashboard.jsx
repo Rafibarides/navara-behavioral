@@ -99,20 +99,20 @@ export default function Dashboard() {
           <div className="panel span-12 rv in">
             <h3>Repeated misses by tag</h3>
             {cards ? (<>
-              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>From your own answers over the last 30 days: a tag appears here only after you miss it on at least 2 different questions. "Recurring" means the pattern is stronger: 3 or more misses across multiple days, with at least 6 questions answered carrying the tag and misses on at least 40% of them. Tags are author-assigned and not yet expert-reviewed - they point at what to review, not a diagnosis of why you missed.</p>
+              <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 14px' }}>Your recorded incorrect answers, grouped by their assigned tags. Use these groups to revisit questions and explanations. A tag appears here only after your selected answers carried it on at least 2 different questions in the last 30 days.</p>
               {cards.slice(0, 4).map((c) => (
                 <div className="score-row" key={c.tag}>
-                  <span><b>{pretty(c.tag)}</b><br />
+                  <span><span style={{ fontSize: 10.5, letterSpacing: '.12em', fontWeight: 800, color: 'var(--ink-2)' }}>ASSIGNED ANSWER TAG</span><br />
+                    <b>&ldquo;{pretty(c.tag)}&rdquo;</b><br />
                     <span style={{ fontSize: 12.5, color: 'var(--ink-2)', fontWeight: 600 }}>
-                      Tagged on {c.misses} of your recorded misses across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
+                      Your selected answers carried this tag on {c.misses} recorded {c.misses === 1 ? 'miss' : 'misses'} across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
                     <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag)} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Practice more questions with this tag &rarr;</a><br />
                     <a href={'/pathways/app/practice?tag=' + encodeURIComponent(c.tag) + '&review=1'} style={{ fontSize: 13, fontWeight: 700, color: 'var(--teal-3)' }}>Review the exact questions you missed &rarr;</a></span>
-                  <span className={'pill ' + (c.status === 'recurring' ? 'pill-teal' : 'pill-sage')}>{c.status === 'recurring' ? 'Recurring' : 'Worth reviewing'}</span>
                 </div>
               ))}
               {showDemo && !evidence && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo entries shown. Real entries build from your first practice sets.</p>}
             </>) : (
-              <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, margin: '10px 0 4px' }}>Nothing to review yet. After a few practice sets, tags you miss on more than one question will appear here - never from a single wrong answer.</p>
+              <p style={{ fontSize: 15, color: 'var(--ink-2)', fontWeight: 600, margin: '10px 0 4px' }}>Nothing to review yet. After a few practice sets, tags carried by your selected answers on more than one question will appear here - never from a single wrong answer.</p>
             )}
           </div>
           <div className="panel span-12 rv in">

@@ -62,15 +62,15 @@ export default function Practice() {
       <div className="wrap quiz-shell">
         {target && target.review ? (<>
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Review - the exact questions you missed</span>
-          <h2>{cardTitle(target)}.</h2>
+          <h2>Your misses tagged &ldquo;{cardTitle(target)}&rdquo;.</h2>
           <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
-            These are the {qs ? qs.length : ''} questions you missed with this tag in the last 30 days, most recent first. Retake them and read the explanations. Tags are author-assigned and not yet expert-reviewed - a pointer for your review, not a diagnosis.
+            These are the {qs ? qs.length : ''} questions where your selected answer carried this assigned tag in the last 30 days, most recent first. Retake them and read the explanations.
           </p>
         </>) : target ? (<>
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Targeted set - built from your recorded misses</span>
-          <h2>{cardTitle(target)}.</h2>
+          <h2>More questions tagged &ldquo;{cardTitle(target)}&rdquo;.</h2>
           <p style={{ color: 'var(--ink-2)', fontWeight: 600, marginBottom: 26 }}>
-            Your recorded misses carried this tag {target.misses} times across {target.items} different questions in the last 30 days. This set is more questions with the same tag. Tags are author-assigned and not yet expert-reviewed - a pointer for your review, not a diagnosis.
+            Your selected answers carried this assigned tag on {target.misses} recorded {target.misses === 1 ? 'miss' : 'misses'} across {target.items} different questions in the last 30 days. This set is more questions whose answer options carry the same tag.
           </p>
         </>) : (<>
           <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{live ? 'Practice - live bank' : 'Practice (sample bank)'}</span>
@@ -83,7 +83,7 @@ export default function Practice() {
           {evidence.length > 0 && (
             <div className="panel" style={{ marginBottom: 22, borderLeft: '4px solid var(--teal-3)' }}>
               <b style={{ fontSize: 15 }}>Sets built from your recorded misses</b>
-              <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>More questions carrying the tags on your recent misses. Tags are pointers for review, not a diagnosis.</p>
+              <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>More questions carrying the assigned tags from your recent incorrect answers.</p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {evidence.slice(0, 3).map((p) => (
                   <a key={p.tag} className="btn btn-navy btn-sm" href={'/pathways/app/practice?tag=' + encodeURIComponent(p.tag)}>{pretty(p.tag)}</a>

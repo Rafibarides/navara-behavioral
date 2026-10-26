@@ -143,8 +143,13 @@ export async function fetchPatterns(userId) {
 // Member pattern evidence: rolling 30 days, first responses only, fail-closed
 // server-side (nothing returns until a tag has 2+ misses on 2+ distinct questions).
 const DEMO_EVIDENCE = [
-  { tag: 'intervention_before_assessment', label: 'functional assessment', misses: 4, items: 3, days: 2, opportunities: 5, miss_rate: 80, areas: ['Behavior Assessment'], last_seen: null, status: 'emerging' },
-  { tag: 'confuses_latency_with_duration', label: 'duration', misses: 3, items: 2, days: 2, opportunities: 4, miss_rate: 75, areas: ['Data Collection and Graphing'], last_seen: null, status: 'emerging' },
+  // Matches the RBT sample bank: three questions carry this assigned option tag.
+  // Live member_evidence counts first responses only (one row per question), so
+  // misses always equals items. Verified against the function's exact SQL:
+  // 3 missed first responses over 2 days + 2 correct on questions carrying the
+  // tag on a wrong option -> misses 3, items 3, days 2, opportunities 5,
+  // miss_rate 60, status emerging (opportunities < 6 keeps it out of recurring).
+  { tag: 'procedure_name_swap', label: 'procedure names', misses: 3, items: 3, days: 2, opportunities: 5, miss_rate: 60, areas: ['Behavior Acquisition', 'Behavior Reduction'], last_seen: null, status: 'emerging' },
 ];
 export { DEMO_EVIDENCE };
 
