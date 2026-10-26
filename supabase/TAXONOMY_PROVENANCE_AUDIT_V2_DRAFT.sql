@@ -2,6 +2,10 @@
 -- Builder, 2026-10-26. Targeted fixes for the source critique's demonstrated holes:
 --  (1) baselines are append-only certification rows; recapture = explicit supersession,
 --      old rows preserved; captured_by must be an active sme_reviewer, never free text.
+--      BOUNDARY (explicit): the reviewer-registry lookup proves p_reviewer NAMES an
+--      active reviewer; it does NOT prove the CALLER is that reviewer. Real caller
+--      authorization (role-to-reviewer binding, tested under real roles) is
+--      integration work and remains untested - do not treat this check as auth.
 --  (2) current-state reconciliation is ROW-LEVEL replay (per track/item/version/tag
 --      row identity), SEPARATE from the sticky historical dependence union.
 --  (3) chain continuity compares an UPDATE/DELETE old_row against the EXPECTED prior
