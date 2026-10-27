@@ -91,19 +91,19 @@ export default function Plans({ track: trackProp = null }) {
   const t = track ? TRACKS[track] : null;
   return (<>
     <Nav links={LINKS} />
-    <main>
-      <header className="track-hero" style={{ padding: '104px 0 90px', textAlign: 'center' }}>
+    <main className="pw-plans-clean">
+      <header className="track-hero clean-plans-hero">
         <div className="orb orb-2"></div><div className="orb orb-3"></div>
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
-          <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
+          <h1>Find your study plan.</h1><p>Choose your exam, then compare your options.</p>
         </div>
       </header>
       {!track && (
-        <section className="section">
+        <section className="section clean-plans-selection">
           <div className="wrap">
             <div className="section-head rv"><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Choose your exam</span>
-              <h2>Which exam are you sitting for?</h2>
+              <h2>Which exam are you preparing for?</h2>
             </div>
             <div className="tracks">
               <a className="track-card rv" href="#rbt" onClick={(e) => { e.preventDefault(); setTrack('rbt'); }}>
@@ -125,7 +125,7 @@ export default function Plans({ track: trackProp = null }) {
         </section>
       )}
       {track && (
-        <section className="section">
+        <section className="section clean-plans-selection">
           <div className="wrap">
             <span className="eyebrow rv in">{t.eyebrow}</span>
             <h2 data-rise style={{ marginBottom: 34 }}>{t.heading}</h2>
