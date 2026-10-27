@@ -1,3 +1,4 @@
+import StandaloneSessions from '../components/StandaloneSessions';
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Nav, Footer, usePathwaysEffects } from '../components/Chrome';
@@ -152,6 +153,7 @@ export default function Plans({ track: trackProp = null }) {
         </div>
       )}
     </main>
-    <Footer />
+    <StandaloneSessions track={track} />
+<Footer />
   </>);
 }

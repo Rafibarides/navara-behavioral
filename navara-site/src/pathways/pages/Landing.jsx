@@ -1,3 +1,4 @@
+import StandaloneSessions from '../components/StandaloneSessions';
 import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 import React from 'react';
 import { Nav, Footer, usePathwaysEffects, Arcs } from '../components/Chrome';
@@ -89,7 +90,7 @@ export default function Landing() {
     <div className="steps">
       <div className="step rv"><div className="ic">&#9673;</div><h4>Try a free sample quiz</h4><p>Ten questions, no account. Feel how the explanations teach, not just grade.</p></div>
       <div className="step rv"><div className="ic">&#9673;</div><h4>Build your study plan</h4><p>Tell us your track and exam date - get a week-by-week checklist, free. <a href="/pathways/study-plan" style={{ color: 'var(--teal-3)', fontWeight: 700 }}>Build my plan</a></p></div>
-      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>This test version includes practice, explanations and set results. Booking and paid upgrades are not available here.</p></div>
+      <div className="step rv rv-d1"><div className="ic">&#9656;</div><h4>Pick your plan</h4><p>Choose Self-Study for independent practice, or Guided for an included monthly one-on-one session.</p></div>
       <div className="step rv rv-d2"><div className="ic">&#10004;</div><h4>Watch yourself improve</h4><p>Progress by topic summarizes your recorded answers. Use it alongside your explanations to plan your next practice.</p></div>
     </div>
   </div>
@@ -107,6 +108,7 @@ export default function Landing() {
 </section>
 
 </main>
-    <Footer />
+    <StandaloneSessions />
+<Footer />
   </>);
 }

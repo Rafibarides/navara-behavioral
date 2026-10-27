@@ -1,3 +1,4 @@
+import StandaloneSessions from '../components/StandaloneSessions';
 import { CFG } from '../config';
 import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 import React from 'react';
@@ -107,6 +108,7 @@ export default function BcbaTrack() {
 </>)}
 </main>
     {preview && <StickySampleCTA label="Try the free BCBA quiz" href="/pathways/sample-quiz" />}
-    <Footer />
+    <StandaloneSessions track="bcba" />
+<Footer />
   </>);
 }
