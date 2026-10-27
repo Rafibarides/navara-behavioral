@@ -19,10 +19,10 @@ try {
   // Keep generation deterministic and never contact booking/form endpoints.
   await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1' ? route.continue() : route.abort());
   for(const entry of pages){
-    await page.goto(`http://127.0.0.1:${server.address().port}${entry.path}`,{waitUntil:'networkidle'});
+    await page.goto(`http://127.0.0.1:${server.address().port}${entry.path}`,{waitUntil:'domcontentloaded'});
     await page.waitForSelector('#root h1, #root h2');
     // Reveal existing scroll sections so the HTML snapshot contains readable content.
-    await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=600){window.scrollTo(0,y);await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}window.scrollTo(0,0);});
+    await page.evaluate(()=>{window.scrollTo(0,0);document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));});
     await page.waitForFunction(()=>document.title.includes('Navara'));
     const html=await page.evaluate(()=>{
       const copy=document.documentElement.cloneNode(true);

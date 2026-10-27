@@ -65,6 +65,7 @@ export default function Dashboard() {
             </div>
           </div>
         )}
+        {import.meta.env.VITE_LEARNING_THREAD_CANDIDATE === 'true' && !user.demo && user.plan==='guided' && user.track==='rbt' && <div className="panel" style={{marginBottom:24}}><h3>Learning that learns with you</h3><p>Pick up a learning thread, check its evidence, or change the focus.</p><a className="btn btn-primary" href="/pathways/app/learning-thread">Open your Learning Thread</a></div>}
         <div className="dash-grid">
           <div className="panel span-8 rv in">
             <h3>Progress by topic</h3><p className="progress-count-note">Counts different questions in your exam track, using only the first recorded response when it was graded. Repeated attempts do not change these counts.</p>

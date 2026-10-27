@@ -1,0 +1,18 @@
+import React,{useCallback,useEffect,useState}from'react';
+import AppNav from '../../components/AppNav';
+import{useRequireUser}from'../../components/useRequireUser';
+import{getClient}from'../../lib/db';
+import LearningThreadStaging,{ReviewedDirectionPicker} from '../../components/LearningThreadStaging';
+const reviewed=import.meta.env.VITE_LEARNING_THREAD_REVIEWED_MODE==='true';
+const reviewedPack=import.meta.env.VITE_LEARNING_THREAD_PACK&&import.meta.env.VITE_LEARNING_THREAD_VERSION?{pack:import.meta.env.VITE_LEARNING_THREAD_PACK,version:import.meta.env.VITE_LEARNING_THREAD_VERSION,candidate:'duration-for-count'}:undefined;
+const testPack=import.meta.env.VITE_LEARNING_THREAD_ACCEPTANCE_PACK==='true'?{pack:'member-acceptance-synthetic',version:'v1',candidate:'shape-not-size'}:undefined;
+// Candidate source only. Explicit reviewed endpoint/pack required for production.
+export default function LearningThread(){
+ const user=useRequireUser();const[direction,saveDirection]=useState(()=>new URLSearchParams(location.search).get('focus')==='count-for-duration'?'count-for-duration':'duration-for-count');const setDirection=v=>{saveDirection(v);const u=new URL(location.href);u.searchParams.set('focus',v);history.replaceState(null,'',u)};const[principal,setPrincipal]=useState(null),[expired,setExpired]=useState(false);
+ useEffect(()=>{let active=true,subscription;getClient().then(async sb=>{const{data:{session}}=await sb.auth.getSession();if(active)setPrincipal(session?.user.id||null);subscription=sb.auth.onAuthStateChange((_event,s)=>{if(!active)return;if(!s){setPrincipal(null);setExpired(true)}else{setPrincipal(s.user.id);setExpired(false)}}).data.subscription}).catch(()=>setExpired(true));return()=>{active=false;subscription?.unsubscribe()}},[]);
+ const token=useCallback(async()=>{const sb=await getClient();const{data:{session}}=await sb.auth.getSession();if(!session||session.user.id!==principal)throw Error('Session changed');return session.access_token},[principal]);
+ if(!user)return null;
+ if(user.demo||user.plan!=='guided'||user.track!=='rbt')return <><AppNav/><section className="section"><div className="wrap"><h1>This focus is for Guided RBT members</h1><p>Your current plan and practice are unchanged.</p><a href="/pathways/app/dashboard">Back to dashboard</a></div></section></>;
+ if(reviewed&&!reviewedPack)return <><AppNav active="learning-thread"/><section className="section"><div className="wrap"><h1>This focus is not ready yet</h1><p>No approved focus/version is configured. Your ordinary practice is unchanged.</p><a className="btn btn-navy" href="/pathways/app/practice">Continue practice</a></div></section></>;
+ return <><AppNav active="learning-thread"/>{expired?<section className="section"><div className="wrap"><h1>Sign in to continue</h1><p>Your saved answers remain on your account. Sign in before continuing this thread.</p><a className="btn btn-navy" href="/pathways/login">Sign in</a></div></section>:user.demo?<section className="section"><div className="wrap"><h1>Learning Thread</h1><p>A real signed-in session is required. Demo data cannot become saved learning evidence.</p></div></section>:principal?<>{reviewed&&<ReviewedDirectionPicker value={direction} onChange={setDirection}/>}<LearningThreadStaging key={principal+':'+direction} endpoint={import.meta.env.VITE_LEARNING_THREAD_ENDPOINT} token={token} pack={reviewed?{...reviewedPack,candidate:direction}:testPack} reviewed={reviewed}/></>:<section className="section"><div className="wrap"><p role="status">Checking your session...</p></div></section>}</>
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signOut } from '../lib/auth';
 import ArcMark from './ArcMark';
+import{getSessionUser}from'../lib/auth';
 import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 
 const ITEMS = [
@@ -14,8 +15,8 @@ const logout = (e) => {
 };
 
 export default function AppNav({ active, role }) {
-  const [open, setOpen] = useState(false);
-  const baseItems=GUIDED_PRODUCTION?[...ITEMS,['book','Coaching']]:ITEMS;
+  const [open, setOpen] = useState(false);const[threadEligible,setThreadEligible]=useState(false);React.useEffect(()=>{let active=true;getSessionUser().then(u=>{if(active)setThreadEligible(!!u&&!u.demo&&u.plan==='guided'&&u.track==='rbt')}).catch(()=>{});return()=>{active=false}},[]);
+  const learningItems=import.meta.env.VITE_LEARNING_THREAD_CANDIDATE==='true'&&threadEligible?[...ITEMS,['learning-thread','Learning Thread']]:ITEMS;const baseItems=GUIDED_PRODUCTION?[...learningItems,['book','Coaching']]:learningItems;
   const items = role === 'admin' ? [...baseItems, ['admin', 'Admin'], ...(GUIDED_PRODUCTION?[['coaching-staff','Coaching staff']]:[])] : baseItems;
   return (
     <div className="pw-unified pw-app">
