@@ -9,7 +9,7 @@ export function displayOption(text) {
 // Correctness, saved choice and explanations come only from confirmed server receipts.
 export default function ServerQuiz({ deliveries, client, track, onNewSet, timed=false, session, store }) {
   const [i, setI] = useState(0), [selected, setSelected] = useState(null), [answer, setAnswer] = useState(null);
-  const [pending, setPending] = useState(false), [error, setError] = useState(null), [done, setDone] = useState(false),[finishedByExpiry,setFinishedByExpiry]=useState(false);
+  const [pending, setPending] = useState(false), [error, setError] = useState(null), [done, setDone] = useState(false),[finishedByExpiry,setFinishedByExpiry]=useState(false),[unresolved,setUnresolved]=useState(false);
   const [results, setResults] = useState([]);
   const request = useRef(null), lock = useRef(false), resultsCard = useRef(null);
   const [hydrating,setHydrating]=useState(!!session?.answers?.length),[resumeError,setResumeError]=useState(null),[seconds,setSeconds]=useState(()=>timed?remainingSeconds(session.deadline,performance.now()):null);
@@ -17,7 +17,7 @@ export default function ServerQuiz({ deliveries, client, track, onNewSet, timed=
   const expired=timed&&seconds===0;
   useEffect(()=>{if(!timed||done)return;const tick=()=>setSeconds(remainingSeconds(session.deadline,performance.now()));tick();const timer=setInterval(tick,250);return()=>clearInterval(timer);},[timed,session?.deadline,done]);
   useEffect(()=>{let active=true;if(!session?.answers?.length)return;async function restore(){try{const rows=[];for(const saved of session.answers){const question=deliveries.find(q=>q.item_delivery_id===saved.item_delivery_id);if(!question)throw Error('Saved question no longer matches this set.');const receipt=await client.answer({track,...saved}).send();rows.push({question,answer:receipt});}if(!active)return;setResults(rows);const position=Math.min(session.position||0,deliveries.length-1);setI(position);const prior=rows.find(r=>r.question.item_delivery_id===deliveries[position]?.item_delivery_id);if(prior)setAnswer(prior.answer);if(session.position>=deliveries.length)setDone(true);setHydrating(false);}catch(e){if(active)setResumeError(e.message);}}restore();return()=>{active=false;};},[]);
-  useEffect(()=>{if(expired&&!done&&!pending&&!error&&!hydrating&&!resumeError){setFinishedByExpiry(session.position<deliveries.length);setDone(true);}},[expired,pending,error,hydrating,resumeError]);
+  useEffect(()=>{if(expired&&!done&&!pending&&!error&&!hydrating&&!resumeError){setFinishedByExpiry(durable.current.position<deliveries.length);setDone(true);}},[expired,pending,error,hydrating,resumeError]);
   function persist(){if(store&&durable.current)store.write(durable.current);}
   const q = deliveries[i];
   const saved = results.filter(r => !['content_changed','timed_expired'].includes(r.answer.outcome));
@@ -30,7 +30,7 @@ export default function ServerQuiz({ deliveries, client, track, onNewSet, timed=
     const leave = event => {
       const link = event.target.closest?.('a[href]');
       if (!link || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || link.target === '_blank') return;
-      if (!window.confirm(`Leave this set? ${saved.length} checked answer${saved.length === 1 ? ' is' : 's are'} saved.${pending || error ? ' Your latest answer is not confirmed saved.' : ''} You can resume this set on this browser.`)) { event.preventDefault(); event.stopPropagation(); }
+      if (!window.confirm(`Leave this set? ${saved.length} checked answer${saved.length === 1 ? ' is' : 's are'} saved.${pending || error ? ' Your latest answer is not confirmed saved.' : ''} You can resume this set on this browser.${timed?' The timer keeps running while you are away.':''}`)) { event.preventDefault(); event.stopPropagation(); }
     };
     window.addEventListener('beforeunload', warn); document.addEventListener('click', leave, true);
     return () => { window.removeEventListener('beforeunload', warn); document.removeEventListener('click', leave, true); };
@@ -58,6 +58,8 @@ export default function ServerQuiz({ deliveries, client, track, onNewSet, timed=
     <p>{saved.length} checked answer{saved.length === 1 ? '' : 's'} confirmed saved to your progress.</p>
     {!expired&&saved.length < deliveries.length && <p role="status">{deliveries.length - saved.length} changed question{deliveries.length - saved.length === 1 ? ' was' : 's were'} not graded and {deliveries.length - saved.length === 1 ? 'is' : 'are'} not included in your score.</p>}
     {timed&&<p>{deliveries.length-saved.length} question{deliveries.length-saved.length===1?'':'s'} not graded. Only confirmed checked answers count toward progress. Your average pace was {saved.length?Math.round((600-(seconds||0))/saved.length)+' seconds per checked answer':'not available'}.</p>}
+    {unresolved&&<p role="alert">Your latest answer is not confirmed saved and is not included here. Its retry key is kept on this browser. Resume this saved set when you are online to check whether the server saved it.</p>}
+    {unresolved&&<button className="btn btn-outline" onClick={()=>window.location.reload()}>Reconcile saved set</button>}
     <h4 className="miss-review-heading">Review your misses</h4>
     {saved.some(r => !r.answer.correct) ? saved.filter(r => !r.answer.correct).map(({ question, answer: receipt }) => <details className="miss-review" key={question.item_delivery_id}>
       <summary>{question.stem}</summary>
@@ -81,6 +83,7 @@ export default function ServerQuiz({ deliveries, client, track, onNewSet, timed=
     })}</div>
     {pending && <p className="save-status" role="status">Saving your answer...</p>}
     {error && <p className="save-error" role="alert">{error}. Your answer is not confirmed saved. Retry sends the same answer, not a new attempt.</p>}
+    {expired&&error&&<button className="btn btn-outline" onClick={()=>{setUnresolved(true);setFinishedByExpiry(true);setDone(true);}}>See confirmed results without this answer</button>}
     {answer && <div className={'explain learner-feedback ' + (graded ? (answer.correct ? 'feedback-right' : 'feedback-wrong') : '')}>
       {answer.outcome === 'timed_expired' ? <p>Time is up. This answer was not graded.</p> : answer.outcome === 'content_changed' ? <p>This question changed. Your answer was not graded and will not count toward this set's score.</p> : <>
         <h4>{answer.correct ? '✓ Correct' : `✕ Not quite. The correct answer is ${String.fromCharCode(65 + answer.feedback.correct_index)}.`}</h4>
