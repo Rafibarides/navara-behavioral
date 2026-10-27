@@ -1,7 +1,7 @@
 // Supabase Edge Function: stripe-webhook. Stripe -> membership grants.
 // checkout.session.completed: set profiles.plan/track + stripe_customer_id;
-//   guided also tops up session_credits to 1.
-// invoice.payment_succeeded (subscription_cycle): guided monthly credit top-up.
+// Legacy Guided wallet writes removed.
+// invoice.payment_succeeded: no legacy credits.
 // customer.subscription.updated: re-sync plan from the subscription's price.
 // customer.subscription.deleted: downgrade to 'sample'.
 // Secrets: STRIPE_SK, STRIPE_WEBHOOK_SECRET. Service role is built in.
@@ -16,10 +16,7 @@ async function grant(userId: string, track: string, plan: string, customerId: st
   if (track === 'rbt' || track === 'bcba') upd.track = track;
   if (customerId) upd.stripe_customer_id = customerId;
   await db.from('profiles').update(upd).eq('id', userId);
-  if (plan === 'guided') {
-    const credits = track === 'bcba' ? 2 : 1; // BCBA Guided = two 45-min 1:1s/mo, RBT Guided = one
-    await db.from('session_credits').upsert({ user_id: userId, credits_remaining: credits }, { onConflict: 'user_id' });
-  }
+
 }
 
 Deno.serve(async (req) => {
@@ -40,23 +37,8 @@ Deno.serve(async (req) => {
       const m = s.metadata || {};
       if (m.user_id && m.plan) await grant(m.user_id, m.track || '', m.plan, (s.customer as string) || null);
     } else if (event.type === 'invoice.payment_succeeded') {
-      const inv = event.data.object as Stripe.Invoice;
-      if (inv.billing_reason === 'subscription_cycle') {
-        const line = inv.lines?.data?.[0];
-        const meta = (line?.price?.metadata || {}) as Record<string, string>;
-        const subMeta: Record<string, string> = {};
-        let userId = meta.user_id;
-        if (!userId && inv.subscription) {
-          const sub = await stripe.subscriptions.retrieve(inv.subscription as string);
-          Object.assign(subMeta, sub.metadata || {});
-          userId = subMeta.user_id;
-          if (subMeta.plan === 'guided' && userId) {
-            await db.from('session_credits').upsert({ user_id: userId, credits_remaining: subMeta.track === 'bcba' ? 2 : 1 }, { onConflict: 'user_id' });
-          }
-        } else if (meta.plan === 'guided' && userId) {
-          await db.from('session_credits').upsert({ user_id: userId, credits_remaining: meta.track === 'bcba' ? 2 : 1 }, { onConflict: 'user_id' });
-        }
-      }
+      // Legacy Guided wallet retired. Canonical paid-period ingress owns grants.
+      // Invoice events never refill session_credits here.
     } else if (event.type === 'customer.subscription.updated') {
       const sub = event.data.object as Stripe.Subscription;
       const m = sub.metadata || {};
