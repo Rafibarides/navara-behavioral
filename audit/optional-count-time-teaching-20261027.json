@@ -1,0 +1,30 @@
+{
+  "base": "56e0cfe9ef5121f5ff52c230a556e7118deaa69d",
+  "fileRevision": "filerevision-01M5ZCPP20J0DESQZB5HNNTYVP",
+  "sourceHashes": {
+    "Lesson.tsx": "3b8140b5d8d919675bd176b273a283c4ca11bec2abb6e8136047ca746ecea630",
+    "Explore.tsx": "89de4d0efd50b6e10649d22fe30721effd9d8012c91fa8de02c0213aac8ab705"
+  },
+  "allowedDifferences": [
+    "native primitives/style",
+    "optional helped teaching label",
+    "return to session callback",
+    "remove private/live-unchanged owner-only footer wording"
+  ],
+  "eligibility": "existing server exposure, practice without delivery/waiting/summary only",
+  "serverWrites": false,
+  "newInventory": false,
+  "ownerAuthority": {
+    "question": "wamid.HBgLMTIxMjk0NDU4MjgVAgARGBI2NjMyMTRBMkZGQTVBNDg0QzAA",
+    "answer": "wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTdDM0E4NTZEOTg4Nzk3NDYwQwA=",
+    "scope": "optional helped teaching beside existing explanation; return to session; same limited audience; no score/state advance/assessment unlock"
+  },
+  "verification": [
+    "whole production build/prerender",
+    "native320/1280pixels",
+    "real production noncustomer auth/Edge both directions existing saved wait",
+    "zero requests during help",
+    "return focus and saved wait on reload",
+    "gate fixtures exclude baseline/lesson/due/reserve"
+  ]
+}
