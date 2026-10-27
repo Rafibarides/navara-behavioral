@@ -75,9 +75,9 @@ export default function BcbaTrack() {
   <GuidedBlock
     eyebrow="Guided"
     heading="Some questions deserve more than another attempt."
-    intro="You can reread an explanation. You can reconsider an answer. But sometimes what you want is to talk through your reasoning with someone who understands behavior analysis. Guided adds two 45-minute one-to-one sessions every month with an NCBS™ - dedicated time for the material you find hardest."
+    intro="You can reread an explanation. You can reconsider an answer. But sometimes what you want is to talk through your reasoning with someone who understands behavior analysis. Guided adds one included 45-minute one-to-one session per paid monthly renewal period with an NCBS™ - dedicated time for the material you find hardest."
     bullets={[
-      { h: "Ninety minutes a month, on your questions", p: "Talk through concepts you haven't fully understood, examine questions where two options seem equally convincing, and review the topics you want to strengthen." },
+      { h: "Forty-five minutes per paid monthly renewal period, on your questions", p: "Talk through concepts you haven't fully understood, examine questions where two options seem equally convincing, and review the topics you want to strengthen." },
       { h: "Practice between sessions", p: "Your sessions complement the independent work inside the platform. Bring the questions you want to discuss, then keep moving with the practice bank." },
       { h: "An option, not an obligation", p: "Prefer to work independently? Self-Study gives you the full practice toolkit. Guided adds the dedicated one-to-one time." },
     ]}
@@ -85,11 +85,11 @@ export default function BcbaTrack() {
   <OneOnOne
     heading="Your 1:1 with an NCBS™"
     body="This is the part no question bank can give you. You talk through the questions that tripped you up and the patterns behind them, and you leave with a clear plan. Warm, direct, and focused on getting you ready."
-    foot="Two sessions every month on the Guided plan."
+    foot="One included 45-minute session per paid monthly renewal period on the Guided plan."
   />
   <ClosingCTA
     heading="Make every question count for more."
-    body="Start with scenario practice questions, detailed explanations, untimed practice, and progress tracking. Add two monthly one-to-one sessions if you want dedicated time with an NCBS™. Depth, not decks. Start with a question."
+    body="Start with scenario practice questions, detailed explanations, untimed practice, and progress tracking. Add one included 45-minute one-to-one session per paid monthly renewal period if you want dedicated time with an NCBS™. Depth, not decks. Start with a question."
     primary={{ label: "Try the free BCBA quiz", href: "/pathways/sample-quiz" }}
     secondary={{ label: "Compare plans", href: "/pathways/plans/bcba" }}
     micro="Explore the approach before you choose your plan."
