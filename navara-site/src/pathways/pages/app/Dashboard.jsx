@@ -75,7 +75,7 @@ export default function Dashboard() {
             )}
             {bars && !progress && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo progress shown. Real tracking starts with your first practice set.</p>}
           </div>
-          <div className="panel span-4 rv in"><h3>Keep practicing</h3><p>Review the explanations in your results, then open another set from your exam track.</p><a className="btn btn-navy btn-sm" href="/pathways/app/practice">Go to practice</a><p style={{fontSize:13,color:'var(--ink-2)',marginTop:16}}>Timed sets, tag-specific review and booking are not available at launch.</p></div>
+          <div className="panel span-4 rv in"><h3>Keep practicing</h3><p>Review the explanations in your results, then open another set from your exam track.</p><a className="btn btn-navy btn-sm" href="/pathways/app/practice">Go to practice</a><p style={{fontSize:13,color:'var(--ink-2)',marginTop:16}}>Timed sets and tag-specific review are not available.</p></div>
           <div className="panel span-12 rv in">
             <h3>Repeated misses by tag</h3>
             {evidenceStatus === 'loading' ? <p role="status">Loading recorded answers...</p> : evidenceStatus === 'unavailable' ? <p role="alert">Your recorded-answer summary could not be loaded. Your saved practice answers are unchanged.</p> : evidenceStatus === 'track_required' ? <p>Select your exam track to see recorded answers.</p> : cards ? (<>

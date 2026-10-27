@@ -96,7 +96,6 @@ export default function Plans({ track: trackProp = null }) {
         <div className="wrap">
           <span className="eyebrow rv in" style={{ justifyContent: 'center', display: 'inline-flex' }}>Plans</span>
           <h1 data-rise>Simple plans. <span className="grad">Serious prep.</span></h1>
-          <p className="lead" style={{ marginLeft: 'auto', marginRight: 'auto' }}>{CFG.limitedLaunch ? 'Self-Study includes untimed practice, option explanations, set results and recorded progress. Timed sets and tag-specific review are not available.' + (GUIDED_PRODUCTION ? ' Guided includes one 45-minute session per paid monthly renewal period, with no rollover.' : ' Guided sessions and booking are not available.') : CFG.previewOnly ? 'Payments and enrollment are not available at launch. Use your existing test account to practice.' : track ? 'Checkout is online - join in a couple of minutes and start practicing today.' : 'Pick your exam to see its plans. Checkout is online - join in a couple of minutes and start practicing today.'}</p>
         </div>
       </header>
       {!track && (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { CFG } from '../config';
+import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 
 // Preview-only marketing sections for the track pages, from the ChatGPT/Tab copy option sets.
 // Rendered only under ?preview=1; public pages are unchanged.
@@ -41,7 +42,7 @@ export function WhatYouGet({ checks }) {
 }
 
 export function GuidedBlock({ eyebrow, heading, intro, bullets }) {
-  if (CFG.previewOnly || CFG.limitedLaunch) return <section className="section"><div className="wrap practice-notice">Guided sessions and booking are not available. Practice and review your answer explanations instead.</div></section>;
+  if (CFG.previewOnly || CFG.limitedLaunch) return <section className="section"><div className="wrap practice-notice">{GUIDED_PRODUCTION ? "Guided is live. See plans for included sessions and book inside your account." : "Guided sessions and booking are not available. Practice and review your answer explanations instead."}</div></section>;
   return (
     <section className="section dark">
       <div className="wrap" style={{ maxWidth: 860 }}>
@@ -97,7 +98,7 @@ export function ClosingCTA({ heading, body, primary, secondary, micro }) {
     <section className="section dark" style={{ textAlign: 'center' }}>
       <div className="wrap" style={{ maxWidth: 760 }}>
         <h2 className="rv" style={{ marginBottom: 16 }}>{heading}</h2>
-        <p className="rv rv-d1" style={{ fontSize: 18, lineHeight: 1.7, color: 'rgba(255,255,255,.82)', margin: '0 auto 30px', maxWidth: 620 }}>{CFG.previewOnly || CFG.limitedLaunch ? 'Explore untimed practice, answer explanations, results and recorded progress. Booking and paid upgrades are not available at launch.' : body}</p>
+        <p className="rv rv-d1" style={{ fontSize: 18, lineHeight: 1.7, color: 'rgba(255,255,255,.82)', margin: '0 auto 30px', maxWidth: 620 }}>{CFG.previewOnly || CFG.limitedLaunch ? 'Explore untimed practice, answer explanations, results and recorded progress. See plans for Self-Study and Guided membership.' : body}</p>
         <div className="rv rv-d2" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a className="btn btn-primary" href={primary.href}>{primary.label}</a>
           <a className="btn btn-ghost" href={secondary.href}>{secondary.label}</a>

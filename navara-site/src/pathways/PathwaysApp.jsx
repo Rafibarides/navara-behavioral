@@ -38,7 +38,6 @@ import Admin from './pages/app/Admin';
 export default function PathwaysApp() {
   return (
     <>
-    {CFG.limitedLaunch && <aside className="candidate-notice">Self-Study: untimed practice, answer explanations, set results and recorded progress. Timed sets and tag-specific review are not available. {GUIDED_PRODUCTION ? "Guided includes one 45-minute session per paid monthly renewal period. No rollover." : "Guided sessions and booking are not available."}</aside>}
     {CFG.previewOnly && <aside className="candidate-notice">Test version: untimed practice, explanations, set results and recorded progress. Timed sets, tag-specific review, booking and payments are not available. No purchase is needed to use your test account.</aside>}
     <Routes>
       <Route index element={<Landing />} />
