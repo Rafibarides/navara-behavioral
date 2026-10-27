@@ -416,3 +416,5 @@ button:disabled{cursor:not-allowed}
 .set-results .miss-review-heading{margin-top:24px;margin-bottom:16px}
 .signed-out-notice{background:#edf4f1;color:#274b43;padding:12px 16px;border-radius:10px;margin:16px 0 28px;font-size:14px;line-height:1.6}
 .progress-count-note{font-size:13px;line-height:1.6;color:var(--ink-2);margin:10px 0 20px}
+
+.timed-practice-clock{display:flex;gap:10px;flex-wrap:wrap;padding:16px 18px;background:#183850;color:#fff;border-radius:14px;margin-bottom:22px;font-size:15px}.timed-practice-clock b{font-size:24px;font-variant-numeric:tabular-nums}

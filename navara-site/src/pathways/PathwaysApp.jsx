@@ -54,7 +54,7 @@ export default function PathwaysApp() {
       <Route path="app" element={<AppIndexRedirect />} />
       <Route path="app/dashboard" element={<Dashboard />} />
       <Route path="app/practice" element={<Practice />} />
-      <Route path="app/timed-sets" element={<UnavailableCandidate />} />
+      <Route path="app/timed-sets" element={<Practice timed />} />
       <Route path="app/mock" element={<Navigate to="/pathways/app/timed-sets" replace />} />
       <Route path="app/book" element={GUIDED_PRODUCTION ? <GuidedBook/> : <UnavailableCandidate kind="booking" />} />
       {GUIDED_PRODUCTION && <Route path="app/coaching-staff" element={<GuidedStaff/>} />}

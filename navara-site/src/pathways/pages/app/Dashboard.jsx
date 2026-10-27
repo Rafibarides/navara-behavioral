@@ -75,7 +75,7 @@ export default function Dashboard() {
             )}
             {bars && !progress && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo progress shown. Real tracking starts with your first practice set.</p>}
           </div>
-          <div className="panel span-4 rv in"><h3>Keep practicing</h3><p>Review the explanations in your results, then open another set from your exam track.</p><a className="btn btn-navy btn-sm" href="/pathways/app/practice">Go to practice</a><p style={{fontSize:13,color:'var(--ink-2)',marginTop:16}}>Timed sets and tag-specific review are not available.</p></div>
+          <div className="panel span-4 rv in"><h3>Keep practicing</h3><p>Review the explanations in your results, then open another set from your exam track.</p><a className="btn btn-navy btn-sm" href="/pathways/app/practice">Go to practice</a><p style={{fontSize:13,color:'var(--ink-2)',marginTop:16}}>Choose a topic or review recorded misses in Practice, or start a timed practice set.</p></div>
           <div className="panel span-12 rv in">
             <h3>Repeated misses by tag</h3>
             {evidenceStatus === 'loading' ? <p role="status">Loading recorded answers...</p> : evidenceStatus === 'unavailable' ? <p role="alert">Your recorded-answer summary could not be loaded. Your saved practice answers are unchanged.</p> : evidenceStatus === 'track_required' ? <p>Select your exam track to see recorded answers.</p> : cards ? (<>
@@ -86,7 +86,7 @@ export default function Dashboard() {
                     <b>&ldquo;{pretty(c.tag)}&rdquo;</b><br />
                     <span style={{ fontSize: 12.5, color: 'var(--ink-2)', fontWeight: 600 }}>
                       Your selected answers carried this tag on {c.misses} recorded {c.misses === 1 ? 'miss' : 'misses'} across {c.items} different questions over {c.days} {c.days === 1 ? 'day' : 'days'}{c.areas && c.areas.length ? ' - ' + c.areas.join(', ') : ''}.</span><br />
-                    <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>Review the explanations in your set results. Tag-specific practice and exact-miss review are not available at launch.</span></span>
+                    <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>Practice more questions with this assigned tag or review your recorded misses from Practice.</span></span>
                 </div>
               ))}
               {showDemo && !evidence && <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 14 }}>Demo entries shown. Real entries build from your first practice sets.</p>}

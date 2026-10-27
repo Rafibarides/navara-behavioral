@@ -4,7 +4,7 @@ import ArcMark from './ArcMark';
 import { GUIDED_PRODUCTION } from '../lib/guidedBooking';
 
 const ITEMS = [
-  ['dashboard', 'Dashboard'], ['practice', 'Practice'],
+  ['dashboard', 'Dashboard'], ['practice', 'Practice'], ['timed-sets', 'Timed practice'],
   ['account', 'Account'],
 ];
 const logout = (e) => {

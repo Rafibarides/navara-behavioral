@@ -1,3 +1,4 @@
+import {selection} from './learnerSelection.mjs';
 const validUuid=s=>typeof s==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
 function served(value,input){
  if(value?.contract_version!==input.contract_version||value?.route!==input.route||value?.session_id!==input.request_key||value?.feedback_policy!=='practice_immediate_v1'||!Array.isArray(value.deliveries)||!value.deliveries.length||value.deliveries.length>input.selection_params.limit)throw Error('Invalid server delivery');
@@ -10,8 +11,8 @@ function served(value,input){
  })};
 }
 function answered(value){
- if(!['accepted','replayed','already_answered','content_changed'].includes(value?.outcome))throw Error('Invalid answer response');
- if(value.outcome==='content_changed')return{outcome:'content_changed',correct:null,feedback:null,attempt_id:null};
+ if(!['accepted','replayed','already_answered','content_changed','timed_expired'].includes(value?.outcome))throw Error('Invalid answer response');
+ if(['content_changed','timed_expired'].includes(value.outcome))return{outcome:value.outcome,correct:null,feedback:null,attempt_id:null};
  if(typeof value.correct!=='boolean'||!/^\d+$/.test(String(value.attempt_id))||!Number.isFinite(Date.parse(value.answered_at))||!Number.isSafeInteger(value.chosen_index)||value.chosen_index<0||!Number.isSafeInteger(value.feedback?.correct_index)||!Array.isArray(value.feedback?.options)||value.feedback.correct_index<0||value.feedback.correct_index>=value.feedback.options.length)throw Error('Invalid answer receipt');
  return value;
 }
@@ -24,7 +25,7 @@ export function deliveryClient({endpoint,token,fetcher=fetch,uuid=()=>crypto.ran
   const value=await r.json();if(!r.ok)throw new Error(value.error||'Practice request unavailable');return value;
  }
  return {
-  newSet({track,limit=12,area}){const request_key=uuid();const input={action:'serve',contract_version:'v0.1.1',route:'practice',track,request_key,selection_params:{limit,...(area===undefined?{}:{area})}};return{request_key,load:async()=>served(await call(input),input)};},
-  answer({track,item_delivery_id,chosen_index}){const answer_key=uuid();const input={action:'answer',contract_version:'v0.1.1',route:'practice',track,item_delivery_id,chosen_index,answer_key};return{answer_key,send:async()=>answered(await call(input))};},
+  newSet({track,limit=12,area,tag,review,timed,request_key=uuid()}){const input={action:'serve',contract_version:'v0.1.1',route:'practice',track,request_key,selection_params:selection({limit,...(timed===undefined?{}:{timed}),...(area===undefined?{}:{area}),...(tag===undefined?{}:{tag}),...(review===undefined?{}:{review})})};return{request_key,load:async()=>served(await call(input),input)};},
+  answer({track,item_delivery_id,chosen_index,answer_key=uuid()}){const input={action:'answer',contract_version:'v0.1.1',route:'practice',track,item_delivery_id,chosen_index,answer_key};return{answer_key,send:async()=>answered(await call(input))};},
  };
 }
