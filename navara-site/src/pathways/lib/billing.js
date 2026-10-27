@@ -47,11 +47,6 @@ export async function startPortal() {
     body: '{}',
   });
   const data = await res.json();
-  if (!res.ok || !data.url) {
-    const error = new Error(data.error || 'portal failed');
-    // Exact authenticated server response. No customer is created to mask granted access.
-    if (res.status === 400 && data.error === 'no subscription on file') error.code = 'billing_not_linked';
-    throw error;
-  }
+  if (!data.url) throw new Error(data.error || 'portal failed');
   window.location.href = data.url;
 }

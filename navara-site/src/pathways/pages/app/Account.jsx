@@ -43,12 +43,12 @@ export default function Account() {
         <span className="eyebrow" style={{ color: 'var(--teal-3)' }}>Account</span>
         <h2>Your plan.</h2>
         <div className="panel" style={{ marginTop: 26 }}>
-          <h3>Plan access</h3>
+          <h3>Subscription</h3>
           <div className="score-row"><span>Plan</span><span className="pill pill-teal">{plan}{user.demo || DEMO ? ' (demo)' : ''}</span></div>
           <div className="score-row"><span>Track</span><span className="pill pill-sage">{user.track === 'bcba' ? 'BCBA' : 'RBT'}</span></div>
           <div className="score-row"><span>Status</span><span className="pill pill-teal">Active</span></div>
           {!CFG.previewOnly && user.plan !== 'sample' && !user.demo && !DEMO
-            ? <button className="btn btn-navy" style={{ marginTop: 18, justifyContent: 'center' }} disabled={billBusy} onClick={async () => { setBillErr(''); setBillBusy(true); try { await startPortal(); } catch (error) { setBillErr(error?.code === 'billing_not_linked' ? 'No billing account is linked to this login. Your study access can be active without a paid subscription. If you paid using another login or need help, contact support.' : 'We could not open billing just now. Please try again in a moment, or email support through the Contact page.'); setBillBusy(false); } }}>{billBusy ? 'Opening billing...' : 'Manage billing (card, plan, cancellation)'}</button>
+            ? <button className="btn btn-navy" style={{ marginTop: 18, justifyContent: 'center' }} disabled={billBusy} onClick={async () => { setBillErr(''); setBillBusy(true); try { await startPortal(); } catch { setBillErr('We could not open billing just now. Please try again in a moment, or email support through the Contact page.'); setBillBusy(false); } }}>{billBusy ? 'Opening billing...' : 'Manage billing (card, plan, cancellation)'}</button>
             : <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, marginTop: 18 }}>Choose a Self-Study plan to start practicing.</p>}
           {billErr && <p role="alert" style={{ fontSize: 13.5, color: '#9b2c2c', fontWeight: 700, marginTop: 12 }}>{billErr}</p>}
         </div>
