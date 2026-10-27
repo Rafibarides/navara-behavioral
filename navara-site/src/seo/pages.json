@@ -162,5 +162,11 @@
     "path": "/pathways/study-plan",
     "title": "Free Study-Plan Builder | Navara Pathways",
     "description": "Build a week-by-week RBT or BCBA study plan around your exam date. Free, no account."
+  },
+  {
+    "path": "/pathways/app/learning-thread",
+    "title": "Member Dashboard | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
   }
 ]
