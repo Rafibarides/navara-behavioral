@@ -91,6 +91,21 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
             })}
           </div>
         )}
+        {answers.some(a => !a.correct) && (
+          <div style={{ textAlign: 'left', marginBottom: 24 }}>
+            <h4 style={{ margin: '0 0 10px' }}>Review your misses</h4>
+            {answers.map((a, n) => a.correct ? null : (
+              <details className="why-all" key={n} style={{ marginBottom: 10 }}>
+                <summary style={{ cursor: 'pointer', fontWeight: 600 }}>{questions[a.qi].q}</summary>
+                <p><b>Your answer ({String.fromCharCode(65 + a.picked)}):</b> {questions[a.qi].opts[a.picked].t}</p>
+                <p><b>Correct answer ({String.fromCharCode(65 + questions[a.qi].a)}):</b> {questions[a.qi].opts[questions[a.qi].a].t}</p>
+                {questions[a.qi].opts.map((o, k) => o.exp && (
+                  <p key={k} className="why-opt"><b>{String.fromCharCode(65 + k)}{k === questions[a.qi].a ? ' (correct)' : ''}:</b> {o.exp}</p>
+                ))}
+              </details>
+            ))}
+          </div>
+        )}
         {emailCta && !sent && (
           <form onSubmit={save} style={{ marginBottom: 22 }}>
             <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>Create a free account to keep practicing:</p>
@@ -124,7 +139,7 @@ export default function Quiz({ questions, title, cta = 'See the plans', ctaHref 
     setPicked(k);
     const correct = k === q.a;
     if (correct) setScore(s => s + 1);
-    setAnswers(a => [...a, { area: q.area, correct }]);
+    setAnswers(a => [...a, { area: q.area, correct, qi: i, picked: k }]);
     if (onAnswer) onAnswer();
     recordAttempt({
       questionId: q.id || null, chosenOption: k, correct, kind,
