@@ -49,4 +49,4 @@ try {
   }
 } finally {await browser.close();server.close();}
 
-if(process.env.VITE_GUIDED_PATHWAY==='true'){await mkdir(dist+'/pathways/app/pathway',{recursive:true});await writeFile(dist+'/pathways/app/pathway/index.html',await readFile(dist+'/index.html','utf8'));console.log('Rendered /pathways/app/pathway (SPA shell, env-gated)');}
+if(process.env.VITE_GUIDED_PATHWAY==='true'||(await readFile(new URL('../.env.production',import.meta.url),'utf8')).split(/\r?\n/).includes('VITE_GUIDED_PATHWAY=true')){await mkdir(dist+'/pathways/app/pathway',{recursive:true});await writeFile(dist+'/pathways/app/pathway/index.html',await readFile(dist+'/index.html','utf8'));console.log('Rendered /pathways/app/pathway (SPA shell, env-gated)');}
