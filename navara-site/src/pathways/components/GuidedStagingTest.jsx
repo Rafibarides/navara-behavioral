@@ -77,11 +77,11 @@ export default function GuidedStagingTest(){
  }
  useEffect(()=>{if(!user)return;(async()=>{try{const r=await call('status',{});setState(r);
   if(r.delivery)setView({kind:'practice',...r.delivery});
-  else if(r.next?.kind==='teaching'){const r2=await call('open_next',{});interpret('open_next',r2);}
+  else if(r.next?.kind==='teaching'||r.next?.kind==='helped_practice'){const r2=await call('open_next',{});interpret('open_next',r2);}
   else setView({kind:'status',data:r});
  }catch(e){setErr(e.message)}})();
  // eslint-disable-next-line react-hooks/exhaustive-deps
- },[user]);
+ },[user?.id]);
  if(!user)return <section className="section"><div className="wrap" style={{maxWidth:780}}><p role="status">Checking your sign-in...</p></div></section>;
  const offer=state?.curriculumOffer;
  const hist=state?.history?.length??0;
@@ -92,7 +92,10 @@ export default function GuidedStagingTest(){
   {err&&<div role="alert" className="panel"><p>{err}</p>{lastAction.current&&<button className="btn btn-navy" disabled={busy} onClick={retryLast}>Retry the same action</button>}</div>}
   {view.kind==='loading'&&<p role="status">Loading your saved session...</p>}
   {view.kind==='status'&&<div className="panel">
-   {offer?<>
+   {view.data?.next?.kind==='curriculum_result'?<>
+    <p>Your checked answer is saved. One step left: finish the lesson to record it.</p>
+    <button className="btn btn-navy" disabled={busy} onClick={()=>run('finish_episode')}>Finish the lesson</button>
+   </>:offer?<>
     <p>Your chosen lesson is ready: <strong>{offer.title||'Rate per minute'}</strong>.</p>
     <p>Two short teaching steps with a graph, then one practice question with feedback. Your checked answers stay saved.</p>
     <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. All listed observation windows are fully and continuously observed. A call-out is an audible utterance without being called on, separated from another utterance by at least 2 seconds of silence. Same observer rule, classroom activity and recording procedure across sessions; representativeness outside these windows is not established.</p>
