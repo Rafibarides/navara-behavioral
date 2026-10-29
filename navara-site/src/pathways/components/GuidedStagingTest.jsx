@@ -67,12 +67,13 @@ export default function GuidedStagingTest(){
   try{const{nonce,action,payload}=lastAction.current;const r=await call(action,payload,true);await interpret(action,r);}
   catch(e){setErr(e.message+(e.retryable?' Retry the same action.':''));}
   finally{setBusy(false);}}
- async function interpret(action,r){
+ async function interpret(action,r,depth=0){
   if(r.teachingStep)setView({kind:'teaching',...r.teachingStep});
   else if(r.teachingFeedback)setView({kind:'feedback',...r.teachingFeedback});
   else if(r.delivery)setView({kind:'practice',...r.delivery});
   else if(r.receipt)setView({kind:'receipt',...r.receipt});
-  else if(r.next?.kind==='teaching'||r.next?.kind==='helped_practice'){const r2=await call('open_next',{});await interpret('open_next',r2);}
+  else if((r.next?.kind==='teaching'||r.next?.kind==='helped_practice')&&depth<1){const r2=await call('open_next',{});await interpret('open_next',r2,depth+1);}
+  else if(r.next?.kind==='teaching'||r.next?.kind==='helped_practice'){setErr('The next step could not be confirmed. Your saved answers are unchanged. Reload to try again.');}
   else{try{const s=await call('status',{});setState(s);setView({kind:'status',data:s});}catch(e){setErr(e.message)}}
  }
  useEffect(()=>{if(!user)return;(async()=>{try{const r=await call('status',{});setState(r);
