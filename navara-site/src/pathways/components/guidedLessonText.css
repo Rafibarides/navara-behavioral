@@ -1,0 +1,13 @@
+.guided-lesson-text { text-align:left; line-height:1.7; overflow-wrap:anywhere; }
+.guided-lesson-text h3 { font-size:1.3rem; line-height:1.35; margin:1.5rem 0 .7rem; }
+.guided-lesson-text h3:first-child { margin-top:.5rem; }
+.guided-lesson-text h4 { font-size:1.1rem; line-height:1.4; margin:1.3rem 0 .6rem; }
+.guided-lesson-text p { margin:.65rem 0 1rem; }
+.guided-lesson-text ul,.guided-lesson-text ol { margin:.65rem 0 1rem; padding-left:1.4rem; }
+.guided-lesson-text li { margin:.35rem 0; }
+.guided-lesson-text a { text-decoration:underline; text-underline-offset:2px; }
+.guided-table-scroll { max-width:100%; overflow-x:auto; margin:1rem 0; }
+.guided-lesson-text table { border-collapse:collapse; width:100%; min-width:320px; font-size:.92rem; }
+.guided-lesson-text th,.guided-lesson-text td { border:1px solid #d5e0e4; padding:.55rem .65rem; text-align:left; vertical-align:top; }
+.guided-lesson-text th { background:#eef4f3; font-weight:600; }
+.guided-lesson-text blockquote { border-left:3px solid #88aaa3; padding:.2rem 1rem; margin:1rem 0; background:#f4f7f5; }

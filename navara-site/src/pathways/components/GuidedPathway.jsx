@@ -7,6 +7,9 @@ import AppNav from'./AppNav';
 import{useRequireUser}from'./useRequireUser';
 import{getClient}from'../lib/db';
 import GUIDED_FIGURES from '../data/guidedFigures.json';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import './guidedLessonText.css';
 
 // Track-scoped serving: each track is served by its OWN edge-function
 // instance (one approved policy per function; the engine reads the track from
@@ -110,7 +113,7 @@ export default function GuidedPathway(){
   </div>}
   {view.kind==='teaching'&&<div className="panel">
    <h2>Teaching step {view.step+1} of {view.totalSteps}</h2>
-   <p>{view.evidence}</p>
+   <div className="guided-lesson-text"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:({children})=><h3>{children}</h3>,h2:({children})=><h3>{children}</h3>,h3:({children})=><h4>{children}</h4>,a:({href,children})=><a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,table:({children})=><div className="guided-table-scroll"><table>{children}</table></div>}}>{view.evidence||''}</ReactMarkdown></div>
    <FigureChart pin={view.figure}/>
    <p>{view.learnerTask}</p>
    <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
