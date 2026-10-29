@@ -15,7 +15,7 @@ await ctx.route(EP, async route=>{
   await route.fulfill({status:resp.status,headers:{'content-type':'application/json','access-control-allow-origin':'*'},body:text});
 });
 await ctx.addInitScript(()=>{
-  localStorage.setItem('sb-ndxdgiwjccaakpvxkkqu-auth-token',JSON.stringify({access_token:'local-fixture-token',token_type:'bearer',expires_in:3600,expires_at:Math.floor(Date.now()/1000)+3600,refresh_token:'none',user:{id:'b3b3b3b3-2026-4027-8000-0000000000d3',aud:'authenticated',email:'cat4@fixture.invalid'}}));
+  localStorage.setItem('sb-ndxdgiwjccaakpvxkkqu-auth-token',JSON.stringify({access_token:'local-fixture-token',token_type:'bearer',expires_in:3600,expires_at:Math.floor(Date.now()/1000)+3600,refresh_token:'none',user:{id:'c4c4c4c4-2026-4027-8000-0000000000e4',aud:'authenticated',email:'cat4@fixture.invalid'}}));
 });
 const page=await ctx.newPage();
 page.on('pageerror',e=>console.log('PAGEERROR:',String(e).slice(0,200)));

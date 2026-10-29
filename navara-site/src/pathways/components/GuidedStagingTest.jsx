@@ -73,11 +73,11 @@ export default function GuidedStagingTest(){
   else if(r.delivery)setView({kind:'practice',...r.delivery});
   else if(r.receipt)setView({kind:'receipt',...r.receipt});
   else if(r.next?.kind==='teaching'){run('open_next');return;}
-  else setView({kind:'status',data:r});
+  else{(async()=>{try{const s=await call('status',{});setState(s);setView({kind:'status',data:s});}catch(e){setErr(e.message)}})();}
  }
  useEffect(()=>{if(!user)return;(async()=>{try{const r=await call('status',{});setState(r);
   if(r.delivery)setView({kind:'practice',...r.delivery});
-  else if(r.next?.kind)setView({kind:'status',data:r});
+  else if(r.next?.kind==='teaching'){const r2=await call('open_next',{});interpret('open_next',r2);}
   else setView({kind:'status',data:r});
  }catch(e){setErr(e.message)}})();
  // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,7 +101,7 @@ export default function GuidedStagingTest(){
     <p>No lesson offer is available for this test account right now.</p>
     <p>Saved checked answers: {hist}.</p>
     {hist>0&&<ul style={{textAlign:'left',fontSize:14,lineHeight:1.6}}>{(state?.history||[]).map(h=><li key={h.receiptId}>{h.phase==='helped_practice'?'Helped practice (guided, not an independent check)':'Blueprint check'}{': recorded '}{h.correct?'correct':'incorrect'}{h.answeredAt?`, server-confirmed ${new Date(h.answeredAt).toLocaleString()}`:''}.</li>)}</ul>}
-    <p style={{fontSize:13,color:'#7a4d00'}}>Note: this account's saved session count was manually reset during verification, so it may read 0 of 12 even though saved history exists. The history list on this page is the authoritative record. Further steps for this account are paused; no Continue action is offered.</p>
+    {user.id==='1580a47a-5798-449f-b448-35a65da360e4'&&<p style={{fontSize:13,color:'#7a4d00'}}>Note: this account's saved session count was manually reset during verification, so it may read 0 of 12 even though saved history exists. The history list on this page is the authoritative record. Further steps for this account are paused; no Continue action is offered.</p>}
    </>}
   </div>}
   {view.kind==='teaching'&&<div className="panel">
