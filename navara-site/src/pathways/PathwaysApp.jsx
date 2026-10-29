@@ -30,6 +30,7 @@ import Practice from './pages/app/SafePractice';
 import UnavailableCandidate from './components/UnavailableCandidate';
 
 import GuidedBook from './pages/app/GuidedBook';
+import GuidedStagingTest from './components/GuidedStagingTest';
 import GuidedStaff from './pages/app/GuidedStaff';
 import { GUIDED_PRODUCTION } from './lib/guidedBooking';
 import Account from './pages/app/Account';
@@ -55,6 +56,7 @@ export default function PathwaysApp() {
       <Route path="app" element={<AppIndexRedirect />} />
       <Route path="app/dashboard" element={<Dashboard />} />
       {import.meta.env.VITE_LEARNING_THREAD_CANDIDATE === 'true' && <Route path="app/learning-thread" element={<LearningThread />} />}
+      {import.meta.env.VITE_GUIDED_STAGING_TEST === 'true' && <Route path="app/guided-staging-test" element={<GuidedStagingTest />} />}
       <Route path="app/practice" element={<Practice />} />
       <Route path="app/timed-sets" element={<Practice timed />} />
       <Route path="app/mock" element={<Navigate to="/pathways/app/timed-sets" replace />} />
