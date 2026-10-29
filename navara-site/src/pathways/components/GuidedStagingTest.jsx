@@ -11,22 +11,37 @@ const ENDPOINT='https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/bcba-progr
 const ORIGIN_FALLBACK='https://navarabehavioralgroup.com';
 
 function FigureChart({pin}){
- if(!pin)return null;
- const rec=pin.record||[];
- const W=390,rowH=28,padL=118,padR=44,H=Math.max(60,rec.length*rowH+34);
- const max=Math.max(...rec.map(r=>r.rate_per_minute),0.1);
+ if(!pin||!pin.record||!pin.record.length)return null;
+ const rec=pin.record;
+ const W=390,H=620;
+ const Panel=({title,yLabel,yMax,yStep,values,fmt,labels,color,y0})=>{
+  const padL=52,padR=16,padT=34,padB=44,pw=W-padL-padR,ph=220;
+  const n=rec.length;
+  const x=i=>padL+(n===1?pw/2:(pw*(rec[i].session-1)/(rec[n-1].session-1)));
+  const y=v=>y0+padT+ph-(v/yMax)*ph;
+  const ticks=[];for(let v=0;v<=yMax+1e-9;v+=yStep)ticks.push(v);
+  const pts=rec.map((r,i)=>x(i)+','+y(values(r))).join(' ');
+  return <g>
+   <text x={W/2} y={y0+18} fontSize={15} textAnchor="middle" fill="#222">{title}</text>
+   {ticks.map(v=><g key={v}><line x1={padL} y1={y(v)} x2={W-padR} y2={y(v)} stroke="#e3e3e3" strokeWidth={1}/><text x={padL-8} y={y(v)+4} fontSize={11} textAnchor="end" fill="#333">{fmt(v)}</text></g>)}
+   <line x1={padL} y1={y0+padT} x2={padL} y2={y0+padT+ph} stroke="#888"/><line x1={padL} y1={y0+padT+ph} x2={W-padR} y2={y0+padT+ph} stroke="#888"/>
+   <text x={20} y={y0+padT+ph/2} fontSize={12} fill="#333" transform={`rotate(-90 20 ${y0+padT+ph/2})`} textAnchor="middle">{yLabel}</text>
+   {rec.map((r,i)=><text key={r.session} x={x(i)} y={y0+padT+ph+18} fontSize={12} textAnchor="middle" fill="#333">{r.session}</text>)}
+   <text x={padL+pw/2} y={y0+padT+ph+38} fontSize={13} textAnchor="middle" fill="#333">Observation session</text>
+   <polyline points={pts} fill="none" stroke={color} strokeWidth={2}/>
+   {rec.map((r,i)=><circle key={r.session} cx={x(i)} cy={y(values(r))} r={5} fill={color}/>)}
+   {labels&&rec.map((r,i)=><text key={'l'+r.session} x={x(i)} y={y(values(r))-12} fontSize={12} textAnchor="middle" fill={color}>{values(r)}</text>)}
+  </g>;
+ };
+ const maxC=Math.max(...rec.map(r=>r.count),0.1),maxR=Math.max(...rec.map(r=>r.rate_per_minute),0.1);
+ const cMax=Math.ceil(maxC/3)*3,rMax=Math.ceil(maxR/0.4)*0.4;
  return <figure className="guided-figure" aria-label={pin.alt}>
   <svg viewBox={`0 0 ${W} ${H}`} width={W} role="img" aria-label={pin.alt} style={{maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}>
-   <text x={10} y={18} fontSize={11} fill="#234466">Rate per minute by session</text>
-   {rec.map((r,i)=>{const y=30+i*rowH;const bw=(W-padL-padR)*(r.rate_per_minute/max);
-    return <g key={r.session}>
-     <text x={padL-6} y={y+13} fontSize={10} textAnchor="end" fill="#234466">{`S${r.session}: ${r.count} in ${r.observed_minutes} min`}</text>
-     <rect x={padL} y={y+2} width={bw} height={rowH-10} fill="#2f5d8a"/>
-     <text x={padL+bw+4} y={y+13} fontSize={10} fill="#234466">{r.rate_per_minute}/min</text>
-    </g>})}
+   <Panel title="Total events in each window" yLabel="Call-outs (count)" yMax={cMax} yStep={cMax/6} values={r=>r.count} fmt={v=>v} labels={false} color="#4a4a4a" y0={0}/>
+   <Panel title="Events per observed minute" yLabel="Call-outs per minute" yMax={rMax} yStep={rMax/4} values={r=>r.rate_per_minute} fmt={v=>v.toFixed(1)} labels={true} color="#2f7d5d" y0={310}/>
   </svg>
   <figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption>
- </figure>
+ </figure>;
 }
 
 export default function GuidedStagingTest(){
@@ -70,7 +85,7 @@ export default function GuidedStagingTest(){
  if(!user)return <section className="section"><div className="wrap" style={{maxWidth:780}}><p role="status">Checking your sign-in...</p></div></section>;
  const offer=state?.curriculumOffer;
  const hist=state?.history?.length??0;
- return <><AppNav/><section className="section" style={{paddingTop:24}}><div className="wrap" style={{maxWidth:780}}>
+ return <><AppNav/><section className="section learning-thread" style={{paddingTop:24}}><div className="wrap" style={{maxWidth:780}}>
   <aside className="thread-test-note">Private staging software test. Synthetic engineering content (Tier-1 C-rate verification), not reviewed exam teaching. No learning benefit is claimed.</aside>
   <span className="eyebrow">Guided pathway - staging verification</span>
   <h1>Rate per minute</h1>
@@ -80,10 +95,13 @@ export default function GuidedStagingTest(){
    {offer?<>
     <p>Your chosen lesson is ready: <strong>{offer.title||'Rate per minute'}</strong>.</p>
     <p>Two short teaching steps with a graph, then one practice question with feedback. Your checked answers stay saved.</p>
+    <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. All listed observation windows are fully and continuously observed. A call-out is an audible utterance without being called on, separated from another utterance by at least 2 seconds of silence. Same observer rule, classroom activity and recording procedure across sessions; representativeness outside these windows is not established.</p>
     <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
    </>:<>
-    <p>{view.data?.next?.kind?'A step is in progress.':'No lesson offer is available right now.'} {hist>0?`Saved checked answers: ${hist}.`:''}</p>
-    {view.data?.next?.kind&&<button className="btn btn-navy" disabled={busy} onClick={()=>run('open_next')}>Continue</button>}
+    <p>No lesson offer is available for this test account right now.</p>
+    <p>Saved checked answers: {hist}.</p>
+    {hist>0&&<ul style={{textAlign:'left',fontSize:14,lineHeight:1.6}}>{(state?.history||[]).map(h=><li key={h.receiptId}>{h.phase==='helped_practice'?'Helped practice (guided, not an independent check)':'Blueprint check'}{': recorded '}{h.correct?'correct':'incorrect'}{h.answeredAt?`, server-confirmed ${new Date(h.answeredAt).toLocaleString()}`:''}.</li>)}</ul>}
+    <p style={{fontSize:13,color:'#7a4d00'}}>Note: this account's saved session count was manually reset during verification, so it may read 0 of 12 even though saved history exists. The history list on this page is the authoritative record. Further steps for this account are paused; no Continue action is offered.</p>
    </>}
   </div>}
   {view.kind==='teaching'&&<div className="panel">
@@ -94,12 +112,15 @@ export default function GuidedStagingTest(){
    <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
   </div>}
   {view.kind==='feedback'&&<div className="panel">
-   <h2>{view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
+   <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
    <FigureChart pin={view.figure}/>
-   <p>{view.feedback}</p>
+   <p style={{textAlign:'left'}}><strong>Your pick: </strong>{view.alternatives?.[view.chosen]||''}</p>
+   <p style={{textAlign:'left'}}>{view.feedback?.[String(view.chosen)]||''}</p>
+   {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}><strong>The defensible choice: </strong>{view.alternatives?.[view.defensible]||''}</p>}
+   {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}>{view.feedback?.[String(view.defensible)]||''}</p>}
    <button className="btn btn-navy" disabled={busy} onClick={()=>run('open_next')}>{view.lastStep?'Open the practice question':'Next teaching step'}</button>
   </div>}
-  {view.kind==='practice'&&<fieldset className="panel">
+  {view.kind==='practice'&&<fieldset className="panel" style={{padding:'20px 24px'}}>
    <legend>Practice with feedback</legend>
    <p>{view.body}</p>
    <FigureChart pin={view.figure}/>
