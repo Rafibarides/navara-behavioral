@@ -52,7 +52,7 @@ export default function GuidedStagingTest(){
  async function token(){const sb=await getClient();const{data}=await sb.auth.getSession();return data.session?.access_token;}
  async function call(action,payload,reuseNonce){
   const nonce=reuseNonce&&lastAction.current?.nonce?lastAction.current.nonce:crypto.randomUUID();
-  lastAction.current={nonce,action,payload};
+  if(action!=='status')lastAction.current={nonce,action,payload};
   const bearer=await token();if(!bearer)throw Error('Sign in to continue.');
   const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+bearer},body:JSON.stringify({nonce,action,payload})});
   const body=await res.json().catch(()=>({}));
@@ -60,28 +60,29 @@ export default function GuidedStagingTest(){
   return body;
  }
  async function run(action,payload={}){if(busy)return;setBusy(true);setErr('');
-  try{const r=await call(action,payload);interpret(action,r);}
+  try{const r=await call(action,payload);await interpret(action,r);}
   catch(e){setErr(e.message+(e.retryable?' Retry the same action.':''));}
   finally{setBusy(false);}}
  async function retryLast(){if(!lastAction.current||busy)return;setBusy(true);setErr('');
-  try{const{nonce,action,payload}=lastAction.current;const r=await call(action,payload,true);interpret(action,r);}
+  try{const{nonce,action,payload}=lastAction.current;const r=await call(action,payload,true);await interpret(action,r);}
   catch(e){setErr(e.message+(e.retryable?' Retry the same action.':''));}
   finally{setBusy(false);}}
- function interpret(action,r){
+ async function interpret(action,r){
   if(r.teachingStep)setView({kind:'teaching',...r.teachingStep});
   else if(r.teachingFeedback)setView({kind:'feedback',...r.teachingFeedback});
   else if(r.delivery)setView({kind:'practice',...r.delivery});
   else if(r.receipt)setView({kind:'receipt',...r.receipt});
-  else if(r.next?.kind==='teaching'){run('open_next');return;}
-  else{(async()=>{try{const s=await call('status',{});setState(s);setView({kind:'status',data:s});}catch(e){setErr(e.message)}})();}
+  else if(r.next?.kind==='teaching'||r.next?.kind==='helped_practice'){const r2=await call('open_next',{});await interpret('open_next',r2);}
+  else{try{const s=await call('status',{});setState(s);setView({kind:'status',data:s});}catch(e){setErr(e.message)}}
  }
  useEffect(()=>{if(!user)return;(async()=>{try{const r=await call('status',{});setState(r);
   if(r.delivery)setView({kind:'practice',...r.delivery});
-  else if(r.next?.kind==='teaching'||r.next?.kind==='helped_practice'){const r2=await call('open_next',{});interpret('open_next',r2);}
+  else if(r.next?.kind==='teaching'||r.next?.kind==='helped_practice'){const r2=await call('open_next',{});await interpret('open_next',r2);}
   else setView({kind:'status',data:r});
  }catch(e){setErr(e.message)}})();
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[user?.id]);
+ useEffect(()=>{window.scrollTo(0,0);},[view.kind]);
  if(!user)return <section className="section"><div className="wrap" style={{maxWidth:780}}><p role="status">Checking your sign-in...</p></div></section>;
  const offer=state?.curriculumOffer;
  const hist=state?.history?.length??0;
@@ -101,7 +102,7 @@ export default function GuidedStagingTest(){
     <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. All listed observation windows are fully and continuously observed. A call-out is an audible utterance without being called on, separated from another utterance by at least 2 seconds of silence. Same observer rule, classroom activity and recording procedure across sessions; representativeness outside these windows is not established.</p>
     <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
    </>:<>
-    <p>No lesson offer is available for this test account right now.</p>
+    {hist>0?<p>Lesson recorded as completed. Completion here means you finished the teaching steps and the helped practice, not mastery.</p>:<p>No lesson offer is available for this test account right now.</p>}
     <p>Saved checked answers: {hist}.</p>
     {hist>0&&<ul style={{textAlign:'left',fontSize:14,lineHeight:1.6}}>{(state?.history||[]).map(h=><li key={h.receiptId}>{h.phase==='helped_practice'?'Helped practice (guided, not an independent check)':'Blueprint check'}{': recorded '}{h.correct?'correct':'incorrect'}{h.answeredAt?`, server-confirmed ${new Date(h.answeredAt).toLocaleString()}`:''}.</li>)}</ul>}
     {user.id==='1580a47a-5798-449f-b448-35a65da360e4'&&<p style={{fontSize:13,color:'#7a4d00'}}>Note: this account's saved session count was manually reset during verification, so it may read 0 of 12 even though saved history exists. The history list on this page is the authoritative record. Further steps for this account are paused; no Continue action is offered.</p>}
