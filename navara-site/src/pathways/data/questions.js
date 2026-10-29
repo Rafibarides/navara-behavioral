@@ -7,7 +7,7 @@
 export const RBT_QUESTIONS = [
   {area:'Data Collection and Graphing', type:'recall', q:'You are recording how many times a client raises their hand during a 30-minute session. Which measurement dimension are you using?',
    opts:[
-    {t:'Duration', exp:'Duration measures how long a behavior lasts, not how many times it occurs.', misc:'count_vs_time_measures', why:'Hand-raising lasts some amount of time, so duration feels plausible. But you are counting occurrences, not timing them.', rem:'duration vs. frequency - counting occurrences vs. timing how long.'},
+    {t:'Duration', exp:'Duration measures how long a behavior lasts, not how many times it occurs.', misc:'count_vs_time_measures', why:'Hand-raising lasts some amount of time, so duration feels plausible. But you are counting occurrences, not timing them.', rem:'duration vs. frequency: timing how long vs. counting occurrences.'},
     {t:'Frequency', exp:'Frequency is a count of how many times a behavior occurs.'},
     {t:'Latency', exp:'Latency is the time between a cue and the start of the response.', misc:'confuses_latency_with_duration', why:'There is an implied instruction before the hand-raising, but nothing here measures the gap after it.', rem:'latency vs. frequency, and how each is measured.'},
     {t:'Interresponse time', exp:'Interresponse time measures the gap between two instances of the behavior.', misc:'count_vs_time_measures', why:'With repeated hand-raising there IS a gap between instances - but the question asks what you record by counting, and IRT is a time measure, not a count.', rem:'interresponse time vs. frequency - a time gap vs. a count.'}
