@@ -28,6 +28,16 @@ function FigureChart({pin}){
  return <figure className="guided-figure"><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>;
 }
 
+// CANDIDATE display-only dedup of identical trailing paragraphs shared by
+// selected and correct feedback. Text bytes and recorded answers unchanged.
+export function displayFeedback(view){
+ const selected=view.feedback?.[String(view.chosen)]||'';
+ const correct=view.chosen!==view.defensible?(view.feedback?.[String(view.defensible)]||''):'';
+ const a=selected.split(/\r?\n[ \t]*\r?\n/),b=correct.split(/\r?\n[ \t]*\r?\n/);const shared=[];
+ while(a.length>1&&b.length>1&&a.at(-1)===b.at(-1)&&a.at(-1).trim()){shared.unshift(a.pop());b.pop();}
+ return{selected:a.join('\n\n'),correct:b.join('\n\n'),shared:shared.join('\n\n')};
+}
+
 export default function GuidedPathway(){
  const user=useRequireUser();
  const SYNTHETIC=import.meta.env.VITE_GUIDED_PRODUCTION!=='true'; // content qualification flag: stays true until reviewed content is bound; never strip without qualified content
@@ -122,9 +132,10 @@ export default function GuidedPathway(){
    <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
    <FigureChart pin={view.figure}/>
    <p style={{textAlign:'left'}}><strong>Your pick: </strong>{view.alternatives?.[view.chosen]||''}</p>
-   <p style={{textAlign:'left'}}>{view.feedback?.[String(view.chosen)]||''}</p>
+   <p style={{textAlign:'left'}}>{displayFeedback(view).selected}</p>
    {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}><strong>The defensible choice: </strong>{view.alternatives?.[view.defensible]||''}</p>}
-   {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}>{view.feedback?.[String(view.defensible)]||''}</p>}
+   {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}>{displayFeedback(view).correct}</p>}
+   {displayFeedback(view).shared&&<p style={{textAlign:'left'}}>{displayFeedback(view).shared}</p>}
    {view.postAnswerTransfer&&<p style={{textAlign:'left'}}>{view.postAnswerTransfer}</p>}
    <button className="btn btn-navy" disabled={busy} onClick={()=>run('open_next')}>{view.lastStep?'Open the practice question':'Next teaching step'}</button>
   </div>}
