@@ -50,8 +50,8 @@ const SECTIONS_PREVIEW = [
   {
     clip: '/inside/clip1.mp4',
     poster: '/inside/poster1.jpg',
-    headline: 'Your readiness at a glance.',
-    line: 'Know what\u2019s solid. See what needs work. Choose your next study hour with purpose.',
+    headline: 'Your progress by topic.',
+    line: 'See your recorded results by topic and choose what to practice next.',
   },
   {
     clip: '/inside/clip2.mp4',
