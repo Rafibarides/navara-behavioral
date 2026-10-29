@@ -48,3 +48,5 @@ try {
     await mkdir(dist+path,{recursive:true});await writeFile(dist+path+'/index.html',legacy);
   }
 } finally {await browser.close();server.close();}
+
+if(process.env.VITE_GUIDED_PATHWAY==='true'){await mkdir(dist+'/pathways/app/pathway',{recursive:true});await writeFile(dist+'/pathways/app/pathway/index.html',await readFile(dist+'/index.html','utf8'));console.log('Rendered /pathways/app/pathway (SPA shell, env-gated)');}

@@ -16,7 +16,7 @@ const logout = (e) => {
 
 export default function AppNav({ active, role }) {
   const [open, setOpen] = useState(false);const[threadEligible,setThreadEligible]=useState(false);React.useEffect(()=>{let active=true;getSessionUser().then(u=>{if(active)setThreadEligible(!!u&&!u.demo&&u.plan==='guided'&&u.track==='rbt')}).catch(()=>{});return()=>{active=false}},[]);
-  const learningItems=import.meta.env.VITE_LEARNING_THREAD_CANDIDATE==='true'&&threadEligible?[...ITEMS,['learning-thread','Learning Thread']]:ITEMS;const baseItems=GUIDED_PRODUCTION?[...learningItems,['book','Coaching']]:learningItems;
+  const learningItems=import.meta.env.VITE_LEARNING_THREAD_CANDIDATE==='true'&&threadEligible?[...ITEMS,['learning-thread','Learning Thread']]:ITEMS;const lessonItems=import.meta.env.VITE_GUIDED_PATHWAY==='true'&&threadEligible?[...learningItems,['pathway','Guided lessons']]:learningItems;const baseItems=GUIDED_PRODUCTION?[...lessonItems,['book','Coaching']]:lessonItems;
   const items = role === 'admin' ? [...baseItems, ['admin', 'Admin'], ...(GUIDED_PRODUCTION?[['coaching-staff','Coaching staff']]:[])] : baseItems;
   return (
     <div className="pw-unified pw-app">

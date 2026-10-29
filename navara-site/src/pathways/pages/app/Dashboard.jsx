@@ -35,6 +35,7 @@ export default function Dashboard() {
   const planLabel = (user.plan === 'guided' ? 'Guided' : user.plan === 'self-study' ? 'Self-Study' : 'Sample') + ' plan, ' + (displayTrack ? (displayTrack === 'bcba' ? 'BCBA' : 'RBT') + ' track' : 'choose your exam track') + (user.demo || DEMO ? ' (demo)' : '');
   const showDemo = DEMO || user.demo;
   const guidedJourney=import.meta.env.VITE_LEARNING_THREAD_CANDIDATE==='true'&&!user.demo&&user.plan==='guided'&&user.track==='rbt';
+  const guidedLessons=import.meta.env.VITE_GUIDED_PATHWAY==='true'&&!user.demo&&user.plan==='guided'&&user.track==='rbt';
   const bars = progress ? progress.map((r) => [r.area, r.pct, r.n, r.c]) : (showDemo ? DEMO_PROGRESS : null);
   const cards = evidence || (showDemo ? DEMO_EVIDENCE : null);
   return (<>
@@ -45,7 +46,7 @@ export default function Dashboard() {
           <div><span className="eyebrow" style={{ color: 'var(--teal-3)' }}>{planLabel}</span>
             <h2 style={{ marginBottom: 4 }}>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}{user.name && String(user.name).toLowerCase() !== String(user.email || '').split('@')[0].toLowerCase() ? ', ' + String(user.name).split(' ')[0].replace(/^./, c=>c.toUpperCase()) : ''}.</h2>
             <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink-2)' }}>{displayTrack ? `Future ${displayTrack === 'bcba' ? 'BCBA' : 'RBT'} - you've got this.` : 'Choose your exam track to get started.'}</p></div>
-          <a className="btn btn-primary" href={guidedJourney?"/pathways/app/learning-thread":"/pathways/app/practice"}>{guidedJourney?"Continue your Pathway":"Start practicing"}</a>
+          <a className="btn btn-primary" href={guidedLessons?"/pathways/app/pathway":guidedJourney?"/pathways/app/learning-thread":"/pathways/app/practice"}>{guidedLessons||guidedJourney?"Continue your Pathway":"Start practicing"}</a>
         </div>
         {!user.demo && user.trackSet === false && (
           <div className="panel rv in" style={{ marginBottom: 22, borderLeft: '4px solid var(--sage)' }}>
