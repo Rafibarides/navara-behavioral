@@ -6,7 +6,7 @@
   "homepage": "https://rafibarides.github.io/navara-behavioral",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/check-retained-bcba.mjs . && vite build && node scripts/prerender.mjs && node scripts/preserve-public-sample.mjs pinned-public-sample dist && node scripts/verify-public-sample-dist.mjs dist",
+    "build": "node scripts/build-bcba-bundle.mjs . && vite build && node scripts/prerender.mjs && node scripts/preserve-public-sample.mjs pinned-public-sample dist && node scripts/verify-public-sample-dist.mjs dist",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",

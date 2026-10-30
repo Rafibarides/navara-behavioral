@@ -1,0 +1,30 @@
+{
+  "artifact": "bcba-release-retention-registry",
+  "schema": "bcba-retention-registry-v2",
+  "bundles": [
+    {
+      "file": "generated-bcba-bundle-CANDIDATE.mjs",
+      "sha256": "e8dfec17986215489ff13bc0fbace08496357290d81be6abe126fbdf3f56f7b0",
+      "policyId": "bcba-sdmo-lessons-policy-v1",
+      "manifestVersion": "bcba-sdmo-manifest@sha256:dc19f86052b71a5904c0e4e82ac005b1b3700d6097cf8da3efb17cf05129b675",
+      "catalogSha": "1599fe8d19810dc96f850da34f5552a3efc714c57c893da8821a7e0162eeea66",
+      "bindingSha": "cfa1ef6fb92589cfacf684c843728ffb488273b438cb57d699ee8d7027e293f8",
+      "figurePins": [
+        "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2"
+      ],
+      "status": "active",
+      "addedAt": "2026-10-29T21:14:00-04:00",
+      "withdrawnAt": null,
+      "reviewEvidence": "Adoption candidate: original retained deployed CANDIDATE registered in place (policy RELEASE-POLICY.md); original whole-file pin e8dfec17986215489ff13bc0fbace08496357290d81be6abe126fbdf3f56f7b0 | registered in place, bytes unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "sha256": "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+      "status": "active",
+      "addedAt": "2026-10-29T21:14:00-04:00",
+      "withdrawnAt": null,
+      "note": "derived from bundle figures Map at migration"
+    }
+  ]
+}
