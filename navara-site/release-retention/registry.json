@@ -101,6 +101,23 @@
    "addedAt": "2026-10-30T11:20:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~11:20 ET under main 11:16:53 authorization (finite SCHED helped-only adoption, after DISCRIM v6 verified adopted). Finite group content assent: dot #77438 finite text/key review closed on room File #2349 v0.3 lineage + 2 same-save v0.4 normalizations, keys B/D/A/C - content-only, not source/deployment/readiness clearance. Author learner-safe export sha256 08833badf0289e32e7740811991f8fd5cedfb49d2535d3cdab2cc7f26e334bc7 (T1-T6 applied by author; executor zero content changes). Author packaged-byte fidelity CLEAN 11:15:32; reviewer independent recompute/scratch 11:16 no technical blocker. Helped-only: assent covers 4 reviewed keys B/D/A/C, only the 2 helped items installed; ordinary CHK1/CHK2 omitted; zero fresh; BC3-07/08 held; B.10/G.3 out of scope; family namespace bcba-sched is a broad exposure namespace for these 2 assisted FR/FI items only (coordinator 11:12:16), distinct item acts, not one independence family."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v8.mjs",
+   "sha256": "3dfea752dcda222af495ced2073be376516f7830b0c07d73bf416db7b902755e",
+   "policyId": "bcba-lessons-policy-v7",
+   "manifestVersion": "bcba-lessons-manifest@sha256:d5840a1abb0fffb5d8ba79e0b64dfeaf9486c88aa2a6950363c74abb341adcf2",
+   "catalogSha": "ca31a2bc880a9b300258f9d2e5f12fb5d9df512c357f3a8759480ee2039e51ce",
+   "bindingSha": "8be1ec0280fa9132553fac4e599e4f01886eadca581e8f66f5b0dd9e05c53700",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T12:27:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~12:27 ET under main 12:24:25 GO (finite DVALID helped-only adoption; independent reviewer 12:24:14 final 24 checks + final SQL scratch clean, no objection, bounded limits retained; main confirmed exact staged bytes 12:26:13). Owner authority: original conditional publication grant (authenticated WhatsApp Oct 28 01:39:02, wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=) personally recovered by main + main personal inspection 2026-10-30 ~12:21 ET. Finite current content disposition: dot #77707 (v2 no blocking objection + optional precision) -> Claude #78065 v3 (#2378 JSON, #2379 provenance) -> dot #78068 finite changed-text review CLOSED - bounded content review only, not source-independent audit, deployment or readiness clearance. Author raw-WWC fidelity 10/10 (11:54:25); author v3 recursive check closed 12:19:15 (exactly three HP2 mirrors). Canonical per-item citations byte-verbatim from question_rows; moduleWhy author-confirmed 12:02:58. Installed 12:26:49 ET: live content hashes 9275 e2f3fa689af588ba92db1b02ef4d4a67 / 9276 59220171c18b9045956669c6ef81cbbe, policy_hash c5c76a690ae3c04176fe3fbe7b886bbd96f4e09749b29539cfb3a4d6fea481f4, sequence 9276. Helped-only; zero fresh checks; bcba-dvalid bounded to these 2 assisted items (coordinator 11:23:40); both keys B accepted; directHelpItemIds empty by contract; no mastery/readiness claim."
   }
  ],
  "figures": [
