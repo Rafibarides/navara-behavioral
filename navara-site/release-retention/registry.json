@@ -356,6 +356,142 @@
    "addedAt": "2026-10-30T14:48:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "G-lane helped-only bcba-ggen (order 22, items 9303/9304 keys D/A, G.15 multiple-exemplar programming plus untrained probes / G.1 positive-side evaluation only - negative reinforcement unaddressed). Author module v3 (sha b0463621; observed-data claim narrowed with implementation/opportunity/competing-condition uncertainty, contract template restored, dot semantic repairs adjudicated and accepted by the author) checker 90/90; room #2498; dot finite closure #80678 CLOSED 2026-10-30 (bounded text/key review only); author-confirmed exact moduleWhy; coordinator namespace fit 2026-10-30 15:33: broad 2-helped exposure only, distinct acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v21 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:52-15:53 EDT under main GO 15:51 (owner conditional publication grant recovered by main 15:40 from authenticated WhatsApp originals; finite closures #80677/#80678 read by main; author canonical packaged parity/exact moduleWhy ALLPASS 15:48:29; coordinator namespace fit 15:33; independent hash/SQL chain CLEAN 15:48:56; bounded final registry repair check CLEAN 15:51:15). DB install COMMIT verified (1 COMMIT, 0 errors each); policy hashes 5b2b1cdf/e48651f4 and item content hashes 91bb4c0f/60f84d8e/a973177a/23d3b606 live-verified post-install; policy bcba-lessons-policy-v2 and all prior pins untouched."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v23.mjs",
+   "sha256": "8b20526f2dd024a3ce5475bfc535929beb228cf4bd1718938873b24e407e8f35",
+   "policyId": "bcba-lessons-policy-v22",
+   "manifestVersion": "bcba-lessons-manifest@sha256:ebf9deef57a63c4d24ec31ced9f34c55b53365521233ff353bf1e145e9883d4e",
+   "catalogSha": "01cd777cd0a65ecd9852f896f79ab47ada428bc7e1fdab3146b0bc62d0c34cd4",
+   "bindingSha": "34869acbfe5fee57b7afcf92a866468a32ab801d8d41e6e5045d1b81133c9492",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-bfnd (order 23, items 9305/9306 keys B/A, B.1 response/response-class and B.2 stimulus/stimulus-class identification only). Author module v4 (file sha abfa0994; bounded v2-v4 dot semantic repairs: stem extension past the 200-char floor with a real stimulus-event stipulation, dead-man-test screen qualification, formal-class-not-function bound, visual-stimulus reframing - light reaching the learner's eyes, seeing treated as organism activity); dot finite #81118 CLOSED 2026-10-30 (identification-only, zero fresh credit); coordinator namespace fit 2026-10-30 16:12 (broad helped-only, distinct HP1/HP2 acts). Content hashes 490b59e3/49c6141b computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:15 EDT; ids 9305/9306 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.1/B.2 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v24.mjs",
+   "sha256": "acaa21cb41530224ff4453a982568a9ef4b6c0aff5088dde6ffc43f594e062e9",
+   "policyId": "bcba-lessons-policy-v23",
+   "manifestVersion": "bcba-lessons-manifest@sha256:4ac10842cc6f8150d653b383ca599c27ca3b8452c280c0118577993bba3bca37",
+   "catalogSha": "d329fccfea4e90db060802e7b985032dcb06940c669b0be75623519328340952",
+   "bindingSha": "40ffeb8bea8a99f7f1564d71e4b861810d546a8cd9d2142346af156f86609cba",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-bcond (order 24, items 9307/9308 keys C/B, B.3 respondent-conditioning and B.7 generalized-conditioned-reinforcer identification only; GTOKEN semantic adjacency - no token-economy procedure teaching, zero fresh-independence credit). Author module v2 (file sha aaa02c04; bounded dot semantic repairs: stipulated salivation relation with initially neutral chime and response-independent pairing; independence limited to any single backup; generalized taught as a conditioned subcase); dot finite #81071 CLOSED 2026-10-30; coordinator namespace fit 2026-10-30 16:09 (broad helped-only, distinct HP1/HP2 acts). Content hashes 674317ae/1616f5b2 computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:15 EDT; ids 9307/9308 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode; packaged moduleWhy byte-verified as the author-confirmed exact string after a contaminated intermediate was caught in parity review and rebuilt. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.3/B.7 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v25.mjs",
+   "sha256": "affe14f8484b197f70e440b1d8ef10b89ec536bb8e4520ddc91c9a9f61cce1d7",
+   "policyId": "bcba-lessons-policy-v24",
+   "manifestVersion": "bcba-lessons-manifest@sha256:24656701562303ed1dfa35fb0e708436594d5cdd01861901b6d2101da4f401b8",
+   "catalogSha": "973d4634514dac66fdd0c783d32e08698a0a08702d0e829b06fb14d5a19003a6",
+   "bindingSha": "27cbd90fb3cc3fd1966fdcd3957ddd4b89c0a2d3a7947fd34593963d91aa1a20",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-basm (order 25, items 9309/9310 keys B/D, B.6 automatic vs socially mediated contingency source identification only, positive-reinforcement scenarios). Author module v3 (file sha a0560944; bounded v2-v3 repairs: citation byte-alignment, stipulated assessed strengthening relation replacing later-increase inference, source-only classification with occurrence never proof of reinforcing function); dot finite #81125 CLOSED 2026-10-30 (negative reinforcement, escape, punishment unassessed; zero fresh credit); coordinator namespace fit 2026-10-30 16:09 (broad helped-only, distinct HP1/HP2 acts). Content hashes 2e9b372a/c585954e computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:18 EDT; ids 9309/9310 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.6 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v26.mjs",
+   "sha256": "47493f22ee6e3df3c0d80e039851b238cc5c87aec2de387688e043d3067b0f26",
+   "policyId": "bcba-lessons-policy-v25",
+   "manifestVersion": "bcba-lessons-manifest@sha256:12191e0f05008412476be3f4832d1ad0c1e7ee131d29b55bc054ef69bf065800",
+   "catalogSha": "bcfcbb5bd2640c516030fe9d141a8f5b61648b1ba61576cfea0b2581f2e512cf",
+   "bindingSha": "0b655364a0b7b93d8c15381b5f2f7b2639806143fabe79ec641984a11e6201a2",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-bcmsc (order 26, items 9311/9312 keys C/A, B.10 multiple/concurrent schedule identification only, mixed/chained as primary foils; distinct from G-lane chaining-procedure items). Author module v2 (file sha 9ee0e107; bounded teaching repair: terminal reinforcer follows completion of the final component, transitions to later-component stimuli can have conditioned reinforcing functions); dot finite #81160 CLOSED 2026-10-30 (identification-only, zero fresh credit); coordinator namespace fit 2026-10-30 16:11 (broad helped-only, distinct HP1/HP2 acts). Content hashes 57b5475e/d4bf8f25 computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:18 EDT; ids 9311/9312 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.10 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v27.mjs",
+   "sha256": "8c12471c1cd88d82aba3ca3a35524ce6b32501e510e5fd168eabcb286e8c5a04",
+   "policyId": "bcba-lessons-policy-v26",
+   "manifestVersion": "bcba-lessons-manifest@sha256:185c9d1bb2232f5bb105a73cd7944cd6288214344868c947042faaf1d83cc800",
+   "catalogSha": "36e4b23ee349b04494ba6e3bd6e679580816b0170b11172fb72a039cae0ab5c1",
+   "bindingSha": "a59570c31274708dffaee9ff07771bfb581e2709152bd802ab945f64c54aede4",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-brule (order 27, items 9313/9314 keys B/C, B.18 rule-governed vs contingency-shaped current-control identification only; GMODRULE semantic adjacency, zero fresh credit). Author module v3 (bounded v1-v3 dot repairs: current-control stipulations, occurrence-not-proof-of-function, assessment-established immediate-feedback selection for the contingency-shaped case); dot finite #81212 CLOSED 2026-10-30; coordinator namespace fit 2026-10-30 16:12 (broad helped-only, distinct HP1/HP2 acts). Content hashes 4f29def1/aa1184bf computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:24 EDT; ids 9313/9314 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.18 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v28.mjs",
+   "sha256": "2b8577b04e80d210c326def902516425011ae3bd9f62960ce89f197708816963",
+   "policyId": "bcba-lessons-policy-v27",
+   "manifestVersion": "bcba-lessons-manifest@sha256:3f9e8f9cf7316602436753f8a4e7b056a46bba300d55247fb26a934a19d32d9e",
+   "catalogSha": "e450c6b4e4eac980cf96afcef59c98dddeec828886a898e59dee0acec9c81b21",
+   "bindingSha": "5e47d0b780ef85c2ebc8706eae2c18f410026819029a2f76384093ec5fa7717b",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-bmain (order 28, items 9315/9316 keys B/C, B.15 response-maintenance identification only; GEMERG/GGEN semantic adjacency, zero fresh credit). Author module v3 (bounded dot repairs: extinction bounded to discontinuation of the previously maintaining contingency; maintenance/generalization co-occurrence; missing post-withdrawal evidence is not a minimum-duration rule); dot finite #81227 CLOSED 2026-10-30; coordinator namespace fit 2026-10-30 16:14 (broad helped-only, distinct HP1/HP2 acts). Content hashes aa6bc5d9/ab8a4924 computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:24 EDT; ids 9315/9316 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.15 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v29.mjs",
+   "sha256": "dfbf364405290e74881a0f5a4a64a63762c771d1f1c4350d835be5c1dad3fa98",
+   "policyId": "bcba-lessons-policy-v28",
+   "manifestVersion": "bcba-lessons-manifest@sha256:59d62e4820f655d36250fd5eee802c34d94e042358ed3458c0b10f93665c1228",
+   "catalogSha": "3794e8470dfe9650d2903a21c8575024256d9c1dc5b8306e4e90e9a4a34da8a7",
+   "bindingSha": "11b6f8d8abff7f68d8baa99e8cbc22b47bccb95e78f843a5c5f2df5ca0d7ca53",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-bverb (order 29, items 9317/9318 keys C/B, B.19 elementary verbal operant functional classification only; transcription/copying-a-text teaching-only, zero fresh credit). Author module v2 (bounded dot repairs: established functional relations stipulated, antecedent-plus-consequence relation decides, evocation stipulated); dot finite #81199 CLOSED 2026-10-30; coordinator namespace fit 2026-10-30 16:14 (broad helped-only, distinct HP1/HP2 acts). Content hashes 8d6dcd08/dd0b665d computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:24 EDT; ids 9317/9318 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode; author moduleWhy corrected against actual canonical keys/acts after an initial mismatched string was caught and discarded. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.19 assessment."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v30.mjs",
+   "sha256": "28f5dabf263336dba3f5831906057e4983ac73264b4ae615608afdea738af16e",
+   "policyId": "bcba-lessons-policy-v29",
+   "manifestVersion": "bcba-lessons-manifest@sha256:0472bcd7b22325a3274e8c9f5c38e9cc7a1a9d1026a9c481583d40500f585859",
+   "catalogSha": "0412d50bb3b6d0026b8fa52136b7c0af9097eccfb5a96884dcc99e02412b5da6",
+   "bindingSha": "c2935163c05f608209ea76f21f9e5c85cb5108816ab73148f98a576e8b85584d",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T16:37:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "B-lane helped-only bcba-bmult (order 30, items 9319/9320 keys D/B, B.20 convergent/divergent multiple-control role identification only; BVERB semantic adjacency, zero fresh credit). Author module v3 (bounded dot repairs: analysis-established functional control stipulated, no name-count inference; reviewer formal-similarity overclaim corrected to missing point-to-point correspondence only); dot finite #81226 CLOSED 2026-10-30; coordinator namespace fit 2026-10-30 16:15 (broad helped-only, distinct HP1/HP2 acts). Content hashes b5385a66/cd9866c4 computed via live pathways_evidence.content_hash read-only at 2026-10-30 about 16:24 EDT; ids 9319/9320 absent from live bank and max question id 9304 at prep. Author checker 90/90 (author-reported); executor package verifier FINAL-mode. Historical limits: bounded content review only - no source-independent audit, no adoption/deployment/readiness certification; Helped-only; no mastery/readiness claim; zero independent credit; identify-only, no full B.20 assessment."
   }
  ],
  "figures": [
