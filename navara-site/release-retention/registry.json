@@ -220,6 +220,74 @@
    "addedAt": "2026-10-30T15:07:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~15:07 ET under main 15:06:58 GO DB/repo only (finite ADIM helped-only adoption; dot finite text/key review #80191 CLOSED incl #80156 repairs, 11 scalar paths executor-verified; author packaged canonical byte parity + exact Why CLEAN 15:06; independent reviewer 15:04 final bytes+SQL chain recompute CLEAN; coordinator namespace 14:46:48; main personally inspected dot 80191 original + policy v13 evidence). Install assent: 2026-10-30 ADIM v14 helped-only adoption: dot finite #80191 closed, author parity clean 15:06, reviewer recompute clean 15:04, main GO 15:06:58 + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v12 byte-untouched (all 12 prior registry entries remain ACTIVE unchanged); helped-only, no mastery/readiness claim. NO function deploy until reviewed architecture size fix passes."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v15.mjs",
+   "sha256": "37e1d467a9e3ddbfe2c3f959a01e10460840e2cb89a4fd559293e8cf43221b81",
+   "policyId": "bcba-lessons-policy-v14",
+   "manifestVersion": "bcba-lessons-manifest@sha256:30a1ce42f92ed6fc4815dba78f2861bf7734978d80f35b7137392416f37b6056",
+   "catalogSha": "32b221db4f3325e487e4df369bfbcaa45fc982ab81e71b0d9d7748fdf394e208",
+   "bindingSha": "78ee29b26b0e4af6933ad4d4ba86e67f06fdff2a51a0f1415ea22953f781f702",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:48:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "G-lane helped-only bcba-gprompt (order 15, items 9289/9290 keys B/A, G.7 prompting procedure / G.8 prompt-fading transfer). Author module v2 (sha 8582721a) checker 90/90; room #2464; dot finite closure #80466 CLOSED 2026-10-30 (bounded text/key review only - NOT adoption/deployment/readiness clearance); author-confirmed exact moduleWhy; coordinator namespace fit 2026-10-30: broad 2-helped exposure only, distinct HP1/HP2 acts, zero independent credit, no unhelped reuse. Factual approvalEvidence in policy bcba-lessons-policy-v14 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:33-15:35 EDT under main sequential GO 15:33 (owner conditional publication grant personally recovered by main 14:55; finite closures #80466/#80467/#80539/#80575 read by main; author canonical packaged parity 15:28:59 PASS; independent hash/SQL chain 15:33 CLEAN). DB install COMMIT verified; policy hash and item content hashes live-verified post-install."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v16.mjs",
+   "sha256": "432b24594d84d6075920d097c80733a01b1610ffdcd69957fac98b08b5315dd2",
+   "policyId": "bcba-lessons-policy-v15",
+   "manifestVersion": "bcba-lessons-manifest@sha256:abf471f869a15677dbe73a72a8b118048103b08b4921161138facbbc8054be3e",
+   "catalogSha": "f00dd64a9bc046529703298e20f6fa5e52fd7eceb30e3ec66cf721fbd3ebd438",
+   "bindingSha": "0b5cfb0dba497ac11ea5903564018565074c9af9833fcddf46b417f0f288dde8",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:48:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "G-lane helped-only bcba-gmodrule (order 16, items 9291/9292 keys B/A, G.9 novel-model match / G.10 rule-governed control). Author module v2 (sha 9baf2e45) checker 90/90; room #2466; dot finite closure #80467 CLOSED 2026-10-30 (bounded text/key review only); author-confirmed exact moduleWhy; coordinator namespace fit: broad 2-helped exposure only, distinct acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v15 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:33-15:35 EDT under main sequential GO 15:33 (owner conditional publication grant personally recovered by main 14:55; finite closures #80466/#80467/#80539/#80575 read by main; author canonical packaged parity 15:28:59 PASS; independent hash/SQL chain 15:33 CLEAN). DB install COMMIT verified; policy hash and item content hashes live-verified post-install."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v17.mjs",
+   "sha256": "b9cf6ecfbae4d37440121efa98da41be843aed60d9deb40bef1717d0647e9b46",
+   "policyId": "bcba-lessons-policy-v16",
+   "manifestVersion": "bcba-lessons-manifest@sha256:f3f4efc22df6933ff55f3b9a020de40a44ae29dd04fe23c0a077ab5c18463ff9",
+   "catalogSha": "31145e303a5c7a852d7a870a6d4d88ed774271e7bb440f75e788fa3ae8ca5f00",
+   "bindingSha": "146d091883a36efcf89694cf89dbf1f4e0ce4d62d99b8726be62405d542cb53a",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:48:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "G-lane helped-only bcba-gtoken (order 17, items 9293/9294 keys B/C, G.4 token reinforcing function / G.14 interdependent group contingency). Author module v3 (sha 02e74697; exactly the two teaching evidence paths changed from v2, dot #80539) checker 90/90; room #2472; dot finite closure #80539 CLOSED 2026-10-30 (bounded text/key review only); author-confirmed exact moduleWhy; coordinator namespace fit: broad 2-helped exposure only, distinct acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v16 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:33-15:35 EDT under main sequential GO 15:33 (owner conditional publication grant personally recovered by main 14:55; finite closures #80466/#80467/#80539/#80575 read by main; author canonical packaged parity 15:28:59 PASS; independent hash/SQL chain 15:33 CLEAN). DB install COMMIT verified; policy hash and item content hashes live-verified post-install."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v18.mjs",
+   "sha256": "0a2fe458b2f0e0e1cfea6bff7b9f5b422a6adc09fadf28bca89f0f239139c9a1",
+   "policyId": "bcba-lessons-policy-v17",
+   "manifestVersion": "bcba-lessons-manifest@sha256:4b4d46595832c33ef3c55c6335f403a152cc6687b554702bf078de3fc6f7cb2b",
+   "catalogSha": "507a24968eee3dfac494bffa8df4dee197b1ed282d439d4b52bbd424d3ae7bec",
+   "bindingSha": "82c2acc7d3deea5d2242a15d010cb9cdd37658afeaa534b65728c8184cd626c0",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:48:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "G-lane helped-only bcba-gdiff (order 18, items 9295/9296 keys C/B, G.2 DRA with extinction / G.3 fixed-time noncontingent delivery). Author module v2 (sha 1927b794; three bounded repairs adjudicated and accepted by the author, dot #80575) checker 90/90; room #2479; dot finite closure #80575 CLOSED 2026-10-30 (bounded text/key review only); author-confirmed exact moduleWhy; coordinator namespace fit: broad 2-helped exposure only, distinct acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v17 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:33-15:35 EDT under main sequential GO 15:33 (owner conditional publication grant personally recovered by main 14:55; finite closures #80466/#80467/#80539/#80575 read by main; author canonical packaged parity 15:28:59 PASS; independent hash/SQL chain 15:33 CLEAN). DB install COMMIT verified; policy hash and item content hashes live-verified post-install."
   }
  ],
  "figures": [
