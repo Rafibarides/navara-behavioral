@@ -17,27 +17,25 @@ const LINKS = (<>
 const priceNote = { fontSize: 14, fontWeight: 600, color: 'var(--ink-2)' };
 const priceNoteFeatured = { fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.7)' };
 
-function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guidedLine, join, joinErr, preview }) {
+function PlanCards({ track, selfPrice, guidedPrice, bankLine, guidedLine, join, joinErr, preview }) {
   return (<>
     <div className="plans">
       <div className="plan rv">
-        <h3>Sample</h3><div className="p-price">Free, no account</div>
-        <ul><li>{sampleLine}</li><li>Explanations for every answer</li></ul>
-        <a className="btn btn-navy" href="/pathways/sample-quiz" style={{ justifyContent: 'center' }}>Take the quiz</a>
-      </div>
-      <div className="plan rv rv-d1">
         <h3>Self-Study</h3>
         <div className="p-price">{selfPrice}<span style={priceNote}> /month</span></div>
         <ul><li>{bankLine}</li><li>Untimed practice with answer explanations</li><li>Explanations for every answer</li><li>Progress tracking by topic</li></ul>
         <button className="btn btn-navy" style={{ justifyContent: 'center' }} onClick={() => join(track, 'self-study')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Self-Study'}</button>
       </div>
-      {(!CFG.limitedLaunch || GUIDED_PRODUCTION) && <div className="plan featured rv rv-d2">
+      {(!CFG.limitedLaunch || GUIDED_PRODUCTION) && <div className="plan featured rv rv-d1">
         <span className="most">Most complete</span>
         <h3>Guided</h3>
         <div className="p-price">{guidedPrice}<span style={priceNoteFeatured}> /month</span></div>
         {CFG.previewOnly ? <p>Guided sessions and booking are not available at launch.</p> : <ul><li>Everything in Self-Study</li><li>{guidedLine}</li><li>Session booking inside your account</li><li>Bring a study question and your reasoning; leave with a next-practice focus</li></ul>}
         <button className="btn btn-primary" disabled={CFG.previewOnly} style={{ justifyContent: 'center' }} onClick={() => join(track, 'guided')}>{CHECKOUT_TEST_MODE ? 'Join the early-access list' : 'Join Guided'}</button>
       </div>}
+    </div>
+    <div style={{ textAlign: 'center', marginTop: 26 }}>
+      <a className="btn" href="/pathways/sample-quiz" style={{ justifyContent: 'center', minWidth: 260, background: 'transparent', color: 'var(--navy)', border: '1.5px solid var(--navy)' }}>Try ten questions free</a>
     </div>
     <p style={{ textAlign: 'center', marginTop: 30, fontSize: 13.5, fontWeight: 600, color: 'var(--ink-2)' }}>Sitting for the {track === 'rbt' ? 'BCBA' : 'RBT'} exam? <a href={track === 'rbt' ? '/pathways/plans/bcba' : '/pathways/plans/rbt'} style={{ fontWeight: 700, color: 'var(--teal-3)' }}>See {track === 'rbt' ? 'BCBA' : 'RBT'} plans instead &rarr;</a></p>
     {joinErr && <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#b3452e', fontWeight: 700 }}>{joinErr}</p>}
@@ -49,12 +47,12 @@ function PlanCards({ track, selfPrice, guidedPrice, sampleLine, bankLine, guided
 const TRACKS = {
   rbt: {
     eyebrow: 'RBT track', heading: 'RBT exam prep.', selfPrice: '$49', guidedPrice: '$249',
-    sampleLine: '10-question RBT sample quiz', bankLine: 'Full RBT question bank',
+    bankLine: 'Full RBT question bank',
     guidedLine: 'One included 45-minute 1:1 per paid monthly renewal period. No rollover',
   },
   bcba: {
     eyebrow: 'BCBA track', heading: 'BCBA exam prep.', selfPrice: '$129', guidedPrice: '$450',
-    sampleLine: '10-question BCBA sample quiz', bankLine: 'Full BCBA question bank',
+    bankLine: 'Full BCBA question bank',
     guidedLine: 'One included 45-minute 1:1 per paid monthly renewal period. No rollover',
   },
 };
@@ -130,7 +128,7 @@ export default function Plans({ track: trackProp = null }) {
             <span className="eyebrow rv in">{t.eyebrow}</span>
             <h2 data-rise style={{ marginBottom: 34 }}>{t.heading}</h2>
             <PlanCards track={track} selfPrice={t.selfPrice} guidedPrice={t.guidedPrice}
-              sampleLine={t.sampleLine} bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} joinErr={joinErr} preview={preview} />
+              bankLine={t.bankLine} guidedLine={t.guidedLine} join={join} joinErr={joinErr} preview={preview} />
           </div>
         </section>
       )}

@@ -1,4 +1,5 @@
 import ArcMark from './ArcMark';
+import NavBarMenu from '../../Components/NavBarMenu';
 import { CFG } from '../config';
 import React, { useEffect, useRef, useState } from 'react';
 import MainSiteFooter from '../../Components/Sections/FooterSection';
@@ -49,7 +50,6 @@ export function Nav({ links, app }) {
   if (mounted && !app) {
     return (
       <div className={'pw-unified' + (member ? ' pw-app' : '')}>
-
         <div className="pw-subnav">
           <div className="wrap pw-subnav-inner">
             <a className="pw-subnav-tag" href="/pathways"><ArcMark />Pathways</a>
@@ -65,6 +65,10 @@ export function Nav({ links, app }) {
             </div>
           )}
         </div>
+        <a className="pw-classic-logo" href="/" aria-label="Navara Behavioral Group home">
+          <img src="/assets/logo-white.png" alt="Navara Behavioral Group" />
+        </a>
+        <NavBarMenu isDarkMode={false} forceSolidPill={true} />
       </div>
     );
   }

@@ -129,7 +129,7 @@ h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;line-h
 .cta-band p{position:relative;color:rgba(255,255,255,.78);max-width:60ch;margin:0 auto 34px}
 
 /* plan cards */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;align-items:stretch}
 .plan{border-radius:24px;background:#fff;padding:40px 34px;box-shadow:var(--shadow-md);position:relative;display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.9,.25,1.2),box-shadow .5s}
 .plan:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg)}
 .plan.featured{background:linear-gradient(165deg,#10233c,#1B3B62 65%,#234a55);color:#fff;overflow:hidden}
@@ -293,6 +293,11 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 @media (prefers-reduced-motion: reduce){.book-card,.book-done b{animation:none!important}}
 
 /* Unified header mock (preview-only): main-site nav pill + Pathways sub-nav row */
+.pw-classic-logo{position:absolute;top:20px;left:2rem;z-index:1001;display:block}
+.pw-classic-logo img{height:50px;width:auto;display:block}
+@media(max-width:768px){.pw-classic-logo{top:14px;left:1rem}.pw-classic-logo img{height:44px}}
+.pw-unified .pw-subnav-tag{margin-left:128px}
+@media(max-width:768px){.pw-unified .pw-subnav-tag{margin-left:96px}}
 .pw-subnav{position:relative;z-index:40;background:rgba(15,31,51,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(177,201,179,.18)}
 .pw-subnav-inner{display:flex;align-items:center;gap:28px;padding-top:96px;padding-bottom:12px}
 .pw-subnav-tag{font-weight:800;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage);white-space:nowrap}
@@ -369,7 +374,7 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 .pw-subnav-inner{padding-top:86px;padding-bottom:10px}
 @media(max-width:900px){.pw-subnav-inner{padding-top:80px}}
 
-.pw-app .pw-subnav-inner{padding-top:20px;padding-bottom:14px}
+.pw-app .pw-subnav-inner{padding-top:86px;padding-bottom:14px}
 .opt.selected{border-color:var(--teal-3);box-shadow:0 0 0 2px rgba(31,138,138,.25)}
 .pw-unified.pw-app > div:first-child{position:relative!important}
 
@@ -397,7 +402,9 @@ h1 .grad.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,gradShift 7s 
 .opt.answer-right,.opt.answer-right:hover{border-color:#256044;background:#e7f4ec;color:#173e2c;box-shadow:none}
 .opt.answer-wrong,.opt.answer-wrong:hover{border-color:#a23e36;background:#fff0ed;color:#702b25;box-shadow:none}
 .result-actions .btn-outline{border:1.5px solid var(--navy);color:var(--navy);background:#fff}
-.pw-unified:not(.pw-app) .pw-subnav-inner{padding-top:20px;padding-bottom:14px}
+.pw-unified:not(.pw-app) .pw-subnav-inner{padding-top:86px;padding-bottom:14px}
+@media(max-width:900px){.pw-unified:not(.pw-app) .pw-subnav-inner{padding-top:80px}}
+@media(max-width:900px){.pw-app .pw-subnav-inner{padding-top:80px}}
 .candidate-notice{background:#eaf2ef;color:#22303e;font-size:13px;line-height:1.6;padding:12px max(16px,calc((100vw - 1200px)/2));border-bottom:1px solid #cedbd5}
 /* Pathways now owns its only header; remove the obsolete absolute pill slot. */
 .pw-unified > .pw-subnav:first-child{position:relative!important;width:100%;box-sizing:border-box}
