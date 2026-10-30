@@ -15,8 +15,9 @@ import './guidedLessonText.css';
 // instance (one approved policy per function; the engine reads the track from
 // that policy). The member's profile track picks the endpoint; an unknown or
 // missing track fails closed - never silently served from the wrong lane.
+const CompletedLessonsArea=import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'?React.lazy(()=>import('./CompletedLessonsArea')):null;
 const TRACK_ENDPOINTS={
- bcba:import.meta.env.VITE_GUIDED_PRODUCTION==='true'?null:'https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/bcba-program',
+ bcba:import.meta.env.VITE_GUIDED_PRODUCTION==='true'?(import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'?'https://tvvoauvtrgziwxtzlluq.supabase.co/functions/v1/bcba-program':null):'https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/bcba-program',
  rbt:import.meta.env.VITE_GUIDED_PRODUCTION==='true'?'https://tvvoauvtrgziwxtzlluq.supabase.co/functions/v1/rbt-program':'https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/rbt-program',
 };
 const ORIGIN_FALLBACK='https://navarabehavioralgroup.com';
@@ -25,7 +26,7 @@ function FigureChart({pin}){
  const src=pin&&GUIDED_FIGURES[pin.sha256];
  if(!pin)return null;
  if(!src)return <p role="alert">This figure could not be confirmed. Please reload before continuing.</p>;
- return <figure className="guided-figure"><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>;
+ return import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&pin.sha256==='62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2'?<figure className="guided-figure" style={{margin:'18px 0'}}><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{display:'block',width:'100%',maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>:<figure className="guided-figure"><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>;
 }
 
 // CANDIDATE display-only dedup of identical trailing paragraphs shared by
@@ -79,7 +80,7 @@ export default function GuidedPathway(){
  useEffect(()=>{if(!user)return;(async()=>{try{
   const sb=await getClient();const{data:u}=await sb.auth.getUser();
   const{data:p}=await sb.from('profiles').select('track').eq('id',u.user.id).single();
-  const ep=TRACK_ENDPOINTS[p?.track];if(!ep)throw Error('This account does not have a practice track assigned yet.');
+  const ep=import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&p?.track==='bcba'&&import.meta.env.VITE_BCBA_GUIDED_TEST_MEMBER&&u.user.id!==import.meta.env.VITE_BCBA_GUIDED_TEST_MEMBER?null:TRACK_ENDPOINTS[p?.track];if(!ep)throw Error((import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&p?.track==='bcba')?'BCBA Guided lessons are not available for this account yet. Your practice and saved answers are unchanged.':'This account does not have a practice track assigned yet.');
   endpointRef.current=ep;setEndpoint(ep); // ref first: call() below reads it in this same tick
   const r=await call('status',{});setState(r);
   if(r.delivery)setView({kind:'practice',...r.delivery});
@@ -99,6 +100,92 @@ export default function GuidedPathway(){
  // bank practice is generic Guided practice and is labeled as such.
  const lessonTitle=offer?.title||state?.catalogResume?.title||null;
  const inLesson=!!lessonTitle||view.kind==='teaching'||view.kind==='feedback'||(view.kind==='practice'&&view.phase==='helped_practice');
+ if(import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true')return <><AppNav/><section className="section learning-thread" style={{paddingTop:24}}><div className="wrap" style={{maxWidth:780}}>
+  {SYNTHETIC&&<aside className="thread-test-note">Preview content: this lesson is engineering verification content, not reviewed exam teaching. No learning benefit is claimed.</aside>}
+  <span className="eyebrow">Your Guided pathway</span>
+  {!SYNTHETIC&&<p>{state?.personalizedFollowupsEnabled?'Guided lessons, helped practice and personalized follow-up checks when qualified questions are available.':'Guided lessons and helped practice.'} Lesson completion is not mastery or exam readiness.</p>}
+  <h1>{inLesson?(lessonTitle||'Your lesson'):'Guided practice'}</h1>
+  {err&&<div role="alert" className="panel"><p>{err}</p>{lastAction.current&&<button className="btn btn-navy" disabled={busy} onClick={retryLast}>Retry the same action</button>}</div>}
+  {view.kind==='loading'&&!err&&<p role="status">Loading your saved session...</p>}
+  {import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'&&<React.Suspense fallback={<p>Loading completed lessons...</p>}><CompletedLessonsArea endpoint={endpoint} memberId={user.id}/></React.Suspense>}
+  {view.kind==='status'&&<div className="panel">
+   {view.data?.personalizedFollowupsCanCheck&&<button className="btn btn-ghost" disabled={busy} onClick={()=>run('check_personalized_followups')}>Check personalized follow-up availability</button>}
+   {view.data?.personalizedFollowupsUpgradeAvailable&&<aside style={{border:'1px solid #b9cdd1',borderRadius:8,padding:16,marginBottom:16,textAlign:'left'}}><h2>Add personalized follow-ups</h2><p>Finish your current lesson or question first. Your saved lessons, answers and practice history stay recorded. Future checks use that history, so a question you have seen before will not count as fresh. Your plan and billing do not change.</p><button className="btn btn-navy" disabled={busy} onClick={()=>run('enable_personalized_followups')}>Enable personalized follow-ups</button></aside>}
+   {!!view.data?.distinctionChoices?.length&&<div style={{textAlign:'left',marginBottom:20}}><h2>Choose a distinction</h2><p>Choose what to practice. Correct helped answers do not prove that you can use the distinction without help.</p><div style={{display:'flex',gap:8,flexWrap:'wrap'}}>{view.data.distinctionChoices.map(c=><button key={c.id} className="btn btn-ghost" disabled={busy} onClick={()=>run('select_distinction',{contrastId:c.id})}>{c.label}</button>)}</div></div>}
+   {(view.data?.distinctionPracticeOffers||[]).filter((o,i,all)=>all.findIndex(x=>x.contrastId===o.contrastId)===i).map(practiceOfferCard)}
+   {view.data?.inventoryNotice?.freshCheckUnservedGap&&<p role="status">No new independent check is available for the practice you just finished. Your practice is saved. We will not count a repeated question as a fresh check.</p>}
+   {view.data?.next?.kind==='episode_result'?<><p>Your saved answers stay recorded. Finishing practice does not mean mastery or exam readiness.</p><button className="btn btn-navy" disabled={busy} onClick={()=>run('finish_episode')}>{view.data?.inventoryNotice?.freshCheckUnservedGap?'Finish practice':'Finish the check'}</button></>:view.data?.next?.kind==='session_complete'?<>
+    <p>This session is finished. Your saved answers and practice stay recorded. Starting another session is optional.</p>
+    <button className="btn btn-navy" disabled={busy} onClick={()=>run('start_session')}>Start another session</button>
+   </>:view.data?.next?.kind==='finish_session'?<>
+    <p>Your planned session is complete. Finish to save its summary.</p>
+    <button className="btn btn-navy" disabled={busy} onClick={()=>run('finish_session')}>Finish session</button>
+   </>:view.data?.next?.kind==='later_check'?<><p>Your helped practice is saved. Check whether a new independent question is available.</p><button className="btn btn-navy" disabled={busy} onClick={()=>run('open_next')}>Continue to the check</button></>:view.data?.enrollmentRequired?<>
+    <p>Start your Guided lessons and helped practice. This is included in your current Guided plan. Your other practice and saved answers stay unchanged.</p>
+    <button className="btn btn-navy" disabled={busy} onClick={()=>run('enroll_lessons')}>Start Guided lessons</button>
+   </>:view.data?.next?.kind==='curriculum_result'?<>
+    <p>Your checked answer is saved. One step left: finish the lesson to record it.</p>
+    <button className="btn btn-navy" disabled={busy} onClick={()=>run('finish_episode')}>Finish the lesson</button>
+   </>:offer?<>
+    {offer.repeatPractice&&<p>This is extra practice with help, not a new independent check. Your saved answers and earlier practice stay recorded. If no new independent check is available, we will say so rather than treat a repeat as fresh.</p>}
+    <p>Your chosen lesson is ready{offer.title?<>: <strong>{offer.title}</strong></>:null}.</p>
+    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by three helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
+    <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. Read each lesson's stated conditions and definitions before answering.</p>
+    <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
+   </>:<>
+    {hist>0?<p>Your saved answers are shown below. Finishing a lesson records teaching and helped practice, not mastery.</p>:!(view.data?.distinctionPracticeOffers?.length)?<p>No next lesson is available right now.</p>:null}
+    <p>Saved checked answers: {hist}.</p>
+    {hist>0&&<ul style={{textAlign:'left',fontSize:14,lineHeight:1.6}}>{(state?.history||[]).map(h=><li key={h.receiptId}>{h.phase==='helped_practice'?'Helped practice (not an independent check)':h.phase==='later_check'?'Follow-up check':h.phase==='return_case'?'Repeat practice (not a fresh check)':'Blueprint practice'}{': recorded '}{h.correct?'correct':'incorrect'}{h.answeredAt?`, server-confirmed ${new Date(h.answeredAt).toLocaleString()}`:''}.</li>)}</ul>}
+
+   </>}
+  </div>}
+  {view.kind==='teaching'&&<div className="panel">
+   <h2>Teaching step {view.step+1} of {view.totalSteps}</h2>
+   <div className="guided-lesson-text"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:({children})=><h3>{children}</h3>,h2:({children})=><h3>{children}</h3>,h3:({children})=><h4>{children}</h4>,a:({href,children})=><a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,table:({children})=><div className="guided-table-scroll"><table>{children}</table></div>}}>{view.evidence||''}</ReactMarkdown></div>
+   <FigureChart pin={view.figure}/>
+   <p>{view.learnerTask}</p>
+   <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
+  </div>}
+  {view.kind==='feedback'&&<div className="panel">
+   <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
+   <FigureChart pin={view.figure}/>
+   <p style={{textAlign:'left'}}><strong>Your pick: </strong>{view.alternatives?.[view.chosen]||''}</p>
+   <p style={{textAlign:'left'}}>{displayFeedback(view).selected}</p>
+   {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}><strong>The defensible choice: </strong>{view.alternatives?.[view.defensible]||''}</p>}
+   {view.chosen!==view.defensible&&<p style={{textAlign:'left'}}>{displayFeedback(view).correct}</p>}
+   {displayFeedback(view).shared&&<p style={{textAlign:'left'}}>{displayFeedback(view).shared}</p>}
+   {view.postAnswerTransfer&&<p style={{textAlign:'left'}}>{view.postAnswerTransfer}</p>}
+   <button className="btn btn-navy" disabled={busy} onClick={()=>run('open_next')}>{view.lastStep?'Open the practice question':'Next teaching step'}</button>
+  </div>}
+  {view.kind==='practice'&&<fieldset className="panel" style={{padding:'20px 24px'}}>
+   <legend>Practice with feedback</legend>
+   {view.returnMeta?.flag&&<p className="thread-return-flag" style={{background:'#eef4ff',border:'1px solid #b9ccf0',borderRadius:8,padding:'8px 12px',fontSize:14,textAlign:'left'}}>Back again: you missed this one before{view.returnMeta.enqueuedAt?` (first missed ${new Date(view.returnMeta.enqueuedAt).toLocaleDateString()})`:''}. Missed questions come back as practice.</p>}
+   <p>{view.body}</p>
+   <FigureChart pin={view.figure}/>
+   <div className="thread-options">{(view.options||[]).map((o,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('answer',{deliveryId:view.id,chosen:i})}>{o.text}</button>)}</div>
+   {view.returnMeta?.flag
+    ?<p>This is repeat practice of a question you missed before. It never counts as a fresh independent check.</p>
+    :view.phase==='helped_practice'
+    ?<p>This practice is recorded as helped practice, not an independent check.</p>
+    :<p>Your first answer is saved when you commit; feedback appears after.</p>}
+  </fieldset>}
+  {view.kind==='receipt'&&<div className="panel">
+   <h2>{view.correct?'Recorded correct.':'Recorded incorrect.'}</h2>
+   {view.distinctionPracticeOffer&&practiceOfferCard(view.distinctionPracticeOffer)}
+   <p>Server-confirmed at {view.serverAnsweredAt?new Date(view.serverAnsweredAt).toLocaleString():'the server'}.</p>
+   {(view.feedback?.options||[]).map((o,i)=><p key={i}>{i===view.feedback.correct_index?'Correct answer: ':''}{o.text}{o.explanation?' - '+o.explanation:''}</p>)}
+   {view.returnInfo?.pattern&&view.returnInfo?.tellLine&&<div className="thread-return-pattern" style={{background:'#fff7e6',border:'1px solid #ecd9a8',borderRadius:8,padding:'10px 14px',marginTop:8,textAlign:'left'}}>
+    <p style={{margin:0}}><strong>Pattern spotted: </strong>you've missed this mix-up more than once.</p>
+    <p style={{margin:'6px 0 0'}}><strong>Tell them apart: </strong>{view.returnInfo.tellLine}</p>
+   </div>}
+   {view.returnInfo?.enqueued&&!view.returnInfo?.pattern&&<p style={{fontSize:14,color:'#456',textAlign:'left'}}>This question will come back in a later session as practice.</p>}
+   {view.returnInfo?.resolved&&<p style={{fontSize:14,color:'#2f7d5d',textAlign:'left'}}>This mix-up stops coming back. Answering it right here is return practice, not mastery.</p>}
+   {(view.nextKind==='helped_practice'||view.nextKind==='teaching'||view.nextKind==='later_check')
+    ?<button className="btn btn-navy" disabled={busy} onClick={()=>run('open_next')}>{view.nextKind==='teaching'?'Next teaching step':view.nextKind==='later_check'?'Continue to the check':'Next practice question'}</button>
+    :<button className="btn btn-navy" disabled={busy} onClick={()=>run('finish_episode')}>Finish</button>}
+  </div>}
+  <p className="thread-footnote">{SYNTHETIC?'PREVIEW CONTENT - not yet owner-approved exam teaching. Saved answers, taught examples and checks stay separate.':'Saved answers, teaching examples and helped practice stay separate. Helped practice is not an independent check.'}</p>
+ </div></section></>;
  return <><AppNav/><section className="section learning-thread" style={{paddingTop:24}}><div className="wrap" style={{maxWidth:780}}>
   {SYNTHETIC&&<aside className="thread-test-note">Preview content: this lesson is engineering verification content, not reviewed exam teaching. No learning benefit is claimed.</aside>}
   <span className="eyebrow">Your Guided pathway</span>
@@ -127,7 +214,7 @@ export default function GuidedPathway(){
    </>:offer?<>
     {offer.repeatPractice&&<p>This is extra practice with help, not a new independent check. Your saved answers and earlier practice stay recorded. If no new independent check is available, we will say so rather than treat a repeat as fresh.</p>}
     <p>Your chosen lesson is ready{offer.title?<>: <strong>{offer.title}</strong></>:null}.</p>
-    <p>Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.</p>
+    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by three helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
     <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. Read each lesson's stated conditions and definitions before answering.</p>
     <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
    </>:<>
