@@ -67,6 +67,23 @@
    "addedAt": "2026-10-30T10:38:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~11:05 ET under main 11:02 authorization (finite CONSEQ helped-only adoption). Finite group content assent: dot #77214 full read of room File #2334 (v0.4), finite text/key review closed, keys D/B/D/D, no remaining substantive objection - content-only, not source/deployment/readiness clearance. Pack v0.5 metadata-only normalization (executor-verified zero learner delta). Reviewer technical review NOT yet run. Helped-only; ordinary candidates omitted; zero fresh; BC3-07/08 held; family namespace boundary applies to bcba-conseq as exposure namespace only."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v6.mjs",
+   "sha256": "2fdc8c843cad9761390f77ae15a014e88dc2cf68cb3b71ed169ec29e0e50065c",
+   "policyId": "bcba-lessons-policy-v5",
+   "manifestVersion": "bcba-lessons-manifest@sha256:fd81009718a3391c768d862989e5a1a65e81509192f300af4e9d930b7d31912c",
+   "catalogSha": "049ae72543005dca812d4bd9dded7cbb13b180d9f75ba5867a142c342aea672d",
+   "bindingSha": "46c66a12bf63c29dd1611d31010373296dc94da43db1735910fa7d92efeb3d0d",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T11:18:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~11:18 ET under main 11:16:53 authorization (finite DISCRIM helped-only adoption). Finite group content assent: dot #77267 + Claude #77265 full reads of room File #2340 (v0.4), finite text/key reviews closed, keys C/C/C/D, no remaining substantive objection - content-only, not source/deployment/readiness clearance. Author learner-safe export sha d8169022 (T1-T8 applied by author; executor zero content changes). Author packaged-byte fidelity CLEAN 11:15:39; reviewer independent recompute/scratch 11:16 no technical blocker. Helped-only: assent covers 4 reviewed keys C/C/C/D, only the 2 helped items installed; ordinary CHK1/CHK2 omitted; zero fresh; BC3-07/08 held; family namespace bcba-discrim is a broad exposure namespace for these 2 assisted items only (coordinator 10:56:40), not a decisive-family verdict."
   }
  ],
  "figures": [
