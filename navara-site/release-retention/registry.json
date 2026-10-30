@@ -1,30 +1,61 @@
 {
-  "artifact": "bcba-release-retention-registry",
-  "schema": "bcba-retention-registry-v2",
-  "bundles": [
-    {
-      "file": "generated-bcba-bundle-CANDIDATE.mjs",
-      "sha256": "e8dfec17986215489ff13bc0fbace08496357290d81be6abe126fbdf3f56f7b0",
-      "policyId": "bcba-sdmo-lessons-policy-v1",
-      "manifestVersion": "bcba-sdmo-manifest@sha256:dc19f86052b71a5904c0e4e82ac005b1b3700d6097cf8da3efb17cf05129b675",
-      "catalogSha": "1599fe8d19810dc96f850da34f5552a3efc714c57c893da8821a7e0162eeea66",
-      "bindingSha": "cfa1ef6fb92589cfacf684c843728ffb488273b438cb57d699ee8d7027e293f8",
-      "figurePins": [
-        "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2"
-      ],
-      "status": "active",
-      "addedAt": "2026-10-29T21:14:00-04:00",
-      "withdrawnAt": null,
-      "reviewEvidence": "Adoption candidate: original retained deployed CANDIDATE registered in place (policy RELEASE-POLICY.md); original whole-file pin e8dfec17986215489ff13bc0fbace08496357290d81be6abe126fbdf3f56f7b0 | registered in place, bytes unchanged"
-    }
-  ],
-  "figures": [
-    {
-      "sha256": "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
-      "status": "active",
-      "addedAt": "2026-10-29T21:14:00-04:00",
-      "withdrawnAt": null,
-      "note": "derived from bundle figures Map at migration"
-    }
-  ]
+ "artifact": "bcba-release-retention-registry",
+ "schema": "bcba-retention-registry-v2",
+ "bundles": [
+  {
+   "file": "generated-bcba-bundle-CANDIDATE.mjs",
+   "sha256": "e8dfec17986215489ff13bc0fbace08496357290d81be6abe126fbdf3f56f7b0",
+   "policyId": "bcba-sdmo-lessons-policy-v1",
+   "manifestVersion": "bcba-sdmo-manifest@sha256:dc19f86052b71a5904c0e4e82ac005b1b3700d6097cf8da3efb17cf05129b675",
+   "catalogSha": "1599fe8d19810dc96f850da34f5552a3efc714c57c893da8821a7e0162eeea66",
+   "bindingSha": "cfa1ef6fb92589cfacf684c843728ffb488273b438cb57d699ee8d7027e293f8",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-29T21:14:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Adoption candidate: original retained deployed CANDIDATE registered in place (policy RELEASE-POLICY.md); original whole-file pin e8dfec17986215489ff13bc0fbace08496357290d81be6abe126fbdf3f56f7b0 | registered in place, bytes unchanged"
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v3.mjs",
+   "sha256": "623abcd1ec6a342bb0c0f8d262538bbfc49ffa5beb0c3306ba98a534d01c586d",
+   "policyId": "bcba-lessons-policy-v2",
+   "manifestVersion": "bcba-lessons-manifest@sha256:de8f696b43d7d55c9034d376c48edcfbd1a7ab6eff68726dab28a80d4d5ba985",
+   "catalogSha": "0bd01db1c86d661827b96b8d992d61f56217a7537b9b1a476dc37bc05409e2a8",
+   "bindingSha": "f1f96b05e6262550c36b4eb150c255395611012ea4dd7ed275d75c9330484718",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-29T23:07:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Adopted 2026-10-29 23:20 ET: standing publish grant (recovered original WhatsApp Oct28 01:39:02 wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=, conditioned on group approval) + group assent room r9bb29a4dbf4c Claude #74278 + dot #74279 (FINAL A on exact File2246 wording; B/C/generic offer/figure accepted; content-only assent). Conditional-A wording applied: latency-end alternative removed from step-1 evidence; HP1-D exact 'a rate (responses per minute)'. Keys/math/figures unchanged. Technical readiness: independent reviewer reproduced row/policy hashes; verify-package.py 37/37 PASS; atomic-install-v10.sql applied with all guards 1. Content-only room assent; not SME review."
+  }
+ ],
+ "figures": [
+  {
+   "sha256": "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+   "status": "active",
+   "addedAt": "2026-10-29T21:14:00-04:00",
+   "withdrawnAt": null,
+   "note": "derived from bundle figures Map at migration"
+  },
+  {
+   "sha256": "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+   "status": "active",
+   "addedAt": "2026-10-29T22:45:00-04:00",
+   "withdrawnAt": null,
+   "note": "Adopted 2026-10-29 with LESSONS-v3 bundle (same assent reference) - desktop variant retained in byte store, not the served pin"
+  },
+  {
+   "sha256": "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c",
+   "status": "active",
+   "addedAt": "2026-10-29T22:45:00-04:00",
+   "withdrawnAt": null,
+   "note": "Adopted 2026-10-29 with LESSONS-v3 bundle (same assent reference) - served pin - mobile layout, legible at 355px"
+  }
+ ]
 }

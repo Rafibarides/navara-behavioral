@@ -129,7 +129,7 @@ export default function GuidedPathway(){
    </>:offer?<>
     {offer.repeatPractice&&<p>This is extra practice with help, not a new independent check. Your saved answers and earlier practice stay recorded. If no new independent check is available, we will say so rather than treat a repeat as fresh.</p>}
     <p>Your chosen lesson is ready{offer.title?<>: <strong>{offer.title}</strong></>:null}.</p>
-    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by three helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
+    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
     <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. Read each lesson's stated conditions and definitions before answering.</p>
     <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
    </>:<>
@@ -214,7 +214,7 @@ export default function GuidedPathway(){
    </>:offer?<>
     {offer.repeatPractice&&<p>This is extra practice with help, not a new independent check. Your saved answers and earlier practice stay recorded. If no new independent check is available, we will say so rather than treat a repeat as fresh.</p>}
     <p>Your chosen lesson is ready{offer.title?<>: <strong>{offer.title}</strong></>:null}.</p>
-    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by three helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
+    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
     <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. Read each lesson's stated conditions and definitions before answering.</p>
     <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
    </>:<>
