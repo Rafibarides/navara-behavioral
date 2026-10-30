@@ -169,6 +169,23 @@
    "addedAt": "2026-10-30T13:44:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~13:44 ET under main 13:32:41 GO (finite DSCED helped-only adoption; independent reviewer 13:32:29 final evidence-diff + full chain recompute/scratch CLEAN; author v3 CLOSED CLEAN 13:18:26 + moduleWhy EXACT confirmed 13:28:43; dot finite changed-text review #78900 CLOSED; coordinator namespace 13:18:03). Install assent: 2026-10-30 dot #78900 finite changed-text review closed + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v9 byte-untouched (v9/v10 entries remain ACTIVE); helped-only, no mastery/readiness claim."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v12.mjs",
+   "sha256": "48c4d10b8c5bf7dbccc97307448cc5de6899bb0424a2a01f6c663241cce58d51",
+   "policyId": "bcba-lessons-policy-v11",
+   "manifestVersion": "bcba-lessons-manifest@sha256:d9198909fa95384b82194d6ba753decd42479959f6a70146058befb90b1448b3",
+   "catalogSha": "73533b47cb49cb853cbbf63e73b3d58b505e72e68faa6cd5584c76f255fca96e",
+   "bindingSha": "29a7340ab63c85178abacee9f7332a1305c012ca7cd9a8d5c12a769db84f9353",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:56:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~14:56 ET under main 14:55:28 GO (finite AGOALS helped-only adoption; dot finite text/key review #80155 CLOSED; author packaged canonical byte parity CLEAN 14:54:43; independent reviewer 14:55 final bytes+SQL chain recompute CLEAN incl retention/re-run rejection/missing-v12 negative; coordinator namespace 14:46:48; main personally inspected dot 80155 original + final policy evidence). Install assent: 2026-10-30 AGOALS v12 helped-only adoption: dot finite #80155 closed, author parity clean 14:54, reviewer recompute clean 14:55, main GO 14:55:28 + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v10 byte-untouched (v2-v11 entries remain ACTIVE); helped-only, no mastery/readiness claim."
   }
  ],
  "figures": [
