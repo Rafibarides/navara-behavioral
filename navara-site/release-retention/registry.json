@@ -118,6 +118,23 @@
    "addedAt": "2026-10-30T12:27:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~12:27 ET under main 12:24:25 GO (finite DVALID helped-only adoption; independent reviewer 12:24:14 final 24 checks + final SQL scratch clean, no objection, bounded limits retained; main confirmed exact staged bytes 12:26:13). Owner authority: original conditional publication grant (authenticated WhatsApp Oct 28 01:39:02, wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=) personally recovered by main + main personal inspection 2026-10-30 ~12:21 ET. Finite current content disposition: dot #77707 (v2 no blocking objection + optional precision) -> Claude #78065 v3 (#2378 JSON, #2379 provenance) -> dot #78068 finite changed-text review CLOSED - bounded content review only, not source-independent audit, deployment or readiness clearance. Author raw-WWC fidelity 10/10 (11:54:25); author v3 recursive check closed 12:19:15 (exactly three HP2 mirrors). Canonical per-item citations byte-verbatim from question_rows; moduleWhy author-confirmed 12:02:58. Installed 12:26:49 ET: live content hashes 9275 e2f3fa689af588ba92db1b02ef4d4a67 / 9276 59220171c18b9045956669c6ef81cbbe, policy_hash c5c76a690ae3c04176fe3fbe7b886bbd96f4e09749b29539cfb3a4d6fea481f4, sequence 9276. Helped-only; zero fresh checks; bcba-dvalid bounded to these 2 assisted items (coordinator 11:23:40); both keys B accepted; directHelpItemIds empty by contract; no mastery/readiness claim."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v9.mjs",
+   "sha256": "a6051be627eea66bce1af59e79e9ec3132c6e98adf1f41134268fba319c8772b",
+   "policyId": "bcba-lessons-policy-v8",
+   "manifestVersion": "bcba-lessons-manifest@sha256:19ff8706262f5efe0c125c413b6515bfabad8b56945db82246ab610cb0a71626",
+   "catalogSha": "da7cdd616a8e2f95be95de7b1512d0386115eab15d17428da250b72f103c261d",
+   "bindingSha": "0b718ed804281f94fc54e04f6498793b3a91547fe1357037225af0304dd4f2f4",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T13:34:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~13:34 ET under main 13:32:41 GO (finite DDESIGN helped-only adoption; independent reviewer 13:32:29 final evidence-diff + full chain recompute/scratch CLEAN; author v3 CLOSED CLEAN 13:12:29 + moduleWhy EXACT confirmed 13:28:43; dot finite changed-text review #78888 CLOSED; coordinator namespace 13:17:50). Install assent: 2026-10-30 dot #78888 finite changed-text review closed + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v7 byte-untouched; helped-only, no mastery/readiness claim."
   }
  ],
  "figures": [
