@@ -470,7 +470,7 @@ const NavBarMenu = ({ isDarkMode = false, forceSolidPill = false }) => {
 
   // Desktop Navigation
   return (
-    <div style={{
+    <div className="nvm-desktop-root" style={{
       position: 'fixed',
       top: '20px',
       left: '50%',

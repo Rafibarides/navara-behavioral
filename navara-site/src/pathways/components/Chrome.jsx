@@ -47,7 +47,7 @@ export function Nav({ links, app }) {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  if (mounted && !app) {
+  if (!app) {
     return (
       <div className={'pw-unified' + (member ? ' pw-app' : '')}>
         <div className="pw-subnav">
@@ -68,14 +68,14 @@ export function Nav({ links, app }) {
         <a className="pw-classic-logo" href="/" aria-label="Navara Behavioral Group home">
           <img src="/assets/logo-white.png" alt="Navara Behavioral Group" />
         </a>
-        <NavBarMenu isDarkMode={false} forceSolidPill={true} />
+        {mounted && <NavBarMenu isDarkMode={false} forceSolidPill={true} />}
       </div>
     );
   }
   return (
-    <nav className={'nav' + (app ? ' app-nav' : '')} ref={ref} style={app ? { position: 'sticky' } : undefined}>
+    <nav className="nav app-nav" ref={ref} style={{ position: 'sticky' }}>
       <div className="wrap nav-inner">
-        <a className="brand" href={app ? '/pathways' : '/'}>
+        <a className="brand" href="/pathways">
           <Arcs className="" />
           <span className="brand-name">Navara<small>Pathways</small></span>
         </a>

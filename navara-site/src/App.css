@@ -58,3 +58,6 @@ body {
   padding: 0;
   width: 100vw;
 }
+
+/* Static prerendered pages always carry the desktop pill markup; keep it off phone-width first paint (the hamburger mounts at hydration). */
+@media(max-width:768px){.nvm-desktop-root{display:none!important}}
