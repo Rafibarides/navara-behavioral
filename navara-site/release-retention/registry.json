@@ -33,6 +33,23 @@
    "addedAt": "2026-10-29T23:07:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "Adopted 2026-10-29 23:20 ET: standing publish grant (recovered original WhatsApp Oct28 01:39:02 wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=, conditioned on group approval) + group assent room r9bb29a4dbf4c Claude #74278 + dot #74279 (FINAL A on exact File2246 wording; B/C/generic offer/figure accepted; content-only assent). Conditional-A wording applied: latency-end alternative removed from step-1 evidence; HP1-D exact 'a rate (responses per minute)'. Keys/math/figures unchanged. Technical readiness: independent reviewer reproduced row/policy hashes; verify-package.py 37/37 PASS; atomic-install-v10.sql applied with all guards 1. Content-only room assent; not SME review."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v4.mjs",
+   "sha256": "a5e1d604a3176997185d08af7eb3d83b546bbd50a4b89e8f829bc28a9641d3b7",
+   "policyId": "bcba-lessons-policy-v3",
+   "manifestVersion": "bcba-lessons-manifest@sha256:1fdb3ece339bef67340d8a9dd349ae1cc1557ae8e3eb03fe41c211d5eab02613",
+   "catalogSha": "b9c14da5606b5cfa9c94bba492690175f4d1ab9b8a68cf2f1018919114507bd3",
+   "bindingSha": "14df7ceb5bcd979e3e01ed39f34abc917b8144d980696bebfed073ae6ed086b1",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T10:15:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Adopted 2026-10-30 ~10:20 ET (install-v4.sql COMMIT, all guards 1). standing publish grant (recovered original WhatsApp Oct28 01:39:02 wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=, conditioned on group approval). Finite group content assent (room r9bb29a4dbf4c): Claude #76834 G #2321 v0.9 full read no remaining text/key objection; Claude #76835 CMO #2315 v0.5 full read no remaining text/key objection; dot #76838 condition satisfied finite review closed - content reviews only, not source-independent verification, deployment or recipient readiness clearance. Author-specified restorations applied verbatim. Reviewer technical review PENDING. Helped-only; ordinary CHK candidates omitted. Family namespace boundary (coordinator decision 2026-10-30): module-identity families bcba-cmo/bcba-shape-chain are broad EXPOSURE namespaces for this assisted-only package, NOT shared decisive-act/independence families; do not reuse for future unhelped stock without fresh family-semantics qualification."
   }
  ],
  "figures": [
