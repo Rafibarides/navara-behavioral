@@ -1,4 +1,4 @@
-// Append-only BCBA release-retention guard v2.3.
+// Append-only BCBA release-retention guard v2.4.
 // Usage: node check-retained-bcba.mjs <root> [--release] [--previous <path|git:REF:path>] [--bootstrap]
 //        [--dev] [--generated <path>]
 //   DEFAULT (bare) invocation is SAFE: release semantics with an auto-resolved git
@@ -283,6 +283,23 @@ if (fs.existsSync(GENERATED)) {
   let genObjs;
   try { genObjs = await loadBundles(pathToFileURL(GENERATED).href); } catch (e) { fail('generated bundle not importable: ' + e.message); }
   const genPins = genObjs.map(o => { let f; try { f = bundleFacts(o); } catch (e) { fail('generated bundle element invalid: ' + e.message); } return f; });
+  // v2.4: no duplicate or unregistered member pins in the generated file, and every ACTIVE
+  // generated element deep-equals its retained original object (all actives, keyed by member
+  // pin, not only the CANDIDATE). Catches byte/drop/reorder and cross-bundle figure swaps that
+  // still hash-verify at import.
+  const { isDeepStrictEqual } = await import('node:util');
+  const genByPin = new Map();
+  for (const [i, f] of genPins.entries()) {
+    const k = f.policyId + '|' + f.manifestVersion;
+    if (genByPin.has(k)) fail('generated bundle repeats member pin ' + k);
+    if (!memberPins.has(k)) fail('generated bundle serves unregistered member pin ' + k);
+    genByPin.set(k, genObjs[i]);
+  }
+  for (const b of reg.bundles) {
+    if (b.status !== 'active') continue;
+    const g = genByPin.get(b.policyId + '|' + b.manifestVersion);
+    if (g && !isDeepStrictEqual(g, bundleObjs.get(b.file).obj)) fail('generated element for ' + b.file + ' differs from retained original');
+  }
   for (const b of reg.bundles) {
     const present = genPins.some(f => f.policyId === b.policyId && f.manifestVersion === b.manifestVersion);
     if (b.status === 'withdrawn' && present)

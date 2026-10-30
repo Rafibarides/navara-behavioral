@@ -6,7 +6,11 @@
 // artifact; (2) deployed composition imports the NEW generated file and NOT the old
 // CANDIDATE; (3) import-level equivalence of deployed vs committed generated bundles;
 // (4) every member pin of the RETAINED old CANDIDATE is still served (no substitution);
-// (5) the retained CANDIDATE file is present in the repo with its registry-pinned sha.
+// (5) the retained CANDIDATE file is present in the repo with its registry-pinned sha;
+// (6) v2.4: EVERY registry retained original (active and withdrawn) is present with its pinned
+//     sha and matching pin; every ACTIVE one is served identically, every WITHDRAWN one is absent
+//     (pin-keyed deep-equal); the deployed file serves no duplicate,
+//     withdrawn or unregistered member pin, and exactly the active count.
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -62,4 +66,32 @@ const entry = (reg.bundles || []).find(x => x.file === 'generated-bcba-bundle-CA
 if (!entry) fail('registry has no entry for the retained CANDIDATE');
 if (sha256(fs.readFileSync(retained)) !== entry.sha256) fail('retained CANDIDATE bytes diverge from its registry pin');
 console.log('5 PASS retained CANDIDATE bytes match registry pin ' + entry.sha256);
+
+// (6) v2.4: ALL registry ACTIVE originals served identically; nothing else served.
+if (newByPin.size !== b.length) fail('deployed generated file serves a duplicate member pin');
+const regByPin = new Map((reg.bundles || []).map(e => [e.policyId + '|' + e.manifestVersion, e]));
+for (const k of newByPin.keys()) {
+  const e = regByPin.get(k);
+  if (!e) fail('deployed function serves unregistered member pin ' + k);
+  if (e.status !== 'active') fail('deployed function serves ' + e.status + ' member pin ' + k);
+}
+let nActive = 0;
+for (const e of reg.bundles || []) {
+  // every retained original (active AND withdrawn) is sha-pinned, single-bundle and pin-consistent
+  const p = path.join(root, 'release-retention', e.file);
+  if (!fs.existsSync(p)) fail('retained original missing from repo: ' + p);
+  if (sha256(fs.readFileSync(p)) !== e.sha256) fail('retained original ' + e.file + ' bytes diverge from its registry pin');
+  const orig = await loadBundles(pathToFileURL(p).href);
+  if (orig.length !== 1) fail('retained original ' + e.file + ' must export exactly one bundle');
+  const k = orig[0].policyId + '|' + orig[0].manifestVersion;
+  if (k !== e.policyId + '|' + e.manifestVersion) fail('retained original ' + e.file + ' pin diverges from registry listing');
+  if (e.status !== 'active') { if (newByPin.has(k)) fail('deployed function serves withdrawn member pin ' + k); continue; }
+  const got = newByPin.get(k);
+  if (!got) fail('deployed function does not serve ACTIVE member pin ' + k + ' (' + e.file + ')');
+  deepStrictEqual(got, orig[0]);
+  nActive++;
+}
+if (nActive !== newByPin.size) fail(`deployed function serves ${newByPin.size} pin(s) but registry has ${nActive} active`);
+console.log('6 PASS all ' + nActive + ' ACTIVE retained original(s) served identically; no extra/withdrawn/unregistered pins');
 console.log('DEPLOY VERIFIED');
+
