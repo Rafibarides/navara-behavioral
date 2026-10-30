@@ -135,6 +135,23 @@
    "addedAt": "2026-10-30T13:34:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~13:34 ET under main 13:32:41 GO (finite DDESIGN helped-only adoption; independent reviewer 13:32:29 final evidence-diff + full chain recompute/scratch CLEAN; author v3 CLOSED CLEAN 13:12:29 + moduleWhy EXACT confirmed 13:28:43; dot finite changed-text review #78888 CLOSED; coordinator namespace 13:17:50). Install assent: 2026-10-30 dot #78888 finite changed-text review closed + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v7 byte-untouched; helped-only, no mastery/readiness claim."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v10.mjs",
+   "sha256": "d1fa2a3b78a919eb10efaef0aac44e6bec712b51c25090591f52d7d6f5fa3559",
+   "policyId": "bcba-lessons-policy-v9",
+   "manifestVersion": "bcba-lessons-manifest@sha256:fc59113832ee64de9036c8b54e3523f8a8049872814b25cc4cebfb6edc81f20b",
+   "catalogSha": "d530cd30167c271a439b1d2ae27200605589dab81e9782e3876a5950c849a028",
+   "bindingSha": "2c6464c9fb7e0650ebd25b705dd08ae28ea228f06e42bab9a6d56da467c8704b",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T13:44:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~13:44 ET under main 13:32:41 GO (finite DDATA helped-only adoption; independent reviewer 13:32:29 final evidence-diff + full chain recompute/scratch CLEAN; author v3 CLOSED CLEAN 13:12:29 + moduleWhy EXACT confirmed 13:28:43; dot finite changed-text review #78875 CLOSED; coordinator namespace 13:17:50). Install assent: 2026-10-30 dot #78875 finite changed-text review closed + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v8 byte-untouched (v9 entry remains ACTIVE); helped-only, no mastery/readiness claim."
   }
  ],
  "figures": [
