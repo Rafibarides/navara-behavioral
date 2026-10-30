@@ -203,6 +203,23 @@
    "addedAt": "2026-10-30T14:57:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~14:57 ET under main 14:55:28 GO (finite ARAD helped-only adoption; dot finite learner-text/key review #80160 CLOSED incl #80130 semantic repairs; author packaged canonical byte parity CLEAN 14:54:43; independent reviewer 14:55 final bytes+SQL chain recompute CLEAN; coordinator namespace 14:47:38; main personally inspected dot 80160 original + final policy evidence). Install assent: 2026-10-30 ARAD v13 helped-only adoption: dot finite #80160 closed, author parity clean 14:54, reviewer recompute clean 14:55, main GO 14:55:28 + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v11 byte-untouched (v2-v12 entries remain ACTIVE); helped-only, no mastery/readiness claim."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v14.mjs",
+   "sha256": "aed57a1a9198fd361dc8b6ed9bc246fc8e3808921fa85f6dd80a649c76260d6e",
+   "policyId": "bcba-lessons-policy-v13",
+   "manifestVersion": "bcba-lessons-manifest@sha256:9b23217d3b224d0d5cd752dd4f1a46d32568273b4a7f1f08c0e69e0b5a429ec8",
+   "catalogSha": "9fee774e58b3567c9f14694bd47394def52c4803333d652b42f58a9f38d76734",
+   "bindingSha": "1ef2fda1d65e5c507b2474f43fbbb61769daa5af812f20833a84959035d7bc38",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T15:07:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~15:07 ET under main 15:06:58 GO DB/repo only (finite ADIM helped-only adoption; dot finite text/key review #80191 CLOSED incl #80156 repairs, 11 scalar paths executor-verified; author packaged canonical byte parity + exact Why CLEAN 15:06; independent reviewer 15:04 final bytes+SQL chain recompute CLEAN; coordinator namespace 14:46:48; main personally inspected dot 80191 original + policy v13 evidence). Install assent: 2026-10-30 ADIM v14 helped-only adoption: dot finite #80191 closed, author parity clean 15:06, reviewer recompute clean 15:04, main GO 15:06:58 + owner grant wamid.HBgLMTIxMjk0NDU4MjgVAgASGBQzQTRFMzQ3N0JGQjYxQkQ0REJDMwA=. Live pre/post guards clean; old policy pins v2-v12 byte-untouched (all 12 prior registry entries remain ACTIVE unchanged); helped-only, no mastery/readiness claim. NO function deploy until reviewed architecture size fix passes."
   }
  ],
  "figures": [
