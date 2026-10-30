@@ -322,6 +322,40 @@
    "addedAt": "2026-10-30T14:48:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "G-lane helped-only bcba-gemerg (order 20, items 9299/9300 keys C/A, G.19 forward A-C transitivity / G.16 maintenance via schedule thinning plus natural-reinforcement progression). Author module v2 (sha a86ecce6; forward A-C test, each-entry points with monitored transition, dot #80608 repairs adjudicated and accepted by the author) checker 89/1 - single FAIL is the documented scoped-regex false positive on the Sidman figure reference '#3' in the byte-verbatim source quote, no quote edit; room #2491; dot finite closure #80629 CLOSED 2026-10-30 (bounded text/key review only); author-confirmed exact moduleWhy; coordinator namespace fit 2026-10-30 15:38: broad 2-helped exposure only, distinct acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v19 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:42-15:43 EDT under main GO 15:41 (owner conditional publication grant personally recovered by main 15:40 from authenticated WhatsApp originals; finite closures #80628/#80629 read by main; author canonical packaged parity ALLPASS 15:40:37; coordinator namespace fits 15:38; independent hash/SQL/registry chain review CLEAN 15:41). DB install COMMIT verified (1 COMMIT, 0 errors); policy hash c3efd655 and item content hashes c63586e4/7bbb007a live-verified post-install; policy bcba-lessons-policy-v2 and all prior pins untouched."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v21.mjs",
+   "sha256": "1efaa2f9e9413a891737b76cc74cbb1e3e329dc1fad4ea61b2460efd8c65dffc",
+   "policyId": "bcba-lessons-policy-v20",
+   "manifestVersion": "bcba-lessons-manifest@sha256:ef754e652e9696f48bf0161fc2a64502979c223d863789a848c7dd148909d29f",
+   "catalogSha": "9fc6eaabd2f7c6cb4b97bdc76f797ca9919e11f08a36f26c99f099191390f6e5",
+   "bindingSha": "55740123300d9c2d3a9fac411aed9639af288392199430cf56a9c7bacd450224",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:48:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "G-lane helped-only bcba-gante (order 21, items 9301/9302 keys B/C, G.5 candidate-MO-plus-cue plan / G.6 conditional-discrimination identification - identification of arrangement only, not design/evaluate). Author module v3 (sha 984c76c5; EO claim bounded, contract template restored, dot semantic repairs adjudicated and accepted by the author) checker 90/90; room #2497; dot finite closure #80677 CLOSED 2026-10-30 (bounded text/key review only - NOT adoption/deployment/readiness clearance); author-confirmed exact moduleWhy; coordinator namespace fit 2026-10-30 15:33: broad 2-helped exposure only, distinct HP1/HP2 acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v20 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:52-15:53 EDT under main GO 15:51 (owner conditional publication grant recovered by main 15:40 from authenticated WhatsApp originals; finite closures #80677/#80678 read by main; author canonical packaged parity/exact moduleWhy ALLPASS 15:48:29; coordinator namespace fit 15:33; independent hash/SQL chain CLEAN 15:48:56; bounded final registry repair check CLEAN 15:51:15). DB install COMMIT verified (1 COMMIT, 0 errors each); policy hashes 5b2b1cdf/e48651f4 and item content hashes 91bb4c0f/60f84d8e/a973177a/23d3b606 live-verified post-install; policy bcba-lessons-policy-v2 and all prior pins untouched."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v22.mjs",
+   "sha256": "eddf38af8f9542c71b6f1566c84774a4f145f1af8e1fdf06f547915bacdbb23d",
+   "policyId": "bcba-lessons-policy-v21",
+   "manifestVersion": "bcba-lessons-manifest@sha256:ac6649a52aa9552333d773a0238dd9126e3916122b4de7d7382610f835de5120",
+   "catalogSha": "064f1ac7bf4f95a3b016a0e5f1191501516cc5f26c796e99d7f425113ae511bf",
+   "bindingSha": "ba136279a0374ba2a5523d8e11fe71c1b711790cf043ac4171f47a65b419ad7b",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T14:48:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "G-lane helped-only bcba-ggen (order 22, items 9303/9304 keys D/A, G.15 multiple-exemplar programming plus untrained probes / G.1 positive-side evaluation only - negative reinforcement unaddressed). Author module v3 (sha b0463621; observed-data claim narrowed with implementation/opportunity/competing-condition uncertainty, contract template restored, dot semantic repairs adjudicated and accepted by the author) checker 90/90; room #2498; dot finite closure #80678 CLOSED 2026-10-30 (bounded text/key review only); author-confirmed exact moduleWhy; coordinator namespace fit 2026-10-30 15:33: broad 2-helped exposure only, distinct acts, zero independent credit. Factual approvalEvidence in policy bcba-lessons-policy-v21 draft. Finite review is limited to the stated text and keys; it does not establish adoption, deployment, independent assessment, or program readiness. Adopted 2026-10-30 15:52-15:53 EDT under main GO 15:51 (owner conditional publication grant recovered by main 15:40 from authenticated WhatsApp originals; finite closures #80677/#80678 read by main; author canonical packaged parity/exact moduleWhy ALLPASS 15:48:29; coordinator namespace fit 15:33; independent hash/SQL chain CLEAN 15:48:56; bounded final registry repair check CLEAN 15:51:15). DB install COMMIT verified (1 COMMIT, 0 errors each); policy hashes 5b2b1cdf/e48651f4 and item content hashes 91bb4c0f/60f84d8e/a973177a/23d3b606 live-verified post-install; policy bcba-lessons-policy-v2 and all prior pins untouched."
   }
  ],
  "figures": [
