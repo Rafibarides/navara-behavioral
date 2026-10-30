@@ -84,6 +84,23 @@
    "addedAt": "2026-10-30T11:18:00-04:00",
    "withdrawnAt": null,
    "reviewEvidence": "ADOPTED 2026-10-30 ~11:18 ET under main 11:16:53 authorization (finite DISCRIM helped-only adoption). Finite group content assent: dot #77267 + Claude #77265 full reads of room File #2340 (v0.4), finite text/key reviews closed, keys C/C/C/D, no remaining substantive objection - content-only, not source/deployment/readiness clearance. Author learner-safe export sha d8169022 (T1-T8 applied by author; executor zero content changes). Author packaged-byte fidelity CLEAN 11:15:39; reviewer independent recompute/scratch 11:16 no technical blocker. Helped-only: assent covers 4 reviewed keys C/C/C/D, only the 2 helped items installed; ordinary CHK1/CHK2 omitted; zero fresh; BC3-07/08 held; family namespace bcba-discrim is a broad exposure namespace for these 2 assisted items only (coordinator 10:56:40), not a decisive-family verdict."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v7.mjs",
+   "sha256": "313e2d0ac7ba9824d7fea6c9a67d6b2a041ab02402ac68d3641a12b8019d68c9",
+   "policyId": "bcba-lessons-policy-v6",
+   "manifestVersion": "bcba-lessons-manifest@sha256:5a04c1480281b38e09f6893b34c896da176a9c6b291ffac7f3cc07fc6c790af6",
+   "catalogSha": "d31ff63b80b2a0a5ebcc90c24cfc0663af04580b657d70de1f715d1ca5407727",
+   "bindingSha": "387beb66e2f56a9d9a5aeb111ded15a2928067e3573bf32d5a448b00d827960c",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-10-30T11:20:00-04:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "ADOPTED 2026-10-30 ~11:20 ET under main 11:16:53 authorization (finite SCHED helped-only adoption, after DISCRIM v6 verified adopted). Finite group content assent: dot #77438 finite text/key review closed on room File #2349 v0.3 lineage + 2 same-save v0.4 normalizations, keys B/D/A/C - content-only, not source/deployment/readiness clearance. Author learner-safe export sha256 08833badf0289e32e7740811991f8fd5cedfb49d2535d3cdab2cc7f26e334bc7 (T1-T6 applied by author; executor zero content changes). Author packaged-byte fidelity CLEAN 11:15:32; reviewer independent recompute/scratch 11:16 no technical blocker. Helped-only: assent covers 4 reviewed keys B/D/A/C, only the 2 helped items installed; ordinary CHK1/CHK2 omitted; zero fresh; BC3-07/08 held; B.10/G.3 out of scope; family namespace bcba-sched is a broad exposure namespace for these 2 assisted FR/FI items only (coordinator 11:12:16), distinct item acts, not one independence family."
   }
  ],
  "figures": [
