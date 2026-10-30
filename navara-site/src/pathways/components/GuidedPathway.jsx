@@ -16,7 +16,7 @@ import './guidedLessonText.css';
 // that policy). The member's profile track picks the endpoint; an unknown or
 // missing track fails closed - never silently served from the wrong lane.
 const TRACK_ENDPOINTS={
- bcba:import.meta.env.VITE_GUIDED_PRODUCTION==='true'?(import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'?'https://tvvoauvtrgziwxtzlluq.supabase.co/functions/v1/bcba-program':null):'https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/bcba-program',
+ bcba:import.meta.env.VITE_GUIDED_PRODUCTION==='true'?null:'https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/bcba-program',
  rbt:import.meta.env.VITE_GUIDED_PRODUCTION==='true'?'https://tvvoauvtrgziwxtzlluq.supabase.co/functions/v1/rbt-program':'https://ndxdgiwjccaakpvxkkqu.supabase.co/functions/v1/rbt-program',
 };
 const ORIGIN_FALLBACK='https://navarabehavioralgroup.com';
@@ -25,7 +25,7 @@ function FigureChart({pin}){
  const src=pin&&GUIDED_FIGURES[pin.sha256];
  if(!pin)return null;
  if(!src)return <p role="alert">This figure could not be confirmed. Please reload before continuing.</p>;
- return import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&pin.sha256==='62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2'?<figure className="guided-figure" style={{margin:'18px 0'}}><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{display:'block',width:'100%',maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>:<figure className="guided-figure"><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>;
+ return <figure className="guided-figure"><img src={src} alt={pin.alt} width={pin.width} height={pin.height} style={{maxWidth:'100%',height:'auto',background:'#fff',border:'1px solid #d5e0e4',borderRadius:8}}/><figcaption style={{fontSize:12,color:'#456',marginTop:4}}>{pin.alt}</figcaption></figure>;
 }
 
 // CANDIDATE display-only dedup of identical trailing paragraphs shared by
@@ -79,7 +79,7 @@ export default function GuidedPathway(){
  useEffect(()=>{if(!user)return;(async()=>{try{
   const sb=await getClient();const{data:u}=await sb.auth.getUser();
   const{data:p}=await sb.from('profiles').select('track').eq('id',u.user.id).single();
-  const ep=import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&p?.track==='bcba'&&import.meta.env.VITE_BCBA_GUIDED_TEST_MEMBER&&u.user.id!==import.meta.env.VITE_BCBA_GUIDED_TEST_MEMBER?null:TRACK_ENDPOINTS[p?.track];if(!ep)throw Error((import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&p?.track==='bcba')?'BCBA Guided lessons are not available for this account yet. Your practice and saved answers are unchanged.':'This account does not have a practice track assigned yet.');
+  const ep=TRACK_ENDPOINTS[p?.track];if(!ep)throw Error('This account does not have a practice track assigned yet.');
   endpointRef.current=ep;setEndpoint(ep); // ref first: call() below reads it in this same tick
   const r=await call('status',{});setState(r);
   if(r.delivery)setView({kind:'practice',...r.delivery});
@@ -127,7 +127,7 @@ export default function GuidedPathway(){
    </>:offer?<>
     {offer.repeatPractice&&<p>This is extra practice with help, not a new independent check. Your saved answers and earlier practice stay recorded. If no new independent check is available, we will say so rather than treat a repeat as fresh.</p>}
     <p>Your chosen lesson is ready{offer.title?<>: <strong>{offer.title}</strong></>:null}.</p>
-    <p>{import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'?'Short teaching steps with a figure, followed by three helped practice questions with feedback. Your checked answers stay saved.':'Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.'}</p>
+    <p>Short teaching steps with a figure, followed by two helped practice questions with feedback. Your checked answers stay saved.</p>
     <p className="thread-evidence" style={{background:'#f4f7f5',padding:12,borderRadius:8,textAlign:'left'}}><strong>Scope: </strong>Simulated instructional records, not a real person or treatment recommendation. Read each lesson's stated conditions and definitions before answering.</p>
     <button className="btn btn-navy" disabled={busy} onClick={()=>run('continue_curriculum',{catalogModuleId:offer.catalogModuleId,catalogContentVersion:offer.catalogContentVersion,sequenceVersion:offer.sequenceVersion,manifestVersion:offer.manifestVersion})}>Start the lesson</button>
    </>:<>
