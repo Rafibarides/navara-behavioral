@@ -42,7 +42,7 @@ export function displayFeedback(view){
 export default function GuidedPathway(){
  const user=useRequireUser();
  const SYNTHETIC=import.meta.env.VITE_GUIDED_PRODUCTION!=='true'; // content qualification flag: stays true until reviewed content is bound; never strip without qualified content
- const[state,setState]=useState(null),[err,setErr]=useState(''),[busy,setBusy]=useState(false);
+ const[state,setState]=useState(null),[err,setErr]=useState(''),[busy,setBusy]=useState(false);const busyRef=useRef(false);const[pendingAction,setPendingAction]=useState(null);
  const[endpoint,setEndpoint]=useState(null);const endpointRef=useRef(null);endpointRef.current=endpoint;
  const[view,setView]=useState({kind:'loading'});
  const lastAction=useRef(null);
@@ -57,14 +57,14 @@ export default function GuidedPathway(){
   if(!res.ok){const e=Error(body.error||'This action could not be confirmed. Your saved answers are unchanged.');e.retryable=res.status===409;throw e;}
   return body;
  }
- async function run(action,payload={}){if(busy)return;setBusy(true);setErr('');
+ async function run(action,payload={}){if(busyRef.current)return;busyRef.current=true;setBusy(true);setPendingAction(action);setErr('');
   try{const r=await call(action,payload);await interpret(action,r);}
   catch(e){setErr(e.message+(e.retryable&&!/retry the same action\.?\s*$/i.test(e.message)?' Retry the same action.':''));}
-  finally{setBusy(false);}}
- async function retryLast(){if(!lastAction.current||busy)return;setBusy(true);setErr('');
+  finally{busyRef.current=false;setBusy(false);setPendingAction(null);}}
+ async function retryLast(){if(!lastAction.current||busyRef.current)return;busyRef.current=true;setBusy(true);setPendingAction(lastAction.current?.action||'');setErr('');
   try{const{nonce,action,payload}=lastAction.current;const r=await call(action,payload,true);await interpret(action,r);}
   catch(e){setErr(e.message+(e.retryable&&!/retry the same action\.?\s*$/i.test(e.message)?' Retry the same action.':''));}
-  finally{setBusy(false);}}
+  finally{busyRef.current=false;setBusy(false);setPendingAction(null);}}
  async function interpret(action,r,depth=0){
   if(action==='check_personalized_followups'){setState(r);setView({kind:'status',data:r});return;}
   if(r.practiceOfferDeferred){lastAction.current=null;const current=await call('status',{});setState(current);setView({kind:'status',data:current});setErr(r.notice||'Your practice choice is still optional. Return to an available session to choose it.');return;}
@@ -107,7 +107,7 @@ export default function GuidedPathway(){
   <h1>{inLesson?(lessonTitle||'Your lesson'):'Guided practice'}</h1>
   {err&&<div role="alert" className="panel"><p>{err}</p>{lastAction.current&&<button className="btn btn-navy" disabled={busy} onClick={retryLast}>Retry the same action</button>}</div>}
   {view.kind==='loading'&&!err&&<p role="status">Loading your saved session...</p>}
-  {import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'&&<React.Suspense fallback={<p>Loading completed lessons...</p>}><CompletedLessonsArea endpoint={endpoint} memberId={user.id}/></React.Suspense>}
+  {import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&user.track==='bcba'&&state&&!state.enrollmentRequired&&<React.Suspense fallback={<p>Loading completed lessons...</p>}><CompletedLessonsArea endpoint={endpoint} memberId={user.id} refreshKey={state?.history?.length??0}/></React.Suspense>}
   {view.kind==='status'&&<div className="panel">
    {view.data?.personalizedFollowupsCanCheck&&<button className="btn btn-ghost" disabled={busy} onClick={()=>run('check_personalized_followups')}>Check personalized follow-up availability</button>}
    {view.data?.personalizedFollowupsUpgradeAvailable&&<aside style={{border:'1px solid #b9cdd1',borderRadius:8,padding:16,marginBottom:16,textAlign:'left'}}><h2>Add personalized follow-ups</h2><p>Finish your current lesson or question first. Your saved lessons, answers and practice history stay recorded. Future checks use that history, so a question you have seen before will not count as fresh. Your plan and billing do not change.</p><button className="btn btn-navy" disabled={busy} onClick={()=>run('enable_personalized_followups')}>Enable personalized follow-ups</button></aside>}
@@ -145,6 +145,7 @@ export default function GuidedPathway(){
    <FigureChart pin={view.figure}/>
    <p>{view.learnerTask}</p>
    <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
+   {busy&&(pendingAction==='teaching_commit')&&<p role="status">Saving your answer...</p>}
   </div>}
   {view.kind==='feedback'&&<div className="panel" style={user.track==='bcba'?{padding:16}:undefined}>
    <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
@@ -163,6 +164,7 @@ export default function GuidedPathway(){
    <p>{view.body}</p>
    <FigureChart pin={view.figure}/>
    <div className="thread-options">{(view.options||[]).map((o,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('answer',{deliveryId:view.id,chosen:i})}>{o.text}</button>)}</div>
+   {busy&&(pendingAction==='answer')&&<p role="status">Saving your answer...</p>}
    {view.returnMeta?.flag
     ?<p>This is repeat practice of a question you missed before. It never counts as a fresh independent check.</p>
     :view.phase==='helped_practice'
@@ -230,6 +232,7 @@ export default function GuidedPathway(){
    <FigureChart pin={view.figure}/>
    <p>{view.learnerTask}</p>
    <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
+   {busy&&(pendingAction==='teaching_commit')&&<p role="status">Saving your answer...</p>}
   </div>}
   {view.kind==='feedback'&&<div className="panel">
    <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
@@ -248,6 +251,7 @@ export default function GuidedPathway(){
    <p>{view.body}</p>
    <FigureChart pin={view.figure}/>
    <div className="thread-options">{(view.options||[]).map((o,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('answer',{deliveryId:view.id,chosen:i})}>{o.text}</button>)}</div>
+   {busy&&(pendingAction==='answer')&&<p role="status">Saving your answer...</p>}
    {view.returnMeta?.flag
     ?<p>This is repeat practice of a question you missed before. It never counts as a fresh independent check.</p>
     :view.phase==='helped_practice'
