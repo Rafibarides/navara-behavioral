@@ -628,6 +628,23 @@
    "addedAt": "2026-11-01T15:38:00-05:00",
    "withdrawnAt": null,
    "reviewEvidence": "Append-only misquote correction in bcba-discrim (served under new policy v37; prior policy v36 bundle retained active, nothing withdrawn or rewritten): two helped-item evidence strings quoted Halbur, Caldwell & Kodak 2021 (PMC7900359) with a silent in-quote omission - the source reads 'an S-delta (S∆, also referred to as S−)' and the deployed quote dropped ', also referred to as S−' inside quotation marks. Correction restores the source wording; canon-normalized contiguity of the corrected span verified programmatically against the live PMC7900359 full text 2026-11-01 15:35 EST; deep-diff confirms the two evidence strings are the ONLY changed bytes in the catalog and each equals the deployed string with exactly that insertion. No question rows, bindings, pins, or account state touched. Stored texts are provenance claims, not authority."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v39.mjs",
+   "sha256": "b7c0e90bd81c445bd50363a02b66107c5f54946ab3e159990db97f3b66ba0597",
+   "policyId": "bcba-lessons-policy-v38",
+   "manifestVersion": "bcba-lessons-manifest@sha256:815fba2ca74b5283c95e55b8500df11fbd6b9973f76d46ede98389217e8fde19",
+   "catalogSha": "59b665a1df86f7a4513555afa648d88aca00722c4e7a0093919432621b7b360c",
+   "bindingSha": "19b07862f1e7871cb333edeaa3d1a26108e7dc391a8c1d19cee4429c049ecfc9",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-11-01T16:08:00-05:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Next-release adoption of bcba-punisherclasses (B.8 punisher classes, order 56, served under new policy v38; all prior bundles retained active, nothing withdrawn or rewritten): fresh source-backed authored module (b8-punisher-classes-module-DRAFT-v0.4; 12/12 quoted fragments canon-verified against the local Cooper 2nd ed. corpus 2026-11-01; independent key justification 4/4 derived from scenario+source; key positions rotated). BC3-07/08 reserved: item bytes unavailable to this lane, family separation stated as UNCERTAIN not verified, scenarios deliberately nonclinical. Question rows 9433/9434 inserted published=false (S1), permanent helped_practice bindings (S2), 56-module manifest 815fba2c (S3), policy v38 hash 1a0e24bd0025255dc1e813d93037cfd4791bb1824d2de6880920dfb2825c1195 (S4) - each stage DRY-run then executed with in-transaction guards. Publication authority: owner WhatsApp go-live 2026-11-01 14:11:50 + main 14:46:56/15:23:52 GOs + 15:57 continue - stored texts are provenance claims, not authority. Objective addressed in a bounded helped-only identification draft; no independent-credit, mastery, or readiness claim."
   }
  ],
  "figures": [
