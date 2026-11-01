@@ -99,9 +99,43 @@ export default function Dashboard() {
           </div>
           <div className="panel span-12 rv in">
             <details className="clean-details"><summary>Test-taking tips</summary>
-            <div className="score-row"><span>Read the last line of the question first - it tells you what is actually being asked.</span><span className="pill pill-teal">Strategy</span></div>
-            <div className="score-row"><span>Flag and move: never give one question more than about a minute on a first pass.</span><span className="pill pill-sage">Pacing</span></div>
-            <div className="score-row"><span>When two options both look right, ask which one the BACB would call the <i>first</i> or <i>most direct</i> action.</span><span className="pill pill-teal">Elimination</span></div></details>
+            {(() => {
+              const personal = [];
+              if (!showDemo && cards) cards.slice(0, 2).forEach((c) => personal.push({ text: `Your recorded misses repeat the tag "${pretty(c.tag)}" across ${c.items} different questions - before your next set, re-read the explanations on those misses in Practice.`, cat: 'From your practice' }));
+              if (!showDemo && progress) {
+                const eligible = progress.filter((r) => Number.isFinite(r.n) && r.n >= 5);
+                if (eligible.length) {
+                  const low = eligible.reduce((a, b) => (a.pct <= b.pct ? a : b));
+                  if (low.pct < 70) personal.push({ text: `Your lowest first-try topic so far is ${low.area} (${low.pct}% over ${low.n} questions) - one short set focused there beats a mixed one.`, cat: 'From your practice' });
+                }
+              }
+              const LIB = [
+                ['Read the last line of the question first - it tells you what is actually being asked.', 'Strategy'],
+                ['On a first pass, give a question about a minute. If you are stuck, flag it, take your best answer, and come back after the pass.', 'Pacing'],
+                ['When two options both look right, ask which one describes the first or most direct action in the scenario.', 'Elimination'],
+                ['An unanswered question is always wrong; a guess is not. Never leave blanks.', 'Strategy'],
+                ["Treat 'which is NOT', 'MOST', and 'LEAST' as different questions - underline the qualifier before you answer.", 'Strategy'],
+                ['When a scenario names several behaviors, answer for the one the question actually asks about.', 'Strategy'],
+                ['Eliminate options that add claims the scenario never stated.', 'Elimination'],
+                ['Prefer the option that matches the definition exactly over the one that merely sounds clinical.', 'Elimination'],
+                ["Change an answer on review only when you can say why the first choice was wrong - not just because you feel unsure.", 'Strategy'],
+                ['Mark your guesses during the first pass so the review pass goes to them first.', 'Pacing'],
+                ['Before exam day, do at least one full timed set in one sitting, so pacing is familiar rather than new.', 'Preparation'],
+                ['Sleep and a quiet morning beat a last-minute cram - recall is what you bring to the room.', 'Preparation'],
+              ];
+              return (<>
+                {personal.length > 0 && <>
+                  <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: '-4px 0 10px' }}>Tips tied to your own recorded practice.</p>
+                  {personal.map((t, i) => (
+                    <div className="score-row" key={'p' + i}><span>{t.text}</span><span className="pill pill-sage">{t.cat}</span></div>
+                  ))}
+                </>}
+                <p style={{ fontSize: 13, color: 'var(--ink-2)', fontWeight: 600, margin: (personal.length ? '14px' : '-4px') + ' 0 10px' }}>General tips{personal.length === 0 ? ' - as your practice history builds, tips tied to your own misses will appear above these.' : ''}</p>
+                {LIB.map(([text, cat], i) => (
+                  <div className="score-row" key={'g' + i}><span>{text}</span><span className={'pill ' + (i % 2 ? 'pill-sage' : 'pill-teal')}>{cat}</span></div>
+                ))}
+              </>);
+            })()}</details>
           </div>
         </div>
       </div>
