@@ -662,6 +662,23 @@
    "addedAt": "2026-11-01T16:25:00-05:00",
    "withdrawnAt": null,
    "reviewEvidence": "Append-only next-release adoption of FUNCANALYSIS - F.6 (order 57): fresh source-backed authored module (f6-functional-analysis-module-DRAFT-v0.2; 13/13 quoted fragments canon-verified against the local Cooper 2nd ed. corpus 2026-11-01; independent key justification 4/4; key positions rotated). Bundle v40 = v39 bytes with exactly one module appended (bcba-funcanalysis, GL string practiceAsset ids kept, interaction bytes unchanged, ccv bcba-funcanalysis@72d934f2e17bea058ca89efcd8e9963b76c76ab3e05ceaf239bb3b4793035a46) and binding map +2 entries (9435/9436); prior 56 module bytes and 56 binding entries byte-preserved. Served under new policy v39; prior policy v38 bundle retained active, nothing withdrawn or rewritten. Bounded helped-identification draft: reading/interpreting DESCRIBED functional analyses only - no design/evaluate credit, no FA qualification, no recommendations. Stored texts are provenance claims, not authority."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v41.mjs",
+   "sha256": "237deecb440c745c6352c44aa1baaa86cd98be3b77fe8e1dea4864d7bbe6bdf8",
+   "policyId": "bcba-lessons-policy-v40",
+   "manifestVersion": "bcba-lessons-manifest@sha256:7886f24975938a5ad541c6f6239d04535196e109db119cc9c327c7a0b89eebda",
+   "catalogSha": "10afed428101e983bbce14744c3cef5ad141f1dc6747467a10b0106e0c3b3646",
+   "bindingSha": "ffc7f561683119d8aa8bf7d7a29c53ef2c63db7f8359a38f865c113d6a2a2623",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-11-01T16:32:00-05:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Append-only next-release adoption of NEGREINFORCEMENT - G.1 (order 58): fresh source-backed authored module (g1-neg-reinforcement-module-DRAFT-v0.3; 14/14 quoted fragments canon-verified against the local Cooper 2nd ed. corpus 2026-11-01; independent key justification 4/4; key positions rotated). Bundle v41 = v40 bytes with exactly one module appended (bcba-negreinforcement, GL string practiceAsset ids kept, interaction bytes unchanged, ccv bcba-negreinforcement@50a0514cb6d50396d87170be03120c50e78d7960bf59a3d9fd2a64d7e59de39a) and binding map +2 entries (9437/9438); prior 57 module bytes and 57 binding entries byte-preserved. Served under new policy v40; prior policy v39 bundle retained active, nothing withdrawn or rewritten. Bounded helped-identification draft: identify/distinguish escape, discriminated avoidance, free-operant avoidance, and negative reinforcement vs punishment in described events - no design/evaluate credit, no recommendations. Stored texts are provenance claims, not authority."
   }
  ],
  "figures": [
