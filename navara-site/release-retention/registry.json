@@ -594,6 +594,23 @@
    "addedAt": "2026-11-01T13:39:00-05:00",
    "withdrawnAt": null,
    "reviewEvidence": "Next-release BCBA adoption of H8+ISUP+IEQ+IPM, appended as orders 51-54 to the retained 50: exact accepted module bytes (room files 3141-3144, md5s 82b5ada0c43894d30a5cc5fa30ae5c44 / 50b25f70d82abd93274defab87adc632 / 8d80caed30a0ff7664c346f817fae23e / 3aab3c5071f33446cedc75e6c5016021), unconditional content recommendation (Claude 98224), non-blocking abstain (dot 98226 - a provenance record, not an approval), accepted revised why strings (main 2026-11-01 13:17), under the owner conditional publication grant of Oct 28 settled by main per-stage GOs. Objectives addressed in bounded helped-only identification drafts; no independent-credit, mastery, or readiness claims."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v37.mjs",
+   "sha256": "16c427fbd0adf8af89013ee55eb41db5d131a2f73112cf34f0a57d3a2c15f1c0",
+   "policyId": "bcba-lessons-policy-v36",
+   "manifestVersion": "bcba-lessons-manifest@sha256:a7bae55ffcb30ba10c2921c7bd13e85de82acd9881ca8c91497726ba21da89e1",
+   "catalogSha": "851ebede4d9a6d83aacbe898b922945dad8c3f79f73291130142477064a35d3d",
+   "bindingSha": "377a24840521fa9ced20a1090d35aa3b6c39b4a811550d4ee8576ba8df0ce6fa",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-11-01T15:26:00-05:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Next-release BCBA adoption of FDESCASS - F.5 descriptive assessment, appended as order 55 to the retained 54: fresh source-backed authored module (f5-desc-assessment-module-DRAFT-v0.3; Cooper 2nd ed. verbatim-verified quotes; semantic consistency audit PASS; independent key justification 4/4), adoption-cleared by main 2026-11-01 14:31 EST, artifact inspection pass main 15:23:52 EST, under main 14:46:56 + 15:23:52 GOs settled by the owner WhatsApp go-live 2026-11-01 14:11:50 - stored texts are provenance claims, not authority. Objective addressed in a bounded helped-only identification draft; no independent-credit, mastery, or readiness claims."
   }
  ],
  "figures": [
