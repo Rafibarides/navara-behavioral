@@ -713,6 +713,23 @@
    "addedAt": "2026-11-01T16:38:00-05:00",
    "withdrawnAt": null,
    "reviewEvidence": "Append-only next-release adoption of UNWANTEDFX - H.4 (order 60): fresh source-backed authored module (h4-unwanted-effects-module-DRAFT-v0.2; 15/15 quoted fragments canon-verified against the local Cooper 2nd ed. corpus 2026-11-01; independent key justification 4/4; key positions rotated). Bundle v43 = v42 bytes with exactly one module appended (bcba-unwantedfx, GL string practiceAsset ids kept, interaction bytes unchanged, ccv bcba-unwantedfx@ec3c537ae0d599162c4294e0dd43b587f55d470eb7ef88c0f52a860a9e1ac1a5) and binding map +2 entries (9441/9442); prior 59 module bytes and 59 binding entries byte-preserved. Served under new policy v42; prior policy v41 bundle retained active, nothing withdrawn or rewritten. Bounded helped-identification draft: recognizing documented patterns and the plan-ahead posture at identification level only - no full-objective claim, no live-case management qualification, no procedure or clinical action recommended. Stored texts are provenance claims, not authority."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v44.mjs",
+   "sha256": "34f540f20d4dc81bb1887d1325cc3e15d8afb0e6260fcd78bba3a37c215850c7",
+   "policyId": "bcba-lessons-policy-v43",
+   "manifestVersion": "bcba-lessons-manifest@sha256:4e883e47742bf06cd45b6c577e1d2dbc4299b500312cadd8e3d5ed532c2212a4",
+   "catalogSha": "70933fc706260fac121d86dbf2cbdd99cb4c7ca605c2317f722a9e9eeae17796",
+   "bindingSha": "ca8180dd9e2198008b8f3401d5e3aa83157197f683565475de5baf87289e408f",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-11-01T17:21:00-05:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Append-only next-release objective-citation addition: bcba-sdmo and bcba-cmo gain an explicit TCO lead-in (B.16, B.17 - motivating operations and stimulus control) and bcba-measure gains one (C.3, C.4 - occurrence and temporal dimensions), one bold line prepended to each module's step evidence, making the existing text-match anchors explicit; factual check confirmed module content matches TCO wording. Bundle v44 = v43 bytes with exactly the 3 module interactions replaced (new ccvs sdmo@4e08e539..., measure@c4e0f4c4..., cmo@8746b152...); the other 57 module bytes and all binding entries byte-preserved; bindingSha unchanged; no item, key, option, figure, or pin change. Served under new policy v43; prior policy v42 bundle retained active, nothing withdrawn or rewritten. Stored texts are provenance claims, not authority."
   }
  ],
  "figures": [
