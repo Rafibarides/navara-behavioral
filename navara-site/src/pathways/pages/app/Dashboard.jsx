@@ -110,9 +110,9 @@ export default function Dashboard() {
                 }
               }
               const LIB = [
-                ['Read the last line of the question first - it tells you what is actually being asked.', 'Strategy'],
+                ['One optional strategy: read the last line of the question first - it often tells you what is actually being asked.', 'Strategy'],
                 ['On a first pass, give a question about a minute. If you are stuck, flag it, take your best answer, and come back after the pass.', 'Pacing'],
-                ['When two options both look right, ask which one describes the first or most direct action in the scenario.', 'Elimination'],
+                ["When the stem asks what to do first or next, pick the option describing the first or most direct action in the scenario; when it asks for the best action overall, weigh clinical appropriateness instead.", 'Elimination'],
                 ['An unanswered question is always wrong; a guess is not. Never leave blanks.', 'Strategy'],
                 ["Treat 'which is NOT', 'MOST', and 'LEAST' as different questions - underline the qualifier before you answer.", 'Strategy'],
                 ['When a scenario names several behaviors, answer for the one the question actually asks about.', 'Strategy'],
