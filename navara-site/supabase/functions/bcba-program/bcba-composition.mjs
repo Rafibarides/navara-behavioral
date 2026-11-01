@@ -10,7 +10,7 @@ import {bankContent} from './shared-runtime/lib/bank-content.mjs';
 import {protectedTransport} from './shared-runtime/lib/protected-transport.mjs';
 import {programHTTP} from './shared-runtime/lib/http-handler.mjs';
 import {catalogProvider} from './shared-runtime/lib/private-catalog-provider.mjs';
-export const BCBA_RELEASE=Object.freeze({enabled:true,qualified:true,defaultPolicyId: 'bcba-lessons-policy-v39'});
+export const BCBA_RELEASE=Object.freeze({enabled:true,qualified:true,defaultPolicyId: 'bcba-lessons-policy-v40'});
 export const BCBA_BUNDLES=Object.freeze(BCBA_QUALIFIED_BUNDLES);
 export function bcbaComposition({sql,authenticate,registry=BCBA_BUNDLES,release=BCBA_RELEASE}){
  const loadServing=async(tx,id)=>{
