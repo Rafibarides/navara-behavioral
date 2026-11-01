@@ -645,6 +645,23 @@
    "addedAt": "2026-11-01T16:08:00-05:00",
    "withdrawnAt": null,
    "reviewEvidence": "Next-release adoption of bcba-punisherclasses (B.8 punisher classes, order 56, served under new policy v38; all prior bundles retained active, nothing withdrawn or rewritten): fresh source-backed authored module (b8-punisher-classes-module-DRAFT-v0.4; 12/12 quoted fragments canon-verified against the local Cooper 2nd ed. corpus 2026-11-01; independent key justification 4/4 derived from scenario+source; key positions rotated). BC3-07/08 reserved: item bytes unavailable to this lane, family separation stated as UNCERTAIN not verified, scenarios deliberately nonclinical. Question rows 9433/9434 inserted published=false (S1), permanent helped_practice bindings (S2), 56-module manifest 815fba2c (S3), policy v38 hash 1a0e24bd0025255dc1e813d93037cfd4791bb1824d2de6880920dfb2825c1195 (S4) - each stage DRY-run then executed with in-transaction guards. Publication authority: owner WhatsApp go-live 2026-11-01 14:11:50 + main 14:46:56/15:23:52 GOs + 15:57 continue - stored texts are provenance claims, not authority. Objective addressed in a bounded helped-only identification draft; no independent-credit, mastery, or readiness claim."
+  },
+  {
+   "file": "generated-bcba-bundle-LESSONS-v40.mjs",
+   "sha256": "6988a6038e76aeb2ce3f45b426a245e3b6346812acabed835c2f53a1854c07c4",
+   "policyId": "bcba-lessons-policy-v39",
+   "manifestVersion": "bcba-lessons-manifest@sha256:73ee9ca74e525a9b51a61e4afad40656086ef76383fc7fbe5b5b04c0fe21195d",
+   "catalogSha": "15e6aeef486b011be208e491c26ebc8e977bdc253503063c72ac2c1817af95e8",
+   "bindingSha": "36d0ba30b0be9537fa6d14dc1377c74cd6aa5b6837102a2c5e5f2fac4b009e47",
+   "figurePins": [
+    "62223087d719569e8496d151ffd698b544dd9ba33e7537ffe9626fa99ae3efa2",
+    "5b33ce0f2e791c92b85b7c49476f4d9b1f3a5f24a62a3aace05a08cee3f7b34c",
+    "b5475e71dd4954cdf159c89ad8604a2a345edbc24ed3b76e3b3f8a5b0235c17c"
+   ],
+   "status": "active",
+   "addedAt": "2026-11-01T16:25:00-05:00",
+   "withdrawnAt": null,
+   "reviewEvidence": "Append-only next-release adoption of FUNCANALYSIS - F.6 (order 57): fresh source-backed authored module (f6-functional-analysis-module-DRAFT-v0.2; 13/13 quoted fragments canon-verified against the local Cooper 2nd ed. corpus 2026-11-01; independent key justification 4/4; key positions rotated). Bundle v40 = v39 bytes with exactly one module appended (bcba-funcanalysis, GL string practiceAsset ids kept, interaction bytes unchanged, ccv bcba-funcanalysis@72d934f2e17bea058ca89efcd8e9963b76c76ab3e05ceaf239bb3b4793035a46) and binding map +2 entries (9435/9436); prior 56 module bytes and 56 binding entries byte-preserved. Served under new policy v39; prior policy v38 bundle retained active, nothing withdrawn or rewritten. Bounded helped-identification draft: reading/interpreting DESCRIBED functional analyses only - no design/evaluate credit, no FA qualification, no recommendations. Stored texts are provenance claims, not authority."
   }
  ],
  "figures": [
