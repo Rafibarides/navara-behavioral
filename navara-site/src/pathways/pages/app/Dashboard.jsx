@@ -111,15 +111,15 @@ export default function Dashboard() {
               }
               const LIB = [
                 ['One optional strategy: read the last line of the question first - it often tells you what is actually being asked.', 'Strategy'],
-                ['On a first pass, give a question about a minute. If you are stuck, flag it, take your best answer, and come back after the pass.', 'Pacing'],
-                ["When the stem asks what to do first or next, pick the option describing the first or most direct action in the scenario; when it asks for the best action overall, weigh clinical appropriateness instead.", 'Elimination'],
-                ['An unanswered question is always wrong; a guess is not. Never leave blanks.', 'Strategy'],
+                ["The BCBA exam allows 4 hours for 185 questions - about 75 seconds each (bacb.com). In practice sets here, if you're stuck, take your best answer and move on; revisit the hard ones at the end.", 'Pacing'],
+                ["For first/next questions, identify the required prerequisites and put the actions in order; for best-action questions, compare clinical appropriateness against the stated facts.", 'Elimination'],
+                ["If the test you're taking has no penalty for wrong answers, a blank is always wrong and a guess is not - check your exam's policy, then never leave blanks.", 'Strategy'],
                 ["Treat 'which is NOT', 'MOST', and 'LEAST' as different questions - underline the qualifier before you answer.", 'Strategy'],
                 ['When a scenario names several behaviors, answer for the one the question actually asks about.', 'Strategy'],
                 ['Eliminate options that add claims the scenario never stated.', 'Elimination'],
                 ['Prefer the option that matches the definition exactly over the one that merely sounds clinical.', 'Elimination'],
                 ["Change an answer on review only when you can say why the first choice was wrong - not just because you feel unsure.", 'Strategy'],
-                ['Mark your guesses during the first pass so the review pass goes to them first.', 'Pacing'],
+                ["If your test interface lets you flag questions, flag your guesses on the first pass so review time goes to them first.", 'Pacing'],
                 ['Before exam day, do at least one full timed set in one sitting, so pacing is familiar rather than new.', 'Preparation'],
                 ['Sleep and a quiet morning beat a last-minute cram - recall is what you bring to the room.', 'Preparation'],
               ];
