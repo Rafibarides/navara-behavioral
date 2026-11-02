@@ -11,3 +11,9 @@
 .guided-lesson-text th,.guided-lesson-text td { border:1px solid #d5e0e4; padding:.55rem .65rem; text-align:left; vertical-align:top; }
 .guided-lesson-text th { background:#eef4f3; font-weight:600; }
 .guided-lesson-text blockquote { border-left:3px solid #88aaa3; padding:.2rem 1rem; margin:1rem 0; background:#f4f7f5; }
+
+/* Question block: a separate, labeled section so the boundary between the
+   teaching text and the actual question is obvious. */
+.thread-question { margin:1.5rem 0 .5rem; padding:16px 18px; background:#f4f7f5; border:1px solid #d5e0e4; border-radius:14px; text-align:left; }
+.thread-question-heading { margin:0 0 .6rem; font-size:.95rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--navy,#20354a); }
+.thread-question .thread-options { margin:14px 0 0; }

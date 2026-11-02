@@ -10,6 +10,7 @@ import GUIDED_FIGURES from '../data/guidedFigures.json';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import './guidedLessonText.css';
+import{stripInternalCodes}from'./lessonDisplay';
 
 // Track-scoped serving: each track is served by its OWN edge-function
 // instance (one approved policy per function; the engine reads the track from
@@ -141,11 +142,14 @@ export default function GuidedPathway(){
   </div>}
   {view.kind==='teaching'&&<div className="panel" style={user.track==='bcba'?{padding:16}:undefined}>
    <h2>Teaching step {view.step+1} of {view.totalSteps}</h2>
-   <div className="guided-lesson-text"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:({children})=><h3>{children}</h3>,h2:({children})=><h3>{children}</h3>,h3:({children})=><h4>{children}</h4>,a:({href,children})=><a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,table:({children})=><div className="guided-table-scroll"><table>{children}</table></div>}}>{view.evidence||''}</ReactMarkdown></div>
+   <div className="guided-lesson-text"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:({children})=><h3>{children}</h3>,h2:({children})=><h3>{children}</h3>,h3:({children})=><h4>{children}</h4>,a:({href,children})=><a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,table:({children})=><div className="guided-table-scroll"><table>{children}</table></div>}}>{stripInternalCodes(view.evidence||'')}</ReactMarkdown></div>
    <FigureChart pin={view.figure}/>
+   <div className="thread-question">
+   <h3 className="thread-question-heading">Question</h3>
    <p>{view.learnerTask}</p>
    <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
    {busy&&(pendingAction==='teaching_commit')&&<p role="status">Saving your answer...</p>}
+   </div>
   </div>}
   {view.kind==='feedback'&&<div className="panel" style={user.track==='bcba'?{padding:16}:undefined}>
    <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
@@ -228,11 +232,14 @@ export default function GuidedPathway(){
   </div>}
   {view.kind==='teaching'&&<div className="panel">
    <h2>Teaching step {view.step+1} of {view.totalSteps}</h2>
-   <div className="guided-lesson-text"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:({children})=><h3>{children}</h3>,h2:({children})=><h3>{children}</h3>,h3:({children})=><h4>{children}</h4>,a:({href,children})=><a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,table:({children})=><div className="guided-table-scroll"><table>{children}</table></div>}}>{view.evidence||''}</ReactMarkdown></div>
+   <div className="guided-lesson-text"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:({children})=><h3>{children}</h3>,h2:({children})=><h3>{children}</h3>,h3:({children})=><h4>{children}</h4>,a:({href,children})=><a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,table:({children})=><div className="guided-table-scroll"><table>{children}</table></div>}}>{stripInternalCodes(view.evidence||'')}</ReactMarkdown></div>
    <FigureChart pin={view.figure}/>
+   <div className="thread-question">
+   <h3 className="thread-question-heading">Question</h3>
    <p>{view.learnerTask}</p>
    <div className="thread-options">{(view.alternatives||[]).map((t,i)=><button key={i} type="button" className="btn btn-ghost" disabled={busy} onClick={()=>run('teaching_commit',{choice:i})}>{t}</button>)}</div>
    {busy&&(pendingAction==='teaching_commit')&&<p role="status">Saving your answer...</p>}
+   </div>
   </div>}
   {view.kind==='feedback'&&<div className="panel">
    <h2>{view.chosen===view.defensible?'That choice is defensible.':'Not the strongest choice.'}</h2>
