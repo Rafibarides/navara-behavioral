@@ -2,7 +2,7 @@
   "page": {
     "url": "https://navarabehavioralgroup.com/pathways/sample-quiz/",
     "path": "pathways/sample-quiz/index.html",
-    "sha256": "c0fbba904b508aa3e7a9a683ef62ef63038cdae68e02797b51aa92311e60f13d"
+    "sha256": "e9d9a607a9848cc4c6bb11e345137dbfd1f3422c540f9878188219a6faaf56bf"
   },
   "assets": [
     {
@@ -22,6 +22,12 @@
       "path": "assets/index-Bqixj354.js",
       "sha256": "d6030ab73926e1ef121e86621343d7b9c2a13acd487d8a1d0f04080a8b52b7bd",
       "size": 231938
+    },
+    {
+      "url": "https://navarabehavioralgroup.com/assets/index-b0530631f29e.js",
+      "path": "assets/index-b0530631f29e.js",
+      "sha256": "b0530631f29eb053d0c4a49ed708999de8c4d98ce6a19cba8ce94b37b6167a25",
+      "size": 1663323
     }
   ]
 }
