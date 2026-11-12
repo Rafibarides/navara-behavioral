@@ -130,7 +130,22 @@
         },
         {
           "title": "Operations & Support",
-          "members": []
+          "members": [
+            {
+              "photo": "/team/7-sophie.jpg",
+              "name": "Sophie Marlowe",
+              "position": "Creative Director",
+              "introSentence": "Sophie Marlowe is Navara Behavioral Group's Creative Director.",
+              "fullText": "Sophie Marlowe is Navara Behavioral Group's Creative Director."
+            },
+            {
+              "photo": "/team/8-veronica.jpg",
+              "name": "Veronica Briar",
+              "position": "Intake Coordinator",
+              "introSentence": "Veronica Briar is Navara Behavioral Group's Intake Coordinator.",
+              "fullText": "Veronica Briar is Navara Behavioral Group's Intake Coordinator."
+            }
+          ]
         }
       ]
     },
