@@ -130,22 +130,7 @@
         },
         {
           "title": "Operations & Support",
-          "members": [
-            {
-              "photo": "/team/7-sophie.jpg",
-              "name": "Sophie Marlowe",
-              "position": "Creative Director",
-              "introSentence": "Sophie shapes Navara's visual identity and creative materials, from the website to parent resources.",
-              "fullText": "Sophie shapes Navara's visual identity and creative materials, from the website to parent resources. She also handles our posting, so when you interact with Navara online or on socials, you're interacting with Sophie!"
-            },
-            {
-              "photo": "/team/8-veronica.jpg",
-              "name": "Veronica Briar",
-              "position": "Intake Coordinator",
-              "introSentence": "Veronica has a passion for helping people and making new families feel welcome.",
-              "fullText": "Veronica has a passion for helping people and making new families feel welcome. She's here to answer your questions, guide you through the intake process, and help you feel comfortable taking that first step. She looks forward to helping you get started with us!"
-            }
-          ]
+          "members": []
         }
       ]
     },
