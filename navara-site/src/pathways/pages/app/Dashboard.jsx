@@ -36,6 +36,8 @@ export default function Dashboard() {
   const showDemo = DEMO || user.demo;
   const guidedJourney=import.meta.env.VITE_LEARNING_THREAD_CANDIDATE==='true'&&!user.demo&&user.plan==='guided'&&user.track==='rbt';
   const guidedLessons=import.meta.env.VITE_GUIDED_PATHWAY==='true'&&!user.demo&&user.plan==='guided'&&user.track==='rbt';
+  // Link visibility only; the exercise routes enforce their own fresh plan+track check.
+  const optionalPractice=import.meta.env.VITE_BCBA_GUIDED_QUALIFIED==='true'&&!user.demo&&user.plan==='guided'&&user.track==='bcba';
   const bars = progress ? progress.map((r) => [r.area, r.pct, r.n, r.c]) : (showDemo ? DEMO_PROGRESS : null);
   const cards = evidence || (showDemo ? DEMO_EVIDENCE : null);
   return (<>
@@ -68,6 +70,14 @@ export default function Dashboard() {
           </div>
         )}
         {guidedJourney&&<div className="clean-method-note"><span className="eyebrow">Your Pathway</span><p>Work through one distinction, practice with feedback, then return for the scheduled check. Your saved step is kept for your next visit.</p></div>}
+        {optionalPractice&&<div className="panel rv in" style={{ marginBottom: 22 }}>
+          <span className="eyebrow">Optional practice</span>
+          <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Self-check exercises. Not required and not counted in your progress.</p>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <a className="btn btn-ghost btn-sm" href="/pathways/app/practice/procedure-spec">Procedure specification (P2)</a>
+            <a className="btn btn-ghost btn-sm" href="/pathways/app/practice/unstipulated-decision">Data-based decision (P3)</a>
+          </div>
+        </div>}
         <div className="dash-grid">
           <div className="panel span-12 rv in">
             <h3>Progress by topic</h3><p className="progress-count-note">Counts different questions in your exam track, using only the first recorded response when it was graded. Repeated attempts do not change these counts.</p>
@@ -141,4 +151,4 @@ export default function Dashboard() {
       </div>
     </section>
   </>);
-}
+              }
