@@ -27,6 +27,7 @@ import SampleQuiz from './pages/SampleQuiz';
 import Dashboard from './pages/app/Dashboard';
 import LearningThread from './pages/app/LearningThread';
 import GuidedPathway from './components/GuidedPathway';
+import OptionalPracticeExercise from './components/OptionalPracticeExercise';
 import Practice from './pages/app/SafePractice';
 import UnavailableCandidate from './components/UnavailableCandidate';
 
@@ -58,6 +59,8 @@ export default function PathwaysApp() {
       {import.meta.env.VITE_LEARNING_THREAD_CANDIDATE === 'true' && <Route path="app/learning-thread" element={<LearningThread />} />}
       {import.meta.env.VITE_GUIDED_PATHWAY === 'true' && <Route path="app/pathway" element={<GuidedPathway />} />}
       <Route path="app/practice" element={<Practice />} />
+      {import.meta.env.VITE_BCBA_GUIDED_QUALIFIED === 'true' && <Route path="app/practice/procedure-spec" element={<OptionalPracticeExercise exercise="procedure-spec" />} />}
+      {import.meta.env.VITE_BCBA_GUIDED_QUALIFIED === 'true' && <Route path="app/practice/unstipulated-decision" element={<OptionalPracticeExercise exercise="unstipulated-decision" />} />}
       <Route path="app/timed-sets" element={<Practice timed />} />
       <Route path="app/mock" element={<Navigate to="/pathways/app/timed-sets" replace />} />
       <Route path="app/book" element={GUIDED_PRODUCTION ? <GuidedBook/> : <UnavailableCandidate kind="booking" />} />
