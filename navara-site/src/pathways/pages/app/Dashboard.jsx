@@ -74,8 +74,8 @@ export default function Dashboard() {
           <span className="eyebrow">Optional practice</span>
           <p style={{ margin: '4px 0 12px', fontSize: 13.5, color: 'var(--ink-2)', fontWeight: 600 }}>Self-check exercises. Not required and not counted in your progress.</p>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            <a className="btn btn-ghost btn-sm" href="/pathways/app/practice/procedure-spec">Procedure specification (P2)</a>
-            <a className="btn btn-ghost btn-sm" href="/pathways/app/practice/unstipulated-decision">Data-based decision (P3)</a>
+            <a className="btn btn-navy btn-sm" href="/pathways/app/practice/procedure-spec">Procedure specification (P2)</a>
+            <a className="btn btn-navy btn-sm" href="/pathways/app/practice/unstipulated-decision">Data-based decision (P3)</a>
           </div>
         </div>}
         <div className="dash-grid">
