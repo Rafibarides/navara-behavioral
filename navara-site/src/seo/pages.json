@@ -119,6 +119,18 @@
     "noindex": true
   },
   {
+    "path": "/pathways/app/practice/procedure-spec",
+    "title": "Optional Practice: Procedure Specification | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
+    "path": "/pathways/app/practice/unstipulated-decision",
+    "title": "Optional Practice: Data-Based Decision | Navara Pathways",
+    "description": "Navara Pathways member area.",
+    "noindex": true
+  },
+  {
     "path": "/pathways/app/timed-sets",
     "title": "Timed Sets | Navara Pathways",
     "description": "Navara Pathways member area.",
